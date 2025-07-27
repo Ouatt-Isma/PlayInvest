@@ -10,7 +10,7 @@ const showToast = ref(false)
 import LoginForm from '~/components/LoginForm.vue'
 definePageMeta({
   layout: 'auth',
-  middleware: ['guest']
+  // middleware: ['guest']
 })
 
 const error = ref(null)
@@ -20,7 +20,9 @@ const router = useRouter()
 
 const submitLogin = async ({ email, password }) => {
   try {
-    const res = await axios.post('http://localhost:8000/api/login', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.post(`${apiBase}/api/login`, {
       email,
       password
     })

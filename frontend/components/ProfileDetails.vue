@@ -5,6 +5,7 @@ import axios from 'axios'
 // const usercook = useCookie<UserCookie>('user', { path: '/' })
 const avatarUrltmp =  ref('')
 
+
 onMounted(() => {
   const storedAvatar = localStorage.getItem('avatar_url')
   if (storedAvatar) {
@@ -37,8 +38,9 @@ onMounted(async () => {
   }
 
   try {
-    
-    const res = await axios.get('http://localhost:8000/users/me', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.get(`${apiBase}/users/me`, {
     headers: {
         Authorization: `Bearer ${token}`
     }
@@ -76,7 +78,9 @@ const updateProfile = async ()  => {
       cleanedPayload[key] = null;
     }
     });
-    const res = await axios.put('http://localhost:8000/users/me', cleanedPayload, {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.put(`${apiBase}/users/me`, cleanedPayload, {
       headers: {
         Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
       }

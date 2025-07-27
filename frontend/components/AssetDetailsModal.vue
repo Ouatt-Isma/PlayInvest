@@ -3,6 +3,8 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { formatCurrency } from '@/composables/portfolio'
 import { nextTick } from 'vue'
+import { getLogo} from '@/composables/assets'
+
 
 const notification = ref({ type: '', message: '', visible: false })
 const props = defineProps({
@@ -37,7 +39,9 @@ const fetchAssetDetails = async () => {
   if (!props.asset || !props.asset.id) return
   isLoading.value = true
   try {
-    const response = await axios.get(`http://localhost:8000/api/assets/${props.asset.id}`)
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const response = await axios.get(`${apiBase}/api/assets/${props.asset.id}`)
     const data = response.data
     currentPrice.value = data.latest_price
     variations.value = {
@@ -92,7 +96,9 @@ const close = async () => {
 const invest = async () => {
   try {
     const token = localStorage.getItem("token")
-    const res = await axios.get(`http://localhost:8000/api/buy`, {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.get(`${apiBase}/api/buy`, {
       params: {
         asset: props.asset.id,
         amount: amount.value
@@ -120,7 +126,9 @@ const showNotification = (type, message) => {
 const tosell = async () => {
   try {
     const token = localStorage.getItem("token")
-    const res = await axios.get(`http://localhost:8000/api/sell`, {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.get(`${apiBase}/api/sell`, {
       params: {
         asset: props.asset.id,
         amount: amount.value
@@ -139,6 +147,15 @@ const tosell = async () => {
 }
 
 
+const showPdf = ref(false)
+const selectedPdf = ref('')
+
+function openPdf(symbol) {
+  selectedPdf.value = `/fiche/${symbol}.pdf`
+  showPdf.value = true
+}
+
+
 </script>
 
 
@@ -150,12 +167,21 @@ const tosell = async () => {
 
       <!-- Header -->
       <div class="flex items-center gap-4 mb-4">
-        <img :src="asset.logo" class="w-10 h-10 rounded-full" alt="logo" />
+        <img :src="getLogo(asset.symbol)" class="w-10 h-10 rounded-full" alt="logo" />
         <div>
           <h2 class="text-xl font-semibold">{{ asset.name }}</h2>
           <p class="text-gray-400 text-sm font-medium uppercase">{{ asset.symbol }}</p>
         </div>
+
+        <button @click="openPdf(asset.symbol)">
+      <img src="/icons/file-icon.svg" class="w-4" />
+      </button>
+
+      <PdfModal :pdfUrl="selectedPdf" :visible="showPdf" @close="showPdf = false" />
+
       </div>
+
+
 
       <!-- Analysis Controls -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">

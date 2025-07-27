@@ -29,13 +29,12 @@ const error = ref<string | null>(null)
 const success = ref<string | null>(null)
 
 
-
-
-
 const updatePassword = async () => {
     const token = localStorage.getItem("token")
   try {
-    await axios.put('http://localhost:8000/users/update-password', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    await axios.put(`${apiBase}/users/update-password`, {
       current_password: currentPassword.value,
       new_password: newPassword.value,
     }, {

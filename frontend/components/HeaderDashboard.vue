@@ -119,6 +119,7 @@ onBeforeUnmount(() => {
       v-if="showDropdown"
       ref="dropdownRef"
       class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg z-50 p-4"
+      style="z-index: 1000;"
     >
         <div class="mb-2">
           <div v-if="first_name && first_name !== 'null'" class="text-lg font-semibold text-gray-900">

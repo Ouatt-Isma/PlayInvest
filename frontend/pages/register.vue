@@ -5,7 +5,7 @@ import axios from 'axios'
 
 definePageMeta({
   layout: 'auth', // ✅ force the 'auth' layout,
-   middleware: ['guest']
+  //  middleware: ['guest']
 })
 
 const router = useRouter()
@@ -15,9 +15,12 @@ const error = ref(null)
 const toastMessage = ref('')
 const showToast = ref(false)
 
+
 const submitForm = async (data) => {
   try {
-    await axios.post('http://localhost:8000/api/register', data)
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    await axios.post(`${apiBase}/api/register`, data)
     toastMessage.value = '✅ Compte créé avec succès ! Veuillez vérifier votre email.'
     success.value = true
     error.value = null

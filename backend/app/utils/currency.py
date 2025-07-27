@@ -7,6 +7,6 @@ def convert(_from, _to, amount):
         return c.convert('EUR', _to, in_eur)
     if _to=="XOF":
         return c.convert(_from, "EUR", amount) * 655.957
-    return c.convert(_from, _to, amount) * 655.957
+    return c.convert(_from, _to, amount)
     
         

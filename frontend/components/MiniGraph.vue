@@ -29,6 +29,7 @@ const maxValue = ref(null)
 const startDate = ref('')
 const endDate = ref('')
 
+
 const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
@@ -85,7 +86,9 @@ function createGradient(ctx, area, up) {
 
 const fetchGraphData = async () => {
   try {
-    const res = await fetch(`http://localhost:8000/api/graph/${props.symbol}?period=${props.period}`)
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await fetch(`${apiBase}/api/graph/${props.symbol}?period=${props.period}`)
     const data = await res.json()
     const prices = data.prices.map(p => p.price)
     const labels = data.prices.map(p => p.date)

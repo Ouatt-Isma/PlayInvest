@@ -2,7 +2,7 @@
   <header class="bg-gray-50 shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <NuxtLink to="/" class="flex items-center gap-2">
-        <img src="/logo.svg" alt="PlayInvest Logo" class="h-8 w-auto" />
+        <img src="/logo.png" alt="PlayInvest Logo" class="h-8 w-auto" />
       </NuxtLink>
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
         <NuxtLink to="/" class="hover:text-black" active-class="text-teal-900 font-bold">Accueil</NuxtLink>

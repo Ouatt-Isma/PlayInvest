@@ -88,11 +88,14 @@ const selectedDate = ref('')
 const visibleCount = ref(5)
 const error = ref(null)
 
+
 // Fetch data on mount
 onMounted(async () => {
   const token = localStorage.getItem("token")
   try {
-    const { data } = await axios.get('http://localhost:8000/investments/history', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const { data } = await axios.get(`${apiBase}/investments/history`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     history.value = data

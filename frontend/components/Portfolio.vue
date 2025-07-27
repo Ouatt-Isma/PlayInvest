@@ -22,7 +22,7 @@
         <tr v-for="a in assets.filter(a => !a.sold)" :key="a.symbol" class="border-t">
 
           <td class="p-2 flex items-center gap-2">
-            <img :src="a.logo" alt="logo" class="w-6 h-6 rounded-full" />
+            <img :src="getLogo(a.symbol)" alt="logo" class="w-6 h-6 rounded-full" />
             <div>
               <div class="font-medium">{{ a.name }}</div>
               <div class="text-sm text-gray-400">{{ a.symbol }}</div>
@@ -77,6 +77,7 @@ const showModal = ref(false)
 const sell = ref(false)
 const selectedAsset = ref(null)
 
+
 const buyMore = (asset) => {
   selectedAsset.value = asset
   showModal.value = true
@@ -100,7 +101,9 @@ const viewDetails = (asset) => {
 
 onMounted(async () => {
   const token = localStorage.getItem("token")
-  const response = await axios.get(`http://localhost:8000/api/portfolio/`,{
+  const config = useRuntimeConfig()
+  const apiBase = config.public.apiBase 
+  const response = await axios.get(`${apiBase}/api/portfolio/`,{
       headers: {
         Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
       }

@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livret A vs PEA : Comparaison et Simulateur - Finary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --finary-primary: #141145;
+            --finary-secondary: #7A2D8D;
+            --finary-accent: #5682F2;
+            --finary-light: #F1F2F6;
+            --finary-dark: #0A0A1D;
+            --finary-gold: #F1C086;
+            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
+            --finary-success: #4CAF50;
+            --finary-warning: #FFC107;
+            --finary-info: #2196F3;
+            --finary-error: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f6 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--finary-gradient);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: var(--finary-primary);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--finary-secondary);
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+        
+        .article-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(86, 130, 242, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .article-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--finary-primary);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--finary-secondary);
+            margin: 30px 0 15px;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        li::before {
+            content: '•';
+            color: var(--finary-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .callout {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.08);
+            border-color: var(--finary-success);
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.08);
+            border-color: var(--finary-info);
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.08);
+            border-color: var(--finary-warning);
+        }
+        
+        .callout.error {
+            background-color: rgba(244, 67, 54, 0.08);
+            border-color: var(--finary-error);
+        }
+        
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--finary-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+        }
+        
+        .comparison-table th {
+            background-color: var(--finary-primary);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 18px;
+            font-size: 1rem;
+        }
+        
+        .comparison-table td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .livret-a {
+            background-color: rgba(33, 150, 243, 0.05);
+        }
+        
+        .comparison-table .pea {
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+        
+        .comparison-table .feature-name {
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .highlight {
+            background-color: rgba(241, 192, 134, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .simulator-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--finary-accent);
+        }
+        
+        .simulator-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .simulator-title {
+            font-size: 2rem;
+            color: var(--finary-primary);
+            margin-bottom: 15px;
+        }
+        
+        .simulator-description {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .simulator-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-group label {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--finary-primary);
+            font-size: 1.05rem;
+        }
+        
+        .input-group input, .input-group select {
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--finary-accent);
+            box-shadow: 0 0 0 4px rgba(86, 130, 242, 0.15);
+        }
+        
+        .input-group input[type="range"] {
+            padding: 12px 0;
+        }
+        
+        .range-value {
+            display: inline-block;
+            background: var(--finary-accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .simulator-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: var(--finary-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(86, 130, 242, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--finary-light);
+            color: var(--finary-primary);
+            border: 1px solid #ddd;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(86, 130, 242, 0.4);
+        }
+        
+        .simulator-results {
+            display: none;
+            margin-top: 40px;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .results-header {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.09);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+        
+        .result-card.livret-a::before {
+            background: var(--finary-info);
+        }
+        
+        .result-card.pea::before {
+            background: var(--finary-success);
+        }
+        
+        .result-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--finary-primary);
+        }
+        
+        .result-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--finary-primary);
+            margin: 15px 0;
+        }
+        
+        .result-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+        
+        .detail-item {
+            font-size: 0.95rem;
+        }
+        
+        .detail-label {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+        }
+        
+        .result-difference {
+            text-align: center;
+            font-weight: 700;
+            margin: 30px 0;
+            font-size: 1.4rem;
+            padding: 20px;
+            background: rgba(241, 192, 134, 0.2);
+            border-radius: 12px;
+        }
+        
+        .result-difference .positive {
+            color: var(--finary-success);
+        }
+        
+        .result-difference .negative {
+            color: var(--finary-error);
+        }
+        
+        .chart-container {
+            height: 450px;
+            margin-top: 30px;
+        }
+        
+        .tax-note {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .article-content, .simulator-container {
+                padding: 25px;
+            }
+            
+            .simulator-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-value {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Livret A vs PEA : Comparaison et Simulateur</h1>
+            <p class="subtitle">Découvrez quel placement est le plus avantageux selon votre profil et vos objectifs financiers</p>
+            <div class="article-info">
+                <div class="info-item"><i class="far fa-clock"></i> 12 min de lecture</div>
+                <div class="info-item"><i class="far fa-calendar-alt"></i> Mise à jour : Juillet 2023</div>
+                <div class="info-item"><i class="fas fa-chart-line"></i> Simulateur fiscal</div>
+            </div>
+        </header>
+        
+        <div class="content-container">
+            <div class="article-content">
+                <div class="callout success">
+                    <div class="callout-title"><i class="fas fa-key"></i> Points clés à retenir</div>
+                    <ul>
+                        <li>Le <span class="highlight">Livret A</span> est sans risque mais avec un rendement faible</li>
+                        <li>Le <span class="highlight">PEA</span> offre un potentiel de rendement supérieur mais avec des risques</li>
+                        <li>Le Livret A est disponible immédiatement, le PEA nécessite 5 ans pour l'avantage fiscal</li>
+                        <li>Les deux placements sont complémentaires dans une stratégie d'épargne</li>
+                        <li>Le choix dépend de votre <span class="highlight">profil d'investisseur</span> et de vos objectifs</li>
+                    </ul>
+                </div>
+                
+                <h2>Introduction</h2>
+                <p>Le Livret A et le Plan Épargne en Actions (PEA) sont deux placements emblématiques en France, chacun avec ses avantages et inconvénients. Alors que le Livret A est plébiscité pour sa sécurité et sa liquidité, le PEA attire les investisseurs à la recherche de rendements plus élevés sur le long terme.</p>
+                
+                <p>Dans cet article, nous allons comparer ces deux placements en détail et vous proposer un simulateur qui reflète la réalité de l'imposition : la fiscalité s'applique uniquement à la clôture du placement.</p>
+                
+                <div class="callout info">
+                    <div class="callout-title"><i class="fas fa-lightbulb"></i> Saviez-vous ?</div>
+                    <p>Plus de 55 millions de Livrets A sont ouverts en France, représentant plus de 500 milliards d'euros d'épargne. Le PEA, quant à lui, compte plus de 8 millions de détenteurs avec environ 200 milliards d'euros d'encours.</p>
+                </div>
+                
+                <h2>Livret A : Sécurité et liquidité</h2>
+                <p>Le Livret A est un compte d'épargne réglementé par l'État français. C'est le placement préféré des Français grâce à sa simplicité et sa sécurité absolue.</p>
+                
+                <h3>Caractéristiques principales</h3>
+                <ul>
+                    <li><strong>Sécurité :</strong> Capital garanti par l'État</li>
+                    <li><strong>Disponibilité :</strong> Retraits à tout moment sans pénalité</li>
+                    <li><strong>Fiscalité :</strong> Exonération totale d'impôts</li>
+                    <li><strong>Plafond :</strong> 22 950 € (hors intérêts capitalisés)</li>
+                    <li><strong>Taux :</strong> Actuellement à 3% (révisable tous les 6 mois)</li>
+                </ul>
+                
+                <div class="callout warning">
+                    <div class="callout-title"><i class="fas fa-exclamation-circle"></i> Inconvénient majeur</div>
+                    <p>Le rendement du Livret A est généralement inférieur à l'inflation sur le long terme. Il protège votre capital mais ne le fait pas réellement croître.</p>
+                </div>
+                
+                <h2>PEA : Rendement et avantage fiscal</h2>
+                <p>Le Plan Épargne en Actions (PEA) est une enveloppe fiscale permettant d'investir sur les marchés actions européens. Il offre un avantage fiscal significatif après 5 ans de détention.</p>
+                
+                <h3>Caractéristiques principales</h3>
+                <ul>
+                    <li><strong>Avantage fiscal :</strong> Exonération d'impôt sur le revenu après 5 ans</li>
+                    <li><strong>Potentiel de rendement :</strong> Investissement en actions offrant des rendements supérieurs</li>
+                    <li><strong>Plafond :</strong> 150 000 € de versements</li>
+                    <li><strong>Produits éligibles :</strong> Actions européennes, trackers (ETF), SICAV</li>
+                    <li><strong>Horizon :</strong> Investissement à long terme (5 ans minimum)</li>
+                </ul>
+                
+                <div class="callout error">
+                    <div class="callout-title"><i class="fas fa-radiation"></i> Attention au risque</div>
+                    <p>Le PEA présente un risque de perte en capital. Les performances passées ne préjugent pas des performances futures. L'argent doit rester bloqué 5 ans pour bénéficier de l'avantage fiscal.</p>
+                </div>
+                
+                <h2>Comparaison détaillée</h2>
+                <p>Voici un tableau comparatif des principales caractéristiques du Livret A et du PEA :</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Caractéristique</th>
+                            <th>Livret A</th>
+                            <th>PEA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-name">Nature du produit</td>
+                            <td class="livret-a">Compte épargne réglementé</td>
+                            <td class="pea">Enveloppe fiscale pour investissements</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Risque</td>
+                            <td class="livret-a">Aucun (capital garanti)</td>
+                            <td class="pea">Risque de perte en capital</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Rendement potentiel</td>
+                            <td class="livret-a">Faible (taux réglementé)</td>
+                            <td class="pea">Élevé (dépend des marchés)</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Fiscalité</td>
+                            <td class="livret-a">Exonération totale</td>
+                            <td class="pea">Exonération IR après 5 ans (PS 17.2%)</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Plafond</td>
+                            <td class="livret-a">22 950 €</td>
+                            <td class="pea">150 000 € de versements</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Liquidité</td>
+                            <td class="livret-a">Totale et immédiate</td>
+                            <td class="pea">Retraits possibles mais clôture si avant 5 ans</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>Quel placement choisir ?</h2>
+                <p>Le choix entre Livret A et PEA dépend de plusieurs facteurs :</p>
+                
+                <ul>
+                    <li><strong>Votre horizon d'investissement :</strong> Court terme = Livret A, Long terme = PEA</li>
+                    <li><strong>Votre tolérance au risque :</strong> Faible = Livret A, Élevée = PEA</li>
+                    <li><strong>Vos objectifs financiers :</strong> Sécurité = Livret A, Croissance = PEA</li>
+                    <li><strong>Votre situation fiscale :</strong> Le PEA offre un avantage après 5 ans</li>
+                </ul>
+                
+                <div class="callout info">
+                    <div class="callout-title"><i class="fas fa-user-check"></i> Recommandations par profil</div>
+                    <ul>
+                        <li><strong>Épargne de précaution :</strong> Livret A (3-6 mois de dépenses)</li>
+                        <li><strong>Projets à moyen terme :</strong> Livret A ou autres supports sécurisés</li>
+                        <li><strong>Épargne retraite ou long terme :</strong> PEA pour son potentiel de rendement</li>
+                    </ul>
+                </div>
+                
+                <h2>Simulateur fiscal</h2>
+                <p>Utilisez notre simulateur pour comparer la croissance de votre épargne sur le Livret A et le PEA selon votre profil. La fiscalité est appliquée uniquement à la clôture du placement.</p>
+                
+                <div class="simulator-container">
+                    <div class="simulator-header">
+                        <h2 class="simulator-title">Simulateur d'Épargne Livret A vs PEA</h2>
+                        <p class="simulator-description">Comparez la croissance de votre épargne sur les deux placements en fonction de vos paramètres d'investissement avec la fiscalité appliquée uniquement à la clôture.</p>
+                    </div>
+                    
+                    <div class="simulator-inputs">
+                        <div class="input-group">
+                            <label for="initial-amount">Montant initial (€)</label>
+                            <input type="number" id="initial-amount" min="0" step="100" value="10000">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="monthly-deposit">Versement mensuel (€)</label>
+                            <input type="number" id="monthly-deposit" min="0" step="10" value="300">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="duration">Durée (années)</label>
+                            <input type="number" id="duration" min="1" max="40" value="15">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="pea-return">Rendement annuel PEA (%) <span id="return-value" class="range-value">6%</span></label>
+                            <input type="range" id="pea-return" min="1" max="15" step="0.5" value="6">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="tax-option">Fiscalité PEA</label>
+                            <select id="tax-option">
+                                <option value="with-tax">Avec fiscalité (PS 17.2% à la clôture)</option>
+                                <option value="without-tax">Sans fiscalité (simulation)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="simulator-actions">
+                        <button class="btn btn-primary" id="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculer la projection
+                        </button>
+                        <button class="btn btn-secondary" id="reset-btn">
+                            <i class="fas fa-redo"></i> Réinitialiser
+                        </button>
+                    </div>
+                    
+                    <div class="simulator-results" id="results-section">
+                        <div class="results-header">
+                            <div class="result-card livret-a">
+                                <div class="result-title">Livret A</div>
+                                <div class="result-value" id="livret-result">0 €</div>
+                                <div>Taux: 3%</div>
+                                <div class="result-details">
+                                    <div class="detail-item">
+                                        <div class="detail-label">Capital investi</div>
+                                        <div class="detail-value" id="livret-capital">0 €</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">Intérêts cumulés</div>
+                                        <div class="detail-value" id="livret-interests">0 €</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">Fiscalité</div>
+                                        <div class="detail-value" id="livret-tax">0 €</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">Rendement annuel</div>
+                                        <div class="detail-value">3.0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card pea">
+                                <div class="result-title">PEA</div>
+                                <div class="result-value" id="pea-result">0 €</div>
+                                <div>Rendement: <span id="used-return">0%</span></div>
+                                <div class="result-details">
+                                    <div class="detail-item">
+                                        <div class="detail-label">Capital investi</div>
+                                        <div class="detail-value" id="pea-capital">0 €</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">Plus-value</div>
+                                        <div class="detail-value" id="pea-gain">0 €</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">Taxe (PS)</div>
+                                        <div class="detail-value" id="pea-tax">0 €</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="detail-label">Rendement net</div>
+                                        <div class="detail-value" id="pea-net-return">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-difference">
+                            Différence: <span id="difference-value" class="positive">0 €</span> en faveur du <span id="better-investment">PEA</span>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="investment-chart"></canvas>
+                        </div>
+                        
+                        <p class="tax-note">* La simulation du PEA applique les prélèvements sociaux de 17.2% uniquement à la clôture du placement. Pour les durées inférieures à 5 ans, la flat tax (30%) est appliquée. Les frais de gestion ne sont pas inclus dans cette simulation.</p>
+                    </div>
+                </div>
+                
+                <h2>Conclusion</h2>
+                <p>Le Livret A et le PEA ne sont pas concurrents mais complémentaires dans une stratégie d'épargne équilibrée. Le Livret A reste indispensable pour votre épargne de précaution et vos projets à court terme, tandis que le PEA est l'enveloppe idéale pour investir en actions avec un avantage fiscal significatif à long terme.</p>
+                
+                <div class="callout success">
+                    <div class="callout-title"><i class="fas fa-check-circle"></i> La stratégie gagnante</div>
+                    <p>L'idéal est de combiner les deux placements : utilisez le Livret A comme matelas de sécurité et investissez régulièrement en PEA pour faire fructifier votre épargne sur le long terme. Adaptez la répartition selon votre âge, vos objectifs et votre tolérance au risque.</p>
+                </div>
+                
+                <p class="footer-note">Les simulations présentées sont basées sur des hypothèses de marché et ne constituent en aucun cas une garantie de performance future. Les données fiscales sont valides en 2023 et pourraient évoluer. Consultez un conseiller financier pour des recommandations personnalisées.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const peaReturnSlider = document.getElementById('pea-return');
+            const returnValue = document.getElementById('return-value');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsSection = document.getElementById('results-section');
+            const livretResult = document.getElementById('livret-result');
+            const peaResult = document.getElementById('pea-result');
+            const differenceValue = document.getElementById('difference-value');
+            const usedReturn = document.getElementById('used-return');
+            const betterInvestment = document.getElementById('better-investment');
+            let investmentChart = null;
+            
+            // Mise à jour de la valeur du rendement PEA
+            peaReturnSlider.addEventListener('input', function() {
+                returnValue.textContent = `${this.value}%`;
+            });
+            
+            // Calcul de la projection
+            calculateBtn.addEventListener('click', calculateProjection);
+            
+            // Réinitialisation
+            resetBtn.addEventListener('click', function() {
+                document.getElementById('initial-amount').value = 10000;
+                document.getElementById('monthly-deposit').value = 300;
+                document.getElementById('duration').value = 15;
+                peaReturnSlider.value = 6;
+                returnValue.textContent = '6%';
+                resultsSection.style.display = 'none';
+                
+                if (investmentChart) {
+                    investmentChart.destroy();
+                }
+            });
+            
+            function calculateProjection() {
+                // Récupération des valeurs
+                const initialAmount = parseFloat(document.getElementById('initial-amount').value) || 0;
+                const monthlyDeposit = parseFloat(document.getElementById('monthly-deposit').value) || 0;
+                const duration = parseInt(document.getElementById('duration').value) || 1;
+                const peaReturn = parseFloat(peaReturnSlider.value) / 100;
+                const taxOption = document.getElementById('tax-option').value;
+                
+                // Validation
+                if (initialAmount <= 0 && monthlyDeposit <= 0) {
+                    alert('Veuillez saisir un montant initial ou un versement mensuel.');
+                    return;
+                }
+                
+                if (duration <= 0) {
+                    alert('La durée doit être supérieure à zéro.');
+                    return;
+                }
+                
+                // Calculs
+                const livretData = calculateLivretA(initialAmount, monthlyDeposit, duration);
+                const peaData = calculatePEA(initialAmount, monthlyDeposit, duration, peaReturn, taxOption === 'with-tax');
+                
+                // Affichage des résultats
+                const livretFinal = livretData[livretData.length - 1];
+                const peaFinal = peaData[peaData.length - 1];
+                
+                livretResult.textContent = formatCurrency(livretFinal);
+                peaResult.textContent = formatCurrency(peaFinal);
+                usedReturn.textContent = `${(peaReturn * 100).toFixed(1)}%`;
+                
+                const difference = peaFinal - livretFinal;
+                differenceValue.textContent = formatCurrency(Math.abs(difference));
+                differenceValue.className = difference >= 0 ? 'positive' : 'negative';
+                betterInvestment.textContent = difference >= 0 ? 'PEA' : 'Livret A';
+                
+                // Création du graphique
+                createChart(livretData, peaData, duration);
+                
+                // Affichage des résultats
+                resultsSection.style.display = 'block';
+                
+                // Scroll vers les résultats
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            function calculateLivretA(initial, monthly, years) {
+                const livretRate = 0.03; // Taux du Livret A à 3%
+                let total = initial;
+                const results = [initial];
+                let totalDeposits = initial;
+                let totalInterests = 0;
+                
+                for (let year = 1; year <= years; year++) {
+                    // Ajout des versements mensuels
+                    const annualDeposit = monthly * 12;
+                    total += annualDeposit;
+                    totalDeposits += annualDeposit;
+                    
+                    // Calcul des intérêts annuels
+                    const interest = total * livretRate;
+                    totalInterests += interest;
+                    total += interest;
+                    
+                    results.push(total);
+                }
+                
+                // Mise à jour des détails
+                document.getElementById('livret-capital').textContent = formatCurrency(totalDeposits);
+                document.getElementById('livret-interests').textContent = formatCurrency(totalInterests);
+                document.getElementById('livret-tax').textContent = "Exonérée";
+                
+                return results;
+            }
+            
+            function calculatePEA(initial, monthly, years, returnRate, withTax) {
+                let total = initial;
+                const results = [initial];
+                let totalDeposits = initial;
+                let totalGain = 0;
+                let tax = 0;
+                
+                for (let year = 1; year <= years; year++) {
+                    // Ajout des versements mensuels
+                    const annualDeposit = monthly * 12;
+                    total += annualDeposit;
+                    totalDeposits += annualDeposit;
+                    
+                    // Calcul du rendement annuel
+                    total *= (1 + returnRate);
+                    
+                    results.push(total);
+                }
+                
+                // Application de la fiscalité uniquement à la clôture
+                let netValue = total;
+                
+                if (withTax) {
+                    totalGain = total - totalDeposits;
+                    
+                    if (totalGain > 0) {
+                        // Détermination du taux de taxe
+                        const taxRate = years >= 5 ? 0.172 : 0.30;
+                        tax = totalGain * taxRate;
+                        netValue = total - tax;
+                        
+                        // Mise à jour du dernier point (année finale)
+                        results[results.length - 1] = netValue;
+                    }
+                } else {
+                    totalGain = total - totalDeposits;
+                }
+                
+                // Calcul du rendement net annualisé
+                const netReturn = (Math.pow(netValue / totalDeposits, 1/years) - 1) * 100;
+                
+                // Mise à jour des détails
+                document.getElementById('pea-capital').textContent = formatCurrency(totalDeposits);
+                document.getElementById('pea-gain').textContent = formatCurrency(totalGain);
+                document.getElementById('pea-tax').textContent = formatCurrency(tax);
+                document.getElementById('pea-net-return').textContent = netReturn.toFixed(2) + "%";
+                
+                return results;
+            }
+            
+            function createChart(livretData, peaData, years) {
+                const ctx = document.getElementById('investment-chart').getContext('2d');
+                
+                // Destruction du graphique précédent s'il existe
+                if (investmentChart) {
+                    investmentChart.destroy();
+                }
+                
+                // Préparation des labels (années)
+                const labels = ['Début'];
+                for (let i = 1; i <= years; i++) {
+                    labels.push(`Année ${i}`);
+                }
+                
+                investmentChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Livret A',
+                                data: livretData,
+                                borderColor: '#2196F3',
+                                backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                                borderWidth: 4,
+                                pointRadius: 4,
+                                pointBackgroundColor: '#2196F3',
+                                tension: 0.1,
+                                fill: false
+                            },
+                            {
+                                label: 'PEA',
+                                data: peaData,
+                                borderColor: '#4CAF50',
+                                backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                                borderWidth: 4,
+                                pointRadius: 4,
+                                pointBackgroundColor: '#4CAF50',
+                                tension: 0.1,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Évolution de votre épargne',
+                                font: {
+                                    size: 18,
+                                    weight: 'bold'
+                                },
+                                padding: {
+                                    top: 10,
+                                    bottom: 20
+                                }
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    },
+                                    padding: 20,
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return formatCurrency(value);
+                                    },
+                                    font: {
+                                        size: 12
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Montant (€)',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Années',
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                },
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutQuart'
+                        }
+                    }
+                });
+            }
+            
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('fr-FR', {
+                    style: 'currency',
+                    currency: 'EUR',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+            
+            // Calcul initial au chargement
+            setTimeout(calculateProjection, 1000);
+        });
+    </script>
+</body>
+</html>

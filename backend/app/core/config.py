@@ -9,7 +9,15 @@ class Settings:
     
     ALGORITHM = "HS256"
     EMAIL_PWD = "gnem sunc xoqn kpak"
-    SECURITY_PASSWORD_SALT= "reset-password-salt"
+    SECURITY_PASSWORD_SALT = "reset-password-salt"
+    
+    hostname = "smtp.gmail.com"
+    port = 587
+    start_tls = True
+    amount_godfather = 50
+    amount_qcm = 25
+    amount_challenge = 50
+    currency = 'EUR'
 
 settings = Settings()
 

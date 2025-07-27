@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide de Gestion Budgétaire pour l'Afrique | Conseils Pratiques</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --africa-primary: #008751; /* Vert africain */
+            --africa-secondary: #FDCE1A; /* Jaune soleil */
+            --africa-tertiary: #E1392B; /* Rouge terre */
+            --africa-light: #F7F4E9; /* Beige clair */
+            --africa-dark: #1A1A1A; /* Noir profond */
+            --africa-blue: #3B5998; /* Bleu traditionnel */
+            --africa-success: #2E8B57;
+            --africa-warning: #FFA500;
+            --africa-error: #CD5C5C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: var(--africa-light);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 Q50,20 100,0 T100,100 Q50,80 0,100 Z" fill="%2300875120"/></svg>');
+            background-size: 200px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(0, 135, 81, 0.1);
+            color: var(--africa-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        /* Header */
+        .africa-header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, var(--africa-primary), #006442);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .africa-title {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .africa-subtitle {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 400;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(135deg, var(--africa-primary), var(--africa-secondary));
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
+        }
+        
+        .africa-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,20 Q40,5 60,20 T100,20 Q80,40 60,60 T20,100 Q0,80 0,60 T20,20 Z" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.2"/></svg>');
+            background-size: 150px;
+            opacity: 0.7;
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 135, 81, 0.1);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--africa-primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--africa-secondary);
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .article-content h2::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--africa-tertiary);
+            border-radius: 2px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--africa-secondary);
+            font-weight: 600;
+        }
+        
+        .article-content ul, .article-content ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--africa-tertiary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        
+        /* Callout boxes */
+        .callout {
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid;
+            background-color: rgba(0, 135, 81, 0.05);
+            border-color: var(--africa-primary);
+        }
+        
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: var(--africa-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .callout-title i {
+            font-size: 1.5rem;
+        }
+        
+        /* Grid Layout */
+        .africa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .africa-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--africa-primary);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .africa-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--africa-primary);
+        }
+        
+        .africa-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .africa-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--africa-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .africa-card-title i {
+            color: var(--africa-tertiary);
+        }
+        
+        .africa-card-content {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: var(--africa-primary);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .essential {
+            background-color: rgba(46, 139, 87, 0.05);
+        }
+        
+        .comparison-table .discretionary {
+            background-color: rgba(253, 206, 26, 0.1);
+        }
+        
+        .comparison-table .savings {
+            background-color: rgba(59, 89, 152, 0.05);
+        }
+        
+        .highlight {
+            background-color: rgba(253, 206, 26, 0.3);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* Simulateur */
+        .simulator-container {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--africa-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .simulator-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--africa-primary);
+        }
+        
+        .simulator-title {
+            font-size: 2rem;
+            color: var(--africa-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .simulator-description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+        }
+        
+        .simulator-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-group label {
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--africa-primary);
+            font-size: 1.1rem;
+        }
+        
+        .input-group input, .input-group select {
+            padding: 14px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            background: #f9f9f9;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--africa-secondary);
+            box-shadow: 0 0 0 4px rgba(253, 206, 26, 0.3);
+            background: white;
+        }
+        
+        .input-group input[type="range"] {
+            padding: 0;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .range-value {
+            display: inline-block;
+            background: var(--africa-primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        
+        .simulator-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--africa-primary), var(--africa-tertiary));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--africa-primary);
+            border: 2px solid var(--africa-primary);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
+        
+        .simulator-results {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-header {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .result-card.essential {
+            border-color: var(--africa-success);
+        }
+        
+        .result-card.discretionary {
+            border-color: var(--africa-warning);
+        }
+        
+        .result-card.savings {
+            border-color: var(--africa-blue);
+        }
+        
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--africa-dark);
+        }
+        
+        .result-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--africa-primary);
+            margin: 10px 0;
+        }
+        
+        .result-subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin-top: 30px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .budget-note {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            padding: 15px;
+            background: rgba(0, 135, 81, 0.05);
+            border-radius: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .africa-title {
+                font-size: 2.2rem;
+            }
+            
+            .africa-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .featured-image {
+                height: 300px;
+                font-size: 1.6rem;
+            }
+            
+            .article-content {
+                padding: 30px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            .results-header {
+                grid-template-columns: 1fr;
+            }
+            
+            .simulator-container {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .africa-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+                font-size: 1.4rem;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            .simulator-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .simulator-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="africa-header">
+        <div class="container">
+            <h1 class="africa-title">Guide de Gestion Budgétaire pour l'Afrique</h1>
+            <div class="africa-subtitle">Des stratégies adaptées aux réalités économiques africaines</div>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 15 min de lecture
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Featured Image -->
+        <div class="featured-image">
+            <div class="africa-pattern"></div>
+            Maîtrisez vos finances avec des méthodes adaptées au contexte africain
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <div class="callout">
+                <div class="callout-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Points clés à retenir :
+                </div>
+                <ul>
+                    <li>Plus de 60% des Africains gèrent leurs finances de manière informelle</li>
+                    <li>Les tontines et systèmes d'épargne communautaire sont utilisés par 40% de la population</li>
+                    <li>Adapter la méthode 50/30/20 aux réalités locales</li>
+                    <li>Gérer les transferts d'argent et les obligations familiales</li>
+                    <li>Utiliser des outils numériques adaptés au contexte africain</li>
+                </ul>
+            </div>
+            
+            <h2>Introduction</h2>
+            <p>En Afrique, la gestion budgétaire doit tenir compte de réalités économiques et sociales uniques : économie informelle prédominante, systèmes d'épargne communautaire comme les tontines, obligations familiales étendues, et volatilité des revenus. Ce guide propose des stratégies adaptées pour vous aider à prendre le contrôle de vos finances dans ce contexte spécifique.</p>
+            
+            <p>Que vous soyez un travailleur urbain, un agriculteur rural ou un entrepreneur du secteur informel, ces principes vous aideront à bâtir une stabilité financière durable.</p>
+            
+            <div class="callout" style="background-color: rgba(253, 206, 26, 0.1); border-color: var(--africa-secondary);">
+                <p><strong>Conseil pratique :</strong> Les personnes qui planifient leur budget économisent en moyenne 20% de plus que les autres. Prendre 30 minutes par semaine pour gérer vos finances peut transformer votre situation économique.</p>
+            </div>
+            
+            <h2>Spécificités de la gestion budgétaire en Afrique</h2>
+            <p>La gestion des finances en Afrique présente des caractéristiques distinctes qui nécessitent des approches adaptées :</p>
+            
+            <div class="africa-grid">
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-users"></i>
+                        Obligations familiales étendues
+                    </div>
+                    <div class="africa-card-content">
+                        Dans de nombreuses cultures africaines, les obligations familiales incluent le soutien aux parents âgés, l'éducation des neveux et nièces, et les contributions aux cérémonies familiales.
+                    </div>
+                </div>
+                
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        Économie informelle
+                    </div>
+                    <div class="africa-card-content">
+                        Près de 85% des emplois en Afrique subsaharienne sont dans le secteur informel, avec des revenus irréguliers et peu de protection sociale.
+                    </div>
+                </div>
+                
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-piggy-bank"></i>
+                        Systèmes d'épargne communautaire
+                    </div>
+                    <div class="africa-card-content">
+                        Les tontines, stokvels et autres systèmes d'épargne collective sont profondément ancrés dans les pratiques financières africaines.
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Adapter la méthode 50/30/20 au contexte africain</h2>
+            <p>La méthode classique 50/30/20 peut être révisée pour mieux correspondre aux réalités africaines :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Méthode classique</th>
+                        <th>Adaptation africaine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="essential">
+                        <td class="feature-name">Besoins essentiels</td>
+                        <td>50%</td>
+                        <td>60-70% (inclut obligations familiales)</td>
+                    </tr>
+                    <tr class="discretionary">
+                        <td class="feature-name">Loisirs et envies</td>
+                        <td>30%</td>
+                        <td>15-20% (réduit pour prioriser l'épargne)</td>
+                    </tr>
+                    <tr class="savings">
+                        <td class="feature-name">Épargne et investissements</td>
+                        <td>20%</td>
+                        <td>15-20% (inclut tontines et épargne collective)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout" style="background-color: rgba(59, 89, 152, 0.05); border-color: var(--africa-blue);">
+                <p><strong>Conseil :</strong> Utilisez la méthode 60/20/20 si vous avez de lourdes obligations familiales : 60% pour les besoins essentiels et familiaux, 20% pour les loisirs, 20% pour l'épargne.</p>
+            </div>
+            
+            <h2>Stratégies pratiques pour l'épargne en Afrique</h2>
+            <p>Découvrez des méthodes d'épargne adaptées aux contextes africains :</p>
+            
+            <div class="africa-grid">
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-handshake"></i>
+                        Tontines modernisées
+                    </div>
+                    <div class="africa-card-content">
+                        Participez à des tontines numériques avec des applications comme "Tontine Connect" qui offrent plus de sécurité et de flexibilité.
+                    </div>
+                </div>
+                
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        Épargne mobile
+                    </div>
+                    <div class="africa-card-content">
+                        Utilisez les services d'épargne via mobile money (M-Pesa, Orange Money, MTN Mobile Money) qui offrent des intérêts compétitifs.
+                    </div>
+                </div>
+                
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-seedling"></i>
+                        Investissements productifs
+                    </div>
+                    <div class="africa-card-content">
+                        Privilégiez les investissements dans des actifs productifs comme l'agriculture, l'élevage ou de petits commerces qui génèrent des revenus additionnels.
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Gérer les transferts d'argent et obligations familiales</h2>
+            <p>Les transferts d'argent et obligations familiales représentent souvent une part importante du budget :</p>
+            
+            <div class="step-box" style="background: white; border-radius: 12px; padding: 25px; margin: 30px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-top: 5px solid var(--africa-tertiary);">
+                <div class="step-title" style="font-weight: 700; color: var(--africa-primary); margin-bottom: 15px; font-size: 1.3rem; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-balance-scale"></i>
+                    Conseils pour gérer les obligations familiales
+                </div>
+                <div class="step-description">
+                    <ul>
+                        <li><strong>Budget explicite :</strong> Incluez une ligne "Obligations familiales" dans votre budget (10-15% des revenus)</li>
+                        <li><strong>Communication :</strong> Expliquez vos limites financières à votre famille</li>
+                        <li><strong>Priorisation :</strong> Distinguez les besoins réels des demandes non essentielles</li>
+                        <li><strong>Investissement :</strong> Transformez l'aide en investissements productifs (payer des études plutôt que donner de l'argent)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Simulateur de budget adapté -->
+            <h2>Simulateur de budget africain</h2>
+            <p>Créez votre budget personnalisé adapté aux réalités économiques africaines :</p>
+            
+            <div class="simulator-container">
+                <h3 class="simulator-title">Simulateur de Budget Africain</h3>
+                <p class="simulator-description">Calculez la répartition optimale de vos revenus en tenant compte des spécificités africaines comme les obligations familiales et l'épargne collective.</p>
+                
+                <div class="simulator-inputs">
+                    <div class="input-group">
+                        <label for="monthly-income">Revenus mensuels nets (FCFA)</label>
+                        <input type="number" id="monthly-income" min="0" step="1000" value="300000">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="family-percent">Obligations familiales (%) <span id="family-value" class="range-value">15%</span></label>
+                        <input type="range" id="family-percent" min="5" max="30" step="1" value="15">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="savings-type">Type d'épargne</label>
+                        <select id="savings-type">
+                            <option value="traditional">Épargne traditionnelle</option>
+                            <option value="tontine">Tontine/Épargne collective</option>
+                            <option value="mobile">Épargne mobile</option>
+                            <option value="investment">Investissement productif</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="simulator-actions">
+                    <button class="btn btn-primary" id="calculate-btn">
+                        <i class="fas fa-calculator"></i> Calculer mon budget
+                    </button>
+                    <button class="btn btn-secondary" id="reset-btn">
+                        <i class="fas fa-redo"></i> Réinitialiser
+                    </button>
+                </div>
+                
+                <div class="simulator-results" id="results-section">
+                    <div class="results-header">
+                        <div class="result-card essential">
+                            <div class="result-title">Besoins essentiels</div>
+                            <div class="result-value" id="essential-result">0 FCFA</div>
+                            <div class="result-subtitle"><span id="essential-percent-result">0%</span> de vos revenus</div>
+                        </div>
+                        
+                        <div class="result-card discretionary">
+                            <div class="result-title">Loisirs et envies</div>
+                            <div class="result-value" id="discretionary-result">0 FCFA</div>
+                            <div class="result-subtitle"><span id="discretionary-percent-result">0%</span> de vos revenus</div>
+                        </div>
+                        
+                        <div class="result-card savings">
+                            <div class="result-title">Épargne et investissements</div>
+                            <div class="result-value" id="savings-result">0 FCFA</div>
+                            <div class="result-subtitle"><span id="savings-percent-result">0%</span> de vos revenus</div>
+                        </div>
+                        
+                        <div class="result-card" style="border-color: var(--africa-tertiary);">
+                            <div class="result-title">Obligations familiales</div>
+                            <div class="result-value" id="family-result">0 FCFA</div>
+                            <div class="result-subtitle"><span id="family-percent-result">0%</span> de vos revenus</div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-difference" style="text-align: center; font-size: 1.2rem; margin: 20px 0; padding: 15px; background: rgba(253, 206, 26, 0.1); border-radius: 10px;">
+                        Épargne annuelle potentielle : <span id="annual-savings" style="font-weight: 700; color: var(--africa-primary);">0 FCFA</span>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="budget-chart"></canvas>
+                    </div>
+                    
+                    <p class="budget-note">* Ces recommandations sont indicatives. Adaptez votre budget à votre situation spécifique, en tenant compte de vos obligations familiales et de vos objectifs financiers.</p>
+                </div>
+            </div>
+            
+            <h2>Outils numériques pour la gestion budgétaire</h2>
+            <p>Découvrez des applications adaptées au contexte africain :</p>
+            
+            <div class="africa-grid">
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-money-check-alt"></i>
+                        Applications de budget
+                    </div>
+                    <div class="africa-card-content">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li><strong>Money Lover</strong> - Suivi des dépenses</li>
+                            <li><strong>BudgetBakers</strong> - Gestion complète</li>
+                            <li><strong>Spendee</strong> - Budget collaboratif</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-coins"></i>
+                        Épargne mobile
+                    </div>
+                    <div class="africa-card-content">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li><strong>M-Pesa (Kenya)</strong> - Épargne et crédit</li>
+                            <li><strong>Orange Money (Afrique francophone)</strong></li>
+                            <li><strong>MTN Mobile Money (Afrique de l'Ouest)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="africa-card">
+                    <div class="africa-card-title">
+                        <i class="fas fa-users"></i>
+                        Tontines numériques
+                    </div>
+                    <div class="africa-card-content">
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li><strong>Tontine Connect (Sénégal)</strong></li>
+                            <li><strong>Esusu (Nigeria)</strong></li>
+                            <li><strong>StokFella (Afrique du Sud)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Conclusion</h2>
+            <p>La gestion budgétaire en Afrique nécessite une approche adaptée qui tienne compte des réalités économiques, des obligations familiales et des traditions d'épargne collective. En intégrant ces spécificités dans votre planification financière, vous pouvez bâtir une stabilité économique durable tout en honorant vos responsabilités familiales et communautaires.</p>
+            
+            <div class="callout" style="background: linear-gradient(135deg, rgba(0, 135, 81, 0.1), rgba(253, 206, 26, 0.1)); border-color: var(--africa-tertiary);">
+                <p>Commencez aujourd'hui avec des petits pas : évaluez vos revenus, suivez vos dépenses pendant un mois, et fixez-vous un objectif d'épargne réaliste. La discipline financière est la clé pour transformer vos rêves économiques en réalité.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Guide de gestion budgétaire orienté Afrique - © 2023 | Conçu pour les réalités économiques africaines</p>
+            <p>Les informations fournies dans ce guide sont à titre éducatif seulement. Consultez un conseiller financier pour des conseils personnalisés.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const monthlyIncome = document.getElementById('monthly-income');
+            const familySlider = document.getElementById('family-percent');
+            const familyValue = document.getElementById('family-value');
+            const savingsType = document.getElementById('savings-type');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsSection = document.getElementById('results-section');
+            const essentialResult = document.getElementById('essential-result');
+            const discretionaryResult = document.getElementById('discretionary-result');
+            const savingsResult = document.getElementById('savings-result');
+            const familyResult = document.getElementById('family-result');
+            const essentialPercentResult = document.getElementById('essential-percent-result');
+            const discretionaryPercentResult = document.getElementById('discretionary-percent-result');
+            const savingsPercentResult = document.getElementById('savings-percent-result');
+            const familyPercentResult = document.getElementById('family-percent-result');
+            const annualSavings = document.getElementById('annual-savings');
+            let budgetChart = null;
+            
+            // Initial values
+            familyValue.textContent = `${familySlider.value}%`;
+            
+            // Update slider value display
+            familySlider.addEventListener('input', function() {
+                familyValue.textContent = `${this.value}%`;
+            });
+            
+            // Calculate budget
+            calculateBtn.addEventListener('click', calculateBudget);
+            
+            // Reset form
+            resetBtn.addEventListener('click', function() {
+                monthlyIncome.value = 300000;
+                familySlider.value = 15;
+                familyValue.textContent = '15%';
+                savingsType.value = 'traditional';
+                resultsSection.style.display = 'none';
+                
+                if (budgetChart) {
+                    budgetChart.destroy();
+                }
+            });
+            
+            function calculateBudget() {
+                // Get values
+                const income = parseFloat(monthlyIncome.value) || 0;
+                const familyPercent = parseInt(familySlider.value);
+                
+                // Validate
+                if (income <= 0) {
+                    alert('Veuillez saisir un revenu mensuel valide.');
+                    return;
+                }
+                
+                // Calculate amounts
+                const familyAmount = income * familyPercent / 100;
+                const essentialPercent = 60;
+                const essentialAmount = income * essentialPercent / 100;
+                const discretionaryPercent = 15;
+                const discretionaryAmount = income * discretionaryPercent / 100;
+                const savingsPercent = 25 - familyPercent; // Adjust based on family obligations
+                const savingsAmount = income * savingsPercent / 100;
+                
+                // Adjust based on savings type
+                let savingsNote = "";
+                switch(savingsType.value) {
+                    case 'tontine':
+                        savingsNote = " (recommandé: participez à une tontine)";
+                        break;
+                    case 'mobile':
+                        savingsNote = " (recommandé: utilisez l'épargne mobile)";
+                        break;
+                    case 'investment':
+                        savingsNote = " (recommandé: investissez dans des actifs productifs)";
+                        break;
+                    default:
+                        savingsNote = "";
+                }
+                
+                // Calculate annual savings
+                const annualSavingsAmount = savingsAmount * 12;
+                
+                // Display results
+                essentialResult.textContent = formatCurrency(essentialAmount);
+                discretionaryResult.textContent = formatCurrency(discretionaryAmount);
+                savingsResult.textContent = formatCurrency(savingsAmount) + savingsNote;
+                familyResult.textContent = formatCurrency(familyAmount);
+                
+                essentialPercentResult.textContent = `${essentialPercent}%`;
+                discretionaryPercentResult.textContent = `${discretionaryPercent}%`;
+                savingsPercentResult.textContent = `${savingsPercent}%`;
+                familyPercentResult.textContent = `${familyPercent}%`;
+                
+                annualSavings.textContent = formatCurrency(annualSavingsAmount);
+                
+                // Create chart
+                createChart(essentialAmount, discretionaryAmount, savingsAmount, familyAmount);
+                
+                // Show results
+                resultsSection.style.display = 'block';
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            function createChart(essential, discretionary, savings, family) {
+                const ctx = document.getElementById('budget-chart').getContext('2d');
+                
+                // Destroy previous chart if exists
+                if (budgetChart) {
+                    budgetChart.destroy();
+                }
+                
+                budgetChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Besoins essentiels', 'Loisirs et envies', 'Épargne et investissements', 'Obligations familiales'],
+                        datasets: [{
+                            data: [essential, discretionary, savings, family],
+                            backgroundColor: [
+                                '#2E8B57',
+                                '#FDCE1A',
+                                '#3B5998',
+                                '#E1392B'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = essential + discretionary + savings + family;
+                                        const percentage = Math.round((value / total) * 100);
+                                        return `${label}: ${formatCurrency(value)} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '50%'
+                    }
+                });
+            }
+            
+            function formatCurrency(amount) {
+                // Format as West African CFA franc
+                return new Intl.NumberFormat('fr-FR', {
+                    style: 'currency',
+                    currency: 'XOF',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+        });
+    </script>
+</body>
+</html>

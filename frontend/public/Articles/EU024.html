@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiscalité du PEA en 2025 - Guide complet - Finary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --finary-primary: #141145;
+            --finary-secondary: #7A2D8D;
+            --finary-accent: #5682F2;
+            --finary-light: #F1F2F6;
+            --finary-dark: #0A0A1D;
+            --finary-gold: #F1C086;
+            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
+            --finary-success: #4CAF50;
+            --finary-warning: #FFC107;
+            --finary-info: #2196F3;
+            --finary-error: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        /* Table des matières */
+        #toc-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #eee;
+            display: none;
+        }
+        
+        #toc-container.visible {
+            display: block;
+        }
+        
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .close-toc {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-toc:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #toc-list {
+            list-style-type: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        #toc-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        #toc-list a:hover {
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+        }
+        
+        #toc-list .h2-link {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        #toc-list .h3-link {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--finary-gradient);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toc-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        /* Article Header */
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--finary-primary);
+            font-weight: 700;
+            max-width: 800px;
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--finary-primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--finary-secondary);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content ul, .article-content ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--finary-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Fiscalité visualization */
+        .tax-visualization {
+            display: flex;
+            flex-direction: column;
+            margin: 40px 0;
+            gap: 20px;
+        }
+        
+        .tax-scenario {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .tax-box {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid;
+        }
+        
+        .scenario-pea {
+            border-top-color: var(--finary-accent);
+        }
+        
+        .scenario-cto {
+            border-top-color: var(--finary-secondary);
+        }
+        
+        .tax-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tax-title i {
+            font-size: 1.8rem;
+        }
+        
+        .scenario-pea .tax-title {
+            color: var(--finary-accent);
+        }
+        
+        .scenario-cto .tax-title {
+            color: var(--finary-secondary);
+        }
+        
+        .tax-highlight {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: var(--finary-primary);
+            text-align: center;
+        }
+        
+        .tax-details {
+            background-color: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .tax-breakdown {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tax-element {
+            text-align: center;
+            padding: 15px;
+            min-width: 150px;
+        }
+        
+        .tax-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .tax-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .tax-zero {
+            color: var(--finary-success);
+        }
+        
+        .tax-flat {
+            color: var(--finary-secondary);
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: #f5f5f7;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        /* Callout boxes */
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: var(--finary-success);
+        }
+        
+        .callout.success::before {
+            background: var(--finary-success);
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: var(--finary-warning);
+        }
+        
+        .callout.warning::before {
+            background: var(--finary-warning);
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--finary-info);
+        }
+        
+        .callout.info::before {
+            background: var(--finary-info);
+        }
+        
+        .callout.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-color: var(--finary-error);
+        }
+        
+        .callout.error::before {
+            background: var(--finary-error);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--finary-primary);
+        }
+        
+        /* Timeline */
+        .timeline {
+            margin: 40px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--finary-accent);
+        }
+        
+        .timeline-step {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+        
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-step:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--finary-accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--finary-accent);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--finary-primary);
+            margin-bottom: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            #toc-container {
+                width: 280px;
+                right: 10px;
+                left: auto;
+            }
+            
+            .tax-scenario {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            #toc-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            
+            .tax-title {
+                font-size: 1.3rem;
+            }
+            
+            .tax-box {
+                min-width: 100%;
+            }
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(86, 130, 242, 0.1) 0%, rgba(86, 130, 242, 0.3) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .calculator {
+            background-color: #f8f9ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid var(--finary-accent);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .calculator-group {
+            margin-bottom: 15px;
+        }
+        
+        .calculator-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .calculator-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .calculator-button {
+            grid-column: span 2;
+            background: var(--finary-gradient);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .calculator-result {
+            grid-column: span 2;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton pour afficher la table des matières -->
+    <button class="toc-toggle" id="toc-toggle">
+        <i class="fas fa-list"></i>
+    </button>
+    
+    <!-- Table des matières -->
+    <div id="toc-container">
+        <div class="toc-header">
+            <div class="toc-title">Sommaire de l'article</div>
+            <button class="close-toc" id="close-toc">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul id="toc-list">
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            <li><a href="#avantage" class="h2-link">L'avantage fiscal du PEA</a></li>
+            <li><a href="#duree" class="h2-link">La règle des 5 ans</a></li>
+            <li><a href="#plus-values" class="h2-link">Fiscalité des plus-values</a></li>
+            <li><a href="#dividendes" class="h2-link">Fiscalité des dividendes</a></li>
+            <li><a href="#retraits" class="h2-link">Fiscalité des retraits</a></li>
+            <li><a href="#fermeture" class="h2-link">Fermeture du PEA</a></li>
+            <li><a href="#comparaison" class="h2-link">Comparaison avec le CTO</a></li>
+            <li><a href="#strategie" class="h2-link">Stratégies d'optimisation</a></li>
+            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">Fiscalité du PEA en 2025 : le guide complet</h1>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 10 min de lecture
+            </div>
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <div class="callout success">
+                <div class="callout-title">Points clés à retenir :</div>
+                <ul>
+                    <li>Le PEA bénéficie d'une exonération d'impôt sur le revenu après 5 ans de détention</li>
+                    <li>Les prélèvements sociaux restent à 17.2% sur les plus-values et dividendes</li>
+                    <li>En 2025, aucun changement majeur n'est prévu dans la fiscalité du PEA</li>
+                    <li>Pour les retraits avant 5 ans, l'imposition est de 12.8% + 17.2% de prélèvements sociaux</li>
+                    <li>Le PEA reste le placement boursier le plus avantageux fiscalement en France</li>
+                </ul>
+            </div>
+            
+            <h2 id="introduction">Introduction</h2>
+            <p>Le Plan d'Épargne en Actions (PEA) demeure en 2025 le placement boursier préféré des investisseurs français, principalement grâce à son avantage fiscal exceptionnel. Alors que les gouvernements successifs ont parfois envisagé de modifier sa fiscalité, le PEA conserve en 2025 ses principaux atouts.</p>
+            
+            <p>Cette stabilité réglementaire fait du PEA un pilier de la stratégie d'investissement long terme. Comprendre sa fiscalité précise est essentiel pour maximiser vos rendements et éviter les mauvaises surprises.</p>
+            
+            <h2 id="avantage">L'avantage fiscal du PEA</h2>
+            <p>Le principal attrait du PEA réside dans son traitement fiscal privilégié après 5 ans de détention :</p>
+            
+            <div class="tax-visualization">
+                <div class="tax-highlight tax-zero">0% d'impôt sur les plus-values après 5 ans</div>
+                
+                <div class="tax-details">
+                    <p>Cette exonération d'impôt sur le revenu représente un avantage considérable par rapport aux autres placements boursiers. Cependant, il est important de noter que :</p>
+                    <ul>
+                        <li>Les <span class="highlight">prélèvements sociaux de 17.2%</span> restent dus sur les plus-values</li>
+                        <li>L'exonération ne s'applique qu'aux <span class="highlight">plus-values réalisées</span> après la période de 5 ans</li>
+                        <li>Le délai de 5 ans est calculé à partir du <span class="highlight">premier versement</span> sur le compte</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2 id="duree">La règle des 5 ans</h2>
+            <p>La période de 5 ans est la clé de voûte de la fiscalité du PEA. Voici ce que vous devez savoir :</p>
+            
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-date">J+0 : Ouverture du PEA</div>
+                    <p>Le délai de 5 ans commence à courir à partir de la date d'ouverture de votre PEA et du premier versement effectué.</p>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-date">Entre J+0 et J+5 ans</div>
+                    <p>Tout retrait entraîne la clôture du PEA et l'imposition des plus-values au taux de 12.8% (impôt sur le revenu) + 17.2% (prélèvements sociaux).</p>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-date">Après J+5 ans</div>
+                    <p>Vous bénéficiez de l'exonération d'impôt sur le revenu. Les prélèvements sociaux de 17.2% restent applicables sur les plus-values.</p>
+                </div>
+            </div>
+            
+            <div class="callout info">
+                <p>À noter : Vous pouvez effectuer des retraits partiels après 5 ans sans clôturer votre PEA, tant que vous maintenez un solde positif. Seuls les retraits entraînant la clôture du compte avant 5 ans sont pénalisés fiscalement.</p>
+            </div>
+            
+            <h2 id="plus-values">Fiscalité des plus-values</h2>
+            
+            <div class="tax-scenario">
+                <div class="tax-box scenario-pea">
+                    <div class="tax-title">
+                        <i class="fas fa-chart-line"></i>
+                        PEA après 5 ans
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value tax-zero">0%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Total fiscalité</div>
+                        </div>
+                    </div>
+                    <p>Exemple : Pour 10 000€ de plus-values, vous paierez 1 720€ de prélèvements sociaux et conserverez 8 280€ net.</p>
+                </div>
+                
+                <div class="tax-box scenario-cto">
+                    <div class="tax-title">
+                        <i class="fas fa-globe"></i>
+                        Compte Titres (CTO)
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value">12.8%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value tax-flat">30%</div>
+                            <div class="tax-label">Flat tax</div>
+                        </div>
+                    </div>
+                    <p>Exemple : Pour 10 000€ de plus-values, vous paierez 3 000€ d'impôts (flat tax) et conserverez 7 000€ net.</p>
+                </div>
+            </div>
+            
+            <div class="callout success">
+                <p>L'avantage fiscal du PEA est considérable : après 5 ans, vous économisez 12.8% d'impôt sur le revenu par rapport à un compte titres ordinaire. Sur un gain de 100 000€, cela représente 12 800€ d'économies d'impôt.</p>
+            </div>
+            
+            <h2 id="dividendes">Fiscalité des dividendes</h2>
+            <p>Contrairement aux plus-values, les dividendes perçus dans un PEA sont imposés différemment :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Type de revenu</th>
+                        <th>Fiscalité PEA</th>
+                        <th>Fiscalité CTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dividendes</td>
+                        <td>17.2% (prélèvements sociaux uniquement)</td>
+                        <td>30% (flat tax : 12.8% IR + 17.2% PS)</td>
+                    </tr>
+                    <tr>
+                        <td>Plus-values</td>
+                        <td>0% IR + 17.2% PS après 5 ans</td>
+                        <td>30% flat tax</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>Les dividendes perçus dans un PEA sont soumis aux prélèvements sociaux de 17.2% dès leur versement, que le PEA ait 5 ans ou non. Cependant :</p>
+            <ul>
+                <li>Ces dividendes ne sont <span class="highlight">pas soumis à l'impôt sur le revenu</span></li>
+                <li>Ils peuvent être <span class="highlight">réinvestis</span> dans le PEA sans frais supplémentaires</li>
+                <li>Après réinvestissement, les plus-values réalisées sur ces montants bénéficieront de l'exonération d'impôt après 5 ans</li>
+            </ul>
+            
+            <h2 id="retraits">Fiscalité des retraits</h2>
+            <p>La fiscalité des retraits dépend principalement de l'âge de votre PEA :</p>
+            
+            <div class="tax-scenario">
+                <div class="tax-box scenario-pea">
+                    <div class="tax-title">
+                        <i class="fas fa-lock"></i>
+                        Retrait avant 5 ans
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value">12.8%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value tax-flat">30%</div>
+                            <div class="tax-label">Total fiscalité</div>
+                        </div>
+                    </div>
+                    <p>Le retrait entraîne la <span class="highlight">clôture définitive</span> du PEA. Vous ne pourrez pas en rouvrir un autre pendant l'année civile en cours.</p>
+                </div>
+                
+                <div class="tax-box scenario-pea">
+                    <div class="tax-title">
+                        <i class="fas fa-unlock"></i>
+                        Retrait après 5 ans
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value tax-zero">0%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Total fiscalité</div>
+                        </div>
+                    </div>
+                    <p>Vous pouvez effectuer des <span class="highlight">retraits partiels</span> sans clôturer le PEA. Seules les plus-values réalisées sont taxées à 17.2%.</p>
+                </div>
+            </div>
+            
+            <h2 id="fermeture">Fermeture du PEA</h2>
+            <p>La fermeture du PEA suit des règles fiscales spécifiques :</p>
+            
+            <ul>
+                <li><span class="highlight">Avant 5 ans :</span> Toutes les plus-values sont imposées à 30% (12.8% IR + 17.2% PS)</li>
+                <li><span class="highlight">Après 5 ans :</span> Seules les plus-values réalisées depuis l'ouverture sont taxées à 17.2% (PS uniquement)</li>
+                <li><span class="highlight">En cas de décès :</span> Le PEA est transmis aux héritiers sans imposition immédiate. Le délai de 5 ans est maintenu.</li>
+            </ul>
+            
+            <div class="callout warning">
+                <p>Attention : La fermeture du PEA avant 5 ans entraîne non seulement une imposition défavorable, mais vous empêche également d'ouvrir un nouveau PEA pendant le reste de l'année civile. Cette décision doit donc être mûrement réfléchie.</p>
+            </div>
+            
+            <h2 id="comparaison">Comparaison avec le CTO</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Critère fiscal</th>
+                        <th>PEA (après 5 ans)</th>
+                        <th>Compte Titres (CTO)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Impôt sur les plus-values</td>
+                        <td>0%</td>
+                        <td>12.8%</td>
+                    </tr>
+                    <tr>
+                        <td>Prélèvements sociaux</td>
+                        <td>17.2%</td>
+                        <td>17.2%</td>
+                    </tr>
+                    <tr>
+                        <td>Total fiscalité plus-values</td>
+                        <td>17.2%</td>
+                        <td>30%</td>
+                    </tr>
+                    <tr>
+                        <td>Fiscalité des dividendes</td>
+                        <td>17.2% (PS uniquement)</td>
+                        <td>30% (flat tax)</td>
+                    </tr>
+                    <tr>
+                        <td>Report des moins-values</td>
+                        <td>Non</td>
+                        <td>Oui (10 ans)</td>
+                    </tr>
+                    <tr>
+                        <td>Transmission</td>
+                        <td>Avantageuse</td>
+                        <td>Standard</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="calculator">
+                <div class="calculator-title">Calculateur fiscal PEA vs CTO</div>
+                <div class="calculator-form">
+                    <div class="calculator-group">
+                        <label class="calculator-label">Plus-values réalisées</label>
+                        <input type="number" class="calculator-input" id="gains" placeholder="10 000€">
+                    </div>
+                    <div class="calculator-group">
+                        <label class="calculator-label">Type de compte</label>
+                        <select class="calculator-input" id="account-type">
+                            <option value="pea">PEA (après 5 ans)</option>
+                            <option value="cto">Compte Titres (CTO)</option>
+                            <option value="pea-early">PEA (avant 5 ans)</option>
+                        </select>
+                    </div>
+                    <button class="calculator-button" id="calculate-btn">Calculer l'impôt</button>
+                    <div class="calculator-result" id="result">Résultat s'affichera ici</div>
+                </div>
+            </div>
+            
+            <h2 id="strategie">Stratégies d'optimisation fiscale</h2>
+            <p>Pour maximiser l'avantage fiscal de votre PEA en 2025 :</p>
+            
+            <h3>1. Respecter la durée de 5 ans</h3>
+            <p>La règle d'or : ne pas toucher à son PEA avant 5 ans. Programmez vos investissements en conséquence.</p>
+            
+            <h3>2. Utiliser le PEA en priorité</h3>
+            <p>Maximisez votre PEA (jusqu'à 150 000€) avant d'investir sur un compte titres ordinaire.</p>
+            
+            <h3>3. Réinvestir les dividendes</h3>
+            <p>Les dividendes perçus dans le PEA, une fois réinvestis, pourront générer des plus-values exonérées d'impôt.</p>
+            
+            <h3>4. Privilégier les ETF capitalisants</h3>
+            <p>Les ETF qui réinvestissent automatiquement les dividendes permettent de différer l'imposition de ces revenus.</p>
+            
+            <h3>5. Transférer son PEA</h3>
+            <p>Vous pouvez transférer votre PEA vers un autre établissement sans rompre la durée des 5 ans.</p>
+            
+            <div class="callout info">
+                <p>Astuce : Ouvrez votre PEA le plus tôt possible, même avec un petit montant, pour démarrer le compte à rebours des 5 ans. Vous pourrez effectuer des versements complémentaires à tout moment.</p>
+            </div>
+            
+            <h2 id="conclusion">Conclusion</h2>
+            <p>En 2025, la fiscalité du PEA reste extrêmement avantageuse pour les investisseurs à long terme. Avec une exonération d'impôt sur les plus-values après 5 ans et une fiscalité réduite sur les dividendes, le PEA conserve sa position de placement boursier le plus compétitif en France.</p>
+            
+            <p>Les prélèvements sociaux de 17.2% constituent le seul impôt incompressible, mais cette charge reste inférieure à la flat tax de 30% appliquée sur les comptes titres ordinaires.</p>
+            
+            <div class="callout success">
+                <p>Pour tout investisseur résident fiscal français ayant un horizon de placement supérieur à 5 ans, le PEA doit être la pierre angulaire de sa stratégie d'investissement en actions. Sa fiscalité avantageuse, combinée à la large gamme d'ETF éligibles, en fait un outil incontournable pour bâtir un patrimoine financier solide.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocContainer = document.getElementById('toc-container');
+            const closeToc = document.getElementById('close-toc');
+            
+            // Toggle TOC visibility
+            tocToggle.addEventListener('click', function() {
+                tocContainer.classList.toggle('visible');
+            });
+            
+            // Close TOC
+            closeToc.addEventListener('click', function() {
+                tocContainer.classList.remove('visible');
+            });
+            
+            // Close TOC when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!tocContainer.contains(event.target) && 
+                    !tocToggle.contains(event.target) && 
+                    tocContainer.classList.contains('visible')) {
+                    tocContainer.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close TOC after clicking on a link
+                        tocContainer.classList.remove('visible');
+                    }
+                });
+            });
+            
+            // Tax calculator
+            document.getElementById('calculate-btn').addEventListener('click', function() {
+                const gains = parseFloat(document.getElementById('gains').value);
+                const accountType = document.getElementById('account-type').value;
+                
+                if (isNaN(gains) || gains <= 0) {
+                    document.getElementById('result').textContent = "Veuillez entrer un montant valide";
+                    return;
+                }
+                
+                let taxRate, taxAmount, netAmount;
+                
+                switch(accountType) {
+                    case 'pea':
+                        taxRate = 0.172; // 17.2%
+                        taxAmount = gains * taxRate;
+                        netAmount = gains - taxAmount;
+                        document.getElementById('result').innerHTML = `
+                            Impôt: <strong>${taxAmount.toFixed(0)}€</strong> (17.2%)<br>
+                            Net perçu: <strong>${netAmount.toFixed(0)}€</strong>
+                        `;
+                        break;
+                        
+                    case 'cto':
+                        taxRate = 0.30; // 30%
+                        taxAmount = gains * taxRate;
+                        netAmount = gains - taxAmount;
+                        document.getElementById('result').innerHTML = `
+                            Impôt: <strong>${taxAmount.toFixed(0)}€</strong> (30%)<br>
+                            Net perçu: <strong>${netAmount.toFixed(0)}€</strong>
+                        `;
+                        break;
+                        
+                    case 'pea-early':
+                        taxRate = 0.30; // 30%
+                        taxAmount = gains * taxRate;
+                        netAmount = gains - taxAmount;
+                        document.getElementById('result').innerHTML = `
+                            Impôt: <strong>${taxAmount.toFixed(0)}€</strong> (30%)<br>
+                            Net perçu: <strong>${netAmount.toFixed(0)}€</strong><br>
+                            <span style="color:${getComputedStyle(document.documentElement).getPropertyValue('--finary-error')}; font-size:0.9em">Le PEA sera clôturé</span>
+                        `;
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

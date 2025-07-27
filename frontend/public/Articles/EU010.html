@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investir son argent : les 6 erreurs à éviter - Finary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --finary-primary: #141145;
+            --finary-secondary: #7A2D8D;
+            --finary-accent: #5682F2;
+            --finary-light: #F1F2F6;
+            --finary-dark: #0A0A1D;
+            --finary-gold: #F1C086;
+            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
+            --finary-success: #4CAF50;
+            --finary-warning: #FFC107;
+            --finary-info: #2196F3;
+            --finary-error: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        /* Table des matières */
+        #toc-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #eee;
+            display: none;
+        }
+        
+        #toc-container.visible {
+            display: block;
+        }
+        
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .close-toc {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-toc:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #toc-list {
+            list-style-type: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        #toc-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        #toc-list a:hover {
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+        }
+        
+        #toc-list .h2-link {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        #toc-list .h3-link {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--finary-gradient);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toc-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        /* Article Header */
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--finary-primary);
+            font-weight: 700;
+            max-width: 800px;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #666;
+            background: linear-gradient(135deg, #141145, #7A2D8D);
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--finary-primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--finary-secondary);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content ul, .article-content ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--finary-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Bias visualization */
+        .bias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .bias-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--finary-accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .bias-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bias-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+            margin-bottom: 10px;
+        }
+        
+        .bias-description {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        /* Callout boxes - Style Finary */
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: var(--finary-success);
+        }
+        
+        .callout.success::before {
+            background: var(--finary-success);
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: var(--finary-warning);
+        }
+        
+        .callout.warning::before {
+            background: var(--finary-warning);
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--finary-info);
+        }
+        
+        .callout.info::before {
+            background: var(--finary-info);
+        }
+        
+        .callout.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-color: var(--finary-error);
+        }
+        
+        .callout.error::before {
+            background: var(--finary-error);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--finary-primary);
+        }
+        
+        /* Emotion meter */
+        .emotion-meter {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            position: relative;
+            height: 40px;
+            background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .emotion-label {
+            position: absolute;
+            top: 50px;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .emotion-label.left {
+            left: 10px;
+        }
+        
+        .emotion-label.right {
+            right: 10px;
+        }
+        
+        .emotion-pointer {
+            position: absolute;
+            top: -15px;
+            width: 30px;
+            height: 30px;
+            background: var(--finary-primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Mistake cards */
+        .mistake-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .mistake-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--finary-error);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mistake-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        
+        .mistake-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--finary-error);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .mistake-title {
+            font-size: 1.4rem;
+            color: var(--finary-primary);
+            margin-bottom: 15px;
+            padding-right: 40px;
+        }
+        
+        .mistake-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .mistake-solution {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 3px solid var(--finary-success);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        
+        .solution-title {
+            font-weight: 600;
+            color: var(--finary-success);
+            margin-bottom: 5px;
+        }
+        
+        /* Progress tracker */
+        .progress-container {
+            margin: 40px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .progress-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: var(--finary-primary);
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--finary-gradient);
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .progress-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #eee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .step-number.active {
+            background: var(--finary-accent);
+            color: white;
+        }
+        
+        .step-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            #toc-container {
+                width: 280px;
+                right: 10px;
+                left: auto;
+            }
+            
+            .mistake-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            #toc-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton pour afficher la table des matières -->
+    <button class="toc-toggle" id="toc-toggle">
+        <i class="fas fa-list"></i>
+    </button>
+    
+    <!-- Table des matières -->
+    <div id="toc-container">
+        <div class="toc-header">
+            <div class="toc-title">Sommaire de l'article</div>
+            <button class="close-toc" id="close-toc">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul id="toc-list">
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            <li><a href="#erreur1" class="h2-link">Erreur 1: Ne pas définir d'objectifs</a></li>
+            <li><a href="#erreur2" class="h2-link">Erreur 2: Sous-estimer son aversion au risque</a></li>
+            <li><a href="#erreur3" class="h2-link">Erreur 3: Ne pas diversifier</a></li>
+            <li><a href="#erreur4" class="h2-link">Erreur 4: Se laisser guider par ses émotions</a></li>
+            <li><a href="#erreur5" class="h2-link">Erreur 5: Négliger les frais</a></li>
+            <li><a href="#erreur6" class="h2-link">Erreur 6: Avoir un horizon trop court</a></li>
+            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">Investir son argent : les 6 erreurs à éviter absolument</h1>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 10 min de lecture
+            </div>
+        </div>
+        
+        <!-- Featured Image -->
+        <div class="featured-image">
+            Évitez ces pièges pour maximiser vos investissements
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <div class="callout success">
+                <div class="callout-title">Points clés à retenir :</div>
+                <ul>
+                    <li>Définissez des <span class="highlight">objectifs clairs</span> avant d'investir</li>
+                    <li>Adaptez votre stratégie à votre <span class="highlight">tolérance au risque</span></li>
+                    <li>Diversifiez systématiquement votre portefeuille</li>
+                    <li>Contrôlez vos <span class="highlight">émotions</span> face aux fluctuations des marchés</li>
+                    <li>Surveillez les <span class="highlight">frais et la fiscalité</span></li>
+                    <li>Adoptez un <span class="highlight">horizon d'investissement long terme</span></li>
+                </ul>
+            </div>
+            
+            <h2 id="introduction">Introduction</h2>
+            <p>Investir son argent est l'un des moyens les plus efficaces pour bâtir un patrimoine solide et préparer son avenir financier. Pourtant, de nombreux investisseurs commettent des erreurs qui compromettent leurs résultats.</p>
+            
+            <p>Dans cet article, nous allons explorer les 6 erreurs les plus courantes en matière d'investissement et comment les éviter. Que vous soyez débutant ou investisseur expérimenté, ces conseils vous aideront à optimiser votre stratégie et à maximiser vos rendements.</p>
+            
+            <div class="callout info">
+                <p><strong>Saviez-vous ?</strong> D'après une étude récente, les investisseurs qui évitent ces 6 erreurs obtiennent en moyenne 3,5% de rendement supplémentaire annuel par rapport aux autres.</p>
+            </div>
+            
+            <h2 id="erreur1">Erreur 1: Ne pas définir d'objectifs clairs</h2>
+            <p>Investir sans objectifs précis revient à naviguer sans boussole. Beaucoup d'investisseurs commettent l'erreur de placer leur argent sans avoir défini ce qu'ils souhaitent accomplir.</p>
+            
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Conséquences</div>
+                    <div class="bias-description">Portefeuille inadapté, prise de risque excessive ou insuffisante, manque de motivation</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Solution</div>
+                    <div class="bias-description">Définissez des objectifs SMART : Spécifiques, Mesurables, Atteignables, Réalistes, Temporels</div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <p><strong>Exemple :</strong> Au lieu de "je veux devenir riche", fixez-vous "je veux accumuler 150 000€ dans 10 ans pour l'apport d'une résidence principale".</p>
+            </div>
+            
+            <h3>Comment définir ses objectifs ?</h3>
+            <ol>
+                <li>Identifiez vos projets à court, moyen et long terme</li>
+                <li>Estimez le montant nécessaire pour chaque projet</li>
+                <li>Déterminez l'horizon temporel pour chaque objectif</li>
+                <li>Choisissez les supports d'investissement adaptés à chaque échéance</li>
+            </ol>
+            
+            <h2 id="erreur2">Erreur 2: Sous-estimer son aversion au risque</h2>
+            <p>Connaître sa tolérance au risque est fondamental pour construire un portefeuille équilibré. Trop d'investisseurs surestiment leur capacité à supporter les fluctuations des marchés.</p>
+            
+            <div class="emotion-meter">
+                <div class="emotion-pointer" id="risk-pointer" style="left: 35%;"></div>
+                <div class="emotion-label left">Prudent<br>(Faible risque)</div>
+                <div class="emotion-label right">Audacieux<br>(Haut risque)</div>
+            </div>
+            
+            <div class="callout error">
+                <p>Attention : Un portefeuille trop risqué pour votre profil peut vous amener à vendre au pire moment lors d'une baisse des marchés, transformant des pertes potentielles en pertes définitives.</p>
+            </div>
+            
+            <h3>Comment évaluer sa tolérance au risque ?</h3>
+            <ul>
+                <li>Analysez votre réaction émotionnelle face à une baisse de 20% de votre portefeuille</li>
+                <li>Évaluez votre horizon d'investissement (plus il est long, plus vous pouvez prendre de risques)</li>
+                <li>Consultez un conseiller financier pour un diagnostic objectif</li>
+                <li>Utilisez des questionnaires d'évaluation du risque en ligne</li>
+            </ul>
+            
+            <h2 id="erreur3">Erreur 3: Ne pas diversifier son portefeuille</h2>
+            <p>La diversification est la seule "baguette magique" en finance. Pourtant, de nombreux investisseurs concentrent leurs placements sur quelques actifs, secteurs ou zones géographiques.</p>
+            
+            <div class="progress-container">
+                <div class="progress-title">Niveau de diversification recommandé</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="diversification-progress"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="progress-step">
+                        <div class="step-number" id="step1">1</div>
+                        <div class="step-text">Classes d'actifs</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number" id="step2">2</div>
+                        <div class="step-text">Secteurs</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number" id="step3">3</div>
+                        <div class="step-text">Zones géo</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number" id="step4">4</div>
+                        <div class="step-text">Devises</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout success">
+                <p>Conseil Finary : Un portefeuille bien diversifié devrait contenir au moins 15 à 20 lignes différentes réparties sur plusieurs classes d'actifs (actions, obligations, immobilier, matières premières) et plusieurs zones géographiques.</p>
+            </div>
+            
+            <h3>Les avantages de la diversification</h3>
+            <ul>
+                <li>Réduction de la volatilité du portefeuille</li>
+                <li>Limitation des pertes en cas de baisse d'un secteur</li>
+                <li>Exposition à différentes sources de croissance</li>
+                <li>Meilleur ratio rendement/risque</li>
+            </ul>
+            
+            <h2 id="erreur4">Erreur 4: Se laisser guider par ses émotions</h2>
+            <p>L'investissement est un exercice rationnel dans un environnement émotionnel. Les biais cognitifs comme l'effet de troupeau ou l'aversion à la perte peuvent conduire à des décisions désastreuses.</p>
+            
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Effet de troupeau</div>
+                    <div class="bias-description">Acheter quand tout le monde achète (haut du marché) et vendre quand tout le monde vend (bas du marché)</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Aversion à la perte</div>
+                    <div class="bias-description">Conserver des positions perdantes trop longtemps et vendre trop vite les positions gagnantes</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Biais de confirmation</div>
+                    <div class="bias-description">Chercher uniquement les informations qui confirment nos convictions</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Excès de confiance</div>
+                    <div class="bias-description">Surestimer ses capacités de prédiction et de sélection</div>
+                </div>
+            </div>
+            
+            <div class="callout info">
+                <p><strong>Solution :</strong> Établissez une stratégie d'investissement systématique (comme l'investissement régulier) et tenez-vous y. Évitez de prendre des décisions sous le coup de l'émotion.</p>
+            </div>
+            
+            <h2 id="erreur5">Erreur 5: Négliger les frais et la fiscalité</h2>
+            <p>Les frais et la fiscalité peuvent rogner une part importante de vos rendements. Une différence de 1% en frais annuels peut représenter des dizaines de milliers d'euros sur le long terme.</p>
+            
+            <div class="callout warning">
+                <p><strong>Exemple :</strong> Sur 30 ans, avec un investissement initial de 50 000€ et des versements de 500€/mois à 6% de rendement annuel :</p>
+                <ul>
+                    <li>Avec 0,5% de frais : 687 000€</li>
+                    <li>Avec 1,5% de frais : 542 000€</li>
+                    <li><strong>Différence : 145 000€</strong></li>
+                </ul>
+            </div>
+            
+            <h3>Les frais à surveiller</h3>
+            <ul>
+                <li>Frais d'entrée et de sortie</li>
+                <li>Frais de gestion annuels</li>
+                <li>Frais de transaction</li>
+                <li>Frais de garde</li>
+                <li>Frais de performance</li>
+            </ul>
+            
+            <h3>Optimisation fiscale</h3>
+            <p>Privilégiez les enveloppes fiscales avantageuses :</p>
+            <ul>
+                <li>PEA (Plan Épargne en Actions)</li>
+                <li>Assurance vie</li>
+                <li>PER (Plan Épargne Retraite)</li>
+                <li>CTO avec report d'imposition</li>
+            </ul>
+            
+            <h2 id="erreur6">Erreur 6: Avoir un horizon d'investissement trop court</h2>
+            <p>Les marchés financiers sont volatils à court terme mais tendent à progresser sur le long terme. Vouloir "timer" le marché est généralement une stratégie perdante.</p>
+            
+            <div class="callout success">
+                <p><strong>Donnée clé :</strong> Depuis 1950, le S&P 500 a enregistré un rendement annuel moyen de 10% environ. Mais sur des périodes de 1 an, il a affiché une performance négative environ 1 année sur 4.</p>
+            </div>
+            
+            <h3>Pourquoi le long terme est essentiel</h3>
+            <ol>
+                <li>Lisser les fluctuations des marchés</li>
+                <li>Bénéficier des intérêts composés</li>
+                <li>Laisser le temps à vos investissements de croître</li>
+                <li>Réduire l'impact des frais de transaction</li>
+                <li>Profiter des avantages fiscaux des placements long terme</li>
+            </ol>
+            
+            <h2>Les 6 erreurs à éviter en un coup d'œil</h2>
+            <div class="mistake-grid">
+                <div class="mistake-card">
+                    <div class="mistake-number">1</div>
+                    <div class="mistake-title">Pas d'objectifs clairs</div>
+                    <div class="mistake-description">Investir sans savoir pourquoi ni pour quoi</div>
+                    <div class="mistake-solution">
+                        <div class="solution-title">Solution</div>
+                        <p>Définissez des objectifs SMART et adaptez votre stratégie</p>
+                    </div>
+                </div>
+                
+                <div class="mistake-card">
+                    <div class="mistake-number">2</div>
+                    <div class="mistake-title">Mauvaise appréciation du risque</div>
+                    <div class="mistake-description">Portefeuille trop risqué ou trop prudent</div>
+                    <div class="mistake-solution">
+                        <div class="solution-title">Solution</div>
+                        <p>Évaluez objectivement votre tolérance au risque</p>
+                    </div>
+                </div>
+                
+                <div class="mistake-card">
+                    <div class="mistake-number">3</div>
+                    <div class="mistake-title">Manque de diversification</div>
+                    <div class="mistake-description">Concentration sur trop peu d'actifs</div>
+                    <div class="mistake-solution">
+                        <div class="solution-title">Solution</div>
+                        <p>Diversifiez par classes d'actifs, secteurs et zones géo</p>
+                    </div>
+                </div>
+                
+                <div class="mistake-card">
+                    <div class="mistake-number">4</div>
+                    <div class="mistake-title">Décisions émotionnelles</div>
+                    <div class="mistake-description">Acheter haut, vendre bas</div>
+                    <div class="mistake-solution">
+                        <div class="solution-title">Solution</div>
+                        <p>Automatisez vos investissements et tenez-vous à votre plan</p>
+                    </div>
+                </div>
+                
+                <div class="mistake-card">
+                    <div class="mistake-number">5</div>
+                    <div class="mistake-title">Négliger frais et fiscalité</div>
+                    <div class="mistake-description">Rendements amputés par les coûts</div>
+                    <div class="mistake-solution">
+                        <div class="solution-title">Solution</div>
+                        <p>Comparez les frais et optimisez fiscalement</p>
+                    </div>
+                </div>
+                
+                <div class="mistake-card">
+                    <div class="mistake-number">6</div>
+                    <div class="mistake-title">Horizon trop court</div>
+                    <div class="mistake-description">Vouloir des résultats immédiats</div>
+                    <div class="mistake-solution">
+                        <div class="solution-title">Solution</div>
+                        <p>Adoptez une perspective d'investissement à long terme</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Investir son argent est un voyage qui comporte des embûches, mais en évitant ces 6 erreurs courantes, vous maximisez vos chances d'atteindre vos objectifs financiers. La clé du succès réside dans une approche disciplinée, diversifiée et orientée long terme.</p>
+            
+            <div class="callout info">
+                <p>Rappelez-vous : L'investissement n'est pas une course de vitesse mais un marathon. Ceux qui réussissent sont ceux qui restent investis à travers les cycles de marché, qui contrôlent leurs émotions et qui gardent le cap sur leurs objectifs à long terme.</p>
+            </div>
+            
+            <p>Commencez dès aujourd'hui à appliquer ces principes dans votre stratégie d'investissement. Votre futur vous remerciera !</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocContainer = document.getElementById('toc-container');
+            const closeToc = document.getElementById('close-toc');
+            
+            // Toggle TOC visibility
+            tocToggle.addEventListener('click', function() {
+                tocContainer.classList.toggle('visible');
+            });
+            
+            // Close TOC
+            closeToc.addEventListener('click', function() {
+                tocContainer.classList.remove('visible');
+            });
+            
+            // Close TOC when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!tocContainer.contains(event.target) && 
+                    !tocToggle.contains(event.target) && 
+                    tocContainer.classList.contains('visible')) {
+                    tocContainer.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close TOC after clicking on a link
+                        tocContainer.classList.remove('visible');
+                    }
+                });
+            });
+            
+            // Progress animation
+            setTimeout(() => {
+                document.getElementById('diversification-progress').style.width = '85%';
+                document.getElementById('step1').classList.add('active');
+                document.getElementById('step2').classList.add('active');
+                document.getElementById('step3').classList.add('active');
+                document.getElementById('step4').classList.add('active');
+            }, 1000);
+            
+            // Risk pointer animation
+            setTimeout(() => {
+                document.getElementById('risk-pointer').style.left = '65%';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

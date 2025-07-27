@@ -6,10 +6,13 @@ const email = ref('')
 const success = ref('')
 const error = ref('')
 
+
 const submit = async () => {
   console.log(email.value)
   try {
-    await axios.post('http://localhost:8000/users/forgot-password', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    await axios.post(`${apiBase}/users/forgot-password`, {
       email: email.value
     })
     success.value = "Un lien de réinitialisation a été envoyé à votre adresse email."

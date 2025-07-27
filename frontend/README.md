@@ -73,3 +73,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+
+PYTHONPATH=. uvicorn main:app --reload
+
+
+# Scrapper
+
+python scripts/run_scraping.py 

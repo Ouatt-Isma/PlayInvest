@@ -12,6 +12,7 @@ const message = ref('')
 const error = ref('')
 const loading = ref(false)
 
+
 const resetPassword = async () => {
   error.value = ''
   message.value = ''
@@ -23,8 +24,9 @@ const resetPassword = async () => {
   try {
     loading.value = true
     const token = route.query.token
-
-    await axios.post('http://localhost:8000/users/reset-password', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    await axios.post(`${apiBase}/users/reset-password`, {
       token,
       new_password: password.value
     })

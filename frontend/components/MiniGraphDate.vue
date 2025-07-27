@@ -32,6 +32,9 @@ const maxValue = ref(null)
 const fromDate = ref('')
 const toDate = ref('')
 
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase 
+
 // Chart Options
 const chartOptions = computed(() => ({
   responsive: true,
@@ -86,7 +89,7 @@ const fetchGraphData = async () => {
 
   try {
     const res = await fetch(
-      `http://localhost:8000/api/graph/${props.symbol}?start_date=${props.startDate}&end_date=${props.endDate}`
+      `${apiBase}/api/graph/${props.symbol}?start_date=${props.startDate}&end_date=${props.endDate}`
     )
     const data = await res.json()
 

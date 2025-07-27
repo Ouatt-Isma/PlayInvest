@@ -184,7 +184,9 @@ function formatDate(dateStr) {
 onMounted(async () => {
   try {
     currency.value = localStorage.getItem("currency")
-    const res = await axios.get('http://localhost:8000/api/assets')
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.get(`${apiBase}/api/assets`)
     assets.value = res.data
     console.log(assets.value)
     if (assets.value.length) {
@@ -211,7 +213,7 @@ onMounted(async () => {
 
 //   try {
 //     loading.value = true
-//     const res = await axios.post('http://localhost:8000/simulator/pastperf', {
+//     const res = await axios.post(`${apiBase}/simulator/pastperf`, {
 //       asset_id: selectedAssetId.value,
 //       amount: amount.value,
 //       start_date: startDate.value,
@@ -238,7 +240,9 @@ const simulate = async () => {
   }
 
   try {
-    const res = await axios.post('http://localhost:8000/simulator/pastperf', {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.post(`${apiBase}/simulator/pastperf`, {
       asset_id: selectedAssetId.value,
       amount: amount.value,
       start_date: startDate.value,

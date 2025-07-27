@@ -1,34 +1,3 @@
-<!-- <script setup>
-import ActifFilters from '~/components/ActifFilters.vue'
-import AssetsTable from '~/components/AssetsTable.vue'
-import Portfolio from '~/components/Portfolio.vue'
-import InvestmentHistory from '~/components/InvestmentHistory.vue'
-import PerfPlot from '~/components/PerfPlot.vue'
-import PastPerfSimulator from '~/components/PastPerfSimulator.vue'
-PerfPlot
-definePageMeta({
-  layout: 'connected',
-  middleware: 'auth'
-})
-import { ref } from 'vue'
-const filteredAssets = ref([])
-</script> -->
-<!-- 
-<template>
-  <div>
-    <ActifFilters @update:graphPeriod="graphPeriod = $event"  @update:assets="filteredAssets = $event" />
-
-    <AssetsTable :assets="filteredAssets" :graphPeriod="graphPeriod" :key="graphPeriod" />
-
-  <Portfolio/>
-  <InvestmentHistory/>
-
-     <PerfPlot/>
-     <PastPerfSimulator/>
-  </div>
-</template> -->
-
-
 <template>
   <div class="p-6 bg-gray-50 min-h-screen">
     <!-- Header -->
@@ -98,7 +67,18 @@ const filteredAssets = ref([])
 
 </template>
 
-<script setup>
+
+<script>
+// import { useAuth } from '~/composables/useAuth'
+
+// export default {
+//   layout() {
+//     const { isAuthenticated } = useAuth()
+//     return isAuthenticated.value ? 'connected' : 'default'
+//   }
+// }
+
+
 import Portfolio from '~/components/Portfolio.vue'
 import InvestmentHistory from '~/components/InvestmentHistory.vue'
 import PastPerfSimulator from '~/components/PastPerfSimulator.vue'

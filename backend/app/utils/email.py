@@ -23,9 +23,9 @@ Merci !
 
     await aiosmtplib.send(
         message,
-        hostname="smtp.gmail.com",
-        port=587,
-        start_tls=True,
+        hostname=settings.hostname,
+        port=settings.port,
+        start_tls=settings.start_tls,
         username=settings.EMAIL,
         password=settings.EMAIL_PWD  # Use app password for Gmail
     )
@@ -53,9 +53,36 @@ PlayInvest
 
     await aiosmtplib.send(
         message,
-        hostname="smtp.gmail.com",
-        port=587,
-        start_tls=True,
+        hostname=settings.hostname,
+        port=settings.port,
+        start_tls=settings.start_tls,
+        username=settings.EMAIL,
+        password=settings.EMAIL_PWD
+    )
+
+async def send_godfather_email(to_email: str, username: str, username_f: str):
+    message = EmailMessage()
+    message["From"] = settings.EMAIL
+    message["To"] = to_email
+    message["Subject"] = ""
+    message.set_content(f"""
+Bonjour {username},
+
+Bonne nouvelle ! Un nouvel utilisateur ({username_f}) vient de vous désigner comme parrain lors de son inscription.
+
+En guise de remerciement, votre solde vient d’être crédité de {settings.amount_godfather}, {settings.currency}. 🎁
+Vous pouvez consulter votre nouveau solde depuis votre espace personnel: {settings.FRONTEND_URL}/dashboard .
+
+Merci pour votre confiance et votre engagement. Continuez à parrainer pour cumuler encore plus de récompenses !
+
+À très bientôt,
+""")
+
+    await aiosmtplib.send(
+        message,
+        hostname=settings.hostname,
+        port=settings.port,
+        start_tls=settings.start_tls,
         username=settings.EMAIL,
         password=settings.EMAIL_PWD
     )

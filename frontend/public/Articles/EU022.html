@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qu'est-ce qu'un ETF profilé? Guide complet - Finary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Couleurs Finary */
+            --finary-primary: #141145;
+            --finary-secondary: #7A2D8D;
+            --finary-accent: #5682F2;
+            --finary-light: #F1F2F6;
+            --finary-dark: #0A0A1D;
+            --finary-gold: #F1C086;
+            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
+            --finary-success: #4CAF50;
+            --finary-warning: #FFC107;
+            --finary-info: #2196F3;
+            --finary-error: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Table des matières */
+        #toc-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #eee;
+            display: none;
+        }
+        
+        #toc-container.visible {
+            display: block;
+        }
+        
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .close-toc {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-toc:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #toc-list {
+            list-style-type: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        #toc-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        #toc-list a:hover {
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+        }
+        
+        #toc-list .h2-link {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        #toc-list .h3-link {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--finary-gradient);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toc-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        /* Article Header */
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: var(--finary-primary);
+            font-weight: 700;
+            max-width: 800px;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--finary-primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--finary-secondary);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content ul {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--finary-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Callout boxes - Style Finary */
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: var(--finary-success);
+        }
+        
+        .callout.success::before {
+            background: var(--finary-success);
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: var(--finary-warning);
+        }
+        
+        .callout.warning::before {
+            background: var(--finary-warning);
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--finary-info);
+        }
+        
+        .callout.info::before {
+            background: var(--finary-info);
+        }
+        
+        .callout.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-color: var(--finary-error);
+        }
+        
+        .callout.error::before {
+            background: var(--finary-error);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--finary-primary);
+        }
+        
+        /* Tables - Style Finary */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: #f5f5f7;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            #toc-container {
+                width: 280px;
+                right: 10px;
+                left: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            #toc-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton pour afficher la table des matières -->
+    <button class="toc-toggle" id="toc-toggle">
+        <i class="fas fa-list"></i>
+    </button>
+    
+    <!-- Table des matières -->
+    <div id="toc-container">
+        <div class="toc-header">
+            <div class="toc-title">Sommaire de l'article</div>
+            <button class="close-toc" id="close-toc">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul id="toc-list">
+            <li><a href="#definition" class="h2-link">ETF profilé : définition et fonctionnement</a></li>
+            <li><a href="#qu-est-ce" class="h3-link">Qu'est-ce qu'un ETF profilé ?</a></li>
+            <li><a href="#fonctionnement" class="h3-link">Fonctionnement d'un ETF profilé</a></li>
+            <li><a href="#etf-profile-vs-classique" class="h3-link">ETF profilé vs ETF classique</a></li>
+            
+            <li><a href="#types" class="h2-link">Types d'ETF profilés</a></li>
+            <li><a href="#allocation-fixe" class="h3-link">ETF à allocation d'actifs fixe</a></li>
+            <li><a href="#cycle-vie" class="h3-link">ETF à cycle de vie (à date cible)</a></li>
+            
+            <li><a href="#avantages-inconvenients" class="h2-link">Avantages et inconvénients</a></li>
+            <li><a href="#avantages" class="h3-link">Avantages d'un ETF profilé</a></li>
+            <li><a href="#inconvenients" class="h3-link">Inconvénients d'un ETF profilé</a></li>
+            
+            <li><a href="#exemples" class="h2-link">Exemples d'ETF profilés</a></li>
+            <li><a href="#vanguard" class="h3-link">Vanguard LifeStrategy</a></li>
+            <li><a href="#ishares" class="h3-link">iShares Core Allocation</a></li>
+            <li><a href="#amundi" class="h3-link">Amundi Lifecycle</a></li>
+            
+            <li><a href="#choisir" class="h2-link">Comment choisir un ETF profilé ?</a></li>
+            <li><a href="#profil" class="h3-link">Déterminer son profil d'investisseur</a></li>
+            <li><a href="#objectifs" class="h3-link">Comprendre ses objectifs financiers</a></li>
+            <li><a href="#risque" class="h3-link">Choisir le bon niveau de risque</a></li>
+            
+            <li><a href="#comparaison" class="h2-link">ETF profilé vs gestion pilotée</a></li>
+            <li><a href="#conclusion" class="h2-link">Pour conclure</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">Qu'est-ce qu'un ETF profilé? Guide complet</h1>
+        </div>
+        
+        <!-- Featured Image -->
+        <img src="#" alt="Qu'est-ce qu'un ETF profilé? Guide complet" class="featured-image">
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <p>Investir comme un professionnel devient possible, même sans analyser des graphiques boursiers ou gérer des dizaines d'ETF. Cette accessibilité résume la promesse des ETF profilés. Ces instruments financiers ont transformé la manière dont de nombreux particuliers construisent leur patrimoine.</p>
+            
+            <div class="callout success">
+                <div class="callout-title">Les éléments clés :</div>
+                <ul>
+                    <li>Les ETF profilés offrent une gestion simplifiée, automatisée et diversifiée selon un niveau de risque ou un objectif, sans exiger de compétences avancées en investissement.</li>
+                    <li>Ces produits présentent des frais bas, une transparence importante et réduisent les erreurs émotionnelles, mais limitent la personnalisation et peuvent présenter des superpositions d'actifs.</li>
+                    <li>Choisir un ETF profilé adapté exige de bien connaître son profil de risque et ses objectifs, car chaque offre propose des allocations et degrés de risques différents.</li>
+                </ul>
+            </div>
+            
+            <h2 id="definition">ETF profilé : définition et fonctionnement</h2>
+            
+            <h3 id="qu-est-ce">Qu'est-ce qu'un ETF profilé ?</h3>
+            <p>Un investisseur peut se sentir dépassé par la complexité des marchés financiers. Il souhaite souvent un portefeuille qui s'adapte à ses besoins, sans devoir gérer de nombreux produits différents.</p>
+            <p><strong>L'ETF profilé répond à ce besoin en proposant une solution d'investissement conçue pour correspondre à un profil de risque ou à un objectif précis dans le temps.</strong></p>
+            
+            <div class="callout warning">
+                <p>Ce type d'ETF ne constitue pas une catégorie officielle, mais il s'impose comme une réponse pratique de l'industrie financière.</p>
+            </div>
+            
+            <p>Un ETF profilé fonctionne comme un fonds coté en bourse. Il investit dans un ensemble d'autres ETF (actions, obligations, parfois immobilier ou matières premières) selon une stratégie prédéfinie.</p>
+            <p><strong>Cette stratégie détermine le niveau de risque (prudent, équilibré, dynamique) ou l'horizon d'investissement (par exemple, la retraite en 2040).</strong> L'investisseur n'a plus à arbitrer entre différentes classes d'actifs : le produit gère automatiquement ces choix, en suivant des règles claires.</p>
+            <p>L'ETF profilé se distingue par sa capacité à simplifier la gestion d'un portefeuille tout en maintenant une diversification solide.</p>
+            
+            <h3 id="fonctionnement">Fonctionnement d'un ETF profilé</h3>
+            <p>Un ETF profilé "équilibré" peut répartir 60 % de ses actifs dans des ETF actions mondiales et 40 % dans des ETF obligataires. Cette répartition ne résulte pas du hasard. Elle s'appuie sur une analyse approfondie des profils d'investisseurs et des cycles de marché.</p>
+            <p>Les marchés changent constamment : parfois, les actions surpassent les obligations, parfois l'inverse. L'ETF profilé ajuste alors régulièrement la répartition. Il vend une partie des actifs qui ont trop progressé et rachète ceux qui ont reculé, pour revenir à l'allocation cible.</p>
+            <p><strong>Ce rééquilibrage automatique impose une discipline précieuse, souvent négligée par les investisseurs individuels, et protège contre les biais émotionnels, comme la tentation de conserver uniquement les actifs en hausse.</strong></p>
+            <p>Certains ETF profilés vont encore plus loin en adaptant leur allocation au fil du temps.</p>
+            <p>Les ETF à "cycle de vie" illustrent cette approche : leur composition devient progressivement plus prudente à mesure que l'échéance approche. <strong>Plus l'investisseur se rapproche du moment où il aura besoin de son capital, moins il s'expose aux actifs volatils.</strong></p>
+            
+            <h3 id="etf-profile-vs-classique">ETF profilé vs ETF classique</h3>
+            <p>La distinction entre un ETF profilé et un ETF classique apparaît clairement dès qu'on examine leur fonctionnement.</p>
+            <p>Un ETF classique suit un indice précis, comme le CAC 40 ou le S&P 500, sans tenir compte du profil de l'investisseur. Il offre une exposition directe à un marché, sans ajustement.</p>
+            <p>À l'inverse, l'ETF profilé combine plusieurs indices, ajuste les proportions et veille à maintenir une cohérence avec un objectif de risque ou de durée. <strong>L'ETF profilé agit comme un chef d'orchestre, alors que l'ETF classique se contente de suivre la partition.</strong></p>
+            
+            <h2 id="types">Types d'ETF profilés</h2>
+            
+            <h3 id="allocation-fixe">ETF à allocation d'actifs fixe</h3>
+            <p>L'ETF à allocation d'actifs fixe fonctionne comme un pilote automatique pour votre portefeuille. Il suit une trajectoire définie dès le départ, sans dévier, même lorsque les marchés deviennent volatils.</p>
+            <p>Ce type d'ETF combine un mélange précis d'actions et d'obligations, par exemple 60% d'actions et 40% d'obligations, et maintient cette répartition de façon rigoureuse.</p>
+            <p><strong>La discipline de ces ETF se manifeste par un rééquilibrage régulier de la répartition.</strong> Si la part des actions dépasse le niveau prévu, l'ETF vend une partie de ces actions pour acheter des obligations, et inversement.</p>
+            <p>Cependant, cette rigidité présente des limites. L'ETF ne prend pas en compte l'évolution de votre situation personnelle ni les changements majeurs dans l'économie mondiale. Il ne s'ajuste pas si, à 55 ans, votre tolérance au risque diminue. <strong>Cet outil impose une discipline, mais il ne permet pas de personnalisation.</strong></p>
+            
+            <h3 id="cycle-vie">ETF à cycle de vie (à date cible)</h3>
+            <p>L'ETF à cycle de vie fonctionne différemment. Sa répartition entre actions et obligations évolue au fil du temps, selon une trajectoire prédéfinie appelée « glide path ».</p>
+            <p>Plus la date cible approche (souvent la retraite), plus l'ETF réduit l'exposition aux actions pour privilégier la sécurité des obligations.</p>
+            <p>Ce modèle s'inspire des plans d'épargne retraite américains. Beaucoup d'épargnants ne savent pas quand ni comment réduire le risque de leur portefeuille. L'ETF à cycle de vie automatise cette transition, ce qui permet d'éviter les erreurs de timing ou l'oubli de sécuriser son capital à l'approche de l'échéance.</p>
+            
+            <h2 id="avantages-inconvenients">Avantages et inconvénients des ETF profilés</h2>
+            
+            <h3 id="avantages">Avantages d'un ETF profilé : diversification, simplicité, coût</h3>
+            <p><strong>La diversification intégrée constitue l'un des principaux atouts.</strong> En une seule opération, vous accédez à des centaines, parfois des milliers de titres, répartis sur plusieurs zones géographiques et classes d'actifs. Cela revient à confier la gestion d'un portefeuille mondial à une équipe d'experts, mais sans payer des frais élevés.</p>
+            <p>La simplicité ne relève pas seulement du marketing. Pour de nombreux investisseurs, gérer un portefeuille s'apparente à une tâche fastidieuse : arbitrer, rééquilibrer, surveiller les marchés prend du temps et expose à des erreurs émotionnelles.</p>
+            <p><strong>Les frais réduits représentent un autre avantage majeur.</strong> Les ETF profilés s'inscrivent dans la logique des produits passifs : frais de gestion faibles, pas de commissions d'entrée ou de sortie, et une transparence sur la structure des coûts.</p>
+            <p>Le TER varie généralement entre 0,18 % et 0,25 % pour les principaux acteurs du marché. La où les fonds équilibrés traditionnels dépassent souvent 1,5 % par an. Sur 20 ans, cet écart peut représenter plusieurs années d'épargne.</p>
+            <p>Un bénéfice moins visible, mais important, concerne l'<strong>effet "anti-procrastination"</strong>. Beaucoup d'épargnants hésitent à investir à cause de la complexité ou de la peur de se tromper. L'ETF profilé réduit ces obstacles et facilite le passage à l'action.</p>
+            
+            <h3 id="inconvenients">Inconvénients d'un ETF profilé : rigidité, frais cachés</h3>
+            <p>L'ETF profilé présente aussi des limites. Il impose une allocation standardisée, ce qui correspond à une solution "prêt-à-porter". Si votre situation patrimoniale sort de l'ordinaire ou si vous avez des préférences marquées (par exemple, pour l'ESG ou contre le dollar), l'ETF profilé peut ne pas répondre à vos attentes. Il ne s'adapte pas à vos choix personnels ni à l'évolution de votre vie (héritage, changement professionnel, etc.).</p>
+            
+            <div class="callout error">
+                <p>Les ETF profilés se concentrent principalement sur les actions et obligations cotées ; ils n'incluent généralement pas d'actifs alternatifs comme l'immobilier non coté ou le private equity.</p>
+            </div>
+            
+            <p><strong>La superposition des frais constitue un point à surveiller.</strong> Même si le TER affiché reste bas, il additionne les frais de l'ETF profilé et ceux des ETF sous-jacents.</p>
+            <p>Un investisseur expérimenté, prêt à gérer lui-même son allocation, pourrait économiser quelques points de base en construisant son portefeuille à la main. Sur de gros montants ou sur le long terme, la différence peut devenir significative.</p>
+            <p>Un autre risque concerne le <strong>chevauchement</strong>. Si vous détenez déjà d'autres fonds ou ETF, ajouter un ETF profilé peut entraîner des doublons invisibles. Vous pensez diversifier, mais vous vous exposez davantage à certains marchés ou secteurs. Ce phénomène peut fausser la perception de votre risque réel.</p>
+            
+            <h2 id="exemples">Exemples d'ETF profilés</h2>
+            <p>L'univers des ETF profilés évolue constamment. Chaque fournisseur propose sa propre vision de l'investissement "clé en main". <strong>Derrière des noms similaires, chaque gamme adopte une approche différente de la diversification, du risque et de la gestion.</strong> Pour comprendre ces différences, il faut examiner la structure de chaque produit, au-delà de l'étiquette.</p>
+            
+            <h3 id="vanguard">Vanguard LifeStrategy</h3>
+            <p>Vanguard, pionnier de la gestion passive, commercialise la gamme LifeStrategy : des ETF "tout-en-un" lancés fin 2020 qui assurent une exposition diversifiée aux marchés mondiaux via plus de 20 000 titres.</p>
+            <p>À chacun son profil avec quatre allocations mêlant actions et obligations, de 20/80 % (prudents) à 80/20 % (dynamiques).</p>
+            <p>Grâce au rééquilibrage automatique, l'allocation cible est respectée en permanence, offrant une gestion disciplinée sans intervention émotionnelle. Autre atout : leur TER attractif de 0,25%.</p>
+            
+            <h3 id="ishares">iShares Core Allocation / Portfolio</h3>
+            <p>BlackRock offre des solutions d'investissement "tout-en-un" avec une diversification automatique à travers actions et obligations mondiales.</p>
+            <p>Il s'adapte à différents profils de risque grâce à plusieurs répartitions (30/70, 40/60, 60/40, 80/20, 100/0).</p>
+            <p>Une équipe de gestion ajuste l'allocation tout en maintenant l'exposition cible. Cela assure ainsi le rééquilibrage du portefeuille avec des frais réduits (0,15 % à 0,18 %).</p>
+            <p>Les variantes ESG sélectionnent en plus les actifs selon des critères environnementaux et sociaux, pour répondre aux attentes des investisseurs soucieux de durabilité.</p>
+            
+            <h3 id="amundi">Amundi Lifecycle</h3>
+            <p>Chez Amundi, la gamme Lifecycle fonctionne différemment : chaque ETF vise une année cible précise (2030, 2033, 2036 ou 2039).</p>
+            <p>L'exposition actions est forte au départ, afin de maximiser la croissance, puis diminue progressivement. Son TER est très bas (0,18 %). La version européenne d'Amundi Lifecycle est en format capitalisant : tous les revenus sont automatiquement réinvestis, ce qui favorise l'effet boule de neige à long terme.</p>
+            
+            <p>Le tableau ci-dessous met en évidence les principales différences entre ces gammes :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Fournisseur</th>
+                        <th>Gamme</th>
+                        <th>Stratégie</th>
+                        <th>Profils/Date cible</th>
+                        <th>Actions (%)</th>
+                        <th>TER (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vanguard</td>
+                        <td>LifeStrategy</td>
+                        <td>Allocation fixe</td>
+                        <td>20/40/60/80% actions</td>
+                        <td>20/40/60/80</td>
+                        <td>0,25</td>
+                    </tr>
+                    <tr>
+                        <td>BlackRock</td>
+                        <td>iShares Portfolio</td>
+                        <td>Allocation flexible</td>
+                        <td>Modéré/Équilibré/Croissance</td>
+                        <td>Variable</td>
+                        <td>0,25</td>
+                    </tr>
+                    <tr>
+                        <td>Amundi</td>
+                        <td>Lifecycle</td>
+                        <td>Cycle de vie</td>
+                        <td>2030/2033/2036/2039</td>
+                        <td>Décroissante</td>
+                        <td>0,18</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p>Ce tableau ne couvre pas tous les aspects. Par exemple, deux ETF "équilibrés" peuvent adopter des stratégies très différentes : l'un privilégie les marchés développés, l'autre inclut les marchés émergents. Certains couvrent le risque de change, d'autres non. <strong>Les ETF profilés ne sont donc pas interchangeables, même si leurs noms se ressemblent.</strong></p>
+            
+            <h2 id="choisir">Comment choisir un ETF profilé ?</h2>
+            
+            <h3 id="profil">Déterminer son profil d'investisseur</h3>
+            <p>Les questionnaires rapides ne suffisent pas à définir votre profil d'investisseur. <strong>Comprendre sa tolérance au risque demande une réflexion personnelle, qui prend en compte vos émotions, votre expérience et vos contraintes.</strong></p>
+            
+            <p>Un investisseur prudent ne fuit pas seulement la volatilité. Il peut vouloir protéger l'avenir de ses enfants ou équilibrer le risque déjà pris dans son entreprise. À l'inverse, un investisseur dynamique n'est pas toujours jeune. Un retraité avec un patrimoine important peut accepter plus de fluctuations pour transmettre davantage à ses héritiers.</p>
+            <p>Pour avancer, posez-vous deux questions précises :</p>
+            <ul>
+                <li><strong>Combien pouvez-vous perdre sans paniquer ni vendre au mauvais moment ?</strong></li>
+                <li><strong>Quel est le véritable objectif de cet argent ?</strong></li>
+            </ul>
+            <p>Cet exercice demande de l'honnêteté et parfois du courage. <strong>Un ETF profilé ne compensera jamais une mauvaise connaissance de soi.</strong></p>
+            
+            <h3 id="objectifs">Comprendre ses objectifs financiers</h3>
+            <p><strong>Chaque objectif financier influence le choix de votre ETF profilé</strong>. Préparer la retraite, financer les études d'un enfant, acheter une résidence secondaire ou changer de vie à 50 ans : chaque projet impose un horizon de placement, un besoin de liquidité et une tolérance à la volatilité.</p>
+            <p>Un ETF à cycle de vie convient à ceux qui ont une échéance précise. Mais la vie réserve des surprises : licenciement, opportunité à l'étranger, divorce... Les plans changent.</p>
+            <p>Avant de choisir, demandez-vous :</p>
+            <ul>
+                <li><strong>Pouvez-vous laisser cet argent investi pendant 10 ou 20 ans sans y toucher ?</strong></li>
+            </ul>
+            <p>Si ce n'est pas possible, privilégiez la flexibilité d'un ETF à allocation fixe. Vous pourrez ainsi ajuster le niveau de risque selon vos besoins.</p>
+            
+            <h3 id="risque">Choisir le bon niveau de risque</h3>
+            <p>Les étiquettes comme "prudent", "équilibré" ou "dynamique" varient selon les fournisseurs. <strong>Le niveau de risque réel se trouve dans la composition du portefeuille, pas dans le nom du produit.</strong></p>
+            <p>Par exemple, un ETF "équilibré" peut contenir 60 % d'actions chez un fournisseur, 50 % chez un autre. Certains incluent des obligations émergentes, d'autres non.</p>
+            <p>Pour évaluer le risque, examinez :</p>
+            <ul>
+                <li>Le DIC et le prospectus</li>
+                <li>La répartition géographique et sectorielle</li>
+                <li>La part d'actions américaines</li>
+                <li>La présence ou non d'une couverture de change</li>
+            </ul>
+            <p><strong>Le risque ne se limite pas à la volatilité.</strong> Il inclut aussi le risque de concentration, de change et de taux.</p>
+            
+            <h2 id="comparaison">ETF profilé vs gestion pilotée</h2>
+            <p>La gestion pilotée fonctionne comme un service où vous déléguez la gestion de votre portefeuille à des professionnels. Vous définissez votre profil de risque et vos objectifs, puis l'équipe ajuste régulièrement la composition de votre portefeuille en fonction des conditions du marché.</p>
+            <p>L'ETF profilé, en revanche, propose une approche automatisée. Vous sélectionnez un niveau de risque (prudent, équilibré, dynamique), et le portefeuille suit une allocation prédéfinie, sans intervention humaine pendant la durée de l'investissement.</p>
+            
+            <p><strong>La principale différence entre ces deux méthodes concerne la flexibilité et le coût.</strong></p>
+            <ul>
+                <li>La gestion pilotée ajuste en continu la répartition de vos actifs. Par exemple, le gestionnaire peut réduire la part d'actions en cas de volatilité, intégrer de l'immobilier ou du private equity, ou saisir des opportunités ponctuelles.</li>
+                <li>Cette gestion active entraîne des frais supplémentaires : en plus des frais des supports, les frais de gestion pilotée s'élèvent souvent à 1 à 2% par an, voire davantage. Sur le long terme, ces frais réduisent significativement la performance de votre portefeuille.</li>
+            </ul>
+            <p>L'ETF profilé, de son côté, applique une stratégie stricte :</p>
+            <ul>
+                <li>Allocation fixe selon le profil choisi</li>
+                <li>Rééquilibrage automatique</li>
+                <li>Aucun ajustement tactique en cas de crise</li>
+                <li>Pas d'accès à des classes d'actifs non cotées</li>
+            </ul>
+            <p><strong>Cette discipline mécanique présente deux avantages majeurs : des frais très faibles et l'absence de biais émotionnels.</strong> Cependant, elle ne permet pas de réagir aux événements de marché exceptionnels.</p>
+            
+            <h2 id="conclusion">Pour conclure</h2>
+            <p>Aujourd'hui, face à une offre d'investissement très large, la question essentielle n'est plus "quel produit est le meilleur ?", mais "quel produit correspond le mieux à mes besoins, ici et maintenant ?".</p>
+            <p><strong>L'ETF profilé, grâce à sa simplicité, invite à cette réflexion personnelle</strong>, ce qui constitue sans doute son principal atout.</p>
+            <p><strong>Ces produits combinent les avantages des ETF classiques, comme des frais réduits, une transparence accrue et une exposition à de nombreux marchés, avec une allocation d'actifs déjà structurée</strong>.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocContainer = document.getElementById('toc-container');
+            const closeToc = document.getElementById('close-toc');
+            
+            // Toggle TOC visibility
+            tocToggle.addEventListener('click', function() {
+                tocContainer.classList.toggle('visible');
+            });
+            
+            // Close TOC
+            closeToc.addEventListener('click', function() {
+                tocContainer.classList.remove('visible');
+            });
+            
+            // Close TOC when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!tocContainer.contains(event.target) && 
+                    !tocToggle.contains(event.target) && 
+                    tocContainer.classList.contains('visible')) {
+                    tocContainer.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close TOC after clicking on a link
+                        tocContainer.classList.remove('visible');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -2,8 +2,10 @@
   
     <div>
       <HeaderDashboard />
+      <BandeauTicker/>
       
-      <main class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+       <main class="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white pt-[60px]">
+ 
   <!-- your content -->
         
         <slot />
@@ -17,5 +19,6 @@
   <script setup>
   import HeaderDashboard from '@/components/HeaderDashboard.vue'
   import Footer from '@/components/Footer.vue'
+  import BandeauTicker from '@/components/BandeauTicker.vue'
   </script>
-  
+ 

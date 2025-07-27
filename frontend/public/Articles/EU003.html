@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement de 200€ par mois - Votre avenir financier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #1565c0;
+            --accent: #ff8f00;
+            --dark: #37474f;
+            --light-bg: #f5f5f5;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --info: #2196f3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--info);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--dark);
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 500;
+        }
+        
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .key-point {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .key-point:nth-child(1) {
+            border-top: 4px solid var(--primary);
+        }
+        
+        .key-point:nth-child(2) {
+            border-top: 4px solid var(--accent);
+        }
+        
+        .key-point:nth-child(3) {
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .key-point:nth-child(4) {
+            border-top: 4px solid var(--success);
+        }
+        
+        .key-point:hover {
+            transform: translateY(-5px);
+        }
+        
+        .key-point i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .key-point:nth-child(1) i {
+            color: var(--primary);
+        }
+        
+        .key-point:nth-child(2) i {
+            color: var(--accent);
+        }
+        
+        .key-point:nth-child(3) i {
+            color: var(--secondary);
+        }
+        
+        .key-point:nth-child(4) i {
+            color: var(--success);
+        }
+        
+        .key-point h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
+        }
+        
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--dark);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--primary);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(46, 125, 50, 0.08);
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: #4CAF50;
+        }
+        
+        .callout.success::before {
+            background: #4CAF50;
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: #2196F3;
+        }
+        
+        .callout.info::before {
+            background: #2196F3;
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: #FFC107;
+        }
+        
+        .callout.warning::before {
+            background: #FFC107;
+        }
+        
+        .callout.primary {
+            background-color: rgba(46, 125, 50, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .callout.primary::before {
+            background: var(--primary);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:nth-child(1) {
+            border-left: 5px solid var(--primary);
+        }
+        
+        .benefit-card:nth-child(2) {
+            border-left: 5px solid var(--accent);
+        }
+        
+        .benefit-card:nth-child(3) {
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card:nth-child(1) .benefit-icon {
+            color: var(--primary);
+        }
+        
+        .benefit-card:nth-child(2) .benefit-icon {
+            color: var(--accent);
+        }
+        
+        .benefit-card:nth-child(3) .benefit-icon {
+            color: var(--secondary);
+        }
+        
+        .benefit-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .benefit-description {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .investment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .investment-table th {
+            background-color: var(--dark);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 15px;
+        }
+        
+        .investment-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .investment-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .investment-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .investment-table .low-risk {
+            color: var(--success);
+            font-weight: 500;
+        }
+        
+        .investment-table .medium-risk {
+            color: var(--warning);
+            font-weight: 500;
+        }
+        
+        .investment-table .high-risk {
+            color: var(--error);
+            font-weight: 500;
+        }
+        
+        .simulator-container {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            color: white;
+        }
+        
+        .simulator-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .simulator-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .simulator-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .simulator-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .simulate-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            width: 250px;
+        }
+        
+        .simulate-btn:hover {
+            background: #e07b00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .simulator-result {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .result-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .result-category {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .result-category.principal {
+            border-top: 4px solid var(--primary);
+        }
+        
+        .result-category.interest {
+            border-top: 4px solid var(--accent);
+        }
+        
+        .result-category.total {
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .category-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .category-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-top: 30px;
+        }
+        
+        .disclaimer {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 20px;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .projection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .projection-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projection-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .projection-card .years {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .projection-card .amount {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .projection-card .details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .projection-card .details span {
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .projection-card .growth {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-bottom-left-radius: 12px;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            .simulator-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-values {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">200€ placés chaque mois : votre meilleur allié financier</h1>
+            <div class="article-subtitle">Découvrez comment une épargne régulière peut transformer votre avenir financier</div>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 15 min de lecture
+            </div>
+            
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Après 20 ans à 5%</h3>
+                    <p>82 752 € dont 34 752 € de rendements</p>
+                </div>
+                <div class="key-point">
+                    <i class="fas fa-magic"></i>
+                    <h3>Intérêts composés</h3>
+                    <p>La puissance des intérêts qui travaillent pour vous</p>
+                </div>
+                <div class="key-point">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h3>Commencez tôt</h3>
+                    <p>Chaque année compte grâce aux intérêts composés</p>
+                </div>
+                <div class="key-point">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Choix du placement</h3>
+                    <p>Influence considérablement le résultat final</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Featured Image -->
+        <div class="featured-image">
+            La puissance des intérêts composés : transformez votre épargne régulière en véritable machine à créer du capital
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <h2>Introduction</h2>
+            <p>Placer 200€ chaque mois peut sembler modeste, mais cette discipline d'épargne régulière est l'une des stratégies les plus puissantes pour bâtir un patrimoine solide. Contrairement à une vision à court terme, cette approche exploite la puissance des intérêts composés sur le long terme.</p>
+            
+            <p>Dans cet article, nous allons explorer combien peuvent réellement rapporter 200€ placés mensuellement selon différents scénarios de rendement et différentes durées. Vous découvrirez comment cette somme, apparemment modeste, peut se transformer en capital conséquent grâce à la magie des mathématiques financières.</p>
+            
+            <div class="callout primary">
+                <div class="callout-title">La règle d'or de l'épargne</div>
+                <p>Ce n'est pas le montant qui compte le plus, mais la régularité et la durée. Commencer tôt avec un petit montant est souvent plus efficace que de commencer tard avec un gros montant.</p>
+            </div>
+            
+            <h2>La puissance des intérêts composés</h2>
+            <p>Les intérêts composés sont souvent qualifiés de "huitième merveille du monde" par les financiers. Ce mécanisme permet à votre argent de travailler pour vous : les intérêts générés produisent à leur tour des intérêts, créant ainsi un effet boule de neige.</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="benefit-title">Effet boule de neige</div>
+                    <div class="benefit-description">Vos intérêts génèrent à leur tour des intérêts, créant une croissance exponentielle de votre capital au fil du temps.</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-hourglass-start"></i></div>
+                    <div class="benefit-title">L'avantage du temps</div>
+                    <div class="benefit-description">Plus vous commencez tôt, plus le temps travaille pour vous. Un démarrage à 25 ans plutôt qu'à 35 ans peut doubler votre capital final.</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-calendar"></i></div>
+                    <div class="benefit-title">Régularité avant tout</div>
+                    <div class="benefit-description">L'épargne mensuelle constante est plus efficace qu'une grosse somme ponctuelle grâce à la capitalisation régulière.</div>
+                </div>
+            </div>
+            
+            <div class="callout info">
+                <div class="callout-title">Formule des intérêts composés</div>
+                <p>La valeur future de votre épargne se calcule avec la formule : VF = P × [(1 + r)^n - 1] / r</p>
+                <p>Où :<br>
+                VF = Valeur future<br>
+                P = Versement mensuel (200€)<br>
+                r = Taux d'intérêt mensuel (taux annuel / 12)<br>
+                n = Nombre de mois</p>
+            </div>
+            
+            <h2>Pourquoi 200€ par mois ?</h2>
+            <p>200€ mensuels représentent un effort d'épargne accessible pour beaucoup de foyers. Cela correspond à :</p>
+            
+            <div class="projection-grid">
+                <div class="projection-card">
+                    <div class="years">Moins de 7€ par jour</div>
+                    <p>L'équivalent d'un café et d'une pâtisserie par jour</p>
+                </div>
+                
+                <div class="projection-card">
+                    <div class="years">2 repas au restaurant</div>
+                    <p>Ou quelques abonnements non essentiels</p>
+                </div>
+                
+                <div class="projection-card">
+                    <div class="years">Une réallocation</div>
+                    <p>En optimisant vos dépenses superflues</p>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <div class="callout-title">Attention à l'inflation</div>
+                <p>Pensez à réévaluer régulièrement votre épargne mensuelle pour maintenir votre pouvoir d'achat. Une augmentation de 2% par an permet de compenser l'inflation moyenne.</p>
+            </div>
+            
+            <h2>Projections selon la durée</h2>
+            <p>Voici ce que deviennent vos 200€ placés chaque mois à un rendement annuel de 5% :</p>
+            
+            <div class="projection-grid">
+                <div class="projection-card">
+                    <h3>Après 10 ans</h3>
+                    <div class="amount">31 275 €</div>
+                    <div class="details">
+                        <span>Dont 24 000€ versés</span>
+                        <span>7 275€ de rendements</span>
+                        <span class="growth">+30.3%</span>
+                    </div>
+                </div>
+                
+                <div class="projection-card">
+                    <h3>Après 20 ans</h3>
+                    <div class="amount">82 752 €</div>
+                    <div class="details">
+                        <span>Dont 48 000€ versés</span>
+                        <span>34 752€ de rendements</span>
+                        <span class="growth">+72.4%</span>
+                    </div>
+                </div>
+                
+                <div class="projection-card">
+                    <h3>Après 30 ans</h3>
+                    <div class="amount">167 130 €</div>
+                    <div class="details">
+                        <span>Dont 72 000€ versés</span>
+                        <span>95 130€ de rendements</span>
+                        <span class="growth">+132.1%</span>
+                    </div>
+                </div>
+                
+                <div class="projection-card">
+                    <h3>Après 40 ans</h3>
+                    <div class="amount">306 857 €</div>
+                    <div class="details">
+                        <span>Dont 96 000€ versés</span>
+                        <span>210 857€ de rendements</span>
+                        <span class="growth">+219.6%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Projection selon le rendement</h2>
+            <p>Sur 20 ans, le choix du placement influence considérablement votre capital final :</p>
+            
+            <div class="projection-grid">
+                <div class="projection-card">
+                    <h3>2% (Livret A)</h3>
+                    <div class="amount">58 822 €</div>
+                    <div class="details">
+                        <span>Versements : 48 000€</span>
+                        <span>Rendements : 10 822€</span>
+                        <span class="growth">+22.6%</span>
+                    </div>
+                </div>
+                
+                <div class="projection-card">
+                    <h3>4% (Fonds euros)</h3>
+                    <div class="amount">73 946 €</div>
+                    <div class="details">
+                        <span>Versements : 48 000€</span>
+                        <span>Rendements : 25 946€</span>
+                        <span class="growth">+54.1%</span>
+                    </div>
+                </div>
+                
+                <div class="projection-card">
+                    <h3>6% (Bourse moyenne)</h3>
+                    <div class="amount">92 895 €</div>
+                    <div class="details">
+                        <span>Versements : 48 000€</span>
+                        <span>Rendements : 44 895€</span>
+                        <span class="growth">+93.5%</span>
+                    </div>
+                </div>
+                
+                <div class="projection-card">
+                    <h3>8% (Bourse performante)</h3>
+                    <div class="amount">117 804 €</div>
+                    <div class="details">
+                        <span>Versements : 48 000€</span>
+                        <span>Rendements : 69 804€</span>
+                        <span class="growth">+145.4%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <div class="callout-title">Attention aux risques</div>
+                <p>Les rendements passés ne préjugent pas des performances futures. Les placements en actions présentent un risque de perte en capital. Diversifiez toujours vos investissements.</p>
+            </div>
+            
+            <h2>Comparaison des placements</h2>
+            <p>Le choix du support d'investissement influence considérablement vos rendements :</p>
+            
+            <table class="investment-table">
+                <thead>
+                    <tr>
+                        <th>Type de placement</th>
+                        <th>Rendement moyen</th>
+                        <th>Risque</th>
+                        <th>Capital après 20 ans</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Livret A</td>
+                        <td class="low-risk">2%</td>
+                        <td class="low-risk">Très faible</td>
+                        <td>58 822 €</td>
+                    </tr>
+                    <tr>
+                        <td>Fonds euros (assurance vie)</td>
+                        <td class="low-risk">3-4%</td>
+                        <td class="low-risk">Faible</td>
+                        <td>66 333 - 73 946 €</td>
+                    </tr>
+                    <tr>
+                        <td>SCPI (immobilier)</td>
+                        <td class="medium-risk">4-6%</td>
+                        <td class="medium-risk">Moyen</td>
+                        <td>73 946 - 92 895 €</td>
+                    </tr>
+                    <tr>
+                        <td>ETF Monde (bourse)</td>
+                        <td class="high-risk">6-8%</td>
+                        <td class="high-risk">Élevé</td>
+                        <td>92 895 - 117 804 €</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout success">
+                <div class="callout-title">Conseil Finary</div>
+                <p>Pour optimiser rendement et sécurité, diversifiez vos placements. Une allocation mixte (fonds euros + ETF) permet de bénéficier de la croissance des marchés tout en préservant une partie du capital.</p>
+            </div>
+            
+            <h2>Stratégies d'optimisation</h2>
+            <p>Maximisez vos rendements avec ces stratégies éprouvées :</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-hourglass-start"></i></div>
+                    <div class="benefit-title">Commencez tôt</div>
+                    <div class="benefit-description">Le temps est votre meilleur allié. Différer votre épargne de 5 ans peut réduire votre capital final de 30 à 40%.</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-robot"></i></div>
+                    <div class="benefit-title">Automatisez vos versements</div>
+                    <div class="benefit-description">Configurez un virement automatique mensuel juste après réception de votre salaire. L'épargne devient ainsi indolore et systématique.</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="benefit-title">Réinvestissez les dividendes</div>
+                    <div class="benefit-description">En bourse, optez pour la distribution automatique des dividendes. Ces réinvestissements accélèrent l'effet des intérêts composés.</div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="benefit-title">Utilisez les enveloppes fiscales</div>
+                    <div class="benefit-description">Privilégiez les supports avantageux : Assurance vie (fiscalité allégée après 8 ans), PEA (exonération après 5 ans), PER (réduction d'impôt immédiate).</div>
+                </div>
+            </div>
+            
+            <h2>Simulateur d'épargne régulière</h2>
+            <p>Calculez ce que rapporteraient vos 200€ placés mensuellement selon votre situation :</p>
+            
+            <div class="simulator-container">
+                <div class="simulator-header">
+                    <div class="simulator-title">Simulateur d'épargne régulière</div>
+                    <div class="simulator-subtitle">Personnalisez les paramètres pour voir l'impact sur votre capital futur</div>
+                </div>
+                
+                <div class="simulator-form">
+                    <div class="form-group">
+                        <label for="monthly-amount">Montant mensuel (€)</label>
+                        <input type="number" id="monthly-amount" value="200" min="50" step="50">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="annual-yield">Rendement annuel (%)</label>
+                        <input type="number" id="annual-yield" value="5" min="0" max="15" step="0.5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="duration">Durée (années)</label>
+                        <input type="number" id="duration" value="20" min="5" max="50" step="5">
+                    </div>
+                </div>
+                
+                <button class="simulate-btn" id="simulate-btn">
+                    <i class="fas fa-calculator"></i> Calculer mon capital futur
+                </button>
+                
+                <div class="simulator-result" id="simulator-result">
+                    <div class="result-title">Résultats de votre simulation</div>
+                    
+                    <div class="result-values">
+                        <div class="result-category principal">
+                            <div class="category-title">Capital total</div>
+                            <div class="category-value" id="total-value">82 752 €</div>
+                        </div>
+                        
+                        <div class="result-category principal">
+                            <div class="category-title">Vos versements</div>
+                            <div class="category-value" id="principal-value">48 000 €</div>
+                        </div>
+                        
+                        <div class="result-category interest">
+                            <div class="category-title">Rendements générés</div>
+                            <div class="category-value" id="interest-value">34 752 €</div>
+                            <div id="growth-percentage">+72.4%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="investment-chart"></canvas>
+                    </div>
+                    
+                    <div class="disclaimer">
+                        Les projections sont basées sur un rendement constant et ne tiennent pas compte de l'inflation. Les performances passées ne garantissent pas les résultats futurs. Les placements financiers comportent des risques.
+                    </div>
+                </div>
+            </div>
+            
+            <h2>Conclusion</h2>
+            <p>Placer 200€ chaque mois n'est pas un geste anodin. Comme nous l'avons vu, cette discipline financière peut transformer votre avenir et générer un capital significatif grâce à la puissance des intérêts composés.</p>
+            
+            <p>La clé réside dans la régularité et la durée. Peu importe le montant, ce qui compte c'est de commencer et de persévérer. Même si vous ne pouvez épargner que 50€ par mois, lancez-vous. Vous pourrez augmenter ce montant avec le temps.</p>
+            
+            <div class="callout primary">
+                <div class="callout-title">Un marathon financier</div>
+                <p>Rappelez-vous : L'épargne régulière est un marathon, pas un sprint. Les plus grands patrimoines se construisent avec constance et patience, non avec des coups d'éclat financiers. Votre future sécurité financière commence aujourd'hui avec votre premier versement.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            © 2023 - Guide d'épargne et d'investissement - Tous droits réservés<br>
+            <small>Les informations fournies sont à titre éducatif seulement et ne constituent pas un conseil en investissement.</small>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const simulateBtn = document.getElementById('simulate-btn');
+            const simulatorResult = document.getElementById('simulator-result');
+            const totalValue = document.getElementById('total-value');
+            const principalValue = document.getElementById('principal-value');
+            const interestValue = document.getElementById('interest-value');
+            const growthPercentage = document.getElementById('growth-percentage');
+            let investmentChart = null;
+            
+            // Calculer la valeur future d'une épargne régulière
+            function calculateFutureValue(monthlyAmount, annualYield, years) {
+                const months = years * 12;
+                const monthlyRate = annualYield / 100 / 12;
+                
+                // Formule de la valeur future d'une annuité
+                const futureValue = monthlyAmount * 
+                    (Math.pow(1 + monthlyRate, months) - 1) / 
+                    monthlyRate;
+                
+                const totalPrincipal = monthlyAmount * months;
+                const totalInterest = futureValue - totalPrincipal;
+                const growthPercent = (totalInterest / totalPrincipal * 100).toFixed(1);
+                
+                return {
+                    futureValue: futureValue,
+                    totalPrincipal: totalPrincipal,
+                    totalInterest: totalInterest,
+                    growthPercent: growthPercent
+                };
+            }
+            
+            // Formater les montants en euros
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('fr-FR', { 
+                    style: 'currency', 
+                    currency: 'EUR',
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+            
+            // Mettre à jour le graphique
+            function updateChart(principal, interest) {
+                const ctx = document.getElementById('investment-chart').getContext('2d');
+                
+                // Détruire le graphique existant s'il y en a un
+                if (investmentChart) {
+                    investmentChart.destroy();
+                }
+                
+                investmentChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Vos versements', 'Rendements générés'],
+                        datasets: [{
+                            data: [principal, interest],
+                            backgroundColor: [
+                                '#2e7d32',
+                                '#1565c0'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    },
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${formatCurrency(value)}`;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            // Gérer le clic sur le bouton de simulation
+            simulateBtn.addEventListener('click', function() {
+                const monthlyAmount = parseFloat(document.getElementById('monthly-amount').value);
+                const annualYield = parseFloat(document.getElementById('annual-yield').value);
+                const duration = parseFloat(document.getElementById('duration').value);
+                
+                // Calculer les résultats
+                const results = calculateFutureValue(monthlyAmount, annualYield, duration);
+                
+                // Mettre à jour les valeurs affichées
+                totalValue.textContent = formatCurrency(results.futureValue);
+                principalValue.textContent = formatCurrency(results.totalPrincipal);
+                interestValue.textContent = formatCurrency(results.totalInterest);
+                growthPercentage.textContent = `+${results.growthPercent}%`;
+                
+                // Mettre à jour le graphique
+                updateChart(results.totalPrincipal, results.totalInterest);
+                
+                // Afficher la section de résultats
+                simulatorResult.style.display = 'block';
+                
+                // Scroll doux vers les résultats
+                simulatorResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+            
+            // Initialiser avec les valeurs par défaut
+            const defaultResults = calculateFutureValue(200, 5, 20);
+            totalValue.textContent = formatCurrency(defaultResults.futureValue);
+            principalValue.textContent = formatCurrency(defaultResults.totalPrincipal);
+            interestValue.textContent = formatCurrency(defaultResults.totalInterest);
+            growthPercentage.textContent = `+${defaultResults.growthPercent}%`;
+            updateChart(defaultResults.totalPrincipal, defaultResults.totalInterest);
+        });
+    </script>
+</body>
+</html>

@@ -3,11 +3,17 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.db.models.user import User
 from app.db.models.portfolio import Portfolio
+from app.core.database import get_db
+from app.core.config import settings
+from app.utils.currency import convert 
+from app.db.models.portfolio import Portfolio
+from fastapi import BackgroundTasks
+from app.utils.email import send_godfather_email
 
 router = APIRouter()
 
 @router.get("/confirm")
-def confirm_email(token: str, db: Session = Depends(get_db)):
+def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.confirmation_token == token).first()
     if not user:
         raise HTTPException(status_code=404, detail="Token invalide")
@@ -15,6 +21,32 @@ def confirm_email(token: str, db: Session = Depends(get_db)):
     user.validated = True
     portfolio = Portfolio(user_id=user.id, cash=0.0, currency='EUR')
     db.add(portfolio)
+    parrain_uid = None 
+    if(user.referrer_id):
+        parrain_uid = user.referrer_id
+        print()
+        print(user.referrer_id)
+        print()
+        parrain = db.query(User).filter(User.uid == user.referrer_id).first()
+        if not parrain:
+            raise HTTPException(status_code=400, detail="Nom d'utilisateur du parrain inexistant")
+        parrain_uid = parrain.uid
+        
+    if(parrain_uid):
+        portfolio = db.query(Portfolio).filter_by(user_id=parrain.id).first()
+        if not portfolio:
+            portfolio = Portfolio(user_id=parrain.id, cash=0.0, currency='EUR')
+        print()
+        print(portfolio.cash)
+        print(portfolio.currency)
+        print(settings.currency)
+        portfolio.cash += convert(settings.currency, portfolio.currency, settings.amount_godfather)
+        print(portfolio.cash)
+        print()
+        db.add(portfolio)
+        background_tasks.add_task(send_godfather_email, parrain.email, parrain.username, user.username)
+        
+        
     db.commit()
     db.refresh(portfolio)
 

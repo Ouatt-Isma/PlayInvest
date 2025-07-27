@@ -4,7 +4,7 @@ from passlib.hash import bcrypt
 from sqlalchemy.orm import Session
 from app.core.database import engine, SessionLocal, Base
 from app.db.models.user import User
-from app.core.database import get_db
+
 
 
 
@@ -58,7 +58,6 @@ def register(user: RegisterUser, background_tasks: BackgroundTasks):
         if not parrain:
             raise HTTPException(status_code=400, detail="Nom d'utilisateur du parrain inexistant")
         parrain_uid = parrain.uid
-        print(parrain_uid)
     
     new_user = User(
         username=user.username,
@@ -76,7 +75,6 @@ def register(user: RegisterUser, background_tasks: BackgroundTasks):
 
     # Send email in the background
     background_tasks.add_task(send_confirmation_email, user.email, user.username, token)
-
     return {"message": "Compte créé. Vérifiez votre email pour confirmer.", "user_id": new_user.id}
 
 

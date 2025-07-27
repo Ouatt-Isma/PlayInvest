@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRVM : Comprendre les Indices Clés - BRVM 10, Composite et Prestige</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #141145;
+            --secondary: #7A2D8D;
+            --accent: #5682F2;
+            --light: #F1F2F6;
+            --dark: #0A0A1D;
+            --gold: #F1C086;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --info: #2196F3;
+            --error: #F44336;
+            --africa-green: #008751;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        /* Table des matières */
+        #toc-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #eee;
+            display: none;
+        }
+        
+        #toc-container.visible {
+            display: block;
+        }
+        
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .close-toc {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-toc:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #toc-list {
+            list-style-type: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        #toc-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        #toc-list a:hover {
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--accent);
+        }
+        
+        #toc-list .h2-link {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        #toc-list .h3-link {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(116deg, var(--africa-green) -36.05%, var(--gold) 100.05%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toc-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        /* Article Header */
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--primary);
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: var(--africa-green);
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 500;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--africa-green));
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--africa-green);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content ul, .article-content ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--africa-green);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Bias visualization */
+        .bias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .bias-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--africa-green);
+            transition: transform 0.3s ease;
+        }
+        
+        .bias-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        
+        .bias-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .bias-description {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        /* Callout boxes */
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(0, 135, 81, 0.08);
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: var(--success);
+        }
+        
+        .callout.success::before {
+            background: var(--success);
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: var(--warning);
+        }
+        
+        .callout.warning::before {
+            background: var(--warning);
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--info);
+        }
+        
+        .callout.info::before {
+            background: var(--info);
+        }
+        
+        .callout.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-color: var(--error);
+        }
+        
+        .callout.error::before {
+            background: var(--error);
+        }
+        
+        .callout.africa {
+            background-color: rgba(0, 135, 81, 0.1);
+            border-color: var(--africa-green);
+        }
+        
+        .callout.africa::before {
+            background: var(--africa-green);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 15px;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .growth {
+            background-color: rgba(0, 135, 81, 0.05);
+        }
+        
+        .comparison-table .value {
+            background-color: rgba(33, 150, 243, 0.05);
+        }
+        
+        .comparison-table .feature-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .highlight {
+            background-color: rgba(241, 192, 134, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .icon-check {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+        
+        .icon-cross {
+            color: var(--error);
+            font-size: 1.2rem;
+        }
+        
+        .sector-chart-container {
+            height: 300px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            #toc-container {
+                width: 280px;
+                right: 10px;
+                left: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            #toc-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+        }
+        
+        /* Sector Grid */
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .sector-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--africa-green);
+            transition: all 0.3s ease;
+        }
+        
+        .sector-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        
+        .sector-icon {
+            font-size: 2rem;
+            color: var(--africa-green);
+            margin-bottom: 10px;
+        }
+        
+        .sector-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .sector-perf {
+            font-size: 0.9rem;
+            color: var(--success);
+        }
+        
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .country-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--africa-green);
+            transition: all 0.3s ease;
+        }
+        
+        .country-flag {
+            height: 40px;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+        
+        .country-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .country-stocks {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .performance-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .performance-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            min-width: 220px;
+            margin: 10px;
+            border-top: 4px solid var(--africa-green);
+        }
+        
+        .performance-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--africa-green);
+            margin: 10px 0;
+        }
+        
+        .performance-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        .index-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--africa-green);
+            transition: all 0.3s ease;
+        }
+        
+        .index-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .index-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .index-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .index-perf {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--africa-green), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .index-description {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .index-composition {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .index-company {
+            background-color: rgba(0, 135, 81, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--africa-green);
+            font-weight: 500;
+        }
+        
+        .index-chart-container {
+            height: 250px;
+            margin-top: 20px;
+        }
+        
+        .index-weight {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-weight: 500;
+        }
+        
+        .index-weight-value {
+            color: var(--africa-green);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton pour afficher la table des matières -->
+    <button class="toc-toggle" id="toc-toggle">
+        <i class="fas fa-list"></i>
+    </button>
+    
+    <!-- Table des matières -->
+    <div id="toc-container">
+        <div class="toc-header">
+            <div class="toc-title">Sommaire du guide</div>
+            <button class="close-toc" id="close-toc">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul id="toc-list">
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            <li><a href="#brvm" class="h2-link">Comprendre la BRVM</a></li>
+            <li><a href="#indices" class="h2-link">Les indices clés</a></li>
+            <li><a href="#opportunites" class="h2-link">Opportunités</a></li>
+            <li><a href="#pays" class="h2-link">Pays membres</a></li>
+            <li><a href="#secteurs" class="h2-link">Secteurs porteurs</a></li>
+            <li><a href="#entreprises" class="h2-link">Entreprises phares</a></li>
+            <li><a href="#strategie" class="h2-link">Stratégies</a></li>
+            <li><a href="#risques" class="h2-link">Gestion des risques</a></li>
+            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">BRVM : Comprendre les Indices Clés</h1>
+            <div class="article-subtitle">BRVM 10, Composite et Prestige - Analyse approfondie des principaux indices boursiers ouest-africains</div>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 10 min de lecture
+            </div>
+        </div>
+        
+        <!-- Featured Image -->
+        <div class="featured-image">
+            Maîtriser les Indices BRVM : Votre Porte d'Entrée vers les Marchés Ouest-Africains
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <h2 id="introduction">Introduction : Le rôle crucial des indices boursiers</h2>
+            <p>Dans l'écosystème financier ouest-africain, les indices boursiers jouent un rôle fondamental. Ils servent de baromètres pour mesurer la santé des marchés et guident les investisseurs dans leurs décisions. La BRVM propose trois indices majeurs qui reflètent différentes facettes du marché régional.</p>
+            
+            <div class="callout africa">
+                <div class="callout-title">Pourquoi suivre les indices BRVM ?</div>
+                <p>Les indices de la BRVM offrent une vue synthétique de la performance du marché. Ils permettent aux investisseurs de comparer la performance de leur portefeuille avec celle du marché global, d'identifier les tendances sectorielles et de prendre des décisions éclairées.</p>
+            </div>
+            
+            <p>Dans ce guide, nous allons décrypter :</p>
+            <ul>
+                <li>Les caractéristiques distinctives du BRVM 10, Composite et Prestige</li>
+                <li>Leur méthodologie de calcul et composition</li>
+                <li>Leur performance historique et perspectives</li>
+                <li>Comment les utiliser dans votre stratégie d'investissement</li>
+                <li>Leur importance dans l'écosystème financier régional</li>
+            </ul>
+            
+            <h2 id="brvm">Comprendre la BRVM</h2>
+            <p>La Bourse Régionale des Valeurs Mobilières (BRVM) est la principale plateforme boursière de l'Union Économique et Monétaire Ouest-Africaine (UEMOA). Créée en 1998, elle regroupe les huit pays de la région sous une seule bourse.</p>
+            
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Marché intégré</div>
+                    <div class="bias-description">Accès simultané aux entreprises de 8 pays avec une seule plateforme de trading.</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Croissance remarquable</div>
+                    <div class="bias-description">Performance annuelle moyenne de +9.5% sur les 5 dernières années.</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Dividendes attractifs</div>
+                    <div class="bias-description">Rendement moyen des dividendes de 5.2%, supérieur à de nombreux marchés émergents.</div>
+                </div>
+            </div>
+            
+            <div class="callout info">
+                <div class="callout-title">Le saviez-vous ?</div>
+                <p>La capitalisation boursière de la BRVM a doublé au cours des 10 dernières années, passant de 3,5 milliards d'euros en 2013 à plus de 7 milliards aujourd'hui.</p>
+            </div>
+            
+            <h2 id="indices">Les indices clés de la BRVM</h2>
+            <p>La BRVM propose trois indices principaux qui offrent différentes perspectives sur le marché régional. Chacun a sa spécificité et répond à des besoins d'analyse différents.</p>
+            
+            <div class="index-card">
+                <div class="index-header">
+                    <div class="index-name">BRVM 10</div>
+                    <div class="index-perf">+15.2% YTD</div>
+                </div>
+                <div class="index-description">
+                    L'indice BRVM 10 représente les 10 plus grandes capitalisations boursières de la BRVM. Ces entreprises leaders représentent plus de 75% de la capitalisation totale du marché.
+                </div>
+                <div class="index-weight">
+                    Période de révision : <span class="index-weight-value">Trimestrielle</span> • Pondération : <span class="index-weight-value">Par capitalisation</span>
+                </div>
+                <div class="index-composition">
+                    <div class="index-company">Sonatel</div>
+                    <div class="index-company">SGBCI</div>
+                    <div class="index-company">Ciments d'Afrique</div>
+                    <div class="index-company">SIFCA</div>
+                    <div class="index-company">Coris Bank</div>
+                    <div class="index-company">BICICI</div>
+                    <div class="index-company">BOA</div>
+                    <div class="index-company">NSIA Banque</div>
+                    <div class="index-company">Cie Ivoirienne Électricité</div>
+                    <div class="index-company">Ecobank</div>
+                </div>
+                <div class="index-chart-container">
+                    <canvas id="brvm10-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="index-card">
+                <div class="index-header">
+                    <div class="index-name">BRVM Composite</div>
+                    <div class="index-perf">+10.8% YTD</div>
+                </div>
+                <div class="index-description">
+                    L'indice Composite inclut toutes les sociétés cotées à la BRVM, offrant ainsi la vue la plus complète de la performance globale du marché régional.
+                </div>
+                <div class="index-weight">
+                    Période de révision : <span class="index-weight-value">Trimestrielle</span> • Pondération : <span class="index-weight-value">Par capitalisation</span>
+                </div>
+                <div class="index-composition">
+                    <div class="index-company">46 entreprises</div>
+                    <div class="index-company">Tous les secteurs</div>
+                    <div class="index-company">8 pays</div>
+                </div>
+                <div class="index-chart-container">
+                    <canvas id="composite-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="index-card">
+                <div class="index-header">
+                    <div class="index-name">BRVM Prestige</div>
+                    <div class="index-perf">+12.5% YTD</div>
+                </div>
+                <div class="index-description">
+                    L'indice Prestige se concentre sur les valeurs les plus liquides du marché, offrant une vision des entreprises les plus actives et faciles à négocier.
+                </div>
+                <div class="index-weight">
+                    Période de révision : <span class="index-weight-value">Trimestrielle</span> • Pondération : <span class="index-weight-value">Par liquidité</span>
+                </div>
+                <div class="index-composition">
+                    <div class="index-company">Sonatel</div>
+                    <div class="index-company">SGBCI</div>
+                    <div class="index-company">Ciments d'Afrique</div>
+                    <div class="index-company">SIFCA</div>
+                    <div class="index-company">Coris Bank</div>
+                    <div class="index-company">BOA</div>
+                    <div class="index-company">NSIA Banque</div>
+                    <div class="index-company">Cie Ivoirienne Électricité</div>
+                    <div class="index-company">Ecobank</div>
+                    <div class="index-company">Oragroup</div>
+                    <div class="index-company">ONATEL</div>
+                    <div class="index-company">SGBS</div>
+                    <div class="index-company">Cofina</div>
+                    <div class="index-company">SUNU</div>
+                    <div class="index-company">Socoopec</div>
+                </div>
+                <div class="index-chart-container">
+                    <canvas id="prestige-chart"></canvas>
+                </div>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Indice</th>
+                        <th>Description</th>
+                        <th>Nombre de sociétés</th>
+                        <th>Période de révision</th>
+                        <th>Pondération</th>
+                        <th>Performance YTD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">BRVM 10</td>
+                        <td>Les 10 plus grandes capitalisations</td>
+                        <td>10</td>
+                        <td>Trimestrielle</td>
+                        <td>Par capitalisation</td>
+                        <td>+15.2%</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">BRVM Composite</td>
+                        <td>Toutes les valeurs cotées</td>
+                        <td>46</td>
+                        <td>Trimestrielle</td>
+                        <td>Par capitalisation</td>
+                        <td>+10.8%</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">BRVM Prestige</td>
+                        <td>Valeurs à forte liquidité</td>
+                        <td>15</td>
+                        <td>Trimestrielle</td>
+                        <td>Par liquidité</td>
+                        <td>+12.5%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout info">
+                <div class="callout-title">À noter</div>
+                <p>Ces indices servent de référence pour les investisseurs et les fonds indiciels (ETF). Le BRVM 10 est l'indice le plus suivi car il représente plus de 75% de la capitalisation totale du marché.</p>
+            </div>
+            
+            <h3>Pourquoi ces indices sont-ils importants ?</h3>
+            <p>Les indices BRVM jouent plusieurs rôles clés dans l'écosystème financier régional :</p>
+            
+            <ul>
+                <li><span class="highlight">Baromètre du marché</span> : Ils donnent une indication claire de la santé globale du marché financier régional.</li>
+                <li><span class="highlight">Référence de performance</span> : Les gestionnaires de fonds les utilisent comme benchmark pour évaluer leur performance.</li>
+                <li><span class="highlight">Outils d'investissement</span> : Ils servent de base pour les produits dérivés et les fonds indiciels (ETF).</li>
+                <li><span class="highlight">Attractivité internationale</span> : Ils permettent aux investisseurs étrangers d'avoir une vision synthétique du marché.</li>
+                <li><span class="highlight">Indicateur économique</span> : Leur évolution reflète souvent la santé économique de la région.</li>
+            </ul>
+            
+            <h2 id="opportunites">Opportunités d'investissement</h2>
+            <p>Les indices BRVM offrent différentes opportunités selon le profil de l'investisseur :</p>
+            
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Investisseurs conservateurs</div>
+                    <div class="bias-description">Le BRVM 10 offre stabilité et dividendes réguliers grâce aux grandes entreprises établies.</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Investisseurs dynamiques</div>
+                    <div class="bias-description">Le BRVM Prestige permet de profiter des valeurs les plus actives avec un bon potentiel de croissance.</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Investisseurs à long terme</div>
+                    <div class="bias-description">Le BRVM Composite offre une exposition complète à la croissance économique régionale.</div>
+                </div>
+            </div>
+            
+            <div class="callout africa">
+                <div class="callout-title">Notre analyse</div>
+                <p>En 2023, le BRVM 10 a surperformé les autres indices grâce à la résilience des grandes entreprises bancaires et de télécommunications. Le BRVM Prestige a bénéficié de la liquidité accrue sur les valeurs phares, tandis que le Composite a été tiré par la performance des valeurs moyennes du secteur agro-industriel.</p>
+            </div>
+            
+            <h2 id="pays">Répartition géographique des indices</h2>
+            <p>La composition des indices reflète l'importance économique relative des différents pays membres :</p>
+            
+            <div class="sector-chart-container">
+                <canvas id="country-chart"></canvas>
+            </div>
+            
+            <div class="callout info">
+                <div class="callout-title">Dominance ivoirienne</div>
+                <p>La Côte d'Ivoire représente à elle seule plus de 65% de la capitalisation du BRVM 10, reflétant son poids économique prépondérant dans la région UEMOA.</p>
+            </div>
+            
+            <h2 id="secteurs">Composition sectorielle</h2>
+            <p>La répartition sectorielle des indices montre la structure économique de la région :</p>
+            
+            <div class="sector-grid">
+                <div class="sector-card">
+                    <div class="sector-icon"><i class="fas fa-university"></i></div>
+                    <div class="sector-name">Banque & Finance</div>
+                    <div class="sector-perf">45% du BRVM 10</div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="sector-name">Télécoms</div>
+                    <div class="sector-perf">25% du BRVM 10</div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon"><i class="fas fa-industry"></i></div>
+                    <div class="sector-name">Industrie</div>
+                    <div class="sector-perf">15% du BRVM 10</div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon"><i class="fas fa-seedling"></i></div>
+                    <div class="sector-name">Agroalimentaire</div>
+                    <div class="sector-perf">10% du BRVM 10</div>
+                </div>
+                <div class="sector-card">
+                    <div class="sector-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="sector-name">Énergie</div>
+                    <div class="sector-perf">5% du BRVM 10</div>
+                </div>
+            </div>
+            
+            <h2 id="entreprises">Entreprises leaders des indices</h2>
+            <p>Les indices BRVM sont dominés par quelques entreprises phares qui tirent leur performance :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Entreprise</th>
+                        <th>Poids dans BRVM 10</th>
+                        <th>Poids dans Prestige</th>
+                        <th>Secteur</th>
+                        <th>Performance YTD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Sonatel</td>
+                        <td>22.5%</td>
+                        <td>18.3%</td>
+                        <td>Télécoms</td>
+                        <td>+18.2%</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">SGBCI</td>
+                        <td>15.8%</td>
+                        <td>14.7%</td>
+                        <td>Banque</td>
+                        <td>+14.5%</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Ciments d'Afrique</td>
+                        <td>12.1%</td>
+                        <td>11.2%</td>
+                        <td>Matériaux</td>
+                        <td>+16.3%</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">SIFCA</td>
+                        <td>10.4%</td>
+                        <td>9.8%</td>
+                        <td>Agro-industrie</td>
+                        <td>+12.7%</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Coris Bank</td>
+                        <td>8.7%</td>
+                        <td>8.1%</td>
+                        <td>Banque</td>
+                        <td>+15.9%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2 id="strategie">Stratégies d'investissement par indice</h2>
+            <p>Chaque indice appelle des stratégies d'investissement spécifiques :</p>
+            
+            <h3>1. Investir via le BRVM 10</h3>
+            <p>Idéal pour : Investisseurs recherchant stabilité et dividendes</p>
+            <ul>
+                <li>Approche : Achat des 10 valeurs composant l'indice</li>
+                <li>Avantages : Faible volatilité, dividendes élevés</li>
+                <li>Inconvénients : Exposition limitée aux petites capitalisations</li>
+            </ul>
+            
+            <h3>2. Investir via le BRVM Composite</h3>
+            <p>Idéal pour : Investisseurs souhaitant une exposition complète</p>
+            <ul>
+                <li>Approche : Fonds indiciels répliquant l'indice</li>
+                <li>Avantages : Diversification maximale, exposition à la croissance globale</li>
+                <li>Inconvénients : Inclusion de valeurs peu liquides</li>
+            </ul>
+            
+            <h3>3. Investir via le BRVM Prestige</h3>
+            <p>Idéal pour : Investisseurs actifs cherchant à profiter des mouvements de marché</p>
+            <ul>
+                <li>Approche : Trading sur les valeurs les plus liquides</li>
+                <li>Avantages : Facilité d'exécution, faibles coûts de transaction</li>
+                <li>Inconvénients : Exposition sectorielle concentrée</li>
+            </ul>
+            
+            <div class="callout africa">
+                <div class="callout-title">Notre recommandation</div>
+                <p>Pour la plupart des investisseurs, une combinaison de BRVM 10 (60%) et BRVM Prestige (40%) offre le meilleur équilibre entre stabilité et potentiel de croissance. Cette allocation permet de bénéficier des dividendes des grandes valeurs tout en profitant de la liquidité et de la dynamique des valeurs les plus actives.</p>
+            </div>
+            
+            <h2 id="risques">Risques spécifiques aux indices BRVM</h2>
+            <p>Investir via les indices BRVM présente des risques spécifiques à connaître :</p>
+            
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Concentration sectorielle</div>
+                    <div class="bias-description">Le BRVM 10 est dominé par les banques et télécoms (70%). Solution : diversifier avec d'autres classes d'actifs.</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Concentration géographique</div>
+                    <div class="bias-description">65% du BRVM 10 est exposé à la Côte d'Ivoire. Solution : compléter avec des investissements dans d'autres pays africains.</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Liquidité variable</div>
+                    <div class="bias-description">Certaines valeurs du Composite ont une faible liquidité. Solution : privilégier le Prestige pour les positions importantes.</div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <div class="callout-title">Conseil de gestion</div>
+                <p>Pour limiter les risques liés à la concentration, nous recommandons de ne pas dépasser 30% de son portefeuille actions sur les indices BRVM et de diversifier avec d'autres classes d'actifs et régions géographiques.</p>
+            </div>
+            
+            <h2 id="conclusion">Conclusion : Les indices BRVM, reflet d'une région dynamique</h2>
+            <p>Les indices BRVM offrent une porte d'entrée privilégiée vers les marchés financiers ouest-africains. Le BRVM 10, le Composite et le Prestige répondent à des objectifs d'investissement différents et complémentaires.</p>
+            
+            <p>Les clés pour réussir avec les indices BRVM :</p>
+            
+            <ul>
+                <li>Comprendre les spécificités de chaque indice</li>
+                <li>Choisir l'indice qui correspond à votre profil d'investisseur</li>
+                <li>Surveiller les révisions trimestrielles de composition</li>
+                <li>Diversifier même au sein des indices</li>
+                <li>Adopter une perspective de long terme</li>
+            </ul>
+            
+            <div class="callout success">
+                <div class="callout-title">Perspectives 2024</div>
+                <p>Les analystes prévoient une performance soutenue des indices BRVM en 2024, portée par la croissance économique régionale (+6.2% attendu) et le développement des infrastructures. Le BRVM 10 pourrait bénéficier de la stabilité des banques, tandis que le Prestige devrait profiter de l'accroissement de la liquidité sur le marché.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion de la table des matières
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocContainer = document.getElementById('toc-container');
+            const closeToc = document.getElementById('close-toc');
+            
+            tocToggle.addEventListener('click', function() {
+                tocContainer.classList.toggle('visible');
+            });
+            
+            closeToc.addEventListener('click', function() {
+                tocContainer.classList.remove('visible');
+            });
+            
+            // Navigation fluide
+            document.querySelectorAll('#toc-list a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Fermer la table des matières sur mobile
+                        if (window.innerWidth < 768) {
+                            tocContainer.classList.remove('visible');
+                        }
+                    }
+                });
+            });
+            
+            // Création des graphiques
+            const createChart = (id, data, labels, colors, title) => {
+                const ctx = document.getElementById(id).getContext('2d');
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+                        datasets: [{
+                            label: title,
+                            data: data,
+                            backgroundColor: colors.background,
+                            borderColor: colors.border,
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#fff',
+                            pointBorderWidth: 2,
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                grid: {
+                                    color: 'rgba(0,0,0,0.05)'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+            
+            // Graphique BRVM 10
+            createChart('brvm10-chart', 
+                [100, 103, 107, 110, 112, 115, 118, 122, 125, 128, 132, 135],
+                [],
+                { background: 'rgba(0, 135, 81, 0.1)', border: 'rgb(0, 135, 81)' },
+                'Performance BRVM 10'
+            );
+            
+            // Graphique Composite
+            createChart('composite-chart', 
+                [100, 101, 102, 104, 106, 107, 108, 110, 112, 113, 114, 115],
+                [],
+                { background: 'rgba(86, 130, 242, 0.1)', border: 'rgb(86, 130, 242)' },
+                'Performance BRVM Composite'
+            );
+            
+            // Graphique Prestige
+            createChart('prestige-chart', 
+                [100, 102, 105, 107, 109, 112, 115, 117, 120, 123, 126, 128],
+                [],
+                { background: 'rgba(122, 45, 141, 0.1)', border: 'rgb(122, 45, 141)' },
+                'Performance BRVM Prestige'
+            );
+            
+            // Graphique de répartition géographique
+            const countryCtx = document.getElementById('country-chart').getContext('2d');
+            new Chart(countryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Côte d\'Ivoire', 'Sénégal', 'Burkina Faso', 'Bénin', 'Autres'],
+                    datasets: [{
+                        data: [65, 20, 8, 4, 3],
+                        backgroundColor: [
+                            'rgba(0, 135, 81, 0.8)',
+                            'rgba(86, 130, 242, 0.8)',
+                            'rgba(241, 192, 134, 0.8)',
+                            'rgba(122, 45, 141, 0.8)',
+                            'rgba(200, 200, 200, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(0, 135, 81)',
+                            'rgb(86, 130, 242)',
+                            'rgb(241, 192, 134)',
+                            'rgb(122, 45, 141)',
+                            'rgb(150, 150, 150)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Répartition géographique du BRVM 10',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

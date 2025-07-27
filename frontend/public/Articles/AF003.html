@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte Titre BRVM pour les Particuliers : Guide Complet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a5091; /* Bleu foncé */
+            --secondary-color: #0d7a3a; /* Vert foncé */
+            --accent-color: #2196F3; /* Bleu vif */
+            --light-color: #F1F2F6; /* Fond clair */
+            --dark-color: #0A0A1D; /* Texte foncé */
+            --neutral-color: #5a5a72; /* Texte neutre */
+            --success-color: #2E7D32; /* Vert */
+            --warning-color: #ED6C02; /* Orange */
+            --error-color: #D32F2F; /* Rouge */
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--accent-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        /* Table des matières */
+        #toc-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #eee;
+            display: none;
+        }
+        
+        #toc-container.visible {
+            display: block;
+        }
+        
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .close-toc {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-toc:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #toc-list {
+            list-style-type: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        #toc-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        #toc-list a:hover {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--accent-color);
+        }
+        
+        #toc-list .h2-link {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        #toc-list .h3-link {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toc-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        /* Article Header */
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            color: var(--primary-color);
+            font-weight: 700;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: var(--neutral-color);
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 500;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(135deg, #1a5091, #0d7a3a);
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--primary-color);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--secondary-color);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content ul, .article-content ol {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Card styles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .card-content {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
+        /* Callout boxes */
+        .callout {
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        .callout.info::before {
+            background: var(--accent-color);
+        }
+        
+        .callout.warning {
+            background-color: rgba(237, 108, 2, 0.1);
+            border-color: var(--warning-color);
+        }
+        
+        .callout.warning::before {
+            background: var(--warning-color);
+        }
+        
+        .callout.success {
+            background-color: rgba(46, 125, 50, 0.1);
+            border-color: var(--success-color);
+        }
+        
+        .callout.success::before {
+            background: var(--success-color);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 15px;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table .feature-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .highlight {
+            background-color: rgba(33, 150, 243, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .icon-check {
+            color: var(--success-color);
+            font-size: 1.2rem;
+        }
+        
+        .icon-cross {
+            color: var(--error-color);
+            font-size: 1.2rem;
+        }
+        
+        /* Step-by-step */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary-color);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .step-details {
+            color: #555;
+            font-size: 1rem;
+        }
+        
+        /* Country cards */
+        .country-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .country-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .country-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .country-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .country-icon {
+            margin-right: 10px;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+        
+        .country-economy {
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+        }
+        
+        .economy-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .economy-list li {
+            padding: 8px 5px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .economy-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .impact-level {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .impact-low {
+            background-color: rgba(46, 125, 50, 0.2);
+            color: var(--success-color);
+        }
+        
+        .impact-medium {
+            background-color: rgba(237, 108, 2, 0.2);
+            color: var(--warning-color);
+        }
+        
+        .impact-high {
+            background-color: rgba(211, 47, 47, 0.2);
+            color: var(--error-color);
+        }
+        
+        /* BCEAO mission card */
+        .mission-card {
+            background: linear-gradient(135deg, #1a5091, #0d7a3a);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            color: white;
+            margin: 40px 0;
+        }
+        
+        .mission-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .mission-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .mission-item {
+            padding: 20px;
+            background-color: rgba(255,255,255,0.15);
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+        
+        .mission-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .mission-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .mission-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            #toc-container {
+                width: 280px;
+                right: 10px;
+                left: auto;
+            }
+            
+            .company-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 200px;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            #toc-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            
+            .mission-items {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Custom styles for this article */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--neutral-color);
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 20px;
+            border-left: 4px solid var(--secondary-color);
+            background-color: rgba(13, 122, 58, 0.05);
+            margin: 30px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-top: 10px;
+        }
+        
+        .sector-highlight {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .sector-icon {
+            font-size: 1.8rem;
+            margin-right: 15px;
+            color: var(--primary-color);
+            width: 60px;
+            text-align: center;
+        }
+        
+        /* New styles for BRVM article */
+        .brvm-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton pour afficher la table des matières -->
+    <button class="toc-toggle" id="toc-toggle">
+        <i class="fas fa-list"></i>
+    </button>
+    
+    <!-- Table des matières -->
+    <div id="toc-container">
+        <div class="toc-header">
+            <div class="toc-title">Sommaire de l'article</div>
+            <button class="close-toc" id="close-toc">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul id="toc-list">
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            <li><a href="#definition" class="h2-link">Qu'est-ce qu'un compte titre BRVM ?</a></li>
+            <li><a href="#avantages" class="h2-link">Avantages pour les particuliers</a></li>
+            <li><a href="#ouvrir" class="h2-link">Ouvrir un compte titre</a></li>
+            <li><a href="#fonctionnement" class="h2-link">Fonctionnement du compte</a></li>
+            <li><a href="#frais" class="h2-link">Frais et fiscalité</a></li>
+            <li><a href="#strategies" class="h2-link">Stratégies d'investissement</a></li>
+            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <div class="container">
+        <div class="article-header">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Crect fill='%231a5091' width='100' height='50'/%3E%3Ctext x='50' y='25' font-family='Arial' font-size='12' text-anchor='middle' fill='white'%3EBRVM%3C/text%3E%3C/svg%3E" alt="BRVM" class="brvm-logo">
+            <h1 class="article-title">Compte Titre BRVM pour les Particuliers : Guide Complet</h1>
+            <div class="article-subtitle">Tout savoir pour investir en bourse dans les pays de l'UEMOA</div>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 8 min de lecture
+            </div>
+        </div>
+        
+        <!-- Featured Image -->
+        <div class="featured-image">
+            Investir à la Bourse Régionale des Valeurs Mobilières (BRVM)
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <div class="callout info">
+                <div class="callout-title">Chiffres clés sur la BRVM :</div>
+                <ul>
+                    <li><span class="highlight">8 pays</span> membres de l'UEMOA</li>
+                    <li><span class="highlight">46 sociétés</span> cotées (2023)</li>
+                    <li>Capitalisation boursière : <span class="highlight">15 000 milliards FCFA</span></li>
+                    <li>Indice phare : <span class="highlight">BRVM 10</span></li>
+                    <li>Ouvert aux particuliers et institutionnels</li>
+                </ul>
+            </div>
+            
+            <h2 id="introduction">Introduction</h2>
+            <p>Le compte titre BRVM est le sésame permettant aux particuliers d'accéder à la Bourse Régionale des Valeurs Mobilières (BRVM). Cette bourse, basée à Abidjan, regroupe les marchés financiers de huit pays de l'Afrique de l'Ouest : Bénin, Burkina Faso, Côte d'Ivoire, Guinée-Bissau, Mali, Niger, Sénégal et Togo.</p>
+            
+            <p>Pour les particuliers de la région, le compte titre BRVM représente une opportunité unique de participer au développement économique de l'UEMOA tout en diversifiant leur patrimoine et en recherchant des rendements attractifs.</p>
+            
+            <div class="callout info">
+                <p><strong>Définition :</strong> Un compte titre est un compte dédié aux opérations boursières qui permet d'acheter, vendre et détenir des valeurs mobilières (actions, obligations) cotées sur un marché financier.</p>
+            </div>
+            
+            <h2 id="definition">Qu'est-ce qu'un compte titre BRVM ?</h2>
+            <p>Le compte titre BRVM est un compte d'investissement spécialement conçu pour négocier sur le marché boursier de l'UEMOA. Contrairement à un compte courant, il permet exclusivement d'effectuer des opérations sur titres financiers.</p>
+            
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-building"></i></div>
+                    <div class="stat-value">46</div>
+                    <div class="stat-label">Sociétés cotées</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-coins"></i></div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Pays membres</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-value">15%</div>
+                    <div class="stat-label">Croissance annuelle moyenne</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-value">120K</div>
+                    <div class="stat-label">Investisseurs particuliers</div>
+                </div>
+            </div>
+            
+            <p>Les caractéristiques principales d'un compte titre BRVM :</p>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Détention de titres</div>
+                    <div class="step-details">
+                        Permet d'acheter, vendre et conserver des actions, obligations et autres instruments financiers.
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Devise unique</div>
+                    <div class="step-details">
+                        Toutes les transactions se font en Franc CFA (XOF), la monnaie commune des pays membres.
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Accès régional</div>
+                    <div class="step-details">
+                        Permet d'investir dans toutes les sociétés cotées dans les 8 pays de l'UEMOA.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote">
+                "Le compte titre BRVM est la porte d'entrée pour les particuliers souhaitant participer à la croissance économique de l'Afrique de l'Ouest."
+                <div class="quote-author">- M. Koné Daouda, Analyste financier</div>
+            </div>
+            
+            <h2 id="avantages">Avantages pour les particuliers</h2>
+            <p>Investir via un compte titre BRVM présente plusieurs avantages spécifiques pour les particuliers de la région :</p>
+            
+            <div class="mission-card">
+                <div class="mission-title">Principaux avantages</div>
+                <div class="mission-items">
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="mission-text">Diversification du patrimoine</div>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="mission-text">Potentiel de rendement attractif</div>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="mission-text">Sécurité et transparence</div>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-taxi"></i></div>
+                        <div class="mission-text">Liquidité croissante</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-hand-holding-usd"></i> Participation économique</div>
+                    <div class="card-content">
+                        Contribuer au développement des entreprises locales et régionales.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-gift"></i> Dividendes</div>
+                    <div class="card-content">
+                        Perception régulière de revenus passifs via les dividendes.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-euro-sign"></i> Avantages fiscaux</div>
+                    <div class="card-content">
+                        Fiscalité avantageuse comparée à d'autres placements.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-university"></i> Apprentissage</div>
+                    <div class="card-content">
+                        Comprendre les mécanismes des marchés financiers.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout success">
+                <div class="callout-title">À noter :</div>
+                <p>La BRVM offre désormais des applications mobiles et des plateformes en ligne qui facilitent l'accès des particuliers au marché boursier, même avec un capital initial modeste.</p>
+            </div>
+            
+            <h2 id="ouvrir">Comment ouvrir un compte titre BRVM</h2>
+            <p>L'ouverture d'un compte titre BRVM est un processus simple mais nécessite de fournir certains documents et de choisir un intermédiaire agréé.</p>
+            
+            <!-- Instruments Table -->
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Étapes</th>
+                        <th>Description</th>
+                        <th>Délai</th>
+                        <th>Coût</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Choix intermédiaire</td>
+                        <td>Sélection d'une société de bourse ou banque agréée</td>
+                        <td>-</td>
+                        <td>Gratuit</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Dossier d'ouverture</td>
+                        <td>Formulaire + pièces d'identité + justificatif de domicile</td>
+                        <td>1 jour</td>
+                        <td>Gratuit</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Signature contrat</td>
+                        <td>Contrat de tenue de compte et conditions générales</td>
+                        <td>1 jour</td>
+                        <td>Gratuit</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Premier versement</td>
+                        <td>Dépôt initial (minimum 50 000 à 100 000 FCFA)</td>
+                        <td>Immédiat</td>
+                        <td>Variable</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Documents requis</h3>
+            
+            <div class="sector-highlight">
+                <div class="sector-icon"><i class="fas fa-id-card"></i></div>
+                <div>
+                    <h4>Pièces d'identité</h4>
+                    <p>Photocopie de la carte nationale d'identité ou passeport en cours de validité.</p>
+                </div>
+            </div>
+            
+            <div class="sector-highlight">
+                <div class="sector-icon"><i class="fas fa-file-invoice"></i></div>
+                <div>
+                    <h4>Justificatif de domicile</h4>
+                    <p>Facture d'eau, d'électricité ou de téléphone de moins de 3 mois.</p>
+                </div>
+            </div>
+            
+            <div class="sector-highlight">
+                <div class="sector-icon"><i class="fas fa-money-check"></i></div>
+                <div>
+                    <h4>RIB</h4>
+                    <p>Relevé d'identité bancaire pour lier votre compte bancaire au compte titre.</p>
+                </div>
+            </div>
+            
+            <h2 id="fonctionnement">Fonctionnement du compte titre</h2>
+            <p>Une fois ouvert, votre compte titre BRVM fonctionne comme un portefeuille électronique de titres financiers.</p>
+            
+            <div class="country-container">
+                <div class="country-card">
+                    <div class="country-title"><i class="fas fa-sync-alt country-icon"></i> Ordres de bourse</div>
+                    <ul>
+                        <li>Passer des ordres d'achat ou de vente via votre intermédiaire</li>
+                        <li>Choisir entre ordre au marché ou ordre limité</li>
+                        <li>Suivre l'exécution en temps réel</li>
+                        <li>Recevoir une confirmation de transaction</li>
+                    </ul>
+                    <div class="country-economy">
+                        <h4>Horaires de négociation :</h4>
+                        <ul class="economy-list">
+                            <li>Du lundi au vendredi</li>
+                            <li>De 9h30 à 14h30 (heure d'Abidjan)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="country-card">
+                    <div class="country-title"><i class="fas fa-file-invoice-dollar country-icon"></i> Relevés et suivi</div>
+                    <ul>
+                        <li>Relevé mensuel des positions</li>
+                        <li>Avis d'opérations pour chaque transaction</li>
+                        <li>Accès à un portail en ligne pour suivre vos investissements</li>
+                        <li>Information sur les dividendes et assemblées générales</li>
+                    </ul>
+                    <div class="country-economy">
+                        <h4>Droits des actionnaires :</h4>
+                        <ul class="economy-list">
+                            <li>Droit de vote aux assemblées</li>
+                            <li>Droit aux dividendes</li>
+                            <li>Droit à l'information</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <div class="callout-title">Risques à connaître :</div>
+                <p>Comme tout investissement boursier, le compte titre BRVM comporte des risques : volatilité des marchés, risque de perte en capital, liquidité variable selon les titres. Il est essentiel de bien diversifier son portefeuille et d'investir à long terme.</p>
+            </div>
+            
+            <h2 id="frais">Frais et fiscalité</h2>
+            <p>L'utilisation d'un compte titre BRVM engendre certains frais et une fiscalité spécifique que tout investisseur doit connaître.</p>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Frais de transaction</div>
+                    <div class="step-details">
+                        <ul>
+                            <li>Courtage : 0,5% à 1,5% du montant de la transaction</li>
+                            <li>Frais BRVM : 0,05%</li>
+                            <li>Droits de garde : 0,1% à 0,3% par an de la valeur du portefeuille</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Fiscalité sur dividendes</div>
+                    <div class="step-details">
+                        <ul>
+                            <li>Prélèvement à la source : 10%</li>
+                            <li>Imposition au barème progressif selon le pays</li>
+                            <li>Abattement possible dans certains pays</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Fiscalité sur plus-values</div>
+                    <div class="step-details">
+                        <ul>
+                            <li>Plus-values immobilières : 20%</li>
+                            <li>Plus-values mobilières : 10% dans la plupart des pays</li>
+                            <li>Exonération après 5 ans de détention dans certains pays</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout success">
+                <div class="callout-title">Avantages fiscaux :</div>
+                <ul>
+                    <li><strong>Côte d'Ivoire :</strong> Exonération d'impôt sur les plus-values après 5 ans de détention</li>
+                    <li><strong>Sénégal :</strong> Taux réduit de 5% sur les dividendes pour les résidents</li>
+                    <li><strong>Bénin :</strong> Exonération totale sur les obligations d'État</li>
+                </ul>
+            </div>
+            
+            <h2 id="strategies">Stratégies d'investissement pour particuliers</h2>
+            <p>Pour réussir avec un compte titre BRVM, les particuliers doivent adopter des stratégies adaptées à leur profil et objectifs.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-seedling"></i> Investissement long terme</div>
+                    <div class="card-content">
+                        Acheter et conserver des actions de sociétés fondamentalement solides sur plusieurs années.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-chart-pie"></i> Diversification sectorielle</div>
+                    <div class="card-content">
+                        Répartir son portefeuille entre banques, assurances, agroalimentaire et télécoms.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-coins"></i> DCA (Dollar Cost Averaging)</div>
+                    <div class="card-content">
+                        Investir régulièrement un montant fixe pour lisser le prix d'achat.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-file-invoice"></i> Dividendes</div>
+                    <div class="card-content">
+                        Cibler les entreprises avec une politique de dividendes généreuse et régulière.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mission-card">
+                <div class="mission-title">Sociétés populaires auprès des particuliers</div>
+                <div class="mission-items">
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-university"></i></div>
+                        <div class="mission-text">Sociétés Générale</div>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="mission-text">Sonatel</div>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="mission-text">SIFCA</div>
+                    </div>
+                    <div class="mission-item">
+                        <div class="mission-icon"><i class="fas fa-tint"></i></div>
+                        <div class="mission-text">PETROCI</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Le compte titre BRVM est un outil puissant permettant aux particuliers de l'UEMOA de participer à la croissance économique régionale tout en construisant un patrimoine financier. Accessible avec un capital modeste, il offre des opportunités de diversification et de rendement intéressantes.</p>
+            
+            <div class="callout success">
+                <p>Pour réussir avec un compte titre BRVM, l'éducation financière, la patience et la diversification sont essentielles. En investissant régulièrement sur le long terme dans des entreprises solides de la région, les particuliers peuvent tirer profit du développement économique de l'Afrique de l'Ouest tout en sécurisant leur avenir financier.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocContainer = document.getElementById('toc-container');
+            const closeToc = document.getElementById('close-toc');
+            
+            // Toggle TOC visibility
+            tocToggle.addEventListener('click', function() {
+                tocContainer.classList.toggle('visible');
+            });
+            
+            // Close TOC
+            closeToc.addEventListener('click', function() {
+                tocContainer.classList.remove('visible');
+            });
+            
+            // Close TOC when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!tocContainer.contains(event.target) && 
+                    !tocToggle.contains(event.target) && 
+                    tocContainer.classList.contains('visible')) {
+                    tocContainer.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close TOC after clicking on a link
+                        tocContainer.classList.remove('visible');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

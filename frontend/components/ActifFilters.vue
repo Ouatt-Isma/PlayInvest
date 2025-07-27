@@ -5,7 +5,6 @@ import axios from 'axios'
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 
 
-
 const assets = ref([])
 const allAssets = ref([])
 const filteredAssets = ref([])
@@ -31,8 +30,16 @@ const resetFilters = () => {
 
 // Appel API
 const fetchAssets = async () => {
-  const response = await axios.get('http://localhost:8000/api/assets')
+  const config = useRuntimeConfig()
+  const apiBase = config.public.apiBase 
+  const response = await axios.get(`${apiBase}/api/assets`)
   allAssets.value = response.data
+//   console.log(`URL ==== ${apiBase}/api/assets`)
+//   console.log("RESPONSE HEADERS =", response.headers)
+// console.log("RESPONSE DATA =", response.data)
+// console.log("CONTENT-TYPE =", response.headers['content-type'])
+//   console.log("[ACTIF FILTER]", allAssets.value )
+//   console.log('API base URL =', config.public.apiBase)
   applyFilters()
 }
 
@@ -128,7 +135,7 @@ const emit = defineEmits(['update:assets', 'update:graphPeriod'])
         <option>Moins bonne Performance</option>
       </select> -->
       <span
-        v-if="searchQuery || regionFilter || categoryFilter || performanceFilter"
+        v-if="searchQuery || regionFilter || categoryFilter || performanceFilter || brvmFilter"
         @click="resetFilters"
         class="px-4 py-2 border border-gray-300 rounded-xl text-gray-600 hover:bg-gray-100"
       >

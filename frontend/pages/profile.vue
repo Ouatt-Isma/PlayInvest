@@ -61,8 +61,8 @@ import Referrals from '~/components/Referrals.vue'
 import FeatureUnavailable from '~/components/FeatureUnavailable.vue'
 import UpdatePassword from '~/components/UpdatePassword.vue'
 const currentSection = ref(1) 
-definePageMeta({
-  layout: 'connected',
-  middleware: 'auth'
-})
+// definePageMeta({
+//   layout: 'connected',
+//   middleware: 'auth'
+// })
 </script>

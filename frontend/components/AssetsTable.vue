@@ -92,7 +92,6 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import axios from 'axios'
 import { NuxtLink } from '#components'
 import PdfModal from '@/components/PdfModal.vue' // update path if 
 import { usePortfolio, formatCurrency } from '@/composables/portfolio'

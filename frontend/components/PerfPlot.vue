@@ -25,9 +25,11 @@ const periodDays = {
 }
 
 const fetchData = async () => {
+  const config = useRuntimeConfig()
+  const apiBase = config.public.apiBase 
   loading.value = true
   const token = localStorage.getItem("token")
-  const res = await axios.get('http://localhost:8000/api/performance', {
+  const res = await axios.get(`${apiBase}/api/performance`, {
     headers: { Authorization: `Bearer ${token}` },
     params: { filter: filterType.value }
   })

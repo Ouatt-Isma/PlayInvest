@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Livrets d'Épargne : Guide Complet - Finary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Couleurs Finary */
+            --finary-primary: #141145;
+            --finary-secondary: #7A2D8D;
+            --finary-accent: #5682F2;
+            --finary-light: #F1F2F6;
+            --finary-dark: #0A0A1D;
+            --finary-gold: #F1C086;
+            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
+            --finary-success: #4CAF50;
+            --finary-warning: #FFC107;
+            --finary-info: #2196F3;
+            --finary-error: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Table des matières */
+        #toc-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            border: 1px solid #eee;
+            display: none;
+        }
+        
+        #toc-container.visible {
+            display: block;
+        }
+        
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .toc-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .close-toc {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-toc:hover {
+            background-color: #f5f5f5;
+        }
+        
+        #toc-list {
+            list-style-type: none;
+        }
+        
+        #toc-list li {
+            margin-bottom: 8px;
+        }
+        
+        #toc-list a {
+            color: #444;
+            text-decoration: none;
+            display: block;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+        
+        #toc-list a:hover {
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+        }
+        
+        #toc-list .h2-link {
+            font-weight: 600;
+            margin-top: 12px;
+        }
+        
+        #toc-list .h3-link {
+            padding-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .toc-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--finary-gradient);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .toc-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        /* Article Header */
+        .article-header {
+            padding: 40px 0 20px;
+            position: relative;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            color: var(--finary-primary);
+            font-weight: 700;
+            max-width: 800px;
+        }
+        
+        /* Featured Image */
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            margin: 30px 0;
+            background: linear-gradient(120deg, var(--finary-primary), var(--finary-secondary));
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            padding: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
+        }
+        
+        /* Content Styling */
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--finary-primary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-weight: 700;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--finary-secondary);
+            font-weight: 600;
+            scroll-margin-top: 20px;
+        }
+        
+        .article-content ul {
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .article-content li::before {
+            content: '•';
+            color: var(--finary-accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Callout boxes - Style Finary */
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .callout::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: inherit;
+        }
+        
+        .callout.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-color: var(--finary-success);
+        }
+        
+        .callout.success::before {
+            background: var(--finary-success);
+        }
+        
+        .callout.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-color: var(--finary-warning);
+        }
+        
+        .callout.warning::before {
+            background: var(--finary-warning);
+        }
+        
+        .callout.info {
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--finary-info);
+        }
+        
+        .callout.info::before {
+            background: var(--finary-info);
+        }
+        
+        .callout.error {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-color: var(--finary-error);
+        }
+        
+        .callout.error::before {
+            background: var(--finary-error);
+        }
+        
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--finary-primary);
+        }
+        
+        /* Tables - Style Finary */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: #f5f5f7;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        .highlight-box {
+            background: rgba(86, 130, 242, 0.05);
+            border-left: 4px solid var(--finary-accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--finary-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .highlight-box-title i {
+            margin-right: 10px;
+            color: var(--finary-accent);
+        }
+        
+        .investment-scenario {
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .scenario-title {
+            font-weight: 600;
+            color: var(--finary-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .scenario-title i {
+            margin-right: 10px;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--finary-gradient);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .icon-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--finary-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .featured-image {
+                height: 250px;
+                font-size: 1.5rem;
+            }
+            
+            .article-content {
+                padding: 25px;
+            }
+            
+            .article-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            #toc-container {
+                width: 280px;
+                right: 10px;
+                left: auto;
+            }
+            
+            .icon-stats {
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                width: 50%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .featured-image {
+                height: 200px;
+                font-size: 1.3rem;
+            }
+            
+            .article-content {
+                padding: 20px 15px;
+            }
+            
+            #toc-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            
+            .stat-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton pour afficher la table des matières -->
+    <button class="toc-toggle" id="toc-toggle" aria-label="Afficher la table des matières">
+        <i class="fas fa-list"></i>
+    </button>
+    
+    <!-- Table des matières -->
+    <div id="toc-container">
+        <div class="toc-header">
+            <div class="toc-title">Sommaire de l'article</div>
+            <button class="close-toc" id="close-toc" aria-label="Fermer la table des matières">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul id="toc-list">
+            <li><a href="#introduction" class="h2-link">Introduction aux livrets d'épargne</a></li>
+            <li><a href="#principes" class="h2-link">Fonctionnement des livrets</a></li>
+            <li><a href="#avantages" class="h2-link">Avantages des livrets</a></li>
+            <li><a href="#types" class="h2-link">Types de livrets</a></li>
+            <li><a href="#livret-a" class="h3-link">Livret A</a></li>
+            <li><a href="#ldds" class="h3-link">LDDS</a></li>
+            <li><a href="#lep" class="h3-link">LEP</a></li>
+            <li><a href="#livret-jeune" class="h3-link">Livret Jeune</a></li>
+            <li><a href="#choisir" class="h2-link">Comment choisir</a></li>
+            <li><a href="#strategies" class="h2-link">Stratégies d'épargne</a></li>
+            <li><a href="#alternatives" class="h2-link">Alternatives</a></li>
+            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <!-- Article Header -->
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">Les Livrets d'Épargne : Le Guide Complet pour Optimiser Votre Épargne</h1>
+            <div></div>
+        </div>
+        
+        <!-- Featured Image -->
+        <div class="featured-image">
+            Les Livrets d'Épargne : Sécurité et accessibilité pour tous
+        </div>
+        
+        <!-- Article Content -->
+        <div class="article-content">
+            <p>Les livrets d'épargne sont des produits financiers incontournables pour les Français. Avec plus de 500 milliards d'euros déposés sur le seul Livret A, ces placements sécurisés et accessibles constituent la pierre angulaire de l'épargne nationale. Mais quels sont les différents types de livrets et comment les utiliser au mieux ?</p>
+            
+            <div class="callout info">
+                <div class="callout-title">Les éléments clés :</div>
+                <ul>
+                    <li>Sécurité des fonds garantie par l'État</li>
+                    <li>Fiscalité avantageuse (exonération d'impôts)</li>
+                    <li>Accessible à partir de 1€ seulement</li>
+                    <li>Plus de 55 millions de Livrets A ouverts en France</li>
+                    <li>Rendements révisés régulièrement</li>
+                </ul>
+            </div>
+            
+            <h2 id="introduction">Introduction : L'épargne sécurisée pour tous</h2>
+            <p>Les livrets d'épargne réglementés sont des placements sécurisés, garantis par l'État français, qui permettent à chacun de faire fructifier son argent sans risque de perte en capital. Ces produits financiers sont particulièrement adaptés pour constituer une épargne de précaution ou financer des projets à court terme.</p>
+            
+            <p>En France, les livrets réglementés représentent une part significative de l'épargne des ménages. À eux seuls, le Livret A et le LDDS concentrent plus de 500 milliards d'euros d'épargne. Leur popularité s'explique par leur simplicité, leur accessibilité et leur sécurité absolue.</p>
+            
+            <div class="icon-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="stat-value">500 Md€</div>
+                    <div class="stat-label">d'épargne sur Livret A</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">55 M</div>
+                    <div class="stat-label">de Livrets A ouverts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-percent"></i>
+                    </div>
+                    <div class="stat-value">3%</div>
+                    <div class="stat-label">taux moyen en 2025</div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <div class="highlight-box-title">
+                    <i class="fas fa-lightbulb"></i> À retenir
+                </div>
+                <p>Les livrets d'épargne réglementés offrent une combinaison unique de sécurité, de liquidité et d'avantages fiscaux, ce qui en fait des placements idéaux pour l'épargne de précaution ou les projets à court terme.</p>
+            </div>
+            
+            <h2 id="principes">Fonctionnement des livrets d'épargne</h2>
+            
+            <h3>Les caractéristiques communes</h3>
+            <p>Tous les livrets réglementés partagent des caractéristiques fondamentales :</p>
+            
+            <ul>
+                <li><strong>Sécurité absolue</strong> : Les fonds sont garantis par l'État</li>
+                <li><strong>Liquidité immédiate</strong> : Retraits possibles à tout moment</li>
+                <li><strong>Exonération fiscale</strong> : Pas d'impôt sur le revenu ni de prélèvements sociaux</li>
+                <li><strong>Plafonds de dépôt</strong> : Montants maximums fixés par l'État</li>
+                <li><strong>Taux réglementés</strong> : Fixés par les pouvoirs publics</li>
+            </ul>
+            
+            <div class="callout info">
+                <div class="callout-title">Calcul des intérêts</div>
+                <p>Les intérêts des livrets sont calculés par quinzaine : les sommes versées avant le 15 ou le dernier jour du mois produisent des intérêts à partir du 16 ou du 1er du mois suivant. De même, les retraits réduisent les intérêts à partir de la quinzaine suivante.</p>
+            </div>
+            
+            <h3>La révision des taux</h3>
+            <p>Les taux des livrets réglementés sont révisés tous les 6 mois (en février et août) selon une formule prenant en compte l'inflation et les taux du marché monétaire. Cette mécanique vise à préserver le pouvoir d'achat des épargnants tout en finançant le logement social.</p>
+            
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-calculator"></i> Exemple concret
+                </div>
+                <p>Si vous déposez 10 000€ sur un Livret A au taux de 3% :</p>
+                <ul>
+                    <li>Après 1 an : 10 000€ × 3% = 300€ d'intérêts</li>
+                    <li>Après 5 ans : 10 000€ × (1.03⁵ - 1) = 1 592€ d'intérêts cumulés</li>
+                </ul>
+                <p>Les intérêts sont capitalisés et produisent eux-mêmes des intérêts l'année suivante.</p>
+            </div>
+            
+            <h2 id="avantages">Les avantages majeurs des livrets</h2>
+            
+            <p>Les livrets réglementés présentent plusieurs atouts décisifs :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Avantage</th>
+                        <th>Description</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sécurité</td>
+                        <td>Garantie de l'État sur le capital</td>
+                        <td>Protection totale de l'épargne</td>
+                    </tr>
+                    <tr>
+                        <td>Liquidité</td>
+                        <td>Retraits immédiats sans pénalité</td>
+                        <td>Accès à tout moment à son épargne</td>
+                    </tr>
+                    <tr>
+                        <td>Fiscalité</td>
+                        <td>Exonération d'impôts et prélèvements</td>
+                        <td>Rendement net plus élevé</td>
+                    </tr>
+                    <tr>
+                        <td>Simplicité</td>
+                        <td>Ouverture et gestion faciles</td>
+                        <td>Accessible à tous</td>
+                    </tr>
+                    <tr>
+                        <td>Utilité sociale</td>
+                        <td>Financement du logement social</td>
+                        <td>Épargne solidaire</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout success">
+                <p>Selon la Banque de France, le Livret A est le placement préféré des Français avec 55 millions de détenteurs. Son succès s'explique par sa simplicité et sa sécurité, particulièrement appréciées en période d'incertitude économique.</p>
+            </div>
+            
+            <h3>La force de la fiscalité avantageuse</h3>
+            <p>L'exonération fiscale des livrets réglementés représente un avantage considérable comparé à d'autres placements :</p>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%"></div>
+            </div>
+            <div class="progress-labels">
+                <span>Livrets réglementés (0% fiscalité)</span>
+                <span>Compte sur livret (30% fiscalité)</span>
+                <span>Assurance-vie (PFU 30%)</span>
+            </div>
+            
+            <p>Pour un taux nominal de 3%, le rendement net d'un livret réglementé reste à 3%, tandis qu'un produit fiscalisé au taux de 30% ne rapporterait que 2.1% net. Cette différence s'accentue avec le temps grâce à la capitalisation des intérêts.</p>
+            
+            <h2 id="types">Les différents types de livrets</h2>
+            
+            <h3 id="livret-a">Livret A - L'incontournable</h3>
+            <p>Le Livret A est le placement préféré des Français :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : 3%</li>
+                <li><strong>Plafond</strong> : 22 950€ hors intérêts</li>
+                <li><strong>Ouverture</strong> : Accessible à tous sans condition</li>
+                <li><strong>Fiscalité</strong> : Exonérée</li>
+                <li><strong>Particularité</strong> : Finance le logement social</li>
+            </ul>
+            
+            <h3 id="ldds">LDDS - Le développement durable</h3>
+            <p>Le Livret de Développement Durable et Solidaire :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : 3% (même taux que Livret A)</li>
+                <li><strong>Plafond</strong> : 12 000€ hors intérêts</li>
+                <li><strong>Ouverture</strong> : Réservé aux résidents fiscaux français</li>
+                <li><strong>Fiscalité</strong> : Exonérée</li>
+                <li><strong>Particularité</strong> : Finance les PME et projets écologiques</li>
+            </ul>
+            
+            <h3 id="lep">LEP - Pour les revenus modestes</h3>
+            <p>Le Livret d'Épargne Populaire offre un taux plus avantageux :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : 5%</li>
+                <li><strong>Plafond</strong> : 7 700€ hors intérêts</li>
+                <li><strong>Ouverture</strong> : Réservé aux revenus modestes</li>
+                <li><strong>Fiscalité</strong> : Exonérée</li>
+                <li><strong>Particularité</strong> : Taux plus élevé que le Livret A</li>
+            </ul>
+            
+            <h3 id="livret-jeune">Livret Jeune - Pour les 12-25 ans</h3>
+            <p>Spécialement conçu pour les jeunes :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : Minimum 3% (souvent plus dans certaines banques)</li>
+                <li><strong>Plafond</strong> : 1 600€ hors intérêts</li>
+                <li><strong>Ouverture</strong> : Réservé aux 12-25 ans</li>
+                <li><strong>Fiscalité</strong> : Exonérée</li>
+                <li><strong>Particularité</strong> : Taux souvent bonifiés par les banques</li>
+            </ul>
+            
+            <div class="callout warning">
+                <p>Attention : Vous ne pouvez détenir qu'un seul Livret A, un seul LDDS et un seul LEP. Par contre, il est possible de cumuler ces différents livrets si vous répondez aux conditions d'éligibilité de chacun.</p>
+            </div>
+            
+            <h2 id="choisir">Comment choisir le bon livret ?</h2>
+            
+            <p>Face à la diversité des livrets, voici comment faire votre choix :</p>
+            
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-filter"></i> Critères de sélection
+                </div>
+                <ol>
+                    <li><strong>Vos revenus</strong> : Le LEP est réservé aux revenus modestes</li>
+                    <li><strong>Votre âge</strong> : Le Livret Jeune est accessible jusqu'à 25 ans</li>
+                    <li><strong>Vos projets</strong> : Montant à épargner et horizon temporel</li>
+                    <li><strong>Vos valeurs</strong> : Financement du social (Livret A) ou écologie (LDDS)</li>
+                    <li><strong>Votre situation</strong> : Possibilité de cumuler plusieurs livrets</li>
+                </ol>
+            </div>
+            
+            <h3>La stratégie d'optimisation</h3>
+            <p>Pour maximiser votre épargne, la stratégie optimale consiste à :</p>
+            <ol>
+                <li>Remplir d'abord votre LEP si vous y êtes éligible (taux plus élevé)</li>
+                <li>Compléter ensuite votre Livret A jusqu'au plafond</li>
+                <li>Ajouter enfin un LDDS si vous avez encore de la capacité d'épargne</li>
+                <li>Ouvrir un Livret Jeune pour vos enfants s'ils sont dans la tranche d'âge</li>
+            </ol>
+            
+            <h2 id="strategies">Stratégies d'épargne avec les livrets</h2>
+            
+            <p>Les livrets s'adaptent à différents objectifs financiers :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Objectif</th>
+                        <th>Stratégie</th>
+                        <th>Livrets recommandés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Épargne de précaution</td>
+                        <td>Constituer 3 à 6 mois de salaire disponible</td>
+                        <td>Livret A, LDDS</td>
+                    </tr>
+                    <tr>
+                        <td>Projet à court terme (1-3 ans)</td>
+                        <td>Épargner progressivement pour un achat</td>
+                        <td>Livret A, LDDS</td>
+                    </tr>
+                    <tr>
+                        <td>Transmission aux enfants</td>
+                        <td>Initier les jeunes à l'épargne</td>
+                        <td>Livret Jeune</td>
+                    </tr>
+                    <tr>
+                        <td>Optimisation fiscale</td>
+                        <td>Bénéficier de rendements nets élevés</td>
+                        <td>LEP, Livret A</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>L'épargne de précaution</h3>
+            <p>Les experts recommandent de constituer une épargne de précaution représentant 3 à 6 mois de dépenses courantes. Cette somme doit être placée sur des supports sécurisés et immédiatement disponibles comme les livrets réglementés.</p>
+            
+            <div class="callout success">
+                <p>Selon une étude de l'INSEE, seulement 54% des Français disposent d'une épargne de précaution suffisante. Les livrets réglementés sont l'outil idéal pour combler ce retard et se prémunir contre les imprévus.</p>
+            </div>
+            
+            <h3>Plan d'action pour bien commencer</h3>
+            <ol>
+                <li>Évaluez votre besoin en épargne de précaution (3-6 mois de dépenses)</li>
+                <li>Vérifiez votre éligibilité au LEP (revenus modestes)</li>
+                <li>Ouvrez un Livret A dans votre banque principale</li>
+                <li>Mettez en place un virement automatique mensuel</li>
+                <li>Complétez avec un LDDS si besoin</li>
+                <li>Pour vos enfants, ouvrez un Livret Jeune dès 12 ans</li>
+            </ol>
+            
+            <h2 id="alternatives">Alternatives aux livrets réglementés</h2>
+            <p>Quand vos livrets réglementés sont pleins, d'autres solutions existent :</p>
+            
+            <div class="callout info">
+                <div class="callout-title">Solutions complémentaires</div>
+                <ul>
+                    <li><strong>Compte à terme</strong> : Taux fixe pour une durée déterminée</li>
+                    <li><strong>Assurance-vie en fonds euros</strong> : Sécurisé avec rendement potentiellement supérieur</li>
+                    <li><strong>Plan d'épargne logement (PEL)</strong> : Pour un projet immobilier</li>
+                    <li><strong>Compte sur livret bancaire</strong> : Taux libre mais fiscalisé</li>
+                </ul>
+            </div>
+            
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-balance-scale"></i> Comparatif des alternatives
+                </div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Taux moyen</th>
+                            <th>Fiscalité</th>
+                            <th>Liquidité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Livret A</td>
+                            <td>3%</td>
+                            <td>Exonérée</td>
+                            <td>Immédiate</td>
+                        </tr>
+                        <tr>
+                            <td>Compte à terme</td>
+                            <td>2.5-3.5%</td>
+                            <td>30%</td>
+                            <td>À échéance</td>
+                        </tr>
+                        <tr>
+                            <td>Fonds euros AV</td>
+                            <td>2-3%</td>
+                            <td>Partielle après 8 ans</td>
+                            <td>Sous 2 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Compte sur livret</td>
+                            <td>0.5-1.5%</td>
+                            <td>30%</td>
+                            <td>Immédiate</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h2 id="conclusion">Conclusion : L'indispensable des placements sécurisés</h2>
+            <p>Les livrets d'épargne réglementés restent des placements incontournables dans toute stratégie financière. Leur combinaison unique de sécurité, de liquidité et d'avantages fiscaux en fait des produits idéaux pour l'épargne de précaution et les projets à court terme.</p>
+            
+            <p>En 2025, avec les incertitudes économiques, les Français continuent de plébisciter ces placements sécurisés. Près de 9 foyers sur 10 détiennent au moins un livret réglementé, preuve de leur utilité dans la gestion des finances personnelles.</p>
+            
+            <div class="callout success">
+                <div class="callout-title">Prochaine étape</div>
+                <p>1. Vérifiez que vous avez bien un Livret A<br>
+                2. Contrôlez votre éligibilité au LEP<br>
+                3. Évaluez votre épargne de précaution<br>
+                4. Mettez en place un virement automatique<br>
+                5. Consultez votre conseiller bancaire pour optimiser</p>
+            </div>
+            
+            <p>Comme le rappelle souvent le gouverneur de la Banque de France : "Les livrets réglementés constituent la première marche essentielle de l'épargne, avant de se tourner vers des placements plus risqués mais potentiellement plus rémunérateurs".</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocToggle = document.getElementById('toc-toggle');
+            const tocContainer = document.getElementById('toc-container');
+            const closeToc = document.getElementById('close-toc');
+            
+            // Toggle TOC visibility
+            tocToggle.addEventListener('click', function() {
+                tocContainer.classList.toggle('visible');
+            });
+            
+            // Close TOC
+            closeToc.addEventListener('click', function() {
+                tocContainer.classList.remove('visible');
+            });
+            
+            // Close TOC when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!tocContainer.contains(event.target) && 
+                    !tocToggle.contains(event.target) && 
+                    tocContainer.classList.contains('visible')) {
+                    tocContainer.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close TOC after clicking on a link
+                        tocContainer.classList.remove('visible');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

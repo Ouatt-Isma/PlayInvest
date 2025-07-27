@@ -9,7 +9,7 @@
       <p class="text-gray-500 text-lg mb-6">
         Testez vos connaissances financières, défiez d'autres investisseurs et gagnez des fonds virtuels pour investir !
       </p>
-      <NuxtLink to="/" class="inline-block bg-[#0D5254] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#084244] transition">
+      <NuxtLink to="/makequiz" class="inline-block bg-[#0D5254] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#084244] transition">
         Découvrir la Plateforme
       </NuxtLink>
     </div>

@@ -8,12 +8,12 @@
   
   <script setup>
   const logos = [
-    { src: '/logos/bitcoin.png', alt: 'Bitcoin' },
-    { src: '/logos/apple.svg', alt: 'Apple' },
-    { src: '/logos/ethereum.svg', alt: 'Ethereum' },
-    { src: '/logos/mtn.svg', alt: 'MTN' },
-    { src: '/logos/tesla.svg', alt: 'Tesla' },
-    { src: '/logos/alibaba.svg', alt: 'Alibaba' }
+    { src: '/logos/BTC-USD.webp', alt: 'Bitcoin' },
+    { src: '/logos/AAPL.webp', alt: 'Apple' },
+    { src: '/logos/ETH-USD.webp', alt: 'Ethereum' },
+    { src: '/logos/MTN.JO.webp', alt: 'MTN' },
+    { src: '/logos/TSLA.webp', alt: 'Tesla' },
+    { src: '/logos/BABA.webp', alt: 'Alibaba' }
   ]
   </script>
   

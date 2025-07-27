@@ -1,8 +1,11 @@
 export default defineNuxtConfig({
+  runtimeConfig:{public: {
+    apiBase: process.env.API_BASE_URL || 'http://localhost:8000'
+  }},
   vite: {
     server: {
       allowedHosts: [
-        "6c04-2a01-e0a-e4b-7e50-a9d3-1e39-434a-30e8.ngrok-free.app"
+        "7112-2a01-e0a-e4b-7e50-d9f6-80fa-1000-64c3.ngrok-free.app"
       ]
     }
   },

@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 export function usePortfolio() {
   const assets = ref([])
   const cash = ref(0)
@@ -6,7 +7,9 @@ export function usePortfolio() {
 
   const fetchPortfolio = async () => {
     const token = localStorage.getItem("token")
-    const response = await axios.get(`http://localhost:8000/api/portfolio/`, {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const response = await axios.get(`${apiBase}/api/portfolio/`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

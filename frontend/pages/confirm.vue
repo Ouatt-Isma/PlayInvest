@@ -8,6 +8,7 @@ const router = useRouter()
 const message = ref('Confirmation en cours...')
 const success = ref(null)
 
+
 onMounted(async () => {
   const token = route.query.token
   if (!token) {
@@ -17,7 +18,9 @@ onMounted(async () => {
   }
 
   try {
-    const res = await axios.get(`http://localhost:8000/api/confirm?token=${token}`)
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase 
+    const res = await axios.get(`${apiBase}/api/confirm?token=${token}`)
     message.value = res.data.message
     success.value = true
 
