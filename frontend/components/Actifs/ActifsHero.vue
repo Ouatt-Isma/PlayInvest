@@ -1,5 +1,6 @@
 <template>
-  <section class="flex flex-col md:flex-row items-center justify-between px-10 py-20 bg-[#f7f8fc]">
+  <section class="flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 sm:px-6 md:px-10 py-12 md:py-20 bg-[#f7f8fc]">
+ 
     <div class="md:w-1/2 mb-10 md:mb-0">
       <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
         Investir dans les Actifs Mondiaux

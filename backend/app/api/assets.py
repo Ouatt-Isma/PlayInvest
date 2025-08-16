@@ -54,7 +54,7 @@ def buy_asset(
         
     # 2. Calcul du prix total d’achat
     asset_dict = asset_obj.to_dict()
-    total_price = asset_dict["latest_price"] * amount
+    total_price = asset_dict["buying_price"] * amount
 
     total_price_conv = convert(asset_obj.currency, portfolio.currency, total_price) 
     
@@ -84,16 +84,16 @@ def buy_asset(
             pa.total_invest = total_price
         else:
             pa.quantity += amount
-            pa.buying_price = (asset_dict["latest_price"]*amount +  pa.buying_price *pa.quantity) / (pa.quantity+amount) # optionnel : mise à jour du prix
+            pa.buying_price = (asset_dict["buying_price"]*amount +  pa.buying_price *pa.quantity) / (pa.quantity+amount) # optionnel : mise à jour du prix
             pa.total_invest = pa.total_invest+total_price
-        pa.buying_price=asset_dict["latest_price"],
+        pa.buying_price=asset_dict["buying_price"],
         pa.buying_date=datetime.now(),
     else:
         pa = PortfolioAsset(
             portfolio_id=portfolio.id,
             asset_id=asset,
             quantity=amount,
-            buying_price=asset_dict["latest_price"],
+            buying_price=asset_dict["buying_price"],
             buying_date=datetime.now(),
             total_invest = total_price, 
             sold=False,
@@ -106,7 +106,7 @@ def buy_asset(
         asset_id=asset,
         transaction_type="buy",
         quantity=amount,
-        price_per_unit=asset_dict["latest_price"]
+        price_per_unit=asset_dict["buying_price"]
     )
     db.add(transaction)
     db.commit()
@@ -134,7 +134,7 @@ def sell_asset(
         raise HTTPException(status_code=404, detail="Asset not found")
     
     asset_dict = asset_obj.to_dict()
-    current_price = asset_dict["latest_price"]
+    current_price = asset_dict["buying_price"]
 
     # 2. Récupérer le portefeuille de l'utilisateur
     portfolio = db.query(Portfolio).filter_by(user_id=current_user.id).first()
@@ -166,7 +166,7 @@ def sell_asset(
         asset_id=asset,
         transaction_type="sell",
         quantity=amount,
-        price_per_unit=asset_dict["latest_price"]
+        price_per_unit=asset_dict["buying_price"]
     )
     db.add(transaction)
     db.add(pa)

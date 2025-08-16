@@ -1,3 +1,4 @@
+from backports.zoneinfo import ZoneInfo
 class Settings:
     FRONTEND_URL = "http://localhost:3000"
     EMAIL = "ouattaraismael258852@gmail.com"
@@ -18,6 +19,8 @@ class Settings:
     amount_qcm = 25
     amount_challenge = 50
     currency = 'EUR'
+    ADMIN_EMAIL = "ouattaraismael1999@gmail.com"
+    TZ_FR = ZoneInfo("Europe/Paris")
 
 settings = Settings()
 

@@ -19,18 +19,10 @@ def simulate_past_performance(payload: PastPerfRequest, db: Session = Depends(ge
     if not asset or not isinstance(asset.financial_data, list):
         return {"performance": 0.0, "current_value": payload.amount}
 
-    # Extract prices
-    def get_price_at(date_str):
-        target_date = datetime.strptime(date_str, "%Y-%m-%d").date()
-        closest = min(
-            asset.financial_data,
-            key=lambda x: abs(datetime.strptime(x["date"], "%Y-%m-%d").date() - target_date),
-            default=None
-        )
-        return closest["close"] if closest else None
+    
 
-    price_start = get_price_at(payload.start_date)
-    price_end = get_price_at(payload.end_date)
+    price_start = asset.get_price_at(payload.start_date)
+    price_end = asset.get_price_at(payload.end_date)
 
     if not price_start or not price_end or price_start == 0:
         return {"performance": 0.0, "current_value": payload.amount}

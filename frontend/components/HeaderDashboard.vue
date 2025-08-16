@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } 
+from 'vue'
 import { useRouter } from 'vue-router'
 
 const darkMode = ref(false)
@@ -76,27 +77,39 @@ const handleClickOutside = (event) => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside)
 })
+
+
+const isOpen = ref(false)
+
+// (optional) close on Esc
+const onKey = (e) => { if (e.key === 'Escape') isOpen.value = false }
+onMounted(() => window.addEventListener('keydown', onKey))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
+
+
 </script>
 <!-- 'icons/default.png' -->
 
+
 <template>
-  <header class="bg-gray-50 shadow-sm px-8 py-4 flex items-center justify-between">
-    <!-- Logo -->
-    <div class="flex items-center space-x-2">
-      <img src="/logo.svg" alt="PlayInvest Logo" class="h-8 w-auto" />
-      <!-- <span class="text-2xl font-bold text-black">Play<span class="text-gray-700">Invest</span></span> -->
-    </div>
+  <header class="bg-gray-50 shadow-sm sticky top-0 z-[930]">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <NuxtLink to="/" class="flex items-center gap-2">
+        <img src="/logo.png" alt="PlayInvest Logo" class="h-8 w-auto" />
+      </NuxtLink>
 
-    <!-- Navigation -->
-    <nav class="flex space-x-6 text-gray-500 font-medium">
-      <NuxtLink to="/" exact-active-class="text-black font-semibold">Accueil</NuxtLink>
-      <NuxtLink to="/assets" exact-active-class="text-black font-semibold">Actifs</NuxtLink>
-      <NuxtLink to="/quiz" exact-active-class="text-black font-semibold">Quiz</NuxtLink>
-      <NuxtLink to="/learn" exact-active-class="text-black font-semibold">Se former</NuxtLink>
-    </nav>
+      
 
-    <!-- Right Section -->
-    <div class="flex items-center space-x-4">
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
+        <NuxtLink to="/" active-class="text-teal-900 font-bold">Accueil</NuxtLink>
+        <NuxtLink to="/assets" :class="{ 'font-semibold text-primary': $route.path === '/assets' }">Actifs</NuxtLink>
+        <NuxtLink to="/quiz"   :class="{ 'font-semibold text-primary': $route.path === '/quiz' }">Quiz</NuxtLink>
+        <NuxtLink to="/learn"  :class="{ 'font-semibold text-primary': $route.path === '/learn' }">Se former</NuxtLink>
+        <NuxtLink to="/news"   :class="{ 'font-semibold text-primary': $route.path === '/news' }">Actualités</NuxtLink>
+      </nav>
+      <div class="flex items-center space-x-4">
       <NuxtLink to="/notifs" class="relative">
         <img src="/icons/bell.svg" alt="Notifications" class="h-6 w-6 text-gray-600" />
         <span class="absolute top-0 right-0 block h-2 w-2 bg-green-500 rounded-full ring-2 ring-white"></span>
@@ -163,5 +176,73 @@ onBeforeUnmount(() => {
 
       </div>
     </div>
+      <!-- Mobile menu button -->
+      <button @click="isOpen = true" class="md:hidden p-2" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+      <!-- Auth buttons (desktop) -->
+    </div>
+
+    
+
+    <!-- Overlay -->
+    <transition name="fade">
+      <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-40 z-[950]"
+           @click="isOpen = false"></div>
+    </transition>
+
+    <!-- Right sidebar -->
+    <transition name="slide-right">
+      <aside v-if="isOpen"
+             class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-[1000] p-6 flex flex-col gap-4"
+             role="dialog" aria-modal="true">
+        <div class="flex items-center justify-between mb-4">
+          <span class="font-semibold">Menu</span>
+          <button @click="isOpen = false" aria-label="Close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <NuxtLink to="/"        class="block" @click="isOpen = false">Accueil</NuxtLink>
+        <NuxtLink to="/assets"  class="block" @click="isOpen = false">Actifs</NuxtLink>
+        <NuxtLink to="/quiz"    class="block" @click="isOpen = false">Quiz</NuxtLink>
+        <NuxtLink to="/learn"   class="block" @click="isOpen = false">Se former</NuxtLink>
+        <NuxtLink to="/news"    class="block" @click="isOpen = false">Actualités</NuxtLink>
+
+        <div class="mt-6 border-t pt-4">
+          <NuxtLink to="/login" class="block mb-2">Connexion</NuxtLink>
+          <NuxtLink to="/register" class="block">S'inscrire</NuxtLink>
+        </div>
+      </aside>
+    </transition>
   </header>
 </template>
+
+
+
+<style>
+/* Slide in from the RIGHT */
+.slide-right-enter-active, .slide-right-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-right-enter-from, .slide-right-leave-to {
+  transform: translateX(100%);
+}
+
+/* Fade overlay */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>

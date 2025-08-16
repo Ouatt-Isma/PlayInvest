@@ -17,7 +17,7 @@
       <p class="text-gray-600 mb-8">
         Accédez à un historique complet de vos quiz réussis, des fonds fictifs gagnés et des investissements virtuels effectués. Cela vous permet d'analyser vos progrès et de vous améliorer dans votre parcours d'investissement global.
       </p>
-      <button class="bg-teal-800 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-900 transition">Commencer</button>
+      <NuxtLink to="/dashboard" class="bg-teal-800 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-900 transition">Commencer</NuxtLink>
     </div>
   </section>
 </template>

@@ -3,8 +3,36 @@
     <div class="flex justify-between items-center mb-4">
     <div>
       <h2 class="text-xl font-bold">Vue d’ensemble du Portefeuille</h2>
-      <span> Cash Total: {{ cash }}</span>
-      <span> Total Investi: {{totalInvested}}</span>
+      <div class="flex gap-6 mt-2 text-sm font-medium">
+  <div class="flex items-center gap-2 text-green-700">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 14v4m0 0h-3m3 0h3"/>
+    </svg>
+    Cash Total: {{ formatCurrency(cash, currency) }}
+  </div>
+  <div class="flex items-center gap-2 text-blue-700">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M11 11V3h2v8h8v2h-8v8h-2v-8H3v-2h8z"/>
+    </svg>
+    Total Investi: {{ formatCurrency(totalInvested, currency) }}
+  </div>
+</div>
+
+<!-- Share bar -->
+<div class="w-full h-2 bg-gray-200 rounded overflow-hidden mt-2 flex">
+  <div
+    class="h-full bg-green-500"
+    :style="{ width: cashShare + '%' }"
+  ></div>
+  <div
+    class="h-full bg-blue-500"
+    :style="{ width: investedShare + '%' }"
+  ></div>
+</div>
     </div>
       <NuxtLink to='/assets' class="bg-teal-700 text-white px-4 py-2 rounded">Ajouter un actif</NuxtLink>
     </div>
@@ -63,9 +91,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import axios from 'axios'
-import AssetDetailsModal from '@/components/AssetDetailsModal.vue'
+import AssetDetailsModal from '~/components/Actifs/AssetDetailsModal.vue'
 import { NuxtLink } from '#components'
 import { formatCurrency } from '@/composables/portfolio'
 
@@ -76,6 +104,8 @@ const activeMenu = ref(null)
 const showModal = ref(false)
 const sell = ref(false)
 const selectedAsset = ref(null)
+const currency = ref([])
+
 
 
 const buyMore = (asset) => {
@@ -112,7 +142,17 @@ onMounted(async () => {
     assets.value = data.assets
     cash.value = data.cash
     totalInvested.value = data.total_investi
+    currency.value = data.currency
+    
 })
 
+const total = computed(() => cash.value + totalInvested.value)
 
+const cashShare = computed(() =>
+  total.value > 0 ? (cash.value / total.value) * 100 : 0
+)
+
+const investedShare = computed(() =>
+  total.value > 0 ? (totalInvested.value / total.value) * 100 : 0
+)
 </script>

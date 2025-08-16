@@ -33,7 +33,7 @@ const fetchData = async () => {
     headers: { Authorization: `Bearer ${token}` },
     params: { filter: filterType.value }
   })
-  console.log('[DEBUG] Résultat API :', res.data)
+  // console.log('[DEBUG] Résultat API :', res.data)
   rawData.value = res.data
   selected.value = Object.keys(res.data.data)
   loading.value = false
@@ -62,9 +62,7 @@ const chartData = computed(() => {
   const datasets = datasetKeys.map(key => ({
     label: key,
     data: days === Infinity ? rawData.value.data[key] : rawData.value.data[key].slice(cutoffIndex),
-    // fill: true,
     borderColor: colors[key] || '#999',
-    // backgroundColor: (colors[key] || '#999') + '33',
     borderWidth: 2,
     tension: 0.3,
     pointRadius: 0
@@ -73,22 +71,45 @@ const chartData = computed(() => {
   return { labels: slicedLabels, datasets }
 })
 
+// helpers to format numbers as percentage with 2 decimals
+const toPct = (v) => {
+  const n = Number(v)
+  if (!isFinite(n)) return v
+  return `${n.toFixed(2)}%`
+}
+
 const chartOptions = {
   responsive: true,
   plugins: {
     legend: { position: 'bottom' },
-    tooltip: { mode: 'index', intersect: false }
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: (ctx) => {
+          const val = ctx.parsed?.y
+          return `${ctx.dataset.label}: ${toPct(val)}`
+        }
+      }
+    }
   },
   scales: {
     y: {
+      title: {
+        display: true,
+        text: 'Performance (%)'
+      },
       ticks: {
-        callback: val => val.toLocaleString()
+        // show e.g. -7.05% with two decimals
+        callback: (val) => toPct(val)
       }
+    },
+    x: {
+      ticks: { maxRotation: 0 }
     }
   }
 }
 </script>
-
 
 <template>
   <section class="p-6 bg-white rounded-xl shadow">

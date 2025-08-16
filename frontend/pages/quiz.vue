@@ -12,9 +12,9 @@
 </template>
 
 <script setup>
-import QuizHero from '~/components/QuizHero.vue'
-import QuizFeatures from '~/components/QuizFeatures.vue'
-import QuizChallenges from '~/components/QuizChallenges.vue'
-import QuizProgress from '~/components/QuizProgress.vue'
-import QuizLearningResources from '~/components/QuizLearningResources.vue'
+import QuizHero from '~/components/Quiz/QuizHero.vue'
+import QuizFeatures from '~/components/Quiz/QuizFeatures.vue'
+import QuizChallenges from '~/components/Quiz/QuizChallenges.vue'
+import QuizProgress from '~/components/Quiz/QuizProgress.vue'
+import QuizLearningResources from '~/components/Quiz/QuizLearningResources.vue'
 </script>

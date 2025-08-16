@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 from .base import BaseScraper
-from .scrapper import get_open_close_price
+from .scrapper_old import get_open_close_price
 from datetime import date
 
 

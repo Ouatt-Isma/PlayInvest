@@ -8,8 +8,8 @@
         les stratégies d'investissement et mieux comprendre les marchés internationaux.
       </p>
       <div class="flex gap-4">
-        <button class="bg-teal-800 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-900 transition">Commencer</button>
-        <button class="border border-teal-800 text-teal-800 font-semibold px-6 py-3 rounded-lg hover:bg-teal-50 transition">En savoir plus</button>
+        <NuxtLink to="/learn" class="bg-teal-800 text-white font-semibold px-6 py-3 rounded-lg hover:bg-teal-900 transition">Commencer</NuxtLink>
+        
       </div>
     </div>
 

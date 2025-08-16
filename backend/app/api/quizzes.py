@@ -74,24 +74,47 @@ def save_quiz_result(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    user_id = current_user.id
+
+    # Do nothing if not passed
+    if not payload.passed:
+        return {"message": "Le quiz n'a pas été réussi, aucun résultat enregistré."}
+
+    # Check if user already passed this topic before
+    existing_pass = (
+        db.query(QuizResult)
+        .filter(
+            QuizResult.topic == payload.topic,
+            QuizResult.user_id == user_id,
+            QuizResult.passed == True
+        )
+        .first()
+    )
+
+    # If already passed, don't add cash or duplicate result
+    if existing_pass:
+        return {"message": "Quiz déjà réussi précédemment. Aucun ajout de cash ni enregistrement."}
+
+    # Save the result since it's passed and hasn't been passed before
     new_result = QuizResult(
-        user_id=current_user.id,
+        user_id=user_id,
         topic=payload.topic,
         module=payload.module,
         score=payload.score,
         total=payload.total,
         percent=payload.percent,
-        passed=payload.passed,
+        passed=True,
         time_seconds=payload.time_seconds,
         completed_at=payload.completed_at
     )
     db.add(new_result)
-    if payload.passed:
-        user_id = current_user.id
-        portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
-        portfolio.cash+= convert(settings.currency, portfolio.currency, settings.amount_qcm)
-        db.add(portfolio)
+
+    # Add cash to portfolio
+    portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
+    portfolio.cash += convert(settings.currency, portfolio.currency, settings.amount_qcm)
+    db.add(portfolio)
+
     db.commit()
     db.refresh(new_result)
 
-    return {"message": "Résultat enregistré avec succès", "id": new_result.id}
+    return {"message": "Résultat enregistré et récompense ajoutée.", "id": new_result.id}

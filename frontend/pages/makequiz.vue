@@ -1,29 +1,39 @@
 <template>
   <div class="grid md:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto">
-
     <!-- Module/Topic Selector -->
     <div class="md:col-span-1 space-y-4">
       <h2 class="text-lg font-bold">📘 Choisissez un module</h2>
       <select v-model="selectedModule" class="w-full p-2 border rounded">
         <option disabled value="">-- Module --</option>
-        <option v-for="mod in modules" :key="mod">{{ mod }}</option>
+        <option
+          v-for="mod in modules"
+          :key="`m-${mod}`"
+          :value="mod"
+        >
+          {{ mod }}
+        </option>
       </select>
 
       <h2 class="text-lg font-bold">🎯 Choisissez un quiz</h2>
       <select v-model="selectedTopic" class="w-full p-2 border rounded" @change="loadQuiz">
         <option disabled value="">-- Sujet --</option>
-        <option v-for="topic in filteredTopics" :key="topic">{{ topic }}</option>
+        <option
+          v-for="topic in filteredTopics"
+          :key="`t-${topic}`"
+          :value="topic"
+        >
+          {{ topic }}
+        </option>
       </select>
     </div>
 
     <!-- Quiz View -->
     <div class="w-full max-w-3xl mx-auto">
-        <p v-if="alreadyPassed" class="text-green-600 text-sm font-medium">
+      <p v-if="alreadyPassed" class="text-green-600 text-sm font-medium">
         ✅ Vous avez déjà réussi ce quiz. Vous pouvez le refaire si vous le souhaitez.
-        </p>
+      </p>
 
       <div v-if="quiz.length" class="space-y-6">
-
         <!-- Timer & Progress -->
         <div class="flex justify-between items-center">
           <div class="text-blue-700 font-semibold">
@@ -31,8 +41,12 @@
           </div>
           <div class="text-sm text-gray-500">⏱ {{ formattedTime }}</div>
         </div>
+
         <div class="w-full h-2 bg-gray-200 rounded">
-          <div class="h-full bg-blue-500 rounded" :style="{ width: progressPercent + '%' }"></div>
+          <div
+            class="h-full bg-blue-500 rounded"
+            :style="{ width: (quiz.length ? progressPercent : 0) + '%' }"
+          ></div>
         </div>
 
         <!-- Current Question -->
@@ -40,13 +54,13 @@
           <p class="mb-2 font-medium">{{ currentQuestion.question }}</p>
           <div class="pl-4">
             <label
-              v-for="(text, key) in currentQuestion.options"
+              v-for="(text, key) in (currentQuestion.options || {})"
               :key="key"
               class="block mb-2 cursor-pointer"
             >
               <input
                 type="radio"
-                :name="'question'"
+                name="question"
                 :value="key"
                 v-model="answers[currentIndex]"
                 class="mr-2"
@@ -58,9 +72,14 @@
 
         <!-- Navigation -->
         <div class="flex justify-between">
-          <button v-if="currentIndex > 0" @click="prev" class="px-4 py-2 bg-gray-300 rounded">
+          <button
+            v-if="currentIndex > 0"
+            @click="prev"
+            class="px-4 py-2 bg-gray-300 rounded"
+          >
             ← Précédent
           </button>
+
           <button
             v-if="currentIndex < quiz.length - 1"
             @click="next"
@@ -68,6 +87,7 @@
           >
             Suivant →
           </button>
+
           <button
             v-else
             @click="submit"
@@ -96,7 +116,6 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 
-
 const alreadyPassed = ref(false)
 
 const config = useRuntimeConfig()
@@ -118,32 +137,42 @@ let timer = null
 
 // Fetch all quizzes
 onMounted(async () => {
-  const token = localStorage.getItem("token") 
-  const res = await axios.get(`${apiBase}/api/quizzes`,{
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
-    })
+  const token = localStorage.getItem('token')
+  const res = await axios.get(`${apiBase}/api/quizzes`, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
   quizzes.value = res.data
 })
 
 const modules = computed(() => [...new Set(quizzes.value.map(q => q.module))])
+
 const filteredTopics = computed(() =>
-  [...new Set(quizzes.value.filter(q => q.module === selectedModule.value).map(q => q.topic))]
+  [...new Set(quizzes.value
+    .filter(q => q.module === selectedModule.value)
+    .map(q => q.topic))]
 )
 
 const currentQuestion = computed(() => quiz.value[currentIndex.value] || {})
-const progressPercent = computed(() =>
-  Math.round(((currentIndex.value + 1) / quiz.value.length) * 100)
-)
+
+const progressPercent = computed(() => {
+  const total = quiz.value.length
+  if (!total) return 0
+  const pct = Math.round(((currentIndex.value + 1) / total) * 100)
+  return Math.min(100, Math.max(0, pct))
+})
+
 const formattedTime = computed(() => {
   const m = Math.floor(secondsElapsed.value / 60)
   const s = secondsElapsed.value % 60
   return `${m}m ${s}s`
 })
-const scorePercent = computed(() =>
-  Math.round((score.value / quiz.value.length) * 100)
-)
+
+const scorePercent = computed(() => {
+  const total = quiz.value.length
+  if (!total) return 0
+  return Math.round((score.value / total) * 100)
+})
+
 const scoreMessage = computed(() =>
   scorePercent.value >= 80
     ? `🎉 Bravo ! Vous avez réussi (${scorePercent.value}%)`
@@ -156,39 +185,29 @@ async function loadQuiz() {
   score.value = 0
   clearInterval(timer)
   secondsElapsed.value = 0
+  alreadyPassed.value = false
 
-  alreadyPassed.value = false // Reset state
-
-  // 1. Check if user has already passed the quiz
   try {
-    const token = localStorage.getItem("token") 
+    const token = localStorage.getItem('token')
     const statusRes = await axios.get(
-    `${apiBase}/api/quiz-results/status?topic=${encodeURIComponent(selectedTopic.value)}`,
-    {
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
-    }
+      `${apiBase}/api/quiz-results/status?topic=${encodeURIComponent(selectedTopic.value)}`,
+      { headers: { Authorization: `Bearer ${token}` } }
     )
-    alreadyPassed.value = statusRes.data.passed
+    alreadyPassed.value = !!statusRes.data.passed
   } catch (err) {
-    console.warn("Could not check quiz status", err)
+    console.warn('Could not check quiz status', err)
   }
 
-  const token = localStorage.getItem("token") 
-  // 2. Load quiz
-  const res = await axios.get(`${apiBase}/api/quizzes?topic=${encodeURIComponent(selectedTopic.value)}`, {headers: {
-        Authorization: `Bearer ${token}`
-    }})
-  quiz.value = res.data
+  const token = localStorage.getItem('token')
+  const res = await axios.get(
+    `${apiBase}/api/quizzes?topic=${encodeURIComponent(selectedTopic.value)}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  )
+  quiz.value = res.data || []
   answers.value = Array(quiz.value.length).fill(null)
 
-  // 3. Start timer
-  timer = setInterval(() => {
-    secondsElapsed.value++
-  }, 1000)
+  timer = setInterval(() => { secondsElapsed.value++ }, 1000)
 }
-
 
 function next() {
   if (currentIndex.value < quiz.value.length - 1) currentIndex.value++
@@ -219,18 +238,14 @@ async function submit() {
   }
 
   try {
-  const token = localStorage.getItem("token")
-
-  await axios.post(`${apiBase}/api/quiz-results`, resultPayload, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
-
-  console.log("✅ Résultat enregistré.")
-} catch (err) {
-  console.error("❌ Erreur d'enregistrement:", err)
-}
+    const token = localStorage.getItem('token')
+    await axios.post(`${apiBase}/api/quiz-results`, resultPayload, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    console.log('✅ Résultat enregistré.')
+  } catch (err) {
+    console.error("❌ Erreur d'enregistrement:", err)
+  }
 }
 
 onUnmounted(() => {

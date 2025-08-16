@@ -4,7 +4,8 @@ from app.scrapper.yahoo import YahooScraper
 from app.scrapper.investing import InvestingScraper
 from sqlalchemy.orm.attributes import flag_modified
 from datetime import datetime
-
+import os 
+import pandas as pd 
     
 
 
@@ -34,6 +35,7 @@ def update_all_assets(db: Session):
 
     for asset in assets:
         # print("Before:", asset.financial_data)
+        
         url = get_website_name(asset.website)
         # print(f"[{asset.symbol}] source = {url}")
 
@@ -43,7 +45,7 @@ def update_all_assets(db: Session):
                 print(f"No scraper for {url}")
                 continue
             
-            data = scraper.scrape(asset.symbol, url)
+            data = scraper.scrape(asset.symbol, asset.website)
 
             if not data or 'error' in data:
                 print(f"Skipping {asset.symbol} due to bad data: {data}")
@@ -65,8 +67,10 @@ def update_all_assets(db: Session):
         except Exception as e:
             print(f"[✘] Error on {asset.symbol}: {e}")
             db.rollback()
+            # raise NotADirectoryError
         # print("After:", asset.financial_data)
     db.close()
+
 
 
 def update_all_assets_first(db: Session):
@@ -128,5 +132,73 @@ def update_all_assets_first(db: Session):
             db.rollback()
 
         # print("After:", asset.financial_data)
+
+    db.close()
+
+def to_float(value):
+    """Convert string values like '14.150,00' to float 14150.00."""
+    if isinstance(value, str):
+        # Remove the thousands separator (e.g. dot in '14.150,00')
+        value = value.replace('.', '')
+        # Replace the comma with a dot for decimal point
+        value = value.replace(',', '.')
+        try:
+            return float(value)
+        except ValueError:
+            return None
+    return value
+    
+def update_assets_from_csv(db: Session, folder_path="app/services/Historique BRVM"):
+   # Iterate over all CSV files in the folder
+    for filename in os.listdir(folder_path):
+        # Ensure that the file is a CSV and the filename matches a symbol
+        if filename.endswith(".csv"):
+            symbol = filename.replace(".csv", "")  # Get the symbol (remove file extension)
+            print(f"[{symbol}] Processing CSV data...")
+
+            # Find the asset from the database by symbol
+            asset = db.query(Asset).filter(Asset.symbol == symbol).first()
+
+            if not asset:
+                print(f"[⏭] Asset with symbol {symbol} not found in database.")
+                continue
+
+            try:
+                # Read the CSV file into a DataFrame
+                csv_path = os.path.join(folder_path, filename)
+                data = pd.read_csv(csv_path)
+
+                # Ensure the CSV has necessary columns
+                if 'Date' not in data.columns or 'Ouv.' not in data.columns or 'Dernier' not in data.columns:
+                    print(f"[⏭] Missing necessary columns in {filename}. Skipping.")
+                    continue
+
+                # Prepare existing dates for deduplication
+                existing = []
+
+                added = 0
+                # Process each row of the CSV
+                for _, row in data.iterrows():
+                    # Convert the Date format to %Y-%m-%d
+                    entry_date = pd.to_datetime(row['Date'], format='%d/%m/%Y').strftime('%Y-%m-%d')
+                    new_data = {
+                        "date": entry_date,
+                        "open": to_float(row['Ouv.']),
+                        "close": to_float(row['Dernier']),
+                    }
+                    added+=1
+                    existing.append(new_data)
+
+                # if added > 0:
+                asset.financial_data = list(existing)
+                flag_modified(asset, "financial_data")
+                db.commit()
+                print(f"[✔] {symbol} updated with {added} new entries from {filename}.")
+                # else:
+                #     print(f"[⏭] No new data to update for {symbol} from {filename}.")
+
+            except Exception as e:
+                print(f"[✘] Error processing {symbol} from {filename}: {e}")
+                db.rollback()
 
     db.close()

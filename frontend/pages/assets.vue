@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import ActifFilters from '~/components/ActifFilters.vue'
-import AssetsTable from '~/components/AssetsTable.vue'
+import ActifFilters from '~/components/Actifs/ActifFilters.vue'
+import AssetsTable from '~/components/Actifs/AssetsTable.vue'
 import { ref } from 'vue'
 const filteredAssets = ref([])
 </script>

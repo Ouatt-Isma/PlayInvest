@@ -102,10 +102,10 @@ import { ref, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
 
 // Components
-import FeaturedSlider from '~/components/FeaturedSlider.vue'
-import TrendingArticle from '~/components/TrendingArticle.vue'
-import LatestArticles from '~/components/LatestArticles.vue'
-import PopularArticles from '~/components/PopularArticles.vue'
+import FeaturedSlider from '~/components/Articles/FeaturedSlider.vue'
+import TrendingArticle from '~/components/Articles/TrendingArticle.vue'
+import LatestArticles from '~/components/Articles/LatestArticles.vue'
+import PopularArticles from '~/components/Articles/PopularArticles.vue'
 
 // Runtime config
 const config = useRuntimeConfig()

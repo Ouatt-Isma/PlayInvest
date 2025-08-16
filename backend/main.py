@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 from app.api.router import router as api_router
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+import os
+from app.core.paths import MEDIA_DIR
 app = FastAPI()
+# Serve files at /media/* from MEDIA_DIR
+app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
 
 # Allow frontend origin
 app.add_middleware(

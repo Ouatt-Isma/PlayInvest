@@ -97,10 +97,13 @@ const emit = defineEmits(['update:assets', 'update:graphPeriod'])
 
 </script>
 
-
-<template>
-  <div class="p-6 bg-white rounded-xl shadow-md w-full max-w-full">
+<!-- <div class="p-6 bg-white rounded-xl shadow-md w-full max-w-full">
     <div class="flex flex-wrap items-center gap-4 mb-6">
+   -->
+<template>
+  
+    <div class="w-full max-w-full mx-auto max-w-7xl px-4 sm:px-6">
+  <div class="flex flex-wrap p-4 sm:p-6 bg-white rounded-xl shadow-md w-full items-center gap-4 mb-6">
       <!-- Search bar -->
       <div class="flex items-center px-4 py-3 border border-gray-300 rounded-xl w-full max-w-md bg-white">
         <input

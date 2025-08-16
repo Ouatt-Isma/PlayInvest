@@ -19,7 +19,7 @@ export function usePortfolio() {
     cash.value = data.cash
     totalInvested.value = data.total_investi
   }
-
+  console.log(assets)
   return {
     assets,
     cash,

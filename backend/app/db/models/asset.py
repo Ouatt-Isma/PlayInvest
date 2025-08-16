@@ -80,12 +80,13 @@ class Asset(Base):
             variation_6M = compute_variation(closest_180)
             variation_1y = compute_variation(closest_365)
             variation_all = compute_variation(earliest)
-
+        latest_price = latest_data.get("close") if latest_data else None
         return {
             "id": self.id,
             "name": self.name,
             "symbol": self.symbol,
-            "latest_price": latest_data.get("close") if latest_data else None,
+            "latest_price": latest_price,
+            "buying_price": latest_price,  #faire varier en fonction de commission
             "variation_1d": variation_1,
             "variation_7d": variation_7,
             "variation_1M": variation_1M,
@@ -100,3 +101,38 @@ class Asset(Base):
             "description": self.description,
             "updated_at": self.updated_at,
         }
+
+    def isETF(self) -> bool:
+        return self.type == "ETF"
+
+    def isCrypto(self) -> bool:
+        return self.type == "Crypto"
+
+    def isStock(self) -> bool:
+        # If 'Action' appears anywhere in type, treat it as Stock
+        return "Action" in (self.type or "")
+
+    # --- Region checks ---
+    def isAfrica(self) -> bool:
+        return self.region == "Africa"
+
+    def isUSA(self) -> bool:
+        return self.region == "États-Unis"
+
+    def isEurope(self) -> bool:
+        return self.region == "Europe"
+
+    def isWorld(self) -> bool:
+        return self.region == "Monde"
+       
+    # Extract prices
+    def get_price_at(self, date_str, open=False):
+        target_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        closest = min(
+            self.financial_data,
+            key=lambda x: abs(datetime.strptime(x["date"], "%Y-%m-%d").date() - target_date),
+            default=None
+        )
+        if(open):
+            return closest["open"] if closest else None
+        return closest["close"] if closest else None

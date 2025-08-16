@@ -86,3 +86,24 @@ Merci pour votre confiance et votre engagement. Continuez à parrainer pour cumu
         username=settings.EMAIL,
         password=settings.EMAIL_PWD
     )
+
+
+async def send_admin_issue(subject):
+    message = EmailMessage()
+    message["From"] = settings.EMAIL
+    message["To"] = settings.ADMIN_EMAIL
+    message["Subject"] = subject
+    message.set_content(f"""
+Bonjour,
+
+Problème à voir urgemment,
+""")
+
+    await aiosmtplib.send(
+        message,
+        hostname=settings.hostname,
+        port=settings.port,
+        start_tls=settings.start_tls,
+        username=settings.EMAIL,
+        password=settings.EMAIL_PWD
+    )

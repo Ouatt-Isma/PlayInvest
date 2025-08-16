@@ -41,6 +41,7 @@ def get_asset_graph(
             if "date" in entry and "close" in entry
         ]
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail=f"Failed to parse financial_data: {e}")
 
     # Handle custom start_date and end_date

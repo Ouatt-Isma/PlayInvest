@@ -17,6 +17,8 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     user_id = current_user.id
     portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
   
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh", portfolio.cash, portfolio.performance_pct)
+    
     if not portfolio:
         raise HTTPException(status_code=404, detail="Portfolio not found")
 
@@ -32,19 +34,18 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     for pa, asset in assets:
         asset_dict = asset.to_dict() 
         pa_dict = pa.to_dict()
-        print(pa_dict)
+        # print(pa_dict)
         tt+= pa_dict["total_invest"]
         asset_dict.update(pa_dict) 
         # result.append()
         result.append(asset_dict )
         
     print({
-    "assets": result,
+    # "assets": result,
     "cash": round(portfolio.cash,2),
     "total_investi": round(tt,2)
-})
-    return {
-    "assets": result,
-    "cash": round(portfolio.cash,2),
-    "total_investi": round(tt,2)
-}
+    }, user_id)
+    merged = {
+    "assets": result, "total_investi":round(tt,2)}
+    merged.update(portfolio.to_dict())
+    return merged 
