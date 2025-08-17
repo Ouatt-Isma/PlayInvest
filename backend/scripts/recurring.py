@@ -41,7 +41,7 @@ def challenge():
     try:
         with get_db() as db:
             current_date = datetime.now(TZ_FR)
-            # update_all_challenge_result(db, current_date)
+            update_all_challenge_result(db, current_date)
             seed_next_week(db)
         log.info("challenge() completed")
     except Exception as e:
@@ -53,7 +53,7 @@ def assets():
         with get_db() as db:
             # update_all_assets_first(db)
             # update_assets_from_csv(db)
-            # update_all_assets(db)
+            update_all_assets(db)
             ...
         log.info("assets() completed")
     except Exception as e:
@@ -63,7 +63,7 @@ def assets():
 def news():
     try:
         with get_db() as db:
-            # add_news(db)
+            add_news(db)
             ...
         log.info("news() completed")
     except Exception as e:
@@ -74,7 +74,7 @@ def perf():
     try:
         with get_db() as db:
             current_date = datetime.now(TZ_FR)
-            # update_all_portfolio_performance(db, current_date)
+            update_all_portfolio_performance(db, current_date)
             ...
         log.info("perf() completed")
     except Exception as e:
