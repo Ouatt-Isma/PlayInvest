@@ -1,5 +1,11 @@
-fastapi==0.95.2
+fastapi
 starlette==0.27.0
 sqlalchemy
 pydantic[email]
-
+backports.datetime_fromisoformat
+psycopg2-binary
+python-jose[cryptography]
+passlib[bcrypt]
+itsdangerous
+aiosmtplib
+forex-python

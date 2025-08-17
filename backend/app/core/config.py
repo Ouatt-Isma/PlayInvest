@@ -1,8 +1,10 @@
 from backports.zoneinfo import ZoneInfo
+import os 
 class Settings:
     FRONTEND_URL = "http://localhost:3000"
     EMAIL = "ouattaraismael258852@gmail.com"
-    DATABASE_URL = "postgresql://postgres:uiop-@localhost:5432/playinvest_db"
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    
     DEFAULT_AVATAR = 'icons/default.png'
     SECRET_KEY = "mykey"
     # EMAIL_PWD = "oswbxjdwsthvfreg"
