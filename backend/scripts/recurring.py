@@ -54,7 +54,6 @@ def assets():
             # update_all_assets_first(db)
             # update_assets_from_csv(db)
             update_all_assets(db)
-            ...
         log.info("assets() completed")
     except Exception as e:
         log.exception("assets() failed")
@@ -64,7 +63,6 @@ def news():
     try:
         with get_db() as db:
             add_news(db)
-            ...
         log.info("news() completed")
     except Exception as e:
         log.exception("news() failed")
@@ -75,7 +73,6 @@ def perf():
         with get_db() as db:
             current_date = datetime.now(TZ_FR)
             update_all_portfolio_performance(db, current_date)
-            ...
         log.info("perf() completed")
     except Exception as e:
         log.exception("perf() failed")
