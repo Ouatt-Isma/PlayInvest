@@ -6,8 +6,8 @@ import logging
 import signal
 from contextlib import contextmanager
 from datetime import datetime
-from app.utils import config 
-TZ_FR = config.TZ_FR
+from app.core.config import settings 
+TZ_FR = settings.TZ_FR
 
 from sqlalchemy.orm import Session
 from app.core.database import SessionLocal
