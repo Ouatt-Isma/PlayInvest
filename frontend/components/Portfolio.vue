@@ -133,7 +133,7 @@ onMounted(async () => {
   const token = localStorage.getItem("token")
   const config = useRuntimeConfig()
   const apiBase = config.public.apiBase 
-  const response = await axios.get(`${apiBase}/api/portfolio/`,{
+  const response = await axios.get(`${apiBase}/api/portfolio`,{
       headers: {
         Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
       }

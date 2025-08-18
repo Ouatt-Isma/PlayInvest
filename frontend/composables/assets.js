@@ -22,7 +22,7 @@ export async function invest(assetId, amount, onSuccess = () => {}, onError = ()
 }
 
 export function getLogo(symbol) {
-  return `/logos/${symbol.toLowerCase()}.webp`
+  return `/logos/${symbol}.webp`
 }
 
 

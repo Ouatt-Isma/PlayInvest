@@ -13,8 +13,8 @@ from app.db.models.weekly_challenge import (
     WeeklyChallengeSide,
     EntityKind,
 )
-from app.utils import config 
-TZ_FR = config.TZ_FR
+from app.core.config import settings 
+TZ_FR = settings.TZ_FR
 
 # -----------------------------------------------------------------------------
 # 1) Templates: each side is a small filter dict: keys can be 'type' and/or 'region'
@@ -200,7 +200,7 @@ def _choose_assets_or_fallback(db: Session) -> Tuple[Tuple[Asset, Asset], Option
 # -----------------------------------------------------------------------------
 # 5) Public API
 # -----------------------------------------------------------------------------
-def create_challenge_for_next_week(db: Session) -> WeeklyChallenge:
+def create_challenge_for_next_week(db: Session, check=True) -> WeeklyChallenge:
     """
     Pick a random template, draw two concrete assets matching the filters
     (or fallback to any two assets), and create a challenge for the NEXT week.
@@ -209,7 +209,8 @@ def create_challenge_for_next_week(db: Session) -> WeeklyChallenge:
     now_fr = datetime.now(TZ_FR)
     tomorrow = (now_fr + timedelta(days=1)).date()
 
-    assert start_at.date() == tomorrow, f"Expected {tomorrow}, got {start_at.date()}"
+    if(check):
+        assert start_at.date() == tomorrow, f"Expected {tomorrow}, got {start_at.date()}"
 
 
     # Avoid duplicates for that exact window
@@ -299,6 +300,6 @@ def seed_many_weeks_ahead(db: Session, weeks: int = 4) -> List[WeeklyChallenge]:
     return created
 
 
-def seed_next_week(db):
-    ch = create_challenge_for_next_week(db)
+def seed_next_week(db, check=True):
+    ch = create_challenge_for_next_week(db, check)
     return {"ok": True, "challengeId": ch.id, "startAt": ch.start_at, "endAt": ch.end_at}

@@ -9,3 +9,11 @@ passlib[bcrypt]
 itsdangerous
 aiosmtplib
 forex-python
+beautifulsoup4
+lxml
+yfiance 
+selenium
+webdriver-manager
+tldextract
+pillow
+apscheduler

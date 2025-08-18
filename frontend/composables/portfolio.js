@@ -9,7 +9,7 @@ export function usePortfolio() {
     const token = localStorage.getItem("token")
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
-    const response = await axios.get(`${apiBase}/api/portfolio/`, {
+    const response = await axios.get(`${apiBase}/api/portfolio`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

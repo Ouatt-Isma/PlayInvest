@@ -155,7 +155,7 @@ function formatVariation(v) {
 }
 
 function openPdf(symbol) {
-  selectedPdf.value = `/fiche/${String(symbol).toLowerCase()}.pdf`
+  selectedPdf.value = `/fiche/${symbol}.pdf`
   showPdf.value = true
 }
 
