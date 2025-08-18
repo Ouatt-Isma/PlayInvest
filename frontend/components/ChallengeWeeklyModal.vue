@@ -20,7 +20,8 @@
 
         <!-- Countdown -->
         <div class="mt-3 text-sm">
-          <span class="text-gray-500">Clôture dans :</span>
+          <span class="text-gray-500" v-if="isBeforeFriday">Résultats vendredi 23h59 Heure de Paris</span>
+          <span class="text-gray-500" v-else>Clôture dimanche 23h59 Heure de Paris</span>
           <span class="ml-2 font-semibold">
             {{ countdown.d }}j {{ countdown.h }}h {{ countdown.m }}m {{ countdown.s }}s
           </span>
@@ -144,10 +145,51 @@ function nextSundayEnd() {
   end.setHours(23, 59, 59, 999)
   return end
 }
+
+function nextFridayEnd() {
+  const now = toParis()
+  const dow = now.getDay() // 0=Sun
+  const add = (5 - dow) % 7
+  const end = new Date(now)
+  end.setDate(now.getDate() + add)
+  end.setHours(23, 59, 59, 999)
+  return end
+}
+
+function isBeforeFridayDeadline() {
+  const now = new Date()
+
+  const friday = new Date(now)
+  const daysUntilFriday = (5 - now.getDay() + 7) % 7 // 5 = Friday
+  friday.setDate(now.getDate() + daysUntilFriday)
+  friday.setHours(23, 59, 59, 999)
+
+  return now < friday
+}
+const isBeforeFriday = isBeforeFridayDeadline()
+
 const endTime = computed(() => {
-  const src = props.endAt || serverEndAt.value
-  return src ? new Date(src) : nextSundayEnd()
+  const now = new Date()
+  // 1. If serverEndAt exists and is still in the future → use it
+  if (serverEndAt.value) {
+    const serverDate = new Date(serverEndAt.value)
+    if (serverDate > now) {
+      return serverDate
+    } else {
+      // server date is past → deadline expired, use nextFriday
+      return nextFridayEnd()
+    }
+  }
+
+  // 2. If props.endAt is provided → use it
+  if (props.endAt) {
+    return new Date(props.endAt)
+  }
+
+  // 3. Otherwise → fallback logic
+  return isBeforeFridayDeadline() ? nextFridayEnd() : nextSundayEnd()
 })
+
 function tick() {
   const now = toParis()
   let ms = endTime.value - now

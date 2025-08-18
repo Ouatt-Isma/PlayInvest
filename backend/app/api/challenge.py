@@ -63,8 +63,8 @@ def get_active_challenge(db: Session) -> WeeklyChallenge:
         db.query(WeeklyChallenge)
         .filter(
             WeeklyChallenge.is_active.is_(True),
-            WeeklyChallenge.start_at <= now,
-            WeeklyChallenge.end_at >= now,
+            # WeeklyChallenge.start_at <= now,
+            # WeeklyChallenge.end_at >= now,
         )
         .order_by(WeeklyChallenge.start_at.desc())
     )
@@ -92,6 +92,7 @@ def get_weekly_pair(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    print("here")
     challenge = get_active_challenge(db)
 
     if not challenge:
@@ -156,7 +157,7 @@ def submit_weekly_pick(
     challenge = get_active_challenge(db)
 
     # deadline
-    if now_utc() > challenge.end_at:
+    if now_utc() > challenge.end_at or now_utc() <challenge.start_at:
         raise HTTPException(status_code=400, detail="Le challenge est clôturé.")
 
     # load both sides for this challenge

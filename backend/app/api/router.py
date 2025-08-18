@@ -22,4 +22,3 @@ router.include_router(articles.router, prefix="/api", tags=["articles"])
 router.include_router(news.router, prefix="/api", tags=["news"])
 router.include_router(ranking.router, prefix="/api", tags=["ranking"])
 router.include_router(challenge.router, prefix="/api", tags=["challenges"])
-

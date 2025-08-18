@@ -235,7 +235,7 @@ def create_challenge_for_next_week(db: Session, check=True) -> WeeklyChallenge:
     challenge = WeeklyChallenge(
         start_at=start_at,
         end_at=end_at,
-        is_active=False,
+        is_active=True,
         description=desc,
     )
     db.add(challenge)

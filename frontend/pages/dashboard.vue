@@ -85,10 +85,13 @@
           <p class="text-gray-500 mb-4">
             Répondez à des quiz interactifs pour débloquer des fonds fictifs et améliorer vos compétences en investissement.
           </p>
-           <NuxtLink to="/makequiz" class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100">
-        Commencez un Quiz
-        <span>→</span>
-      </NuxtLink>
+           <NuxtLink
+              to="/makequiz"
+              class="inline-flex items-center px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100"
+            >
+              Commencez un Quiz →
+            </NuxtLink>
+
         </div>
       </div>
     </div>
