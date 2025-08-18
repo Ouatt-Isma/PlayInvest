@@ -1,7 +1,7 @@
 <template>
     <section class="py-20 bg-white">
       <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-        <img src="/images/content.png" class="rounded-lg shadow-md" />
+        <img src="/images/Content.png" class="rounded-lg shadow-md" />
         <div>
           <h2 class="text-3xl font-bold mb-6">Comment Investir sur PlayInvest</h2>
           <ol class="list-decimal list-inside space-y-2 text-left text-gray-700">
