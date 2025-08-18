@@ -1,4 +1,8 @@
-from backports.zoneinfo import ZoneInfo
+try:
+    from backports.zoneinfo import ZoneInfo
+except: 
+    from zoneinfo import ZoneInfo
+    
 import os 
 class Settings:
     FRONTEND_URL = "http://localhost:3000"
