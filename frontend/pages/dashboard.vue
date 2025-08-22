@@ -68,6 +68,9 @@
             Commencer le Challenge
             <span>→</span>
           </button>
+          <NuxtLink to="/">
+
+          </NuxtLink>
 
           <ChallengeWeeklyModal
             v-model="open"

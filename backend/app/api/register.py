@@ -30,7 +30,7 @@ class RegisterUser(BaseModel):
 
 #     hashed_pw = bcrypt.hash(user.password)
 #     new_user = User(
-#     username=user.username,
+#     username=user.username.lower(),
 #     email=user.email,
 #     password_hash=hashed_pw  
 #     )
@@ -44,24 +44,24 @@ class RegisterUser(BaseModel):
 @router.post("/register")
 def register(user: RegisterUser, background_tasks: BackgroundTasks):
     db: Session = SessionLocal()
-    existing = db.query(User).filter(User.email == user.email).first()
+    existing = db.query(User).filter(User.email == user.email.lower()).first()
     if existing:
         raise HTTPException(status_code=400, detail="Email déjà utilisé")
-    existing = db.query(User).filter(User.username == user.username).first()
+    existing = db.query(User).filter(User.username == user.username.lower()).first()
     if existing:
         raise HTTPException(status_code=400, detail="Nom d'utilisateur déjà utilisé")
     hashed_pw = bcrypt.hash(user.password)
     token = str(uuid.uuid4())  # Store this in DB if you want to verify later
     parrain_uid = None 
     if(user.referrer_id):
-        parrain = db.query(User).filter(User.username == user.referrer_id).first()
+        parrain = db.query(User).filter(User.username == user.referrer_id.lower()).first()
         if not parrain:
             raise HTTPException(status_code=400, detail="Nom d'utilisateur du parrain inexistant")
         parrain_uid = parrain.uid
     
     new_user = User(
-        username=user.username,
-        email=user.email,
+        username=user.username.lower(),
+        email=user.email.lower(),
         password_hash=hashed_pw,
         referrer_id = parrain_uid,
         confirmation_token = token
@@ -74,7 +74,7 @@ def register(user: RegisterUser, background_tasks: BackgroundTasks):
     
 
     # Send email in the background
-    background_tasks.add_task(send_confirmation_email, user.email, user.username, token)
+    background_tasks.add_task(send_confirmation_email, user.email.lower(), user.username.lower(), token)
     return {"message": "Compte créé. Vérifiez votre email pour confirmer.", "user_id": new_user.id}
 
 
