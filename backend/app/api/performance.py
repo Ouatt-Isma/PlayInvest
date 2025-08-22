@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timedelta, date
 from app.core.database import get_db
 from app.db.models.performance import Performance
+from app.auth.auth import get_current_user
+from app.db.models.portfolio import Portfolio
 
 router = APIRouter()
 
@@ -11,10 +13,10 @@ def get_perf_data(
     filter: str,                 # 'category' or 'region'
     period: str = "1m",          # '7d', '1m', '3m', '6m', '1y', 'all'
     db: Session = Depends(get_db),
-    portfolio_id: int = 1
+    current_user: dict = Depends(get_current_user),
 ):
     # Validate inputs
-    
+    portfolio_id = db.query(Portfolio).filter_by(user_id=current_user.id).first().id 
     valid_filters = {"category", "region", "all"}
     if filter not in valid_filters:
         raise HTTPException(status_code=400, detail=f"Invalid filter. Use one of {sorted(valid_filters)}.")

@@ -8,6 +8,7 @@
       </NuxtLink>
     </div>
 
+    <div class="space-y-10">
     <!-- Performance: chart + right-side tools -->
     <div class="bg-white p-6 rounded-xl shadow-md mb-6">
       <h2 class="text-lg font-semibold mb-1">Graphique d’évolution du rendement global des investissements</h2>
@@ -19,7 +20,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <!-- Left: smaller chart -->
         <div class="lg:col-span-8">
-          <div class="h-80"> <!-- ~320px; PerfPlot should have maintainAspectRatio:false -->
+          <div class="h-full"> <!-- ~320px; PerfPlot should have maintainAspectRatio:false -->
             <PerfPlot />
           </div>
         </div>
@@ -45,6 +46,7 @@
       <div class="space-y-6">
         <PastPerfSimulator />
       </div>
+    </div>
     </div>
   </div>
 

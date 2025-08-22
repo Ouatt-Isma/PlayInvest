@@ -137,7 +137,19 @@ const chartOptions = {
       </div>
     </div>
 
+    <div class="w-full h-full">
     <div v-if="loading" class="text-center text-gray-500 py-4">Chargement…</div>
-    <Line v-else :data="chartData" :options="chartOptions" />
+    
+      <Line v-else :data="chartData" :options="chartOptions" />
+    </div>
+    
   </section>
 </template>
+
+
+<style>
+.chart-container {
+  width: 100%;
+  height: 100%; /* or auto */
+}
+</style>
