@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 // import type {UserCookie} from '@/composables/useUser'
 import axios from 'axios'
+import countries from '@/assets/data/countries.json'
 // const usercook = useCookie<UserCookie>('user', { path: '/' })
 const avatarUrltmp =  ref('')
 
@@ -27,6 +28,11 @@ const form = ref({
   phone_number: '',
   username: '',
   email:'',
+  profession: '',
+  living_country: '',
+  origin_country: '',
+  age: null,
+  currency: ''
 })
 
 onMounted(async () => {
@@ -53,6 +59,11 @@ onMounted(async () => {
     form.value.phone_number = user.phone_number || ''
     form.value.username = user.username || ''
     form.value.email = user.email || ''
+    form.value.profession = user.profession || ''
+    form.value.living_country = user.living_country || ''
+    form.value.origin_country = user.origin_country || ''
+    form.value.age = user.age || null
+    form.value.currency = user.currency || ''
   } catch (err) {
     console.error("Erreur en récupérant l'utilisateur :", err)
   }
@@ -87,7 +98,7 @@ const updateProfile = async ()  => {
     })
     localStorage.setItem("first_name", form.value.first_name)
     localStorage.setItem("avatar_url", avatarUrl.value )
-    
+    localStorage.setItem("currency", form.value.currency )
     console.log('Profil mis à jour avec succès:', res.data)
     toastMessage.value = '✅ Profil mis à jour avec succès!'
     showToast.value = true
@@ -190,6 +201,48 @@ function downloadAvatar() {
         <label class="block text-sm font-medium">Votre e-mail</label>
         <input v-model="form.email" type="email" class="w-full bg-gray-100 text-gray-500" readonly disable />
       </div>
+      <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium">Profession</label>
+        <input v-model="form.profession" type="text" class="w-full mt-1 rounded border p-2" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Âge</label>
+        <input v-model="form.age" type="number" min="0" class="w-full mt-1 rounded border p-2" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium">Pays de résidence</label>
+        <select v-model="form.living_country" class="w-full mt-1 rounded border p-2">
+          <option value="">-- Sélectionnez --</option>
+          <option v-for="c in countries" :key="c.code" :value="c.code">
+            {{ c.name }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Pays d'origine</label>
+        <select v-model="form.origin_country" class="w-full mt-1 rounded border p-2">
+          <option value="">-- Sélectionnez --</option>
+          <option v-for="c in countries" :key="c.code" :value="c.code">
+            {{ c.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Devise</label>
+      <select v-model="form.currency" class="w-full mt-1 rounded border p-2">
+        <option value="">-- Sélectionnez --</option>
+        <option value="EUR">Euro (EUR)</option>
+        <option value="USD">Dollar Américain (USD)</option>
+        <option value="XOF">Franc CFA (XOF)</option>
+      </select>
+    </div>
 
       <!-- <div>
         <label class="block text-sm font-medium">Nouvel e-mail</label>
@@ -203,7 +256,7 @@ function downloadAvatar() {
     <transition name="fade">
       <div
         v-if="showToast"
-        class="fixed top-6 right-6 bg-white shadow-lg rounded px-6 py-4 border border-gray-200 text-sm text-gray-800 z-50"
+        class="fixed top-6 right-6 bg-white shadow-lg rounded px-6 py-4 border border-gray-200 text-sm text-gray-800 z-[99999]"
       >
         {{ toastMessage }}
       </div>

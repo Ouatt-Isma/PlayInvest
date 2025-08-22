@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from 'vue'
+import countries from '@/assets/data/countries.json'
 
 const showPassword = ref(false)
 
@@ -18,6 +19,9 @@ const form = reactive({
   email: '',
   password: '',
   referrer_id:'',
+  currency: '',
+  profession: '',
+  living_country: '',
 })
 
 const handleSubmit = () => {
@@ -82,6 +86,58 @@ const handleSubmit = () => {
           {{ showPassword ? '🙈' : '👁️' }}
         </span>
       </div>
+
+<div class="grid grid-cols-2 gap-4">
+  <!-- Devise -->
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">
+      Devise <span class="text-red-500">*</span>
+    </label>
+    <select
+      v-model="form.currency"
+      required
+      class="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring focus:border-teal-600"
+    >
+      <option value="" disabled></option>
+      <option value="EUR">Euro (EUR)</option>
+      <option value="USD">Dollar Américain (USD)</option>
+      <option value="XOF">Franc CFA (XOF)</option>
+    </select>
+  </div>
+
+  <!-- Profession -->
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1">
+      Profession 
+    </label>
+    <input
+      v-model="form.profession"
+      type="text"
+      class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-teal-600"
+    />
+  </div>
+</div>
+
+
+<div>
+  <label class="block text-sm font-medium text-gray-700 mb-1">
+    Pays de résidence 
+  </label>
+  <select
+    v-model="form.living_country"
+    class="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring focus:border-teal-600"
+  >
+    <option value="" disabled>Sélectionnez un pays</option>
+    <option
+      v-for="country in countries"
+      :key="country.code"
+      :value="country.code"
+    >
+      {{ country.name }}
+    </option>
+  </select>
+</div>
+
 
         <p class="text-sm text-gray-500 text-center">
           <span class="text-red-500">*</span> Champs obligatoires

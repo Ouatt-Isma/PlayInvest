@@ -52,6 +52,9 @@
     <UpdatePassword v-if="currentSection === 4" />
     <!-- Add other components as needed -->
     </main>
+
+
+
   </div>
 </template>
 

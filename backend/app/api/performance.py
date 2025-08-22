@@ -14,7 +14,8 @@ def get_perf_data(
     portfolio_id: int = 1
 ):
     # Validate inputs
-    valid_filters = {"category", "region"}
+    
+    valid_filters = {"category", "region", "all"}
     if filter not in valid_filters:
         raise HTTPException(status_code=400, detail=f"Invalid filter. Use one of {sorted(valid_filters)}.")
 
@@ -61,12 +62,16 @@ def get_perf_data(
             ("Crypto", "category_crypto"),
             ("Stock", "category_stock"),
         ]
-    else:
+    elif filter == "region":
         metric_fields = [
             ("Africa", "region_africa"),
             ("USA", "region_usa"),
             ("Europe", "region_europe"),
             ("World", "region_world"),
+        ]
+    else: 
+        metric_fields = [
+            ("Global", "global_perf"),
         ]
 
     # Forward-fill values day by day (start at 0.0 before first known value)

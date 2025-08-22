@@ -24,6 +24,7 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
     )
 
     performance_data = {k: 0 for k in ['etf','crypto','stock','africa','usa','europe','world']}
+    
     investment_data = {k: 0 for k in performance_data.keys()}
     total_investment = 0
 
@@ -83,7 +84,8 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
         region_africa=performance_data['africa'] / investment_data['africa'] if investment_data['africa'] else (prev_perf.region_africa if prev_perf else 0),
         region_usa=performance_data['usa'] / investment_data['usa'] if investment_data['usa'] else (prev_perf.region_usa if prev_perf else 0),
         region_europe=performance_data['europe'] / investment_data['europe'] if investment_data['europe'] else (prev_perf.region_europe if prev_perf else 0),
-        region_world=performance_data['world'] / investment_data['world'] if investment_data['world'] else (prev_perf.region_world if prev_perf else 0)
+        region_world=performance_data['world'] / investment_data['world'] if investment_data['world'] else (prev_perf.region_world if prev_perf else 0), 
+        global_perf = portfolio.performance_pct, 
     )
 
     db.add(perf_record)

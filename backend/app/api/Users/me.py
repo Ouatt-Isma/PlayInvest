@@ -5,6 +5,7 @@ from app.db.models.user import User
 from app.db.schemas.user import UserCreate, UserOut
 from app.auth.auth import get_current_user
 from app.db.schemas.user import UserUpdate 
+from app.db.models.portfolio import Portfolio 
 from fastapi import Request, HTTPException
 from app.auth.auth import get_current_user
 
@@ -24,6 +25,8 @@ def update_current_user(
 ):
     for field, value in user_update.dict(exclude_unset=True).items():
         setattr(current_user, field, value)
+    portfolio = db.query(Portfolio).filter_by(user_id=current_user.id).first()
+    portfolio.currency= user_update.currency
     db.commit()
     db.refresh(current_user)
 
@@ -35,5 +38,6 @@ def update_current_user(
         "email": current_user.email,
         "birthdate": current_user.birthdate,
         "phone_number": current_user.phone_number,
-        "avatar_url": current_user.avatar_url
+        "avatar_url": current_user.avatar_url,
+        "currency": current_user.currency,
     }

@@ -22,4 +22,9 @@ class UserUpdate(BaseModel):
     birthdate: Optional[date]
     avatar_url: Optional[str]
     username: Optional[str]
+    profession: Optional[str]
+    living_country: Optional[str]
+    origin_country: Optional[str]
+    age: Optional[str]
+    currency: Optional[str]
     # email: str

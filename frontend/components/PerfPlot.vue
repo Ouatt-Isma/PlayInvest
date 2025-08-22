@@ -50,6 +50,7 @@ const chartData = computed(() => {
   const datasetKeys = selected.value
 
   const colors = {
+    Global: '#0f766e',
     ETF: '#0f766e',
     Stock: '#f59e0b',
     Crypto: '#ef4444',
@@ -121,8 +122,9 @@ const chartOptions = {
 
       <div class="flex gap-2">
         <select v-model="filterType" class="border px-2 py-1 rounded text-sm">
+          <option value="all">Vue d'ensemble</option>
           <option value="category">Par catégorie</option>
-          <option value="region">Par région</option>
+          <option value="region">Par région</option>        
         </select>
         <select v-model="period" class="border px-2 py-1 rounded text-sm">
           <option value="7d">7 jours</option>

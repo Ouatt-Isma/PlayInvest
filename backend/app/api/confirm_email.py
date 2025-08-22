@@ -19,7 +19,7 @@ def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = D
         raise HTTPException(status_code=404, detail="Token invalide")
 
     user.validated = True
-    portfolio = Portfolio(user_id=user.id, cash=0.0, currency='EUR')
+    portfolio = Portfolio(user_id=user.id, cash=0.0, currency=user.currency)
     db.add(portfolio)
     parrain_uid = None 
     if(user.referrer_id):

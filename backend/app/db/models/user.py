@@ -23,6 +23,15 @@ class User(Base):
     last_name = Column(String, nullable=True)
     birthdate = Column(Date, nullable=True)
     phone_number = Column(String, nullable=True)
+    
+    
+    living_country = Column(String, nullable=True)
+    currency = Column(String, nullable=True)
+    origin_country = Column(String, nullable=True)
+    
+    age = Column(Integer, nullable=True)
+    profession = Column(String, nullable=True)
+    
     uid = Column(String, unique=True, index=True, default=lambda: str(uuid.uuid4()))
     portfolios = relationship('Portfolio', back_populates='user')
     

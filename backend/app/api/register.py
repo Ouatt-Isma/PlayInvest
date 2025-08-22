@@ -19,6 +19,9 @@ class RegisterUser(BaseModel):
     email: EmailStr
     password: str
     referrer_id: str 
+    currency: str
+    profession: str
+    living_country: str
 
 
 # @router.post("/register")
@@ -64,8 +67,12 @@ def register(user: RegisterUser, background_tasks: BackgroundTasks):
         email=user.email.lower(),
         password_hash=hashed_pw,
         referrer_id = parrain_uid,
-        confirmation_token = token
+        confirmation_token = token,
+        currency = user.currency, 
+        profession = user.profession,
+        living_country = user.living_country
     )
+    
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
