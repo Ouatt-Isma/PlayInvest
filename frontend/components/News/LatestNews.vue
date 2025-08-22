@@ -17,7 +17,7 @@
       <a
   v-for="(anews, index) in news.slice(0, 3)"
   :key="index"
-  :href="`/News/${anews.url}`"
+  :href="`${anews.url}`"
   target="_blank"
   rel="noopener"
   class="block bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition"

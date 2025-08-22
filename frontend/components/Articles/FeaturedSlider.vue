@@ -21,7 +21,7 @@
             <img
               :src="`/Articles/${article.article_id}.png`"
               :alt="article.topic"
-              class="w-full h-48 object-cover"
+              class="w-full h-72 object-cover"
             />
             <div class="p-4">
               <h3 class="text-lg font-bold">{{ article.topic }}</h3>
