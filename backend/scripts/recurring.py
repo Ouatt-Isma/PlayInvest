@@ -99,7 +99,7 @@ def main():
     trigger="cron",
     day_of_week="sat",   # Saturday
     hour=19,             # 21h
-    minute=33,           # 21h22
+    minute=39,           # 21h22
     id="challenge_sat_2122",
     replace_existing=True
 )
