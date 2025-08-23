@@ -31,7 +31,10 @@ def get_ranking(
             best_per_user[p.user_id] = p  # keep first (best rank) portfolio
 
     # Convert to list and sort by ranking
-    ranking_list = sorted(best_per_user.values(), key=lambda x: x.rank)
+    ranking_list = sorted(
+    best_per_user.values(),
+    key=lambda x: (x.rank is None, x.rank if x.rank is not None else float("inf"))
+)
     
     # Build clean list
     ranking_data = [

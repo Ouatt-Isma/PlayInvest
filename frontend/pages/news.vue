@@ -31,16 +31,6 @@
             />
             <span class="text-sm">📅 Récent</span>
           </label>
-
-          <!-- 🔥 Populaire (Filter) -->
-          <label class="inline-flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              v-model="filterFamous"
-              class="form-checkbox text-blue-600"
-            />
-            <span class="text-sm">🔥 Populaire</span>
-          </label>
         </div>
       </div>
 
@@ -48,17 +38,18 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Featured -->
         <div class="mb-12">
-          <FeaturedSlider />
+          <FeaturedSliderNews />
         </div>
 
         <!-- Trending Articles -->
         <div>
           <h2 class="text-2xl font-semibold mb-4">Actualités tendances</h2>
           <div class="flex flex-col gap-4">
-            <TrendingArticle
+            <!-- {{  paginatedArticles }} -->
+            <TrendingNews
               v-for="(article, index) in paginatedArticles"
               :key="index"
-              :article="article"
+              :anews="article"
             />
           </div>
 
@@ -102,8 +93,8 @@ import { ref, computed, onMounted, watch } from 'vue'
 import axios from 'axios'
 
 // Components
-import FeaturedSlider from '~/components/News/FeaturedSliderNews.vue'
-import TrendingArticle from '~/components/News/TrendingNews.vue'
+import FeaturedSliderNews from '~/components/News/FeaturedSliderNews.vue'
+import TrendingNews from '~/components/News/TrendingNews.vue'
 import LatestNews from '~/components/News/LatestNews.vue'
 import PopularNews from '~/components/News/PopularNews.vue'
 
@@ -116,7 +107,7 @@ const allArticles = ref([])
 const selectedRegion = ref('Tous')
 const searchText = ref('')
 const sortRecent = ref(false)
-const filterFamous = ref(false)
+
 
 // Pagination
 const currentPage = ref(1)
@@ -130,6 +121,7 @@ onMounted(async () => {
       headers: { Authorization: `Bearer ${token}` },
     })
     allArticles.value = res.data
+    console.log("artc", allArticles.value)
   } catch (err) {
     console.error('❌ Erreur lors du chargement des actualités', err)
   }
@@ -146,17 +138,13 @@ const filteredArticles = computed(() => {
       selectedRegion.value === 'Tous' ||
       (selectedRegion.value === 'Afrique' ? inAfrique : !inAfrique)
 
-    const matchesText = article.topic
+    const matchesText = article.title
       ?.toLowerCase()
       .includes(searchText.value.toLowerCase())
 
     return matchesRegion && matchesText
   })
 
-  // Filter: Populaire
-  if (filterFamous.value) {
-    articles = articles.filter((a) => a.famous === true)
-  }
 
   // Sort: Récent
   if (sortRecent.value) {
@@ -177,7 +165,7 @@ const totalPages = computed(() =>
 )
 
 // Reset page when filters change
-watch([selectedRegion, searchText, sortRecent, filterFamous], () => {
+watch([selectedRegion, searchText, sortRecent], () => {
   currentPage.value = 1
 })
 </script>

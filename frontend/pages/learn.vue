@@ -149,7 +149,7 @@ const filteredArticles = computed(() => {
     const matchesText = article.topic
       ?.toLowerCase()
       .includes(searchText.value.toLowerCase())
-
+    console.log(matchesRegion && matchesText)
     return matchesRegion && matchesText
   })
 

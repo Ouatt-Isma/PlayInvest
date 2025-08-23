@@ -14,6 +14,9 @@
 </template>
 
 <script setup>
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase
+
 function formatDate(dateStr) {
   if (!dateStr) return ''
   const date = new Date(dateStr)

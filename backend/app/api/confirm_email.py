@@ -20,6 +20,7 @@ def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = D
 
     user.validated = True
     portfolio = Portfolio(user_id=user.id, cash=0.0, currency=user.currency)
+    portfolio.cash += convert(settings.currency, portfolio.currency, settings.amount_godfather)
     db.add(portfolio)
     parrain_uid = None 
     if(user.referrer_id):
@@ -33,21 +34,22 @@ def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = D
         parrain_uid = parrain.uid
         
     if(parrain_uid):
-        portfolio = db.query(Portfolio).filter_by(user_id=parrain.id).first()
-        if not portfolio:
-            portfolio = Portfolio(user_id=parrain.id, cash=0.0, currency='EUR')
+        portfolio_parrain = db.query(Portfolio).filter_by(user_id=parrain.id).first()
+        if not portfolio_parrain:
+            raise NotImplementedError
         print()
-        print(portfolio.cash)
-        print(portfolio.currency)
+        print(portfolio_parrain.cash)
+        print(portfolio_parrain.currency)
         print(settings.currency)
-        portfolio.cash += convert(settings.currency, portfolio.currency, settings.amount_godfather)
-        print(portfolio.cash)
+        portfolio_parrain.cash += convert(settings.currency, portfolio_parrain.currency, settings.amount_godfather)
+        print(portfolio_parrain.cash)
         print()
-        db.add(portfolio)
+        db.add(portfolio_parrain)
         background_tasks.add_task(send_godfather_email, parrain.email, parrain.username, user.username)
         
         
     db.commit()
+    db.refresh(portfolio_parrain)
     db.refresh(portfolio)
 
     return {"message": "Email confirmé avec succès"}
