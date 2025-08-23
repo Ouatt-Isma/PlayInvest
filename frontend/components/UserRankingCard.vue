@@ -40,7 +40,7 @@ onMounted(async () => {
   loading.value = true
   error.value = ''
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase
 

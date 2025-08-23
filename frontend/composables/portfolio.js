@@ -6,7 +6,7 @@ export function usePortfolio() {
   const totalInvested = ref(0)
 
   const fetchPortfolio = async () => {
-    const token = localStorage.getItem("token")
+    const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
     const response = await axios.get(`${apiBase}/api/portfolio`, {

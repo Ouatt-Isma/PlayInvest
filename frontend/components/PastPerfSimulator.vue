@@ -183,7 +183,7 @@ function formatDate(dateStr) {
 // On mount: fetch assets
 onMounted(async () => {
   try {
-    currency.value = localStorage.getItem("currency")
+    currency.value = useCookie("currency").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
     const res = await axios.get(`${apiBase}/api/assets`)

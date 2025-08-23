@@ -91,7 +91,8 @@ const error = ref(null)
 
 // Fetch data on mount
 onMounted(async () => {
-  const token = localStorage.getItem("token")
+
+  const token = useCookie("token").value
   try {
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
@@ -102,7 +103,8 @@ onMounted(async () => {
   } catch (e) {
     error.value = e.response?.data?.detail || 'Erreur lors du chargement'
   }
-})
+}
+)
 
 // Filter and sort
 const filteredData = computed(() => {

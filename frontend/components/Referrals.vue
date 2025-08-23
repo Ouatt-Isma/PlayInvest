@@ -9,7 +9,7 @@ const error = ref<string | null>(null)
 
 
 onMounted(async () => {
-  const token = localStorage.getItem("token")
+  const token = useCookie("token").value
   try {
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 

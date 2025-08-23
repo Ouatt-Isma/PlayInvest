@@ -102,7 +102,7 @@ const invest = async () => {
     return navigateTo("/login")
       }
 
-    const token = localStorage.getItem("token")
+    const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
     const res = await axios.get(`${apiBase}/api/buy`, {
@@ -132,7 +132,7 @@ const showNotification = (type, message) => {
 
 const tosell = async () => {
   try {
-    const token = localStorage.getItem("token")
+    const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
     const res = await axios.get(`${apiBase}/api/sell`, {

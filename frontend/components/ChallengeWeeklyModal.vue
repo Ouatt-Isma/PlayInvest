@@ -219,8 +219,12 @@ async function fetchPair() {
   loading.value = true
   error.value = ''
   selectedId.value = null
+  const token = useCookie("token").value
+  console.log("perplot: ", token)
+
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
+    console.log("perplot: ", token)
     if (!token) {
       error.value = 'Veuillez vous connecter.'
       return
@@ -256,7 +260,7 @@ async function submitPick() {
   if (!selectedId.value || alreadyPicked.value) return
   submitting.value = true
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     if (!token) {
       error.value = 'Session expirée. Veuillez vous reconnecter.'
       return
@@ -295,7 +299,7 @@ async function submitPick() {
 
 async function loadExistingPick() {
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     if (!token) return
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase

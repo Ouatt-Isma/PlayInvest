@@ -1,4 +1,5 @@
 <script setup>
+
 import { ref, watch, onMounted, onBeforeUnmount } 
 from 'vue'
 import { useRouter } from 'vue-router'
@@ -15,23 +16,28 @@ const logout = async () => {
   const userState = useState('user')
   userState.value = null
 
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-  localStorage.removeItem('avatar_url')
-  localStorage.removeItem('first_name')
+  const token = useCookie("token")
+  const userCookie = useCookie("user")
+  const avatarUrl = useCookie("avatar_url")
+  const firstName = useCookie("first_name")
 
+  token.value = null
+  userCookie.value = null
+  avatarUrl.value = null
+  firstName.value = null
   await navigateTo('/login', { replace: true })
 }
 
 
 onMounted(() => {
-  const storedAvatar = localStorage.getItem('avatar_url')
+
+  const storedAvatar = useCookie("avatar_url") 
   if (storedAvatar) {
-    avatar_url.value = storedAvatar
+    avatar_url.value = storedAvatar.value
   }
-  const storedfirst_name = localStorage.getItem('first_name')
+  const storedfirst_name = useCookie("first_name") 
   if (storedfirst_name) {
-    first_name.value = storedfirst_name
+    first_name.value = storedfirst_name.value
   }
 })
 

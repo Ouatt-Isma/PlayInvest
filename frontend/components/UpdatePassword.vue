@@ -30,7 +30,7 @@ const success = ref<string | null>(null)
 
 
 const updatePassword = async () => {
-    const token = localStorage.getItem("token")
+    const token = useCookie("token").value
   try {
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 

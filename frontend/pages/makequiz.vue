@@ -141,7 +141,7 @@ let timer = null
 
 // Fetch all quizzes
 onMounted(async () => {
-  const token = localStorage.getItem('token')
+  const token = useCookie("token").value
   const res = await axios.get(`${apiBase}/api/quizzes`, {
     headers: { Authorization: `Bearer ${token}` }
   })
@@ -192,7 +192,7 @@ async function loadQuiz() {
   alreadyPassed.value = false
 
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     const statusRes = await axios.get(
       `${apiBase}/api/quiz-results/status?topic=${encodeURIComponent(selectedTopic.value)}`,
       { headers: { Authorization: `Bearer ${token}` } }
@@ -202,7 +202,7 @@ async function loadQuiz() {
     console.warn('Could not check quiz status', err)
   }
 
-  const token = localStorage.getItem('token')
+  const token = useCookie("token").value
   const res = await axios.get(
     `${apiBase}/api/quizzes?topic=${encodeURIComponent(selectedTopic.value)}`,
     { headers: { Authorization: `Bearer ${token}` } }
@@ -242,7 +242,7 @@ async function submit() {
   }
 
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     await axios.post(`${apiBase}/api/quiz-results`, resultPayload, {
       headers: { Authorization: `Bearer ${token}` }
     })

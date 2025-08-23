@@ -107,7 +107,7 @@
 
 <script setup>
 definePageMeta({
-  requiresAuth: true,   
+  requiresAuth: true,  
 })
 
 import Portfolio from '~/components/Portfolio.vue'

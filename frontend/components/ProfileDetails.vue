@@ -8,7 +8,8 @@ const avatarUrltmp =  ref('')
 
 
 onMounted(() => {
-  const storedAvatar = localStorage.getItem('avatar_url')
+  const storedAvatar = useCookie("avatar_url").value
+
   if (storedAvatar) {
     avatarUrltmp.value = storedAvatar
   }
@@ -36,7 +37,7 @@ const form = ref({
 })
 
 onMounted(async () => {
-  const token = localStorage.getItem("token") // ✅ Safe inside onMounted
+  const token = useCookie("token").value // ✅ Safe inside onMounted
 
   if (!token) {
     console.warn("No token found in localStorage")
@@ -70,7 +71,7 @@ onMounted(async () => {
 })
 
 const updateProfile = async ()  => {
-  const token = localStorage.getItem("token") // ✅ Safe inside onMounted
+  const token = useCookie("token").value // ✅ Safe inside onMounted
 
   if (!token) {
     console.warn("No token found in localStorage")
@@ -96,9 +97,15 @@ const updateProfile = async ()  => {
         Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
       }
     })
-    localStorage.setItem("first_name", form.value.first_name)
-    localStorage.setItem("avatar_url", avatarUrl.value )
-    localStorage.setItem("currency", form.value.currency )
+    const first_name_c = useCookie("first_name")
+    first_name_c.value = form.value.first_name
+
+    const avatar_url = useCookie("avatar_url")
+    avatar_url.value = avatarUrl.value 
+
+    const currency_c = useCookie("currency")
+    currency_c.value = form.value.currency
+
     console.log('Profil mis à jour avec succès:', res.data)
     toastMessage.value = '✅ Profil mis à jour avec succès!'
     showToast.value = true

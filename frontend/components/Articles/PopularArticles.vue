@@ -57,7 +57,7 @@ const articles = ref([])
 // Fetch all articles
 onMounted(async () => {
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     const res = await axios.get(`${apiBase}/api/articles`, {
       headers: { Authorization: `Bearer ${token}` },
     })

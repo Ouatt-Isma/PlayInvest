@@ -124,7 +124,7 @@ const perPage = 4
 
 // Fetch articles
 onMounted(async () => {
-  const token = localStorage.getItem('token')
+  const token = useCookie("token").value
   try {
     const res = await axios.get(`${apiBase}/api/articles`, {
       headers: { Authorization: `Bearer ${token}` },

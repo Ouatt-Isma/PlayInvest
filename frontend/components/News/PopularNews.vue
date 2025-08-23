@@ -57,7 +57,7 @@ const news = ref([])
 // Fetch all news
 onMounted(async () => {
   try {
-    const token = localStorage.getItem('token')
+    const token = useCookie("token").value
     const res = await axios.get(`${apiBase}/api/news`, {
       headers: { Authorization: `Bearer ${token}` },
     })

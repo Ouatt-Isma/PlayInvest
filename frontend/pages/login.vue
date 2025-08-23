@@ -49,12 +49,21 @@ const submitLogin = async ({ email, password }) => {
       //   token: user.token
       // }
       console.log(user)
-      localStorage.setItem("token", user.token)
-      localStorage.setItem("username", user.username)
-      localStorage.setItem("first_name", user.first_name)
-      localStorage.setItem("avatar_url", user.avatar_url)
-      localStorage.setItem("currency", user.currency)
-      localStorage.setItem('user', JSON.stringify(user))
+      
+      const token = useCookie("token", { path: "/", sameSite: "lax" })
+      const username = useCookie("username", { path: "/", sameSite: "lax" })
+      const firstName = useCookie("first_name", { path: "/", sameSite: "lax" })
+      const avatarUrl = useCookie("avatar_url", { path: "/", sameSite: "lax" })
+      const currency = useCookie("currency", { path: "/", sameSite: "lax" })
+      const userCookie = useCookie("user", { path: "/", sameSite: "lax" })
+
+      token.value = user.token
+      username.value = user.username
+      firstName.value = user.first_name
+      avatarUrl.value = user.avatar_url
+      currency.value = user.currency
+      userCookie.value = JSON.stringify(user)
+
 
 
       console.log(user.avatar_url)
