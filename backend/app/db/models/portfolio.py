@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import Session, relationship
 from app.core.database import Base
 from datetime import datetime 
@@ -16,6 +16,7 @@ class Portfolio(Base):
     cash = Column(Float)
     currency = Column(String)
     rank = Column(Integer)
+    updated_at = Column(DateTime)
     
     transactions = relationship("Transaction", back_populates="portfolio", cascade="all, delete-orphan")
     performances = relationship(Performance, back_populates="portfolio", cascade="all, delete")

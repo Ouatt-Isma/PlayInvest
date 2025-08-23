@@ -49,3 +49,11 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     "assets": result, "total_investi":round(tt,2)}
     merged.update(portfolio.to_dict())
     return merged 
+
+
+
+@router.get("/portfolio/last_update")
+def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(get_current_user)):
+    user_id = current_user.id
+    portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
+    return {"last_update": portfolio.updated_at}

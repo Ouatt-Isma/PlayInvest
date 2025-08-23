@@ -2,12 +2,16 @@
   <div class="p-6 bg-gray-50 min-h-screen">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
+      <div>
       <h1 class="text-3xl font-bold">Tableau de Bord des Investissements</h1>
+      <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }}</p>
+      </div>
+
       <NuxtLink to="/assets" class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700">
         Investir
       </NuxtLink>
     </div>
-
+    
     <div class="space-y-10">
     <!-- Performance: chart + right-side tools -->
     <div class="bg-white p-6 rounded-xl shadow-md mb-6">
@@ -109,7 +113,6 @@
 definePageMeta({
   requiresAuth: true,  
 })
-
 import Portfolio from '~/components/Portfolio.vue'
 import InvestmentHistory from '~/components/InvestmentHistory.vue'
 import PastPerfSimulator from '~/components/PastPerfSimulator.vue'
@@ -119,11 +122,51 @@ import PerfPlot from '~/components/PerfPlot.vue'
 import PerfDateRangeCard from '~/components/PerfDateRangeCard.vue'
 import UserRankingCard from '~/components/UserRankingCard.vue'
 
-import { ref } from 'vue'
+import { ref, onMounted  } from 'vue'
+import axios from 'axios'
+
 import ChallengeWeeklyModal from '~/components/ChallengeWeeklyModal.vue'
 
 const open = ref(false)
 const pair = ref([null])
 
 import ChallengeHistory from '~/components/ChallengeHistory.vue'
+
+const lastUpdate= ref('')
+
+  const token = useCookie("token").value
+  const config = useRuntimeConfig()
+  const apiBase = config.public.apiBase 
+  const response = await axios.get(`${apiBase}/api/portfolio`,{
+      headers: {
+        Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
+      }
+    })
+
+onMounted(async () => {
+  console.log("✅ Dashboard mounted, fetching last update...")
+  try {
+    const token = useCookie("token").value
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase
+    const res = await axios.get(`${apiBase}/api/portfolio/last_update`,{
+      headers: {
+        Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
+      }
+    })
+
+    lastUpdate.value = new Date(res.data.last_update)
+  .toLocaleString("fr-FR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+  } catch (error) {
+    console.warn('API last update portfolios error')
+    console.log(error)
+  
+  }
+})
 </script>
