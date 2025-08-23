@@ -106,6 +106,10 @@
 
 
 <script setup>
+definePageMeta({
+  requiresAuth: true,   
+})
+
 import Portfolio from '~/components/Portfolio.vue'
 import InvestmentHistory from '~/components/InvestmentHistory.vue'
 import PastPerfSimulator from '~/components/PastPerfSimulator.vue'

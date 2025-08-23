@@ -218,10 +218,10 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <NuxtLink to="/learn"   class="block" @click="isOpen = false">Se former</NuxtLink>
         <NuxtLink to="/news"    class="block" @click="isOpen = false">Actualités</NuxtLink>
 
-        <div class="mt-6 border-t pt-4">
+        <!-- <div class="mt-6 border-t pt-4">
           <NuxtLink to="/login" class="block mb-2">Connexion</NuxtLink>
           <NuxtLink to="/register" class="block">S'inscrire</NuxtLink>
-        </div>
+        </div> -->
       </aside>
     </transition>
   </header>

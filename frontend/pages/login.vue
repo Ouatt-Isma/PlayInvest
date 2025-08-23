@@ -9,8 +9,7 @@ const showToast = ref(false)
 
 import LoginForm from '~/components/LoginForm.vue'
 definePageMeta({
-  layout: 'auth',
-  // middleware: ['guest']
+  guestOnly: true,      
 })
 
 const error = ref(null)

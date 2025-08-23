@@ -108,7 +108,6 @@ const selectedRegion = ref('Tous')
 const searchText = ref('')
 const sortRecent = ref(false)
 
-
 // Pagination
 const currentPage = ref(1)
 const perPage = 4
@@ -145,12 +144,10 @@ const filteredArticles = computed(() => {
     return matchesRegion && matchesText
   })
 
-
   // Sort: Récent
   if (sortRecent.value) {
-    articles.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    articles.sort((a, b) => new Date(b.published_at) - new Date(a.published_at))
   }
-
   return articles
 })
 

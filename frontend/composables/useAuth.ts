@@ -1,15 +1,27 @@
-// // composables/useAuth.ts
-// export const useAuth = () => {
-//   const user = useState('user') // SSR-safe
-//   const token = import.meta.client ? localStorage.getItem('token') : null
+export const useAuth = () => {
+    const isAuthenticated = useState("isAuthenticated", () => false)
+    const checkAuth = async () => {
+    const token = process.client ? localStorage.getItem("token") : null
+    if (!token) {
+      isAuthenticated.value = false
+      return false
+    }
+    try {
+      const config = useRuntimeConfig()
+      await $fetch(`${config.public.apiBase}/users/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      isAuthenticated.value = true   // ✅ backend confirms token is valid
+      return true
+    } catch (err) {
+      console.error("Auth check failed:", err)
+      localStorage.removeItem("token")
+      isAuthenticated.value = false
+      return false
+    }
+  }
 
-//   const isAuthenticated = computed(() => {
-//     return !!token || !!user.value
-//   })
 
-//   return {
-//     isAuthenticated,
-//     user,
-//     token,
-//   }
-// }
+
+  return { isAuthenticated, checkAuth}
+}

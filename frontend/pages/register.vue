@@ -4,8 +4,7 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 definePageMeta({
-  layout: 'auth', // ✅ force the 'auth' layout,
-  //  middleware: ['guest']
+  guestOnly: true,      
 })
 
 const router = useRouter()

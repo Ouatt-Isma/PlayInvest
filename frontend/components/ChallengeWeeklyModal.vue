@@ -222,7 +222,7 @@ async function fetchPair() {
   try {
     const token = localStorage.getItem('token')
     if (!token) {
-      error.value = 'Aucun token trouvé. Veuillez vous connecter.'
+      error.value = 'Veuillez vous connecter.'
       return
     }
     const config = useRuntimeConfig()

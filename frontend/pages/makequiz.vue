@@ -113,6 +113,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  requiresAuth: true,
+})
+
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
 

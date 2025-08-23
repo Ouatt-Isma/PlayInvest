@@ -4,7 +4,9 @@ import axios from 'axios'
 import { formatCurrency } from '@/composables/portfolio'
 import { nextTick } from 'vue'
 import { getLogo} from '@/composables/assets'
+import { useAuth } from "@/composables/useAuth"
 
+const { isAuthenticated, checkAuth } = useAuth()
 
 const notification = ref({ type: '', message: '', visible: false })
 const props = defineProps({
@@ -95,6 +97,11 @@ const close = async () => {
 }
 const invest = async () => {
   try {
+    const ok = await checkAuth()
+    if (!ok){
+    return navigateTo("/login")
+      }
+
     const token = localStorage.getItem("token")
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
