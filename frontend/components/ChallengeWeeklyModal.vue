@@ -20,8 +20,8 @@
 
         <!-- Countdown -->
         <div class="mt-3 text-sm">
-          <span class="text-gray-500" v-if="isBeforeFriday">Résultats vendredi 23h59 Heure de Paris</span>
-          <span class="text-gray-500" v-else>Clôture dimanche 23h59 Heure de Paris</span>
+          <span class="text-gray-500" v-if="isBeforeFriday">Résultats vendredi 23h59 GMT</span>
+          <span class="text-gray-500" v-else>Clôture dimanche 23h59 GMT</span>
           <span class="ml-2 font-semibold">
             {{ countdown.d }}j {{ countdown.h }}h {{ countdown.m }}m {{ countdown.s }}s
           </span>
