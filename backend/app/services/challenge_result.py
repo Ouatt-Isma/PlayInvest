@@ -22,7 +22,7 @@ from app.db.models.weekly_challenge import (
 )
 
 def compute_last_5days_perf(asset: Asset, current_date, check=True):
-    date_4_days_ago = current_date - timedelta(days=5)
+    date_4_days_ago = current_date - timedelta(days=4)
     if(check):
         assert date_4_days_ago.weekday() == 0, f"Expected Monday, got {date_4_days_ago.strftime('%A')}"
     date_4_days_ago = date_4_days_ago.strftime("%Y-%m-%d")

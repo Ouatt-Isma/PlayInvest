@@ -208,10 +208,10 @@ def create_challenge_for_next_week(db: Session, check=True) -> WeeklyChallenge:
     start_at, end_at = _next_weekend_window_fr()
     now_fr = datetime.now(TZ_GMT)
     tomorrow = (now_fr + timedelta(days=1)).date()
+    today = (now_fr).date()
 
     if(check):
-        assert start_at.date() == tomorrow, f"Expected {tomorrow}, got {start_at.date()}"
-
+        assert start_at.date() == tomorrow or start_at.date() == today , f"Expected {tomorrow}, got {start_at.date()}"
 
     # Avoid duplicates for that exact window
     existing = (

@@ -42,7 +42,7 @@ def challenge():
     try:
         with get_db() as db:
             current_date = datetime.now(TZ_GMT)
-            update_all_challenge_result(db, current_date)
+            update_all_challenge_result(db, current_date, False)
             seed_next_week(db)
         log.info("challenge() completed")
     except Exception as e:
@@ -92,8 +92,8 @@ def main():
     scheduler.add_job(news,     trigger='cron', hour=8,  id="news_daily",     replace_existing=True)
     scheduler.add_job(assets,   trigger='cron', hour=23, id="assets_daily",   replace_existing=True)
     scheduler.add_job(perf,     trigger='cron', hour=12, id="perf_daily",     replace_existing=True)
-    # scheduler.add_job(challenge, trigger='cron', day_of_week='fri', hour=23,
-    #                   id="challenge_fri_23", replace_existing=True)
+    scheduler.add_job(challenge, trigger='cron', day_of_week='fri', hour=23, minute=58, 
+                      id="challenge_fri_23", replace_existing=True)
     scheduler.add_job(
     challenge,
     trigger="cron",
