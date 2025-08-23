@@ -7,7 +7,7 @@ import signal
 from contextlib import contextmanager
 from datetime import datetime
 from app.core.config import settings 
-TZ_FR = settings.TZ_FR
+TZ_GMT = settings.TZ_GMT
 
 import asyncio
 from sqlalchemy.orm import Session
@@ -41,7 +41,7 @@ def get_db() -> Session:
 def challenge():
     try:
         with get_db() as db:
-            current_date = datetime.now(TZ_FR)
+            current_date = datetime.now(TZ_GMT)
             update_all_challenge_result(db, current_date)
             seed_next_week(db)
         log.info("challenge() completed")
@@ -72,7 +72,7 @@ def news():
 def perf():
     try:
         with get_db() as db:
-            current_date = datetime.now(TZ_FR)
+            current_date = datetime.now(TZ_GMT)
             update_all_portfolio_performance(db, current_date)
         log.info("perf() completed")
     except Exception as e:
@@ -81,7 +81,7 @@ def perf():
 
 # --- Scheduler setup ---
 def main():
-    tz = TZ_FR
+    tz = TZ_GMT
     job_defaults = {
         "coalesce": True,          # collapse backlog into one run
         "max_instances": 1,        # avoid overlapping runs
@@ -92,9 +92,17 @@ def main():
     scheduler.add_job(news,     trigger='cron', hour=8,  id="news_daily",     replace_existing=True)
     scheduler.add_job(assets,   trigger='cron', hour=23, id="assets_daily",   replace_existing=True)
     scheduler.add_job(perf,     trigger='cron', hour=12, id="perf_daily",     replace_existing=True)
-    scheduler.add_job(challenge, trigger='cron', day_of_week='fri', hour=23,
-                      id="challenge_fri_23", replace_existing=True)
-
+    # scheduler.add_job(challenge, trigger='cron', day_of_week='fri', hour=23,
+    #                   id="challenge_fri_23", replace_existing=True)
+    scheduler.add_job(
+    challenge,
+    trigger="cron",
+    day_of_week="sat",   # Saturday
+    hour=19,             # 21h
+    minute=33,           # 21h22
+    id="challenge_sat_2122",
+    replace_existing=True
+)
     # Graceful shutdown
     def _shutdown(signum, frame):
         log.info("Received signal %s, shutting down scheduler...", signum)
@@ -103,7 +111,7 @@ def main():
     signal.signal(signal.SIGINT, _shutdown)
     signal.signal(signal.SIGTERM, _shutdown)
 
-    log.info("Starting scheduler (Europe/Paris)")
+    log.info("Starting scheduler (GMT")
     scheduler.start()
 
 if __name__ == '__main__':
