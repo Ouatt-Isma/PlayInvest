@@ -26,7 +26,8 @@ class Settings:
     amount_challenge = 50
     currency = 'EUR'
     ADMIN_EMAIL = "ouattaraismael1999@gmail.com"
-    TZ_FR = ZoneInfo("Europe/Paris")
+    # TZ_FR = ZoneInfo("GMT")
+    TZ_GMT = ZoneInfo("UTC")
 
 settings = Settings()
 

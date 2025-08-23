@@ -14,7 +14,7 @@ from app.db.models.weekly_challenge import (
     EntityKind,
 )
 from app.core.config import settings 
-TZ_FR = settings.TZ_FR
+TZ_GMT = settings.TZ_GMT
 
 # -----------------------------------------------------------------------------
 # 1) Templates: each side is a small filter dict: keys can be 'type' and/or 'region'
@@ -103,16 +103,16 @@ def _next_weekend_window_fr(
     return_utc: bool = False
 ) -> Tuple[datetime, datetime]:
     """
-    Next weekend window in France time (Europe/Paris):
+    Next weekend window in France time (GMT):
       Start: Saturday 00:00
       End:   Sunday 23:59:59.999999
-    Returns datetimes either in Europe/Paris or converted to UTC if return_utc=True.
+    Returns datetimes either in GMT or converted to UTC if return_utc=True.
     """
-    # Get 'now' in Europe/Paris
+    # Get 'now' in GMT
     if now is None:
-        local_now = datetime.now(TZ_FR)
+        local_now = datetime.now(TZ_GMT)
     else:
-        local_now = now.astimezone(TZ_FR) if now.tzinfo else now.replace(tzinfo=TZ_FR)
+        local_now = now.astimezone(TZ_GMT) if now.tzinfo else now.replace(tzinfo=TZ_GMT)
 
     # Monday=0 ... Saturday=5, Sunday=6
     weekday = local_now.date().weekday()
@@ -122,14 +122,14 @@ def _next_weekend_window_fr(
     start_local = datetime.combine(
         local_now.date() + timedelta(days=days_until_saturday),
         time(0, 0, 0, 0),
-        tzinfo=TZ_FR,
+        tzinfo=TZ_GMT,
     )
 
     # End: Sunday 23:59:59.999999 (local France time)
     end_local = datetime.combine(
         start_local.date() + timedelta(days=1),
         time(23, 59, 59, 999_999),
-        tzinfo=TZ_FR,
+        tzinfo=TZ_GMT,
     )
 
     if return_utc:
@@ -206,7 +206,7 @@ def create_challenge_for_next_week(db: Session, check=True) -> WeeklyChallenge:
     (or fallback to any two assets), and create a challenge for the NEXT week.
     """
     start_at, end_at = _next_weekend_window_fr()
-    now_fr = datetime.now(TZ_FR)
+    now_fr = datetime.now(TZ_GMT)
     tomorrow = (now_fr + timedelta(days=1)).date()
 
     if(check):

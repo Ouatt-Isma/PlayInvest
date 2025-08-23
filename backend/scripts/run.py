@@ -6,7 +6,7 @@ import logging
 from contextlib import contextmanager
 from datetime import datetime
 from app.core.config import settings 
-TZ_FR = settings.TZ_FR
+TZ_GMT = settings.TZ_GMT
 
 import asyncio
 from sqlalchemy.orm import Session
@@ -38,7 +38,7 @@ def get_db() -> Session:
 def challenge():
     try:
         with get_db() as db:
-            current_date = datetime.now(TZ_FR)
+            current_date = datetime.now(TZ_GMT)
             update_all_challenge_result(db, current_date, False)
             seed_next_week(db, False)
         log.info("challenge() completed")
@@ -67,7 +67,7 @@ def news():
 def perf():
     try:
         with get_db() as db:
-            current_date = datetime.now(TZ_FR)
+            current_date = datetime.now(TZ_GMT)
             update_all_portfolio_performance(db, current_date)
         log.info("perf() completed")
     except Exception as e:
