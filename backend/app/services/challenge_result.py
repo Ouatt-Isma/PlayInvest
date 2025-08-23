@@ -21,9 +21,10 @@ from app.db.models.weekly_challenge import (
     EntityKind,
 )
 
-def compute_last_5days_perf(asset: Asset, current_date):
+def compute_last_5days_perf(asset: Asset, current_date, check=True):
     date_4_days_ago = current_date - timedelta(days=6)
-    assert date_4_days_ago.weekday() == 0, f"Expected Monday, got {date_4_days_ago.strftime('%A')}"
+    if(check):
+        assert date_4_days_ago.weekday() == 0, f"Expected Monday, got {date_4_days_ago.strftime('%A')}"
     date_4_days_ago = date_4_days_ago.strftime("%Y-%m-%d")
     
     open = asset.get_price_at(date_4_days_ago, open=True)
@@ -32,7 +33,7 @@ def compute_last_5days_perf(asset: Asset, current_date):
 
     
 # Function to update one challenge   
-def update_challenge_result(db: Session, weekly_challenge_id: int, current_date: datetime):
+def update_challenge_result(db: Session, weekly_challenge_id: int, current_date: datetime, check=True):
     weekly_challenge = db.query(WeeklyChallenge).filter_by(id=weekly_challenge_id).first()
     if not weekly_challenge:
         return
@@ -44,8 +45,8 @@ def update_challenge_result(db: Session, weekly_challenge_id: int, current_date:
     side_a, side_b = sides
     asset_a = db.query(Asset).filter(Asset.id == side_a.asset_id).first()
     asset_b = db.query(Asset).filter(Asset.id == side_b.asset_id).first()
-    perf_a = compute_last_5days_perf(asset_a, current_date)
-    perf_b = compute_last_5days_perf(asset_b, current_date)
+    perf_a = compute_last_5days_perf(asset_a, current_date, check)
+    perf_b = compute_last_5days_perf(asset_b, current_date, check)
     weekly_challenge.winning_side = side_a if perf_a >= perf_b else side_b
     db.add(weekly_challenge)  
     db.commit()
@@ -66,11 +67,11 @@ def update_user_result_one(db: Session, weekly_pick: int, current_date: datetime
     
 
 # Function to update challenge and all picks
-def update_all_challenge_result(db: Session, current_date: datetime):
+def update_all_challenge_result(db: Session, current_date: datetime, check=True):
     weekly_challenge = db.query(WeeklyChallenge).filter_by(is_active=True).first()
     if(not weekly_challenge):
         return
-    update_challenge_result(db, weekly_challenge.id, current_date)
+    update_challenge_result(db, weekly_challenge.id, current_date, check)
     weekly_challenge.is_active = False 
     all_picks = db.query(WeeklyChallengePick).filter_by(challenge_id=weekly_challenge.id).all()
     for pick in all_picks:

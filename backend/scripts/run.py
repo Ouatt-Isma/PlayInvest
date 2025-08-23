@@ -39,7 +39,7 @@ def challenge():
     try:
         with get_db() as db:
             current_date = datetime.now(TZ_FR)
-            update_all_challenge_result(db, current_date)
+            update_all_challenge_result(db, current_date, False)
             seed_next_week(db, False)
         log.info("challenge() completed")
     except Exception as e:
