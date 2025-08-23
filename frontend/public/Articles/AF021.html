@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rentabilité Historique des Marchés Boursiers | Performance cumulée</title>
+    <title>Zone Franc CFA : Avantages et Critiques pour l'Investissement</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary-color: #1a5091;
-            --secondary-color: #0d7a3a;
-            --accent-color: #2196F3;
-            --light-color: #F1F2F6;
-            --dark-color: #0A0A1D;
-            --neutral-color: #5a5a72;
-            --success-color: #2E7D32;
-            --warning-color: #ED6C02;
-            --error-color: #D32F2F;
+            --primary-color: #1a5091; /* Bleu foncé */
+            --secondary-color: #0d7a3a; /* Vert foncé */
+            --accent-color: #2196F3; /* Bleu vif */
+            --light-color: #F1F2F6; /* Fond clair */
+            --dark-color: #0A0A1D; /* Texte foncé */
+            --neutral-color: #5a5a72; /* Texte neutre */
+            --success-color: #2E7D32; /* Vert */
+            --warning-color: #ED6C02; /* Orange */
+            --error-color: #D32F2F; /* Rouge */
             --border-radius: 8px;
         }
         
@@ -194,7 +193,7 @@
             object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
-            background: linear-gradient(135deg, #1a5091, #0d7a3a);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             font-size: 1.5rem;
             text-align: center;
@@ -551,207 +550,6 @@
             color: var(--error-color);
         }
         
-        /* BCEAO mission card */
-        .mission-card {
-            background: linear-gradient(135deg, #1a5091, #0d7a3a);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            color: white;
-            margin: 40px 0;
-        }
-        
-        .mission-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-        }
-        
-        .mission-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-        
-        .mission-item {
-            padding: 20px;
-            background-color: rgba(255,255,255,0.15);
-            border-radius: var(--border-radius);
-            transition: transform 0.3s ease;
-        }
-        
-        .mission-item:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255,255,255,0.2);
-        }
-        
-        .mission-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .mission-text {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
-        /* Risk Matrix */
-        .risk-matrix {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .matrix-item {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-            border-left: 4px solid;
-        }
-        
-        .matrix-item.high {
-            border-left-color: var(--error-color);
-        }
-        
-        .matrix-item.medium {
-            border-left-color: var(--warning-color);
-        }
-        
-        .matrix-item.low {
-            border-left-color: var(--success-color);
-        }
-        
-        .risk-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .risk-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .risk-icon.high {
-            background-color: rgba(211, 47, 47, 0.2);
-            color: var(--error-color);
-        }
-        
-        .risk-icon.medium {
-            background-color: rgba(237, 108, 2, 0.2);
-            color: var(--warning-color);
-        }
-        
-        .risk-icon.low {
-            background-color: rgba(46, 125, 50, 0.2);
-            color: var(--success-color);
-        }
-        
-        .risk-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        
-        .risk-level {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-        
-        .high-level {
-            background-color: rgba(211, 47, 47, 0.2);
-            color: var(--error-color);
-        }
-        
-        .medium-level {
-            background-color: rgba(237, 108, 2, 0.2);
-            color: var(--warning-color);
-        }
-        
-        .low-level {
-            background-color: rgba(46, 125, 50, 0.2);
-            color: var(--success-color);
-        }
-        
-        /* Performance Chart */
-        .chart-container {
-            height: 450px;
-            background: #f9f9f9;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin: 30px 0;
-            position: relative;
-        }
-        
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .chart-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .chart-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .chart-btn {
-            padding: 8px 15px;
-            background: #e9ecef;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .chart-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-        
-        .chart-legend {
-            display: flex;
-            gap: 20px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .legend-color {
-            width: 15px;
-            height: 15px;
-            border-radius: 3px;
-        }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .article-title {
@@ -775,26 +573,6 @@
                 right: 10px;
                 left: auto;
             }
-            
-            .company-details {
-                grid-template-columns: 1fr;
-            }
-            
-            .risk-matrix {
-                grid-template-columns: 1fr;
-            }
-            
-            .chart-container {
-                height: 400px;
-            }
-            
-            .chart-header {
-                flex-direction: column;
-            }
-            
-            .chart-controls {
-                margin-top: 15px;
-            }
         }
         
         @media (max-width: 480px) {
@@ -815,22 +593,6 @@
                 right: 5%;
                 left: 5%;
             }
-            
-            .mission-items {
-                grid-template-columns: 1fr;
-            }
-            
-            .chart-container {
-                height: 350px;
-            }
-            
-            .chart-controls {
-                flex-wrap: wrap;
-            }
-            
-            .chart-btn {
-                margin-bottom: 5px;
-            }
         }
     </style>
 </head>
@@ -850,11 +612,12 @@
         </div>
         <ul id="toc-list">
             <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            <li><a href="#historical" class="h2-link">Perspective historique</a></li>
-            <li><a href="#cumulated" class="h2-link">Rentabilité cumulée</a></li>
-            <li><a href="#markets" class="h2-link">Comparaison des marchés</a></li>
-            <li><a href="#factors" class="h2-link">Facteurs de rentabilité</a></li>
-            <li><a href="#longterm" class="h2-link">Stratégie long terme</a></li>
+            <li><a href="#historique" class="h2-link">Historique et fonctionnement</a></li>
+            <li><a href="#avantages" class="h2-link">Avantages pour l'investissement</a></li>
+            <li><a href="#critiques" class="h2-link">Critiques et défis</a></li>
+            <li><a href="#pays" class="h2-link">Analyse par pays</a></li>
+            <li><a href="#perspectives" class="h2-link">Perspectives d'évolution</a></li>
+            <li><a href="#strategie" class="h2-link">Stratégies d'investissement</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -862,311 +625,282 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Rentabilité Historique des Marchés Boursiers</h1>
-            <div class="article-subtitle">Analyse des performances cumulées à long terme et perspectives d'investissement</div>
+            <h1 class="article-title">Zone Franc CFA : Avantages et Critiques pour l'Investissement</h1>
+            <div class="article-subtitle">Analyse approfondie d'un système monétaire unique et de ses implications économiques</div>
             <div class="reading-time">
-                <i class="fas fa-clock"></i> 12 min de lecture
+                <i class="fas fa-clock"></i> 8 min de lecture
             </div>
         </div>
         
         <!-- Featured Image -->
         <div class="featured-image">
-            La puissance de la capitalisation boursière sur le long terme
+            Système monétaire et perspectives économiques en Afrique de l'Ouest et Centrale
         </div>
         
         <!-- Article Content -->
         <div class="article-content">
             <div class="callout info">
-                <div class="callout-title">Faits clés sur la rentabilité cumulée :</div>
+                <div class="callout-title">Faits clés sur la Zone Franc CFA :</div>
                 <ul>
-                    <li>Croissance cumulée du S&P 500 (1926-2023) : <span class="highlight">+240 000%</span></li>
-                    <li>Performance cumulée du CAC 40 (1987-2023) : <span class="highlight">+1 250%</span></li>
-                    <li>Rendement réel (inflation déduite) : <span class="highlight">×150 sur 50 ans</span></li>
-                    <li>Meilleure décennie : <span class="highlight">Années 1950 (+487%)</span></li>
-                    <li>Pire décennie : <span class="highlight">Années 2000 (-37%)</span></li>
+                    <li><span class="highlight">15 pays</span> membres (8 en Afrique de l'Ouest, 6 en Afrique Centrale, 1 dans l'océan Indien)</li>
+                    <li><span class="highlight">155 millions</span> d'habitants représentés</li>
+                    <li>Créée en <span class="highlight">1945</span> comme monnaie des colonies françaises</li>
+                    <li>Parité fixe avec l'euro : <span class="highlight">1€ = 655.957 FCFA</span></li>
+                    <li>Croissance moyenne de <span class="highlight">4-5%</span> par an (pré-Covid)</li>
                 </ul>
             </div>
             
             <h2 id="introduction">Introduction</h2>
-            <p>Les marchés boursiers représentent l'un des moteurs de création de richesse les plus puissants sur le long terme. Malgré les crises, les krachs et les périodes de volatilité, les actions ont historiquement surperformé la plupart des autres classes d'actifs.</p>
+            <p>Le Franc CFA (Franc des Colonies Françaises d'Afrique) constitue l'un des systèmes monétaires les plus singuliers au monde. Utilisé par 15 pays africains répartis en deux zones (UEMOA et CEMAC), cette monnaie est au cœur de nombreux débats sur ses avantages et inconvénients pour le développement économique et l'investissement.</p>
             
-            <p>Cette analyse explore la rentabilité cumulée des principaux marchés boursiers mondiaux, les facteurs sous-jacents à cette performance, et les enseignements que les investisseurs peuvent en tirer pour construire un portefeuille résilient.</p>
+            <p>Dans cette analyse approfondie, nous examinons les implications concrètes du système CFA pour les investisseurs, en mettant en lumière à la fois ses atouts et ses limites dans le contexte économique actuel.</p>
             
-            <div class="callout warning">
-                <p><strong>Note importante :</strong> Les performances passées ne préjugent pas des résultats futurs, mais l'étude historique permet de comprendre les mécanismes de création de valeur à long terme.</p>
+            <div class="callout info">
+                <p><strong>Définition :</strong> Le Franc CFA est la monnaie commune de 15 pays africains membres de la Zone Franc. Elle est émise par deux banques centrales distinctes : la BCEAO pour les pays de l'UEMOA en Afrique de l'Ouest et la BEAC pour les pays de la CEMAC en Afrique Centrale.</p>
             </div>
             
-            <h2 id="historical">Perspective historique</h2>
-            <p>L'histoire des marchés boursiers révèle une résilience remarquable sur le long terme :</p>
+            <h2 id="historique">Historique et fonctionnement du système</h2>
+            <p>Le Franc CFA a été créé en 1945, initialement comme monnaie des colonies françaises d'Afrique. Après les indépendances, la plupart des nouveaux États ont choisi de conserver cette monnaie, mais avec des modalités renégociées.</p>
             
             <div class="steps-container">
                 <div class="step-card">
                     <div class="step-number">1</div>
-                    <div class="step-title">XXe siècle : L'essor</div>
+                    <div class="step-title">Principes fondamentaux</div>
                     <div class="step-details">
                         <ul>
-                            <li>Croissance industrielle et technologique</li>
-                            <li>Rendement cumulé réel : ×150 sur 100 ans</li>
-                            <li>Grande Dépression (krach de 1929)</li>
-                            <li>Rebond d'après-guerre</li>
+                            <li>Parité fixe avec l'euro</li>
+                            <li>Garantie de convertibilité par le Trésor français</li>
+                            <li>Obligation de déposer 50% des réserves de change en France</li>
+                            <li>Présence française dans les instances de décision</li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="step-card">
                     <div class="step-number">2</div>
-                    <div class="step-title">1970-2000 : Révolution financière</div>
+                    <div class="step-title">Évolutions récentes</div>
                     <div class="step-details">
                         <ul>
-                            <li>Stagflation des années 1970</li>
-                            <li>Bulle des technologies (1995-2000)</li>
-                            <li>Globalisation des marchés</li>
-                            <li>Rendements exceptionnels</li>
+                            <li>2019 : Accord de principe pour une réforme du système</li>
+                            <li>2020 : Renommage en "Eco" pour la zone Ouest</li>
+                            <li>2023 : Débats en cours sur l'autonomie monétaire</li>
+                            <li>2024 : Projets de réduction progressive des dépôts en France</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 id="avantages">Avantages pour l'investissement</h2>
+            <p>Le système CFA présente plusieurs caractéristiques qui peuvent être favorables aux investisseurs, particulièrement ceux recherchant la stabilité.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-shield-alt"></i> Stabilité monétaire</div>
+                    <div class="card-content">
+                        La parité fixe avec l'euro protège contre les dévaluations brutales et l'inflation galopante. L'inflation moyenne dans la zone CFA est de 1-2%, contre 10-15% dans certains pays africains voisins.
                     </div>
                 </div>
                 
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <div class="step-title">XXIe siècle : Volatilité et rebonds</div>
-                    <div class="step-details">
-                        <ul>
-                            <li>Éclatement de la bulle internet</li>
-                            <li>Crise financière de 2008</li>
-                            <li>Long bull market (2009-2020)</li>
-                            <li>Pandémie et rebond post-COVID</li>
-                        </ul>
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-euro-sign"></i> Accès facilité aux devises</div>
+                    <div class="card-content">
+                        La convertibilité garantie élimine le risque de pénurie de devises, un problème récurrent dans de nombreuses économies africaines. Les transferts de dividendes et capitaux sont sécurisés.
                     </div>
                 </div>
-            </div>
-            
-            <h2 id="cumulated">Rentabilité cumulée</h2>
-            <p>L'effet cumulé est le phénomène le plus puissant de l'investissement en bourse. Un investissement initial de 10 000$ en 1926 dans le S&P 500 vaudrait aujourd'hui plus de 24 millions de dollars, dividendes réinvestis.</p>
-            
-            <div class="callout info">
-                <p>La capitalisation des gains est le moteur principal de la performance à long terme. Les rendements annuels moyens cachent l'effet exponentiel du réinvestissement sur plusieurs décennies.</p>
-            </div>
-            
-            <!-- Performance Chart -->
-            <div class="chart-container">
-                <div class="chart-header">
-                    <div class="chart-title">Performance cumulée du S&P 500 (1926-2023)</div>
-                    <div class="chart-controls">
-                        <button class="chart-btn active" data-index="0">S&P 500</button>
-                        <button class="chart-btn" data-index="1">Obligations</button>
-                        <button class="chart-btn" data-index="2">Or</button>
-                        <button class="chart-btn" data-index="3">Inflation</button>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-handshake"></i> Sécurité juridique</div>
+                    <div class="card-content">
+                        Le cadre institutionnel hérité du système français offre une relative sécurité juridique et une meilleure protection des investissements étrangers comparé à d'autres régions.
                     </div>
                 </div>
-                <canvas id="performanceChart"></canvas>
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #1a5091;"></div>
-                        <span>S&P 500 (dividendes réinvestis)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #0d7a3a;"></div>
-                        <span>Obligations d'État (10 ans)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #ED6C02;"></div>
-                        <span>Or (once)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #D32F2F;"></div>
-                        <span>Inflation</span>
+                
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-chart-line"></i> Intégration régionale</div>
+                    <div class="card-content">
+                        Les unions monétaires (UEMOA et CEMAC) facilitent les échanges transfrontaliers et créent des marchés plus vastes pour les investisseurs.
                     </div>
                 </div>
             </div>
             
             <div class="callout success">
-                <p><strong>L'effet cumulé :</strong> Un investissement de 10 000$ en 1980 dans le S&P 500 vaudrait aujourd'hui plus de 800 000$, dividendes réinvestis. Le réinvestissement systématique transforme des rendements moyens en résultats extraordinaires sur le long terme.</p>
+                <div class="callout-title">Avantage compétitif :</div>
+                <p>Les obligations d'État de la zone CFA offrent des rendements réels positifs (3-5% après inflation) avec une volatilité inférieure à celle des pays émergents non-CFA. Cette combinaison est rare sur les marchés émergents.</p>
             </div>
             
-            <h2 id="markets">Comparaison des marchés boursiers</h2>
-            <p>La performance cumulée varie significativement selon les régions et les périodes :</p>
+            <h2 id="critiques">Critiques et défis majeurs</h2>
+            <p>Malgré ses avantages, le système CFA fait l'objet de critiques substantielles qui impactent son attractivité à long terme.</p>
+            
+            <div class="country-container">
+                <div class="country-card">
+                    <div class="country-title"><i class="fas fa-balance-scale country-icon"></i> Perte de souveraineté</div>
+                    <p>Les pays membres n'ont pas de contrôle sur leur politique monétaire. Les taux d'intérêt sont décidés en fonction des besoins de la zone euro, pas des économies locales.</p>
+                    <div class="country-economy">
+                        <h4>Conséquences :</h4>
+                        <ul class="economy-list">
+                            <li>Impossibilité de dévaluer pour regagner en compétitivité</li>
+                            <li>Taux d'intérêt parfois inadaptés aux besoins locaux</li>
+                            <li>Dépendance aux décisions prises à Paris et Francfort</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="country-card">
+                    <div class="country-title"><i class="fas fa-lock country-icon"></i> Contraintes sur les réserves</div>
+                    <p>L'obligation de déposer 50% des réserves de change au Trésor français limite la capacité d'investissement des États et représente un coût d'opportunité substantiel.</p>
+                    <div class="country-economy">
+                        <h4>Impact économique :</h4>
+                        <ul class="economy-list">
+                            <li>Ressources non disponibles pour l'investissement local</li>
+                            <li>Rendements faibles sur ces réserves (0.75%)</li>
+                            <li>Manque à gagner estimé à 500 millions €/an</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="country-card">
+                    <div class="country-title"><i class="fas fa-industry country-icon"></i> Développement industriel entravé</div>
+                    <p>La monnaie forte pénalise les exportations hors zone et favorise les importations, rendant difficile l'émergence d'une industrie locale compétitive.</p>
+                    <div class="country-economy">
+                        <h4>Conséquences :</h4>
+                        <ul class="economy-list">
+                            <li>Déficit commercial structurel</li>
+                            <li>Difficulté à développer des chaînes de valeur locales</li>
+                            <li>Économies dépendantes des matières premières</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <div class="callout-title">Dépendance économique :</div>
+                <p>Entre 2010 et 2022, les pays de la zone CFA ont reçu 23 milliards € d'aide publique au développement de la France. Cette dépendance crée des déséquilibres politiques et limite l'autonomie décisionnelle.</p>
+            </div>
+            
+            <h2 id="pays">Analyse par pays et secteurs d'investissement</h2>
+            <p>Les opportunités d'investissement varient considérablement selon les pays et secteurs au sein de la zone CFA.</p>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Marché</th>
-                        <th>Croissance 20 ans</th>
-                        <th>Croissance 50 ans</th>
-                        <th>Volatilité annuelle</th>
+                        <th>Pays</th>
+                        <th>Croissance</th>
+                        <th>Secteurs porteurs</th>
+                        <th>Risques</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="feature-name">S&P 500 (USA)</td>
-                        <td>+480%</td>
-                        <td>+11 200%</td>
-                        <td>15.4%</td>
+                        <td class="feature-name">Côte d'Ivoire</td>
+                        <td>6-7%</td>
+                        <td>Agro-industrie, BTP, Télécoms</td>
+                        <td>Stabilité politique, Endettement</td>
                     </tr>
                     <tr>
-                        <td class="feature-name">Euro Stoxx 50 (Europe)</td>
-                        <td>+175%</td>
-                        <td>+4 500%</td>
-                        <td>18.7%</td>
+                        <td class="feature-name">Sénégal</td>
+                        <td>5-6%</td>
+                        <td>Énergie, Infrastructure, Tourisme</td>
+                        <td>Dette publique, Dépendance pétrole</td>
                     </tr>
                     <tr>
-                        <td class="feature-name">Nikkei 225 (Japon)</td>
-                        <td>+120%</td>
-                        <td>+3 200%</td>
-                        <td>21.3%</td>
+                        <td class="feature-name">Cameroun</td>
+                        <td>4%</td>
+                        <td>Agriculture, Transport, Digital</td>
+                        <td>Conflit anglophone, Corruption</td>
                     </tr>
                     <tr>
-                        <td class="feature-name">MSCI Emerging Markets</td>
-                        <td>+380%</td>
-                        <td>+8 900%</td>
-                        <td>23.5%</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">BRVM (Afrique de l'Ouest)</td>
-                        <td>+620%</td>
-                        <td>+15 400%</td>
-                        <td>27.8%</td>
+                        <td class="feature-name">Gabon</td>
+                        <td>3%</td>
+                        <td>Pétrole, Bois, Écotourisme</td>
+                        <td>Dépendance pétrolière, Gouvernance</td>
                     </tr>
                 </tbody>
             </table>
             
+            <div class="callout info">
+                <p><strong>Opportunité sectorielle :</strong> Le secteur des énergies renouvelables connaît une croissance de 15% par an dans la zone CFA, porté par des projets solaires et éoliens soutenus par des financements internationaux.</p>
+            </div>
+            
+            <h2 id="perspectives">Perspectives d'évolution et réformes</h2>
+            <p>Le système CFA est en pleine mutation sous la pression des critiques et des changements géopolitiques.</p>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Réforme de 2019-2020</div>
+                    <div class="step-details">
+                        <ul>
+                            <li>Changement de nom : "Eco" en Afrique de l'Ouest</li>
+                            <li>Fin de l'obligation de dépôt des réserves en France</li>
+                            <li>Retrait des représentants français des instances de décision</li>
+                            <li>Maintien de la parité avec l'euro</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Scénarios futurs</div>
+                    <div class="step-details">
+                        <ul>
+                            <li>Adoption d'une monnaie unique de la CEDEAO</li>
+                            <li>Maintien du statu quo avec des ajustements techniques</li>
+                            <li>Départ de certains pays du système CFA</li>
+                            <li>Création d'une nouvelle monnaie panafricaine</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
             <div class="callout warning">
-                <p><strong>Le paradoxe des marchés émergents :</strong> Malgré une croissance économique souvent supérieure, les marchés émergents présentent des performances boursières plus volatiles et parfois inférieures aux marchés développés, en raison de risques politiques, de change et de gouvernance.</p>
+                <p>L'adoption de l'Eco par l'ensemble de la CEDEAO reste incertaine. Les divergences économiques entre pays anglophones et francophones, ainsi que les réticences du Nigeria, principal poids lourd régional, compliquent la mise en œuvre de ce projet.</p>
             </div>
             
-            <h2 id="factors">Facteurs clés de rentabilité cumulée</h2>
-            <p>Plusieurs éléments expliquent la performance historique des marchés actions :</p>
-            
-            <div class="risk-matrix">
-                <div class="matrix-item high">
-                    <div class="risk-header">
-                        <div class="risk-icon high"><i class="fas fa-chart-line"></i></div>
-                        <div>
-                            <div class="risk-title">Réinvestissement des dividendes <span class="risk-level high-level">Essentiel</span></div>
-                        </div>
-                    </div>
-                    <p>Le réinvestissement systématique accélère la croissance exponentielle :</p>
-                    <ul>
-                        <li>40-60% des rendements totaux proviennent des dividendes</li>
-                        <li>Effet cumulatif sur plusieurs décennies</li>
-                        <li>Stabilité des entreprises versant des dividendes</li>
-                        <li>Avantage fiscal dans certains régimes</li>
-                    </ul>
-                </div>
-                
-                <div class="matrix-item medium">
-                    <div class="risk-header">
-                        <div class="risk-icon medium"><i class="fas fa-percentage"></i></div>
-                        <div>
-                            <div class="risk-title">Horizon temporel long <span class="risk-level medium-level">Important</span></div>
-                        </div>
-                    </div>
-                    <p>La durée est le facteur décisif de la capitalisation :</p>
-                    <ul>
-                        <li>Les pertes temporaires sont surmontées avec le temps</li>
-                        <li>L'effet exponentiel nécessite plusieurs décennies</li>
-                        <li>Réduction de la volatilité à long terme</li>
-                        <li>Avantage psychologique de ne pas réagir aux fluctuations</li>
-                    </ul>
-                </div>
-                
-                <div class="matrix-item high">
-                    <div class="risk-header">
-                        <div class="risk-icon high"><i class="fas fa-balance-scale"></i></div>
-                        <div>
-                            <div class="risk-title">Diversification mondiale <span class="risk-level high-level">Structurel</span></div>
-                        </div>
-                    </div>
-                    <p>La diversification réduit la volatilité sans sacrifier les rendements :</p>
-                    <ul>
-                        <li>Exposition à différentes économies et devises</li>
-                        <li>Répartition sectorielle et géographique</li>
-                        <li>Horizon d'investissement long terme</li>
-                        <li>Liquidité des marchés développés</li>
-                    </ul>
-                </div>
-                
-                <div class="matrix-item medium">
-                    <div class="risk-header">
-                        <div class="risk-icon medium"><i class="fas fa-file-invoice-dollar"></i></div>
-                        <div>
-                            <div class="risk-title">Maîtrise des coûts <span class="risk-level medium-level">Variable</span></div>
-                        </div>
-                    </div>
-                    <p>Les frais réduisent significativement la performance cumulée :</p>
-                    <ul>
-                        <li>Impact exponentiel des frais sur le long terme</li>
-                        <li>Différence de 1% de frais = 30% de capital après 50 ans</li>
-                        <li>Importance des solutions low-cost</li>
-                        <li>Optimisation fiscale</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <h2 id="longterm">Stratégies pour maximiser la rentabilité cumulée</h2>
-            <p>Maximiser l'effet cumulé requiert une approche disciplinée :</p>
+            <h2 id="strategie">Stratégies d'investissement dans la zone CFA</h2>
+            <p>Investir dans la zone CFA requiert une approche adaptée aux spécificités régionales.</p>
             
             <div class="card-grid">
                 <div class="card">
-                    <div class="card-title"><i class="fas fa-calendar-alt"></i> Horizon temporel</div>
+                    <div class="card-title"><i class="fas fa-landmark"></i> Dette souveraine</div>
                     <div class="card-content">
-                        Les marchés actions récompensent la patience. Un horizon de 15 ans ou plus réduit considérablement le risque de perte en capital et permet à l'effet cumulé de jouer pleinement.
+                        Les obligations d'État offrent des rendements de 5-7% avec une volatilité modérée. Privilégier les émissions en FCFA pour éviter le risque de change.
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="card-title"><i class="fas fa-globe-americas"></i> Diversification</div>
+                    <div class="card-title"><i class="fas fa-chart-bar"></i> Marchés boursiers</div>
                     <div class="card-content">
-                        Répartir ses investissements entre régions, secteurs et classes d'actifs permet de réduire la volatilité sans sacrifier la rentabilité cumulée à long terme.
+                        La BRVM (Bourse Régionale des Valeurs Mobilières) et la BVMAC offrent des opportunités dans les secteurs bancaires, cimentiers et télécoms avec des PER attractifs (8-12).
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="card-title"><i class="fas fa-undo-alt"></i> Réinvestissement</div>
+                    <div class="card-title"><i class="fas fa-industry"></i> Investissements directs</div>
                     <div class="card-content">
-                        Le réinvestissement systématique des dividendes et des plus-values accélère exponentiellement la croissance du portefeuille sur plusieurs décennies.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-euro-sign"></i> Investissement régulier</div>
-                    <div class="card-content">
-                        L'investissement mensuel (dollar-cost averaging) permet de lisser le prix d'achat, de bénéficier des creux de marché et d'accumuler progressivement un capital important.
+                        Les secteurs porteurs incluent l'agroalimentaire, les énergies renouvelables, la logistique et le digital. Rechercher des partenariats locaux est souvent essentiel.
                     </div>
                 </div>
             </div>
             
             <div class="callout info">
-                <p>L'effet cumulé est tel qu'un investissement mensuel de 200€ à 7% annuel sur 40 ans génère un capital de plus de 500 000€, dont seulement 96 000€ proviennent des versements initiaux.</p>
+                <div class="callout-title">Approche recommandée :</div>
+                <ul>
+                    <li>Diversification géographique et sectorielle</li>
+                    <li>Horizon d'investissement moyen-long terme (5-10 ans)</li>
+                    <li>Allocation prudente (max 10-15% du portefeuille émergent)</li>
+                    <li>Surveillance des réformes monétaires en cours</li>
+                    <li>Hedge partiel contre le risque politique</li>
+                </ul>
             </div>
             
             <h2 id="conclusion">Conclusion</h2>
-            <p>L'analyse historique démontre la supériorité des marchés actions comme moteur de création de richesse à long terme. Malgré les crises périodiques, les marchés boursiers ont généré des rendements cumulés extraordinaires sur plus d'un siècle.</p>
+            <p>La Zone Franc CFA présente un paradoxe fascinant pour les investisseurs. D'un côté, elle offre une stabilité monétaire rare en Afrique, une convertibilité garantie et un cadre institutionnel relativement sécurisé. De l'autre, elle est marquée par des limites structurelles qui freinent le développement économique et suscitent des critiques croissantes.</p>
             
-            <div class="callout info">
-                <p>La clé du succès réside dans la discipline, la diversification et un horizon d'investissement suffisamment long pour surmonter les inévitables périodes de volatilité. L'effet cumulé transforme des rendements moyens annuels en résultats exceptionnels sur plusieurs décennies.</p>
+            <div class="callout success">
+                <p>Pour les investisseurs, la zone CFA représente une opportunité de diversification dans des économies à fort potentiel de croissance, mais avec des risques spécifiques à bien maîtriser. La clé du succès réside dans une approche sélective, une compréhension approfondie des dynamiques locales et une vigilance accrue quant aux évolutions institutionnelles en cours.</p>
             </div>
             
-            <div class="mission-card">
-                <div class="mission-title">Principaux enseignements de l'histoire boursière</div>
-                <div class="mission-items">
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-hourglass-half"></i></div>
-                        <div class="mission-text">Le temps est l'allié le plus puissant de l'investisseur</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-chart-line"></i></div>
-                        <div class="mission-text">La volatilité est le prix à payer pour la performance</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-seedling"></i></div>
-                        <div class="mission-text">Le réinvestissement accélère la croissance exponentielle</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-brain"></i></div>
-                        <div class="mission-text">L'émotion est l'ennemie de la performance</div>
-                    </div>
-                </div>
-            </div>
+            <p>Alors que les réformes du système se poursuivent, les investisseurs devront adapter leurs stratégies à cette nouvelle donne. Une chose est certaine : la zone CFA restera un espace économique majeur et un laboratoire fascinant des relations monétaires internationales dans les années à venir.</p>
         </div>
     </div>
 
@@ -1214,202 +948,6 @@
                     }
                 });
             });
-            
-            // Chart functionality
-            const ctx = document.getElementById('performanceChart').getContext('2d');
-            const chartBtns = document.querySelectorAll('.chart-btn');
-            
-            // Historical data (simplified and fixed)
-            const years = Array.from({length: 98}, (_, i) => 1926 + i);
-            
-            // Cumulative returns data based on historical averages
-            const data = {
-                sp500: [100],
-                bonds: [100],
-                gold: [100],
-                inflation: [100]
-            };
-            
-            // Generate cumulative returns with realistic historical averages
-            for (let i = 1; i < years.length; i++) {
-                // S&P 500 with dividends reinvested (approx 10% annual return)
-                data.sp500.push(data.sp500[i-1] * 1.10);
-                
-                // Bonds (approx 5% annual return)
-                data.bonds.push(data.bonds[i-1] * 1.05);
-                
-                // Gold (approx 4.5% annual return)
-                data.gold.push(data.gold[i-1] * 1.045);
-                
-                // Inflation (approx 3% per year)
-                data.inflation.push(data.inflation[i-1] * 1.03);
-            }
-            
-            // Add historical events to make the chart more realistic
-            // Great Depression (1929-1932)
-            for (let i = 3; i <= 6; i++) {
-                data.sp500[i] = data.sp500[i] * 0.7;
-            }
-            
-            // 2008 Financial Crisis
-            data.sp500[82] = data.sp500[81] * 0.55;
-            data.sp500[83] = data.sp500[82] * 0.9;
-            
-            // 2020 Pandemic
-            data.sp500[94] = data.sp500[93] * 0.7;
-            data.sp500[95] = data.sp500[94] * 1.5;
-            
-            // Create chart
-            const chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [
-                        {
-                            label: 'S&P 500 (dividendes réinvestis)',
-                            data: data.sp500,
-                            borderColor: '#1a5091',
-                            backgroundColor: 'rgba(26, 80, 145, 0.1)',
-                            borderWidth: 3,
-                            pointRadius: 0,
-                            fill: true,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Obligations d\'État (10 ans)',
-                            data: data.bonds,
-                            borderColor: '#0d7a3a',
-                            backgroundColor: 'rgba(13, 122, 58, 0.1)',
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Or (once)',
-                            data: data.gold,
-                            borderColor: '#ED6C02',
-                            backgroundColor: 'rgba(237, 108, 2, 0.1)',
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Inflation',
-                            data: data.inflation,
-                            borderColor: '#D32F2F',
-                            backgroundColor: 'rgba(211, 47, 47, 0.1)',
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            fill: false,
-                            tension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            type: 'logarithmic',
-                            min: 1,
-                            max: 10000000,
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    if (value >= 1000000) return (value/1000000).toFixed(0) + 'M$';
-                                    if (value >= 1000) return (value/1000).toFixed(0) + 'k$';
-                                    return value + '$';
-                                },
-                                maxTicksLimit: 8
-                            },
-                            title: {
-                                display: true,
-                                text: 'Croissance cumulée (échelle logarithmique)'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            title: {
-                                display: true,
-                                text: 'Année'
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += new Intl.NumberFormat('fr-FR', { 
-                                            style: 'currency', 
-                                            currency: 'USD',
-                                            maximumFractionDigits: 0
-                                        }).format(context.parsed.y);
-                                    }
-                                    return label;
-                                },
-                                title: function(context) {
-                                    return 'Année: ' + context[0].label;
-                                }
-                            }
-                        },
-                        legend: {
-                            display: false
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    },
-                    elements: {
-                        line: {
-                            tension: 0
-                        }
-                    }
-                }
-            });
-            
-            // Chart buttons functionality
-            chartBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    chartBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    const datasetIndex = parseInt(this.dataset.index);
-                    
-                    // Show/hide datasets
-                    chart.data.datasets.forEach((dataset, i) => {
-                        if (i === datasetIndex) {
-                            dataset.hidden = false;
-                        } else {
-                            dataset.hidden = true;
-                        }
-                    });
-                    
-                    chart.update();
-                });
-            });
-            
-            // Initialize visibility
-            chart.data.datasets.forEach((dataset, i) => {
-                dataset.hidden = i !== 0;
-            });
-            chart.update();
         });
     </script>
 </body>

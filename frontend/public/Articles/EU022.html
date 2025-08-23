@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qu'est-ce qu'un ETF profilé? Guide complet - Finary</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Placements sans risque : Guide complet 2024 | Livret A à 1.7%</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* Couleurs Finary */
             --finary-primary: #141145;
             --finary-secondary: #7A2D8D;
             --finary-accent: #5682F2;
             --finary-light: #F1F2F6;
             --finary-dark: #0A0A1D;
             --finary-gold: #F1C086;
-            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
             --finary-success: #4CAF50;
             --finary-warning: #FFC107;
             --finary-info: #2196F3;
             --finary-error: #F44336;
+            --finary-safe: #2E7D32;
         }
         
         * {
@@ -31,8 +28,8 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
             color: #333;
             line-height: 1.6;
             padding-top: 40px;
@@ -40,9 +37,39 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+        }
+        
+        .logo span {
+            color: var(--finary-safe);
+        }
+        
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(86, 130, 242, 0.1);
+            color: var(--finary-accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
         }
         
         /* Table des matières */
@@ -136,7 +163,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--finary-gradient);
+            background: linear-gradient(116deg, var(--finary-safe) -36.05%, var(--finary-accent) 100.05%);
             color: white;
             border: none;
             width: 50px;
@@ -158,15 +185,34 @@
         .article-header {
             padding: 40px 0 20px;
             position: relative;
+            text-align: center;
         }
         
         .article-title {
             font-size: 2.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             line-height: 1.3;
             color: var(--finary-primary);
             font-weight: 700;
             max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .article-subtitle {
+            font-size: 1.2rem;
+            color: var(--finary-secondary);
+            max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 500;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            color: #666;
+            font-size: 0.95rem;
         }
         
         /* Featured Image */
@@ -176,8 +222,28 @@
             object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
-            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, var(--finary-primary), var(--finary-safe));
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
         }
         
         /* Content Styling */
@@ -214,7 +280,7 @@
             scroll-margin-top: 20px;
         }
         
-        .article-content ul {
+        .article-content ul, .article-content ol {
             padding-left: 30px;
             margin-bottom: 20px;
         }
@@ -227,11 +293,45 @@
         
         .article-content li::before {
             content: '•';
-            color: var(--finary-accent);
+            color: var(--finary-safe);
             font-weight: bold;
             display: inline-block;
             width: 1em;
             margin-left: -1em;
+        }
+        
+        /* Bias visualization */
+        .bias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .bias-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--finary-safe);
+            transition: transform 0.3s ease;
+        }
+        
+        .bias-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        
+        .bias-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+            margin-bottom: 10px;
+        }
+        
+        .bias-description {
+            font-size: 0.95rem;
+            color: #666;
         }
         
         /* Callout boxes - Style Finary */
@@ -242,6 +342,7 @@
             border-left: 4px solid;
             position: relative;
             overflow: hidden;
+            background-color: rgba(46, 125, 50, 0.08);
         }
         
         .callout::before {
@@ -290,6 +391,15 @@
             background: var(--finary-error);
         }
         
+        .callout.safe {
+            background-color: rgba(46, 125, 50, 0.1);
+            border-color: var(--finary-safe);
+        }
+        
+        .callout.safe::before {
+            background: var(--finary-safe);
+        }
+        
         .callout-title {
             font-weight: 600;
             margin-bottom: 10px;
@@ -297,36 +407,303 @@
             color: var(--finary-primary);
         }
         
-        /* Tables - Style Finary */
+        /* Comparison table */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             margin: 30px 0;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-        
-        .comparison-table th, 
-        .comparison-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         
         .comparison-table th {
-            background-color: #f5f5f7;
+            background-color: var(--finary-primary);
+            color: white;
             font-weight: 600;
-            color: var(--finary-primary);
+            text-align: left;
+            padding: 15px;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
         
         .comparison-table tr:last-child td {
             border-bottom: none;
         }
         
-        .comparison-table tr:nth-child(even) {
-            background-color: #fafafa;
+        .comparison-table .safe {
+            background-color: rgba(46, 125, 50, 0.05);
+        }
+        
+        .comparison-table .risk {
+            background-color: rgba(244, 67, 54, 0.05);
+        }
+        
+        .comparison-table .feature-name {
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .highlight {
+            background-color: rgba(241, 192, 134, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .rate-change {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .rate-down {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #c62828;
+        }
+        
+        .icon-check {
+            color: var(--finary-success);
+            font-size: 1.2rem;
+        }
+        
+        .icon-cross {
+            color: var(--finary-error);
+            font-size: 1.2rem;
+        }
+        
+        /* Simulateur */
+        .simulator-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--finary-safe);
+        }
+        
+        .simulator-title {
+            font-size: 1.8rem;
+            color: var(--finary-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .simulator-description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .simulator-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .input-group input, .input-group select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--finary-accent);
+            box-shadow: 0 0 0 3px rgba(86, 130, 242, 0.2);
+        }
+        
+        .input-group input[type="range"] {
+            padding: 0;
+            height: 10px;
+        }
+        
+        .range-value {
+            display: inline-block;
+            background: var(--finary-safe);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .simulator-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(116deg, var(--finary-safe), var(--finary-accent));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--finary-light);
+            color: var(--finary-primary);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .simulator-results {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .results-header {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .result-card.safe {
+            border-top: 4px solid var(--finary-safe);
+        }
+        
+        .result-card.risk {
+            border-top: 4px solid var(--finary-error);
+        }
+        
+        .result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--finary-primary);
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+        }
+        
+        .result-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin-top: 20px;
+        }
+        
+        .tax-note {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .step-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .step-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--finary-safe);
+            transition: transform 0.3s ease;
+            position: relative;
+            counter-increment: step-counter;
+        }
+        
+        .step-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-box::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--finary-safe);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            color: var(--finary-primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
         }
         
         /* Responsive */
@@ -352,6 +729,10 @@
                 right: 10px;
                 left: auto;
             }
+            
+            .results-header {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -372,10 +753,31 @@
                 right: 5%;
                 left: 5%;
             }
+            
+            .simulator-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <div class="container">
+        <div class="header">
+            <div class="logo">Finances<span>Pro</span></div>
+            <div class="article-meta">
+                <span><i class="fas fa-user"></i> Équipe Financière</span>
+                <span><i class="far fa-calendar"></i> 1er août 2025</span>
+                <span><i class="fas fa-tag"></i> Épargne, Investissement</span>
+            </div>
+        </div>
+    </div>
+    
     <!-- Bouton pour afficher la table des matières -->
     <button class="toc-toggle" id="toc-toggle">
         <i class="fas fa-list"></i>
@@ -384,238 +786,417 @@
     <!-- Table des matières -->
     <div id="toc-container">
         <div class="toc-header">
-            <div class="toc-title">Sommaire de l'article</div>
+            <div class="toc-title">Sommaire du guide</div>
             <button class="close-toc" id="close-toc">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
-            <li><a href="#definition" class="h2-link">ETF profilé : définition et fonctionnement</a></li>
-            <li><a href="#qu-est-ce" class="h3-link">Qu'est-ce qu'un ETF profilé ?</a></li>
-            <li><a href="#fonctionnement" class="h3-link">Fonctionnement d'un ETF profilé</a></li>
-            <li><a href="#etf-profile-vs-classique" class="h3-link">ETF profilé vs ETF classique</a></li>
-            
-            <li><a href="#types" class="h2-link">Types d'ETF profilés</a></li>
-            <li><a href="#allocation-fixe" class="h3-link">ETF à allocation d'actifs fixe</a></li>
-            <li><a href="#cycle-vie" class="h3-link">ETF à cycle de vie (à date cible)</a></li>
-            
-            <li><a href="#avantages-inconvenients" class="h2-link">Avantages et inconvénients</a></li>
-            <li><a href="#avantages" class="h3-link">Avantages d'un ETF profilé</a></li>
-            <li><a href="#inconvenients" class="h3-link">Inconvénients d'un ETF profilé</a></li>
-            
-            <li><a href="#exemples" class="h2-link">Exemples d'ETF profilés</a></li>
-            <li><a href="#vanguard" class="h3-link">Vanguard LifeStrategy</a></li>
-            <li><a href="#ishares" class="h3-link">iShares Core Allocation</a></li>
-            <li><a href="#amundi" class="h3-link">Amundi Lifecycle</a></li>
-            
-            <li><a href="#choisir" class="h2-link">Comment choisir un ETF profilé ?</a></li>
-            <li><a href="#profil" class="h3-link">Déterminer son profil d'investisseur</a></li>
-            <li><a href="#objectifs" class="h3-link">Comprendre ses objectifs financiers</a></li>
-            <li><a href="#risque" class="h3-link">Choisir le bon niveau de risque</a></li>
-            
-            <li><a href="#comparaison" class="h2-link">ETF profilé vs gestion pilotée</a></li>
-            <li><a href="#conclusion" class="h2-link">Pour conclure</a></li>
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            <li><a href="#definition" class="h2-link">Qu'est-ce qu'un placement sans risque ?</a></li>
+            <li><a href="#types" class="h2-link">Types de placements sans risque</a></li>
+            <li><a href="#comparaison" class="h2-link">Comparatif des placements</a></li>
+            <li><a href="#fiscalite" class="h2-link">Aspects fiscaux</a></li>
+            <li><a href="#strategie" class="h2-link">Stratégies de placement</a></li>
+            <li><a href="#simulateur" class="h2-link">Simulateur de rendement</a></li>
+            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
 
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Qu'est-ce qu'un ETF profilé? Guide complet</h1>
+            <h1 class="article-title">Placements sans risque : Protégez votre épargne en 2025</h1>
+            <div class="article-subtitle">Guide complet des placements sécurisés avec le nouveau taux du Livret A à 1.7%</div>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 10 min de lecture
+            </div>
         </div>
         
         <!-- Featured Image -->
-        <img src="#" alt="Qu'est-ce qu'un ETF profilé? Guide complet" class="featured-image">
+        <div class="featured-image">
+            Sécurité et rendement : les meilleurs placements sans risque
+        </div>
         
         <!-- Article Content -->
         <div class="article-content">
-            <p>Investir comme un professionnel devient possible, même sans analyser des graphiques boursiers ou gérer des dizaines d'ETF. Cette accessibilité résume la promesse des ETF profilés. Ces instruments financiers ont transformé la manière dont de nombreux particuliers construisent leur patrimoine.</p>
-            
-            <div class="callout success">
-                <div class="callout-title">Les éléments clés :</div>
+            <div class="callout safe">
+                <div class="callout-title">Points clés à retenir :</div>
                 <ul>
-                    <li>Les ETF profilés offrent une gestion simplifiée, automatisée et diversifiée selon un niveau de risque ou un objectif, sans exiger de compétences avancées en investissement.</li>
-                    <li>Ces produits présentent des frais bas, une transparence importante et réduisent les erreurs émotionnelles, mais limitent la personnalisation et peuvent présenter des superpositions d'actifs.</li>
-                    <li>Choisir un ETF profilé adapté exige de bien connaître son profil de risque et ses objectifs, car chaque offre propose des allocations et degrés de risques différents.</li>
+                    <li>Les placements sans risque protègent votre capital contre les pertes</li>
+                    <li>Rendement moyen : <span class="highlight">1% à 2.5%</span> par an en 2025</li>
+                    <li>Ils sont idéaux pour votre épargne de précaution</li>
+                    <li>Le taux du Livret A est désormais à <span class="highlight">1.7%</span></li>
+                    <li>Diversifiez entre plusieurs placements pour optimiser</li>
                 </ul>
             </div>
             
-            <h2 id="definition">ETF profilé : définition et fonctionnement</h2>
+            <h2 id="introduction">Introduction</h2>
+            <p>Dans un contexte économique marqué par des taux d'intérêt historiquement bas, les placements sans risque restent une option privilégiée pour les épargnants soucieux de préserver leur capital. Avec le taux du Livret A désormais fixé à 1.7%, il devient essentiel de bien choisir ses placements sécurisés.</p>
             
-            <h3 id="qu-est-ce">Qu'est-ce qu'un ETF profilé ?</h3>
-            <p>Un investisseur peut se sentir dépassé par la complexité des marchés financiers. Il souhaite souvent un portefeuille qui s'adapte à ses besoins, sans devoir gérer de nombreux produits différents.</p>
-            <p><strong>L'ETF profilé répond à ce besoin en proposant une solution d'investissement conçue pour correspondre à un profil de risque ou à un objectif précis dans le temps.</strong></p>
+            <p>Que vous constituiez votre épargne de précaution, prépariez un apport immobilier ou cherchiez simplement à sécuriser une partie de votre patrimoine, ce guide vous présente les meilleures options sans risque disponibles en 2025.</p>
+            
+            <div class="callout info">
+                <p><strong>Saviez-vous ?</strong> En France, les livrets réglementés (Livret A, LDDS, LEP) représentent plus de 500 milliards d'euros d'épargne, soit près de 20% de l'épargne financière des ménages.</p>
+            </div>
+            
+            <h2 id="definition">Qu'est-ce qu'un placement sans risque ?</h2>
+            <p>Un placement sans risque garantit la conservation du capital investi. Cela signifie que vous récupérerez au minimum la somme initialement placée, indépendamment des fluctuations des marchés financiers.</p>
+            
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Garantie en capital</div>
+                    <div class="bias-description">Votre investissement initial est protégé</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Liquidité</div>
+                    <div class="bias-description">Accès rapide à votre épargne si besoin</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Faible volatilité</div>
+                    <div class="bias-description">Pas de variations brutales de valeur</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Rendement prévisible</div>
+                    <div class="bias-description">Performance connue à l'avance ou très stable</div>
+                </div>
+            </div>
             
             <div class="callout warning">
-                <p>Ce type d'ETF ne constitue pas une catégorie officielle, mais il s'impose comme une réponse pratique de l'industrie financière.</p>
+                <p>Attention : Aucun placement n'est totalement sans risque. Même les solutions les plus sûres sont soumises au risque d'inflation qui érode votre pouvoir d'achat sur le long terme.</p>
             </div>
             
-            <p>Un ETF profilé fonctionne comme un fonds coté en bourse. Il investit dans un ensemble d'autres ETF (actions, obligations, parfois immobilier ou matières premières) selon une stratégie prédéfinie.</p>
-            <p><strong>Cette stratégie détermine le niveau de risque (prudent, équilibré, dynamique) ou l'horizon d'investissement (par exemple, la retraite en 2040).</strong> L'investisseur n'a plus à arbitrer entre différentes classes d'actifs : le produit gère automatiquement ces choix, en suivant des règles claires.</p>
-            <p>L'ETF profilé se distingue par sa capacité à simplifier la gestion d'un portefeuille tout en maintenant une diversification solide.</p>
+            <h3>Quand choisir un placement sans risque ?</h3>
+            <ul>
+                <li>Épargne de précaution (3 à 6 mois de salaire)</li>
+                <li>Projet à court terme (moins de 3 ans)</li>
+                <li>Profils d'investisseurs très prudents</li>
+                <li>Complément à un portefeuille plus risqué</li>
+            </ul>
             
-            <h3 id="fonctionnement">Fonctionnement d'un ETF profilé</h3>
-            <p>Un ETF profilé "équilibré" peut répartir 60 % de ses actifs dans des ETF actions mondiales et 40 % dans des ETF obligataires. Cette répartition ne résulte pas du hasard. Elle s'appuie sur une analyse approfondie des profils d'investisseurs et des cycles de marché.</p>
-            <p>Les marchés changent constamment : parfois, les actions surpassent les obligations, parfois l'inverse. L'ETF profilé ajuste alors régulièrement la répartition. Il vend une partie des actifs qui ont trop progressé et rachète ceux qui ont reculé, pour revenir à l'allocation cible.</p>
-            <p><strong>Ce rééquilibrage automatique impose une discipline précieuse, souvent négligée par les investisseurs individuels, et protège contre les biais émotionnels, comme la tentation de conserver uniquement les actifs en hausse.</strong></p>
-            <p>Certains ETF profilés vont encore plus loin en adaptant leur allocation au fil du temps.</p>
-            <p>Les ETF à "cycle de vie" illustrent cette approche : leur composition devient progressivement plus prudente à mesure que l'échéance approche. <strong>Plus l'investisseur se rapproche du moment où il aura besoin de son capital, moins il s'expose aux actifs volatils.</strong></p>
+            <h2 id="types">Types de placements sans risque</h2>
+            <p>Voici les principales solutions pour placer votre argent en toute sécurité :</p>
             
-            <h3 id="etf-profile-vs-classique">ETF profilé vs ETF classique</h3>
-            <p>La distinction entre un ETF profilé et un ETF classique apparaît clairement dès qu'on examine leur fonctionnement.</p>
-            <p>Un ETF classique suit un indice précis, comme le CAC 40 ou le S&P 500, sans tenir compte du profil de l'investisseur. Il offre une exposition directe à un marché, sans ajustement.</p>
-            <p>À l'inverse, l'ETF profilé combine plusieurs indices, ajuste les proportions et veille à maintenir une cohérence avec un objectif de risque ou de durée. <strong>L'ETF profilé agit comme un chef d'orchestre, alors que l'ETF classique se contente de suivre la partition.</strong></p>
-            
-            <h2 id="types">Types d'ETF profilés</h2>
-            
-            <h3 id="allocation-fixe">ETF à allocation d'actifs fixe</h3>
-            <p>L'ETF à allocation d'actifs fixe fonctionne comme un pilote automatique pour votre portefeuille. Il suit une trajectoire définie dès le départ, sans dévier, même lorsque les marchés deviennent volatils.</p>
-            <p>Ce type d'ETF combine un mélange précis d'actions et d'obligations, par exemple 60% d'actions et 40% d'obligations, et maintient cette répartition de façon rigoureuse.</p>
-            <p><strong>La discipline de ces ETF se manifeste par un rééquilibrage régulier de la répartition.</strong> Si la part des actions dépasse le niveau prévu, l'ETF vend une partie de ces actions pour acheter des obligations, et inversement.</p>
-            <p>Cependant, cette rigidité présente des limites. L'ETF ne prend pas en compte l'évolution de votre situation personnelle ni les changements majeurs dans l'économie mondiale. Il ne s'ajuste pas si, à 55 ans, votre tolérance au risque diminue. <strong>Cet outil impose une discipline, mais il ne permet pas de personnalisation.</strong></p>
-            
-            <h3 id="cycle-vie">ETF à cycle de vie (à date cible)</h3>
-            <p>L'ETF à cycle de vie fonctionne différemment. Sa répartition entre actions et obligations évolue au fil du temps, selon une trajectoire prédéfinie appelée « glide path ».</p>
-            <p>Plus la date cible approche (souvent la retraite), plus l'ETF réduit l'exposition aux actions pour privilégier la sécurité des obligations.</p>
-            <p>Ce modèle s'inspire des plans d'épargne retraite américains. Beaucoup d'épargnants ne savent pas quand ni comment réduire le risque de leur portefeuille. L'ETF à cycle de vie automatise cette transition, ce qui permet d'éviter les erreurs de timing ou l'oubli de sécuriser son capital à l'approche de l'échéance.</p>
-            
-            <h2 id="avantages-inconvenients">Avantages et inconvénients des ETF profilés</h2>
-            
-            <h3 id="avantages">Avantages d'un ETF profilé : diversification, simplicité, coût</h3>
-            <p><strong>La diversification intégrée constitue l'un des principaux atouts.</strong> En une seule opération, vous accédez à des centaines, parfois des milliers de titres, répartis sur plusieurs zones géographiques et classes d'actifs. Cela revient à confier la gestion d'un portefeuille mondial à une équipe d'experts, mais sans payer des frais élevés.</p>
-            <p>La simplicité ne relève pas seulement du marketing. Pour de nombreux investisseurs, gérer un portefeuille s'apparente à une tâche fastidieuse : arbitrer, rééquilibrer, surveiller les marchés prend du temps et expose à des erreurs émotionnelles.</p>
-            <p><strong>Les frais réduits représentent un autre avantage majeur.</strong> Les ETF profilés s'inscrivent dans la logique des produits passifs : frais de gestion faibles, pas de commissions d'entrée ou de sortie, et une transparence sur la structure des coûts.</p>
-            <p>Le TER varie généralement entre 0,18 % et 0,25 % pour les principaux acteurs du marché. La où les fonds équilibrés traditionnels dépassent souvent 1,5 % par an. Sur 20 ans, cet écart peut représenter plusieurs années d'épargne.</p>
-            <p>Un bénéfice moins visible, mais important, concerne l'<strong>effet "anti-procrastination"</strong>. Beaucoup d'épargnants hésitent à investir à cause de la complexité ou de la peur de se tromper. L'ETF profilé réduit ces obstacles et facilite le passage à l'action.</p>
-            
-            <h3 id="inconvenients">Inconvénients d'un ETF profilé : rigidité, frais cachés</h3>
-            <p>L'ETF profilé présente aussi des limites. Il impose une allocation standardisée, ce qui correspond à une solution "prêt-à-porter". Si votre situation patrimoniale sort de l'ordinaire ou si vous avez des préférences marquées (par exemple, pour l'ESG ou contre le dollar), l'ETF profilé peut ne pas répondre à vos attentes. Il ne s'adapte pas à vos choix personnels ni à l'évolution de votre vie (héritage, changement professionnel, etc.).</p>
-            
-            <div class="callout error">
-                <p>Les ETF profilés se concentrent principalement sur les actions et obligations cotées ; ils n'incluent généralement pas d'actifs alternatifs comme l'immobilier non coté ou le private equity.</p>
+            <div class="step-boxes">
+                <div class="step-box">
+                    <div class="step-title">Livrets réglementés</div>
+                    <p>Livret A, LDDS, LEP : fonds disponibles à tout moment, exonérés d'impôts</p>
+                    <div class="bias-description">Rendement 2025 : 5% (LEP) à 1.7% (Livret A)</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Assurance-vie en euros</div>
+                    <p>Fonds euros avec garantie en capital, rendement annuel garanti</p>
+                    <div class="bias-description">Rendement moyen 2025 : 2% à 2.5%</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Comptes à terme</div>
+                    <p>Dépôt bloqué pour une durée déterminée à taux fixe</p>
+                    <div class="bias-description">Rendement : 2.5% à 3.5% selon durée</div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-title">Obligations d'État</div>
+                    <p>Emprunts d'État (OAT, Bunds) très court terme</p>
+                    <div class="bias-description">Rendement : 2.5% à 3%</div>
+                </div>
             </div>
             
-            <p><strong>La superposition des frais constitue un point à surveiller.</strong> Même si le TER affiché reste bas, il additionne les frais de l'ETF profilé et ceux des ETF sous-jacents.</p>
-            <p>Un investisseur expérimenté, prêt à gérer lui-même son allocation, pourrait économiser quelques points de base en construisant son portefeuille à la main. Sur de gros montants ou sur le long terme, la différence peut devenir significative.</p>
-            <p>Un autre risque concerne le <strong>chevauchement</strong>. Si vous détenez déjà d'autres fonds ou ETF, ajouter un ETF profilé peut entraîner des doublons invisibles. Vous pensez diversifier, mais vous vous exposez davantage à certains marchés ou secteurs. Ce phénomène peut fausser la perception de votre risque réel.</p>
-            
-            <h2 id="exemples">Exemples d'ETF profilés</h2>
-            <p>L'univers des ETF profilés évolue constamment. Chaque fournisseur propose sa propre vision de l'investissement "clé en main". <strong>Derrière des noms similaires, chaque gamme adopte une approche différente de la diversification, du risque et de la gestion.</strong> Pour comprendre ces différences, il faut examiner la structure de chaque produit, au-delà de l'étiquette.</p>
-            
-            <h3 id="vanguard">Vanguard LifeStrategy</h3>
-            <p>Vanguard, pionnier de la gestion passive, commercialise la gamme LifeStrategy : des ETF "tout-en-un" lancés fin 2020 qui assurent une exposition diversifiée aux marchés mondiaux via plus de 20 000 titres.</p>
-            <p>À chacun son profil avec quatre allocations mêlant actions et obligations, de 20/80 % (prudents) à 80/20 % (dynamiques).</p>
-            <p>Grâce au rééquilibrage automatique, l'allocation cible est respectée en permanence, offrant une gestion disciplinée sans intervention émotionnelle. Autre atout : leur TER attractif de 0,25%.</p>
-            
-            <h3 id="ishares">iShares Core Allocation / Portfolio</h3>
-            <p>BlackRock offre des solutions d'investissement "tout-en-un" avec une diversification automatique à travers actions et obligations mondiales.</p>
-            <p>Il s'adapte à différents profils de risque grâce à plusieurs répartitions (30/70, 40/60, 60/40, 80/20, 100/0).</p>
-            <p>Une équipe de gestion ajuste l'allocation tout en maintenant l'exposition cible. Cela assure ainsi le rééquilibrage du portefeuille avec des frais réduits (0,15 % à 0,18 %).</p>
-            <p>Les variantes ESG sélectionnent en plus les actifs selon des critères environnementaux et sociaux, pour répondre aux attentes des investisseurs soucieux de durabilité.</p>
-            
-            <h3 id="amundi">Amundi Lifecycle</h3>
-            <p>Chez Amundi, la gamme Lifecycle fonctionne différemment : chaque ETF vise une année cible précise (2030, 2033, 2036 ou 2039).</p>
-            <p>L'exposition actions est forte au départ, afin de maximiser la croissance, puis diminue progressivement. Son TER est très bas (0,18 %). La version européenne d'Amundi Lifecycle est en format capitalisant : tous les revenus sont automatiquement réinvestis, ce qui favorise l'effet boule de neige à long terme.</p>
-            
-            <p>Le tableau ci-dessous met en évidence les principales différences entre ces gammes :</p>
-            
+            <h3>Détails des livrets réglementés</h3>
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Fournisseur</th>
-                        <th>Gamme</th>
-                        <th>Stratégie</th>
-                        <th>Profils/Date cible</th>
-                        <th>Actions (%)</th>
-                        <th>TER (%)</th>
+                        <th>Livret</th>
+                        <th>Taux 2025</th>
+                        <th>Plafond</th>
+                        <th>Conditions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Vanguard</td>
-                        <td>LifeStrategy</td>
-                        <td>Allocation fixe</td>
-                        <td>20/40/60/80% actions</td>
-                        <td>20/40/60/80</td>
-                        <td>0,25</td>
+                        <td>Livret A</td>
+                        <td>1.7% <span class="rate-change rate-down">-1.8%</span></td>
+                        <td>22,950 €</td>
+                        <td>Accessible à tous</td>
                     </tr>
                     <tr>
-                        <td>BlackRock</td>
-                        <td>iShares Portfolio</td>
-                        <td>Allocation flexible</td>
-                        <td>Modéré/Équilibré/Croissance</td>
-                        <td>Variable</td>
-                        <td>0,25</td>
+                        <td>LDDS</td>
+                        <td>1.7% <span class="rate-change rate-down">-1.8%</span></td>
+                        <td>12,000 €</td>
+                        <td>Réservé aux résidents fiscaux</td>
                     </tr>
                     <tr>
-                        <td>Amundi</td>
-                        <td>Lifecycle</td>
-                        <td>Cycle de vie</td>
-                        <td>2030/2033/2036/2039</td>
-                        <td>Décroissante</td>
-                        <td>0,18</td>
+                        <td>LEP</td>
+                        <td>5% <span class="rate-change">stable</span></td>
+                        <td>7,700 €</td>
+                        <td>Revenus modestes</td>
+                    </tr>
+                    <tr>
+                        <td>Livret Jeune</td>
+                        <td>3.5% <span class="rate-change">stable</span></td>
+                        <td>1,600 €</td>
+                        <td>12-25 ans</td>
                     </tr>
                 </tbody>
             </table>
             
-            <p>Ce tableau ne couvre pas tous les aspects. Par exemple, deux ETF "équilibrés" peuvent adopter des stratégies très différentes : l'un privilégie les marchés développés, l'autre inclut les marchés émergents. Certains couvrent le risque de change, d'autres non. <strong>Les ETF profilés ne sont donc pas interchangeables, même si leurs noms se ressemblent.</strong></p>
+            <div class="callout success">
+                <p>Malgré la baisse du Livret A à 1.7%, le LEP (Livret d'Épargne Populaire) offre toujours un rendement exceptionnel de 5% en 2025. Si vous y êtes éligible, c'est la solution la plus intéressante pour votre épargne sans risque.</p>
+            </div>
             
-            <h2 id="choisir">Comment choisir un ETF profilé ?</h2>
+            <h2 id="comparaison">Comparatif des placements sans risque</h2>
+            <p>Chaque solution présente des avantages et inconvénients :</p>
             
-            <h3 id="profil">Déterminer son profil d'investisseur</h3>
-            <p>Les questionnaires rapides ne suffisent pas à définir votre profil d'investisseur. <strong>Comprendre sa tolérance au risque demande une réflexion personnelle, qui prend en compte vos émotions, votre expérience et vos contraintes.</strong></p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Placement</th>
+                        <th>Rendement</th>
+                        <th>Liquidité</th>
+                        <th>Fiscalité</th>
+                        <th>Plafond</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Livret A</td>
+                        <td>1.7%</td>
+                        <td>Immédiate</td>
+                        <td>Exonéré</td>
+                        <td>22,950 €</td>
+                    </tr>
+                    <tr>
+                        <td>Assurance-vie (fonds €)</td>
+                        <td>2-2.5%</td>
+                        <td>Partielle</td>
+                        <td>Avantageuse après 8 ans</td>
+                        <td>150,000 €</td>
+                    </tr>
+                    <tr>
+                        <td>Compte à terme 1 an</td>
+                        <td>3%</td>
+                        <td>Bloquée</td>
+                        <td>Flat tax 30%</td>
+                        <td>Aucun</td>
+                    </tr>
+                    <tr>
+                        <td>Obligations d'État</td>
+                        <td>2.5-3%</td>
+                        <td>Marché secondaire</td>
+                        <td>Flat tax 30%</td>
+                        <td>Aucun</td>
+                    </tr>
+                </tbody>
+            </table>
             
-            <p>Un investisseur prudent ne fuit pas seulement la volatilité. Il peut vouloir protéger l'avenir de ses enfants ou équilibrer le risque déjà pris dans son entreprise. À l'inverse, un investisseur dynamique n'est pas toujours jeune. Un retraité avec un patrimoine important peut accepter plus de fluctuations pour transmettre davantage à ses héritiers.</p>
-            <p>Pour avancer, posez-vous deux questions précises :</p>
-            <ul>
-                <li><strong>Combien pouvez-vous perdre sans paniquer ni vendre au mauvais moment ?</strong></li>
-                <li><strong>Quel est le véritable objectif de cet argent ?</strong></li>
-            </ul>
-            <p>Cet exercice demande de l'honnêteté et parfois du courage. <strong>Un ETF profilé ne compensera jamais une mauvaise connaissance de soi.</strong></p>
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Meilleure liquidité</div>
+                    <div class="bias-description">Livrets réglementés (retraits immédiats)</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Meilleur rendement</div>
+                    <div class="bias-description">LEP (5%) pour les éligibles</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Meilleure fiscalité</div>
+                    <div class="bias-description">Livrets réglementés (exonérés d'impôts)</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Meilleure capacité</div>
+                    <div class="bias-description">Assurance-vie (jusqu'à 150,000€ par contrat)</div>
+                </div>
+            </div>
             
-            <h3 id="objectifs">Comprendre ses objectifs financiers</h3>
-            <p><strong>Chaque objectif financier influence le choix de votre ETF profilé</strong>. Préparer la retraite, financer les études d'un enfant, acheter une résidence secondaire ou changer de vie à 50 ans : chaque projet impose un horizon de placement, un besoin de liquidité et une tolérance à la volatilité.</p>
-            <p>Un ETF à cycle de vie convient à ceux qui ont une échéance précise. Mais la vie réserve des surprises : licenciement, opportunité à l'étranger, divorce... Les plans changent.</p>
-            <p>Avant de choisir, demandez-vous :</p>
-            <ul>
-                <li><strong>Pouvez-vous laisser cet argent investi pendant 10 ou 20 ans sans y toucher ?</strong></li>
-            </ul>
-            <p>Si ce n'est pas possible, privilégiez la flexibilité d'un ETF à allocation fixe. Vous pourrez ainsi ajuster le niveau de risque selon vos besoins.</p>
+            <h2 id="fiscalite">Aspects fiscaux des placements sans risque</h2>
+            <p>La fiscalité varie considérablement selon les produits :</p>
             
-            <h3 id="risque">Choisir le bon niveau de risque</h3>
-            <p>Les étiquettes comme "prudent", "équilibré" ou "dynamique" varient selon les fournisseurs. <strong>Le niveau de risque réel se trouve dans la composition du portefeuille, pas dans le nom du produit.</strong></p>
-            <p>Par exemple, un ETF "équilibré" peut contenir 60 % d'actions chez un fournisseur, 50 % chez un autre. Certains incluent des obligations émergentes, d'autres non.</p>
-            <p>Pour évaluer le risque, examinez :</p>
-            <ul>
-                <li>Le DIC et le prospectus</li>
-                <li>La répartition géographique et sectorielle</li>
-                <li>La part d'actions américaines</li>
-                <li>La présence ou non d'une couverture de change</li>
-            </ul>
-            <p><strong>Le risque ne se limite pas à la volatilité.</strong> Il inclut aussi le risque de concentration, de change et de taux.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Placement</th>
+                        <th>Fiscalité</th>
+                        <th>Avantages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Livrets réglementés</td>
+                        <td>Exonération totale</td>
+                        <td>Pas de déclaration, pas d'impôt</td>
+                    </tr>
+                    <tr>
+                        <td>Assurance-vie</td>
+                        <td>Flat tax 30% ou barème progressif</td>
+                        <td>Abattement 4,600€/an après 8 ans</td>
+                    </tr>
+                    <tr>
+                        <td>Comptes à terme</td>
+                        <td>Flat tax 30%</td>
+                        <td>Prélèvement à la source</td>
+                    </tr>
+                    <tr>
+                        <td>Obligations</td>
+                        <td>Flat tax 30%</td>
+                        <td>Défiscalisation partielle possible</td>
+                    </tr>
+                </tbody>
+            </table>
             
-            <h2 id="comparaison">ETF profilé vs gestion pilotée</h2>
-            <p>La gestion pilotée fonctionne comme un service où vous déléguez la gestion de votre portefeuille à des professionnels. Vous définissez votre profil de risque et vos objectifs, puis l'équipe ajuste régulièrement la composition de votre portefeuille en fonction des conditions du marché.</p>
-            <p>L'ETF profilé, en revanche, propose une approche automatisée. Vous sélectionnez un niveau de risque (prudent, équilibré, dynamique), et le portefeuille suit une allocation prédéfinie, sans intervention humaine pendant la durée de l'investissement.</p>
+            <div class="callout info">
+                <p>Conseil : Pour les montants importants, l'assurance-vie devient intéressante après 8 ans grâce à l'abattement annuel de 4,600€ sur les plus-values (9,200€ pour un couple).</p>
+            </div>
             
-            <p><strong>La principale différence entre ces deux méthodes concerne la flexibilité et le coût.</strong></p>
-            <ul>
-                <li>La gestion pilotée ajuste en continu la répartition de vos actifs. Par exemple, le gestionnaire peut réduire la part d'actions en cas de volatilité, intégrer de l'immobilier ou du private equity, ou saisir des opportunités ponctuelles.</li>
-                <li>Cette gestion active entraîne des frais supplémentaires : en plus des frais des supports, les frais de gestion pilotée s'élèvent souvent à 1 à 2% par an, voire davantage. Sur le long terme, ces frais réduisent significativement la performance de votre portefeuille.</li>
-            </ul>
-            <p>L'ETF profilé, de son côté, applique une stratégie stricte :</p>
-            <ul>
-                <li>Allocation fixe selon le profil choisi</li>
-                <li>Rééquilibrage automatique</li>
-                <li>Aucun ajustement tactique en cas de crise</li>
-                <li>Pas d'accès à des classes d'actifs non cotées</li>
-            </ul>
-            <p><strong>Cette discipline mécanique présente deux avantages majeurs : des frais très faibles et l'absence de biais émotionnels.</strong> Cependant, elle ne permet pas de réagir aux événements de marché exceptionnels.</p>
+            <h2 id="strategie">Stratégies de placement sans risque</h2>
+            <p>Optimisez votre épargne sécurisée avec ces approches :</p>
             
-            <h2 id="conclusion">Pour conclure</h2>
-            <p>Aujourd'hui, face à une offre d'investissement très large, la question essentielle n'est plus "quel produit est le meilleur ?", mais "quel produit correspond le mieux à mes besoins, ici et maintenant ?".</p>
-            <p><strong>L'ETF profilé, grâce à sa simplicité, invite à cette réflexion personnelle</strong>, ce qui constitue sans doute son principal atout.</p>
-            <p><strong>Ces produits combinent les avantages des ETF classiques, comme des frais réduits, une transparence accrue et une exposition à de nombreux marchés, avec une allocation d'actifs déjà structurée</strong>.</p>
+            <div class="bias-grid">
+                <div class="bias-card">
+                    <div class="bias-title">Échelonnement</div>
+                    <div class="bias-description">Répartir les échéances des comptes à terme</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Pyramide des livrets</div>
+                    <div class="bias-description">Commencer par le LEP, puis Livret A, puis LDDS</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Périmètre de sécurité</div>
+                    <div class="bias-description">Conserver 3 mois de dépenses en livrets</div>
+                </div>
+                
+                <div class="bias-card">
+                    <div class="bias-title">Ladder obligataire</div>
+                    <div class="bias-description">Échelonner les échéances d'obligations</div>
+                </div>
+            </div>
+            
+            <h3>Portefeuille type "sans risque"</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Placement</th>
+                        <th>Allocation</th>
+                        <th>Montant moyen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Livret A</td>
+                        <td>25%</td>
+                        <td>5,737 €</td>
+                    </tr>
+                    <tr>
+                        <td>LEP (si éligible)</td>
+                        <td>25%</td>
+                        <td>1,925 €</td>
+                    </tr>
+                    <tr>
+                        <td>Assurance-vie (fonds €)</td>
+                        <td>40%</td>
+                        <td>Jusqu'à 60,000 €</td>
+                    </tr>
+                    <tr>
+                        <td>Compte à terme 1 an</td>
+                        <td>10%</td>
+                        <td>Variable</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout safe">
+                <p>Pour une épargne de précaution, privilégiez les livrets réglementés. Pour un projet à moyen terme (2-5 ans), combinez assurance-vie et comptes à terme. Avec le Livret A à 1.7%, diversifiez davantage vers d'autres placements.</p>
+            </div>
+            
+            <!-- Simulateur -->
+            <h2 id="simulateur">Simulateur de rendement</h2>
+            <p>Calculez les revenus générés par votre épargne sans risque avec le nouveau taux du Livret A :</p>
+            
+            <div class="simulator-container">
+                <h3 class="simulator-title">Simulateur de placements sécurisés</h3>
+                <p class="simulator-description">Estimez les revenus de votre épargne en fonction des différents placements sans risque. Taux du Livret A à 1.7%.</p>
+                
+                <div class="simulator-inputs">
+                    <div class="input-group">
+                        <label for="capital">Capital à placer (€)</label>
+                        <input type="number" id="capital" min="0" step="1000" value="20000">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="duration">Durée de placement (années)</label>
+                        <input type="number" id="duration" min="1" max="30" value="5">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="inflation">Inflation annuelle estimée (%) <span id="inflation-value" class="range-value">2%</span></label>
+                        <input type="range" id="inflation" min="0" max="10" step="0.1" value="2">
+                    </div>
+                </div>
+                
+                <div class="simulator-actions">
+                    <button class="btn btn-primary" id="calculate-btn">
+                        <i class="fas fa-calculator"></i> Calculer
+                    </button>
+                    <button class="btn btn-secondary" id="reset-btn">
+                        <i class="fas fa-redo"></i> Réinitialiser
+                    </button>
+                </div>
+                
+                <div class="simulator-results" id="results-section">
+                    <div class="results-header">
+                        <div class="result-card safe">
+                            <div class="result-title">Livret A</div>
+                            <div class="result-value" id="livret-a">0 €</div>
+                            <div class="result-subtitle">Rendement net : 1.7%</div>
+                        </div>
+                        
+                        <div class="result-card safe">
+                            <div class="result-title">Assurance-vie</div>
+                            <div class="result-value" id="assurance-vie">0 €</div>
+                            <div class="result-subtitle">Rendement net : 2.5%</div>
+                        </div>
+                        
+                        <div class="result-card safe">
+                            <div class="result-title">Compte à terme</div>
+                            <div class="result-value" id="compte-terme">0 €</div>
+                            <div class="result-subtitle">Rendement net : 3%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-difference">
+                        Perte de pouvoir d'achat estimée : <span id="inflation-loss" class="negative">0 €</span>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="investment-chart"></canvas>
+                    </div>
+                    
+                    <p class="tax-note">* Les calculs incluent les intérêts composés mais pas la fiscalité spécifique à chaque produit. Rendements basés sur les taux moyens 2025.</p>
+                </div>
+            </div>
+            
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Avec le taux du Livret A désormais fixé à 1.7%, il est plus important que jamais de bien structurer son épargne sans risque. Ces placements restent la pierre angulaire de toute stratégie financière équilibrée, offrant une sécurité capitale pour votre épargne tout en générant des revenus stables, bien que modérés.</p>
+            
+            <div class="callout safe">
+                <p>L'idéal est de combiner plusieurs solutions sans risque (livrets, assurance-vie, comptes à terme) pour bénéficier à la fois de liquidité, de rendement et d'avantages fiscaux. Avec le Livret A à 1.7%, privilégiez le LEP si vous êtes éligible et diversifiez vers d'autres placements pour compenser la baisse de rendement.</p>
+            </div>
+            
+            <p>Pour une stratégie patrimoniale complète, associez ces placements sécurisés à des investissements plus risqués mais potentiellement plus rémunérateurs (actions, immobilier) selon votre profil et vos objectifs. La diversification reste la clé d'une gestion saine de votre épargne.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="footer">
+            <p>© 2025 FinancesPro - Tous droits réservés. Les informations présentées sont à titre indicatif et ne constituent pas un conseil en investissement.</p>
         </div>
     </div>
 
@@ -624,6 +1205,16 @@
             const tocToggle = document.getElementById('toc-toggle');
             const tocContainer = document.getElementById('toc-container');
             const closeToc = document.getElementById('close-toc');
+            const inflationSlider = document.getElementById('inflation');
+            const inflationValue = document.getElementById('inflation-value');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsSection = document.getElementById('results-section');
+            const livretAResult = document.getElementById('livret-a');
+            const assuranceVieResult = document.getElementById('assurance-vie');
+            const compteTermeResult = document.getElementById('compte-terme');
+            const inflationLoss = document.getElementById('inflation-loss');
+            let investmentChart = null;
             
             // Toggle TOC visibility
             tocToggle.addEventListener('click', function() {
@@ -663,6 +1254,203 @@
                     }
                 });
             });
+            
+            // Mise à jour des valeurs des sliders
+            inflationSlider.addEventListener('input', function() {
+                inflationValue.textContent = `${this.value}%`;
+            });
+            
+            // Calcul de la projection
+            calculateBtn.addEventListener('click', calculateInvestment);
+            
+            // Réinitialisation
+            resetBtn.addEventListener('click', function() {
+                document.getElementById('capital').value = 20000;
+                document.getElementById('duration').value = 5;
+                inflationSlider.value = 2;
+                inflationValue.textContent = '2%';
+                resultsSection.style.display = 'none';
+                
+                if (investmentChart) {
+                    investmentChart.destroy();
+                }
+            });
+            
+            function calculateInvestment() {
+                // Récupération des valeurs
+                const capital = parseFloat(document.getElementById('capital').value) || 0;
+                const duration = parseInt(document.getElementById('duration').value) || 1;
+                const inflation = parseFloat(inflationSlider.value) / 100;
+                
+                // Validation
+                if (capital <= 0) {
+                    alert('Veuillez saisir un capital valide.');
+                    return;
+                }
+                
+                if (duration <= 0) {
+                    alert('La durée doit être supérieure à zéro.');
+                    return;
+                }
+                
+                // Taux de rendement (net de frais)
+                const tauxLivretA = 0.017; // Taux mis à jour à 1.7%
+                const tauxAssuranceVie = 0.025;
+                const tauxCompteTerme = 0.03;
+                
+                // Calcul des valeurs futures
+                const livretAFuture = capital * Math.pow(1 + tauxLivretA, duration);
+                const assuranceVieFuture = capital * Math.pow(1 + tauxAssuranceVie, duration);
+                const compteTermeFuture = capital * Math.pow(1 + tauxCompteTerme, duration);
+                
+                // Calcul de l'érosion monétaire
+                const inflationFuture = capital * Math.pow(1 + inflation, duration);
+                const inflationLossValue = inflationFuture - capital;
+                
+                // Affichage des résultats
+                livretAResult.textContent = formatCurrency(livretAFuture);
+                assuranceVieResult.textContent = formatCurrency(assuranceVieFuture);
+                compteTermeResult.textContent = formatCurrency(compteTermeFuture);
+                inflationLoss.textContent = formatCurrency(inflationLossValue);
+                
+                // Création du graphique
+                createChart(capital, tauxLivretA, tauxAssuranceVie, tauxCompteTerme, duration);
+                
+                // Affichage des résultats
+                resultsSection.style.display = 'block';
+                
+                // Scroll vers les résultats
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            function createChart(capital, tauxLivretA, tauxAssuranceVie, tauxCompteTerme, years) {
+                const ctx = document.getElementById('investment-chart').getContext('2d');
+                
+                // Destruction du graphique précédent s'il existe
+                if (investmentChart) {
+                    investmentChart.destroy();
+                }
+                
+                // Préparation des données
+                const labels = [];
+                const livretAData = [];
+                const assuranceVieData = [];
+                const compteTermeData = [];
+                const inflationData = [];
+                
+                for (let year = 0; year <= years; year++) {
+                    labels.push(`Année ${year}`);
+                    livretAData.push(capital * Math.pow(1 + tauxLivretA, year));
+                    assuranceVieData.push(capital * Math.pow(1 + tauxAssuranceVie, year));
+                    compteTermeData.push(capital * Math.pow(1 + tauxCompteTerme, year));
+                    inflationData.push(capital * Math.pow(1 + parseFloat(inflationSlider.value)/100, year));
+                }
+                
+                investmentChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Livret A (1.7%)',
+                                data: livretAData,
+                                borderColor: '#2E7D32',
+                                backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                                borderWidth: 3,
+                                pointRadius: 3,
+                                tension: 0.1,
+                                fill: false
+                            },
+                            {
+                                label: 'Assurance-vie (2.5%)',
+                                data: assuranceVieData,
+                                borderColor: '#2196F3',
+                                backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                                borderWidth: 3,
+                                pointRadius: 3,
+                                tension: 0.1,
+                                fill: false
+                            },
+                            {
+                                label: 'Compte à terme (3%)',
+                                data: compteTermeData,
+                                borderColor: '#7A2D8D',
+                                backgroundColor: 'rgba(122, 45, 141, 0.1)',
+                                borderWidth: 3,
+                                pointRadius: 3,
+                                tension: 0.1,
+                                fill: false
+                            },
+                            {
+                                label: 'Inflation',
+                                data: inflationData,
+                                borderColor: '#F44336',
+                                borderWidth: 2,
+                                borderDash: [5, 5],
+                                pointRadius: 0,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Évolution de votre épargne',
+                                font: {
+                                    size: 16
+                                }
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return formatCurrency(value);
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Valeur (€)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Années'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('fr-FR', {
+                    style: 'currency',
+                    currency: 'EUR',
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+            
+            // Calcul initial au chargement
+            setTimeout(calculateInvestment, 1000);
         });
     </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Livrets d'Épargne : Guide Complet - Finary</title>
+    <title>Les types d'investissement et supports pour investir en Bourse - Finary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -173,32 +173,18 @@
         .featured-image {
             width: 100%;
             height: 400px;
+            object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
-            background: linear-gradient(120deg, var(--finary-primary), var(--finary-secondary));
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2rem;
+            color: #666;
+            font-size: 1.5rem;
             text-align: center;
             padding: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .featured-image::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
-                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
         }
         
         /* Content Styling */
@@ -371,16 +357,28 @@
             color: var(--finary-accent);
         }
         
-        .investment-scenario {
+        .investment-type {
             background-color: white;
             border: 1px solid #eee;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
         }
         
-        .scenario-title {
+        .investment-type::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--finary-accent);
+        }
+        
+        .type-title {
             font-weight: 600;
             color: var(--finary-secondary);
             margin-bottom: 15px;
@@ -388,59 +386,32 @@
             align-items: center;
         }
         
-        .scenario-title i {
+        .type-title i {
             margin-right: 10px;
         }
         
-        .progress-bar {
-            height: 12px;
-            background-color: #e0e0e0;
-            border-radius: 6px;
-            margin: 15px 0;
-            overflow: hidden;
+        .risk-indicator {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 10px;
         }
         
-        .progress-fill {
-            height: 100%;
-            background: var(--finary-gradient);
-            border-radius: 6px;
-            transition: width 0.5s ease;
+        .risk-low {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #2E7D32;
         }
         
-        .progress-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
+        .risk-medium {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #F57F17;
         }
         
-        .icon-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 25px 0;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 15px;
-        }
-        
-        .stat-icon {
-            font-size: 2.5rem;
-            color: var(--finary-secondary);
-            margin-bottom: 10px;
-        }
-        
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--finary-primary);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
+        .risk-high {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: #C62828;
         }
         
         /* Responsive */
@@ -451,7 +422,6 @@
             
             .featured-image {
                 height: 250px;
-                font-size: 1.5rem;
             }
             
             .article-content {
@@ -467,14 +437,6 @@
                 right: 10px;
                 left: auto;
             }
-            
-            .icon-stats {
-                flex-wrap: wrap;
-            }
-            
-            .stat-item {
-                width: 50%;
-            }
         }
         
         @media (max-width: 480px) {
@@ -484,7 +446,6 @@
             
             .featured-image {
                 height: 200px;
-                font-size: 1.3rem;
             }
             
             .article-content {
@@ -496,16 +457,12 @@
                 right: 5%;
                 left: 5%;
             }
-            
-            .stat-item {
-                width: 100%;
-            }
         }
     </style>
 </head>
 <body>
     <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle" aria-label="Afficher la table des matières">
+    <button class="toc-toggle" id="toc-toggle">
         <i class="fas fa-list"></i>
     </button>
     
@@ -513,22 +470,32 @@
     <div id="toc-container">
         <div class="toc-header">
             <div class="toc-title">Sommaire de l'article</div>
-            <button class="close-toc" id="close-toc" aria-label="Fermer la table des matières">
+            <button class="close-toc" id="close-toc">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
-            <li><a href="#introduction" class="h2-link">Introduction aux livrets d'épargne</a></li>
-            <li><a href="#principes" class="h2-link">Fonctionnement des livrets</a></li>
-            <li><a href="#avantages" class="h2-link">Avantages des livrets</a></li>
-            <li><a href="#types" class="h2-link">Types de livrets</a></li>
-            <li><a href="#livret-a" class="h3-link">Livret A</a></li>
-            <li><a href="#ldds" class="h3-link">LDDS</a></li>
-            <li><a href="#lep" class="h3-link">LEP</a></li>
-            <li><a href="#livret-jeune" class="h3-link">Livret Jeune</a></li>
-            <li><a href="#choisir" class="h2-link">Comment choisir</a></li>
-            <li><a href="#strategies" class="h2-link">Stratégies d'épargne</a></li>
-            <li><a href="#alternatives" class="h2-link">Alternatives</a></li>
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            
+            <li><a href="#types-investissement" class="h2-link">Types d'investissement boursier</a></li>
+            <li><a href="#actions" class="h3-link">Actions</a></li>
+            <li><a href="#obligations" class="h3-link">Obligations</a></li>
+            <li><a href="#etf" class="h3-link">ETF (Trackers)</a></li>
+            <li><a href="#fonds" class="h3-link">Fonds communs de placement</a></li>
+            <li><a href="#produits-derives" class="h3-link">Produits dérivés</a></li>
+            
+            <li><a href="#supports" class="h2-link">Supports d'investissement</a></li>
+            <li><a href="#pea" class="h3-link">PEA (Plan Épargne Actions)</a></li>
+            <li><a href="#cto" class="h3-link">Compte Titres Ordinaire</a></li>
+            <li><a href="#assurance-vie" class="h3-link">Assurance-vie</a></li>
+            <li><a href="#pea-pme" class="h3-link">PEA-PME</a></li>
+            
+            <li><a href="#strategies" class="h2-link">Stratégies d'investissement</a></li>
+            <li><a href="#long-terme" class="h3-link">Investissement long terme</a></li>
+            <li><a href="#trading" class="h3-link">Trading actif</a></li>
+            <li><a href="#dividendes" class="h3-link">Stratégie dividendes</a></li>
+            
+            <li><a href="#choix" class="h2-link">Comment choisir</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -536,353 +503,332 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Les Livrets d'Épargne : Le Guide Complet pour Optimiser Votre Épargne</h1>
-            <div></div>
+            <h1 class="article-title">Les types d'investissement et supports pour investir en Bourse</h1>
         </div>
         
         <!-- Featured Image -->
         <div class="featured-image">
-            Les Livrets d'Épargne : Sécurité et accessibilité pour tous
+            Guide complet des différents investissements boursiers et supports disponibles
         </div>
         
         <!-- Article Content -->
         <div class="article-content">
-            <p>Les livrets d'épargne sont des produits financiers incontournables pour les Français. Avec plus de 500 milliards d'euros déposés sur le seul Livret A, ces placements sécurisés et accessibles constituent la pierre angulaire de l'épargne nationale. Mais quels sont les différents types de livrets et comment les utiliser au mieux ?</p>
+            <p>Investir en bourse est aujourd'hui accessible à tous, mais comprendre les différentes options disponibles est essentiel pour construire un portefeuille adapté à ses objectifs. Entre actions, obligations, ETF et les différents supports comme le PEA ou l'assurance-vie, les possibilités sont nombreuses. Ce guide complet vous présente les différents types d'investissements boursiers et les supports pour les accueillir.</p>
             
             <div class="callout info">
                 <div class="callout-title">Les éléments clés :</div>
                 <ul>
-                    <li>Sécurité des fonds garantie par l'État</li>
-                    <li>Fiscalité avantageuse (exonération d'impôts)</li>
-                    <li>Accessible à partir de 1€ seulement</li>
-                    <li>Plus de 55 millions de Livrets A ouverts en France</li>
-                    <li>Rendements révisés régulièrement</li>
+                    <li>Les actions offrent un fort potentiel de croissance mais avec un risque élevé</li>
+                    <li>Les ETF permettent une diversification instantanée à faible coût</li>
+                    <li>Le PEA est le support privilégié pour les investissements long terme</li>
+                    <li>Chaque stratégie (dividendes, croissance, trading) nécessite des supports adaptés</li>
+                    <li>La diversification entre types d'actifs et supports réduit les risques</li>
                 </ul>
             </div>
             
-            <h2 id="introduction">Introduction : L'épargne sécurisée pour tous</h2>
-            <p>Les livrets d'épargne réglementés sont des placements sécurisés, garantis par l'État français, qui permettent à chacun de faire fructifier son argent sans risque de perte en capital. Ces produits financiers sont particulièrement adaptés pour constituer une épargne de précaution ou financer des projets à court terme.</p>
+            <h2 id="introduction">Introduction</h2>
+            <p>Investir en bourse ne se limite plus à l'achat d'actions individuelles. Aujourd'hui, les investisseurs disposent d'une large gamme d'options pour diversifier leurs portefeuilles : obligations, fonds communs, ETF, produits dérivés, etc. Chaque type d'investissement présente ses caractéristiques propres en termes de risque, rendement et horizon temporel.</p>
             
-            <p>En France, les livrets réglementés représentent une part significative de l'épargne des ménages. À eux seuls, le Livret A et le LDDS concentrent plus de 500 milliards d'euros d'épargne. Leur popularité s'explique par leur simplicité, leur accessibilité et leur sécurité absolue.</p>
-            
-            <div class="icon-stats">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <div class="stat-value">500 Md€</div>
-                    <div class="stat-label">d'épargne sur Livret A</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-value">55 M</div>
-                    <div class="stat-label">de Livrets A ouverts</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-percent"></i>
-                    </div>
-                    <div class="stat-value">3%</div>
-                    <div class="stat-label">taux moyen en 2025</div>
-                </div>
-            </div>
+            <p>Mais avant même de choisir vos investissements, il est crucial de sélectionner le bon support : PEA, compte titres, assurance-vie... Ces enveloppes fiscales influencent directement votre rendement net. <strong>Une stratégie d'investissement optimale combine à la fois les bons actifs et les supports adaptés.</strong></p>
             
             <div class="highlight-box">
                 <div class="highlight-box-title">
                     <i class="fas fa-lightbulb"></i> À retenir
                 </div>
-                <p>Les livrets d'épargne réglementés offrent une combinaison unique de sécurité, de liquidité et d'avantages fiscaux, ce qui en fait des placements idéaux pour l'épargne de précaution ou les projets à court terme.</p>
+                <p>Les investisseurs français ont investi plus de 1 500 milliards d'euros en actions en 2024, dont 40% via des supports fiscaux avantageux comme le PEA ou l'assurance-vie. Cette tendance devrait continuer à croître avec la démocratisation de l'investissement boursier.</p>
             </div>
             
-            <h2 id="principes">Fonctionnement des livrets d'épargne</h2>
+            <h2 id="types-investissement">Types d'investissement boursier</h2>
             
-            <h3>Les caractéristiques communes</h3>
-            <p>Tous les livrets réglementés partagent des caractéristiques fondamentales :</p>
-            
-            <ul>
-                <li><strong>Sécurité absolue</strong> : Les fonds sont garantis par l'État</li>
-                <li><strong>Liquidité immédiate</strong> : Retraits possibles à tout moment</li>
-                <li><strong>Exonération fiscale</strong> : Pas d'impôt sur le revenu ni de prélèvements sociaux</li>
-                <li><strong>Plafonds de dépôt</strong> : Montants maximums fixés par l'État</li>
-                <li><strong>Taux réglementés</strong> : Fixés par les pouvoirs publics</li>
-            </ul>
-            
-            <div class="callout info">
-                <div class="callout-title">Calcul des intérêts</div>
-                <p>Les intérêts des livrets sont calculés par quinzaine : les sommes versées avant le 15 ou le dernier jour du mois produisent des intérêts à partir du 16 ou du 1er du mois suivant. De même, les retraits réduisent les intérêts à partir de la quinzaine suivante.</p>
-            </div>
-            
-            <h3>La révision des taux</h3>
-            <p>Les taux des livrets réglementés sont révisés tous les 6 mois (en février et août) selon une formule prenant en compte l'inflation et les taux du marché monétaire. Cette mécanique vise à préserver le pouvoir d'achat des épargnants tout en finançant le logement social.</p>
-            
-            <div class="investment-scenario">
-                <div class="scenario-title">
-                    <i class="fas fa-calculator"></i> Exemple concret
+            <div class="investment-type">
+                <div class="type-title">
+                    <i class="fas fa-chart-line"></i> Actions
+                    <span class="risk-indicator risk-high">Risque Élevé</span>
                 </div>
-                <p>Si vous déposez 10 000€ sur un Livret A au taux de 3% :</p>
+                <p>Les actions représentent des parts de propriété dans une entreprise. Lorsque vous achetez une action, vous devenez actionnaire de la société et participez à son succès (ou à ses difficultés).</p>
+                
+                <p><strong>Avantages :</strong></p>
                 <ul>
-                    <li>Après 1 an : 10 000€ × 3% = 300€ d'intérêts</li>
-                    <li>Après 5 ans : 10 000€ × (1.03⁵ - 1) = 1 592€ d'intérêts cumulés</li>
+                    <li>Potentiel de rendement élevé à long terme</li>
+                    <li>Possibilité de percevoir des dividendes</li>
+                    <li>Droits de vote aux assemblées générales</li>
                 </ul>
-                <p>Les intérêts sont capitalisés et produisent eux-mêmes des intérêts l'année suivante.</p>
+                
+                <p><strong>Inconvénients :</strong></p>
+                <ul>
+                    <li>Volatilité importante à court terme</li>
+                    <li>Risque de perte en capital</li>
+                    <li>Nécessite une analyse approfondie</li>
+                </ul>
+                
+                <p><strong>Idéal pour :</strong> Investisseurs ayant une bonne tolérance au risque et un horizon long terme (5 ans minimum).</p>
             </div>
             
-            <h2 id="avantages">Les avantages majeurs des livrets</h2>
+            <div class="investment-type">
+                <div class="type-title">
+                    <i class="fas fa-file-invoice-dollar"></i> Obligations
+                    <span class="risk-indicator risk-low">Risque Faible</span>
+                </div>
+                <p>Les obligations sont des titres de dette émis par des États ou des entreprises. En achetant une obligation, vous prêtez de l'argent à l'émetteur en échange d'intérêts réguliers.</p>
+                
+                <p><strong>Avantages :</strong></p>
+                <ul>
+                    <li>Revenus réguliers et prévisibles</li>
+                    <li>Moins volatiles que les actions</li>
+                    <li>Diversification du portefeuille</li>
+                </ul>
+                
+                <p><strong>Inconvénients :</strong></p>
+                <ul>
+                    <li>Rendements généralement plus faibles que les actions</li>
+                    <li>Risque de défaut (non-paiement)</li>
+                    <li>Sensibles aux taux d'intérêt</li>
+                </ul>
+                
+                <p><strong>Idéal pour :</strong> Investisseurs prudents ou en phase de préservation de capital, recherche de revenus stables.</p>
+            </div>
             
-            <p>Les livrets réglementés présentent plusieurs atouts décisifs :</p>
+            <div class="investment-type">
+                <div class="type-title">
+                    <i class="fas fa-layer-group"></i> ETF (Exchange Traded Funds)
+                    <span class="risk-indicator risk-medium">Risque Variable</span>
+                </div>
+                <p>Les ETF, ou trackers, sont des fonds cotés en bourse qui répliquent la performance d'un indice (comme le CAC 40 ou le S&P 500). Ils permettent d'investir sur un panier de titres en une seule transaction.</p>
+                
+                <p><strong>Avantages :</strong></p>
+                <ul>
+                    <li>Diversification immédiate</li>
+                    <li>Frais de gestion très bas</li>
+                    <li>Transparence et liquidité</li>
+                    <li>Accès à des marchés complexes</li>
+                </ul>
+                
+                <p><strong>Inconvénients :</strong></p>
+                <ul>
+                    <li>Pas de performance supérieure au marché</li>
+                    <li>Certains ETF complexes peu adaptés aux débutants</li>
+                    <li>Risque de tracking error (décalage avec l'indice)</li>
+                </ul>
+                
+                <p><strong>Idéal pour :</strong> Tous les investisseurs, en particulier les débutants et ceux recherchant une gestion passive diversifiée.</p>
+            </div>
             
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Avantage</th>
-                        <th>Description</th>
-                        <th>Impact</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sécurité</td>
-                        <td>Garantie de l'État sur le capital</td>
-                        <td>Protection totale de l'épargne</td>
-                    </tr>
-                    <tr>
-                        <td>Liquidité</td>
-                        <td>Retraits immédiats sans pénalité</td>
-                        <td>Accès à tout moment à son épargne</td>
-                    </tr>
-                    <tr>
-                        <td>Fiscalité</td>
-                        <td>Exonération d'impôts et prélèvements</td>
-                        <td>Rendement net plus élevé</td>
-                    </tr>
-                    <tr>
-                        <td>Simplicité</td>
-                        <td>Ouverture et gestion faciles</td>
-                        <td>Accessible à tous</td>
-                    </tr>
-                    <tr>
-                        <td>Utilité sociale</td>
-                        <td>Financement du logement social</td>
-                        <td>Épargne solidaire</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="investment-type">
+                <div class="type-title">
+                    <i class="fas fa-piggy-bank"></i> Fonds communs de placement
+                    <span class="risk-indicator risk-medium">Risque Variable</span>
+                </div>
+                <p>Les fonds communs de placement (FCP) et SICAV regroupent l'argent de plusieurs investisseurs pour acheter un portefeuille diversifié d'actifs, géré par des professionnels.</p>
+                
+                <p><strong>Avantages :</strong></p>
+                <ul>
+                    <li>Gestion professionnelle</li>
+                    <li>Diversification automatique</li>
+                    <li>Choix très large de stratégies</li>
+                </ul>
+                
+                <p><strong>Inconvénients :</strong></p>
+                <ul>
+                    <li>Frais de gestion plus élevés que les ETF</li>
+                    <li>Performance parfois décevante</li>
+                    <li>Manque de transparence sur les positions</li>
+                </ul>
+                
+                <p><strong>Idéal pour :</strong> Investisseurs souhaitant déléguer la gestion de leur portefeuille à des professionnels.</p>
+            </div>
+            
+            <div class="investment-type">
+                <div class="type-title">
+                    <i class="fas fa-exchange-alt"></i> Produits dérivés
+                    <span class="risk-indicator risk-high">Risque Très Élevé</span>
+                </div>
+                <p>Les produits dérivés (options, warrants, turbos, etc.) sont des instruments financiers dont la valeur dépend d'un actif sous-jacent (action, indice, matière première).</p>
+                
+                <p><strong>Avantages :</strong></p>
+                <ul>
+                    <li>Effet de levier important</li>
+                    <li>Possibilité de couvrir des positions</li>
+                    <li>Stratégies avancées de trading</li>
+                </ul>
+                
+                <p><strong>Inconvénients :</strong></p>
+                <ul>
+                    <li>Risques très élevés (perte totale possible)</li>
+                    <li>Complexité technique</li>
+                    <li>Frais de transaction élevés</li>
+                </ul>
+                
+                <p><strong>Idéal pour :</strong> Investisseurs expérimentés avec une bonne connaissance des marchés et une tolérance au risque très élevée.</p>
+            </div>
+            
+            <h2 id="supports">Supports d'investissement</h2>
+            
+            <h3 id="pea">PEA (Plan Épargne en Actions)</h3>
+            <p>Le Plan d'Épargne en Actions est le support privilégié pour l'investissement boursier des résidents français. Après 5 ans de détention, les plus-values sont exonérées d'impôt sur le revenu (seules les prélèvements sociaux de 17.2% s'appliquent).</p>
+            
+            <p><strong>Caractéristiques :</strong></p>
+            <ul>
+                <li>Plafond de versement : 150 000€</li>
+                <li>Titres éligibles : actions européennes et ETF majoritairement européens</li>
+                <li>Avantage fiscal après 5 ans</li>
+                <li>Fermeture en cas de retrait avant 5 ans</li>
+            </ul>
             
             <div class="callout success">
-                <p>Selon la Banque de France, le Livret A est le placement préféré des Français avec 55 millions de détenteurs. Son succès s'explique par sa simplicité et sa sécurité, particulièrement appréciées en période d'incertitude économique.</p>
+                <p>Le PEA est particulièrement adapté pour les stratégies d'investissement long terme dans des actions européennes ou des ETF. C'est le support le plus avantageux fiscalement pour les investisseurs individuels.</p>
             </div>
             
-            <h3>La force de la fiscalité avantageuse</h3>
-            <p>L'exonération fiscale des livrets réglementés représente un avantage considérable comparé à d'autres placements :</p>
+            <h3 id="cto">Compte Titres Ordinaire (CTO)</h3>
+            <p>Le compte titres ordinaire est le support classique pour investir en bourse, sans avantage fiscal particulier mais sans restriction géographique ou de durée.</p>
             
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 25%"></div>
-            </div>
-            <div class="progress-labels">
-                <span>Livrets réglementés (0% fiscalité)</span>
-                <span>Compte sur livret (30% fiscalité)</span>
-                <span>Assurance-vie (PFU 30%)</span>
-            </div>
-            
-            <p>Pour un taux nominal de 3%, le rendement net d'un livret réglementé reste à 3%, tandis qu'un produit fiscalisé au taux de 30% ne rapporterait que 2.1% net. Cette différence s'accentue avec le temps grâce à la capitalisation des intérêts.</p>
-            
-            <h2 id="types">Les différents types de livrets</h2>
-            
-            <h3 id="livret-a">Livret A - L'incontournable</h3>
-            <p>Le Livret A est le placement préféré des Français :</p>
+            <p><strong>Caractéristiques :</strong></p>
             <ul>
-                <li><strong>Taux 2025</strong> : 3%</li>
-                <li><strong>Plafond</strong> : 22 950€ hors intérêts</li>
-                <li><strong>Ouverture</strong> : Accessible à tous sans condition</li>
-                <li><strong>Fiscalité</strong> : Exonérée</li>
-                <li><strong>Particularité</strong> : Finance le logement social</li>
+                <li>Aucun plafond d'investissement</li>
+                <li>Tous les titres éligibles : actions mondiales, ETF, obligations, etc.</li>
+                <li>Flat tax de 30% sur les plus-values</li>
+                <li>Liquidité immédiate</li>
             </ul>
             
-            <h3 id="ldds">LDDS - Le développement durable</h3>
-            <p>Le Livret de Développement Durable et Solidaire :</p>
-            <ul>
-                <li><strong>Taux 2025</strong> : 3% (même taux que Livret A)</li>
-                <li><strong>Plafond</strong> : 12 000€ hors intérêts</li>
-                <li><strong>Ouverture</strong> : Réservé aux résidents fiscaux français</li>
-                <li><strong>Fiscalité</strong> : Exonérée</li>
-                <li><strong>Particularité</strong> : Finance les PME et projets écologiques</li>
-            </ul>
+            <p><strong>Idéal pour :</strong> Investissements internationaux, montants supérieurs à 150 000€, trading actif, stratégies complexes.</p>
             
-            <h3 id="lep">LEP - Pour les revenus modestes</h3>
-            <p>Le Livret d'Épargne Populaire offre un taux plus avantageux :</p>
-            <ul>
-                <li><strong>Taux 2025</strong> : 5%</li>
-                <li><strong>Plafond</strong> : 7 700€ hors intérêts</li>
-                <li><strong>Ouverture</strong> : Réservé aux revenus modestes</li>
-                <li><strong>Fiscalité</strong> : Exonérée</li>
-                <li><strong>Particularité</strong> : Taux plus élevé que le Livret A</li>
-            </ul>
+            <h3 id="assurance-vie">Assurance-vie</h3>
+            <p>L'assurance-vie est un support polyvalent qui permet d'investir sur les marchés financiers via des fonds (unités de compte) tout en bénéficiant d'avantages fiscaux après 8 ans de détention.</p>
             
-            <h3 id="livret-jeune">Livret Jeune - Pour les 12-25 ans</h3>
-            <p>Spécialement conçu pour les jeunes :</p>
+            <p><strong>Caractéristiques :</strong></p>
             <ul>
-                <li><strong>Taux 2025</strong> : Minimum 3% (souvent plus dans certaines banques)</li>
-                <li><strong>Plafond</strong> : 1 600€ hors intérêts</li>
-                <li><strong>Ouverture</strong> : Réservé aux 12-25 ans</li>
-                <li><strong>Fiscalité</strong> : Exonérée</li>
-                <li><strong>Particularité</strong> : Taux souvent bonifiés par les banques</li>
+                <li>Exonération fiscale partielle après 8 ans</li>
+                <li>Grand choix de supports (fonds en euros, UC)</li>
+                <li>Transmission du capital facilitée</li>
+                <li>Frais souvent plus élevés que PEA/CTO</li>
             </ul>
             
             <div class="callout warning">
-                <p>Attention : Vous ne pouvez détenir qu'un seul Livret A, un seul LDDS et un seul LEP. Par contre, il est possible de cumuler ces différents livrets si vous répondez aux conditions d'éligibilité de chacun.</p>
+                <p>Attention aux frais sur les assurances-vie : frais d'entrée, frais de gestion, frais d'arbitrage... Comparer attentivement les différentes offres.</p>
             </div>
             
-            <h2 id="choisir">Comment choisir le bon livret ?</h2>
+            <h3 id="pea-pme">PEA-PME</h3>
+            <p>Le PEA-PME est une variante du PEA classique, destiné à financer les petites et moyennes entreprises. Il offre les mêmes avantages fiscaux que le PEA mais avec des règles spécifiques.</p>
             
-            <p>Face à la diversité des livrets, voici comment faire votre choix :</p>
+            <p><strong>Caractéristiques :</strong></p>
+            <ul>
+                <li>Plafond de versement : 225 000€ (cumulable avec le PEA classique)</li>
+                <li>Titres éligibles : actions de PME européennes</li>
+                <li>Avantage fiscal après 5 ans</li>
+                <li>Risque généralement plus élevé</li>
+            </ul>
             
-            <div class="investment-scenario">
-                <div class="scenario-title">
-                    <i class="fas fa-filter"></i> Critères de sélection
-                </div>
-                <ol>
-                    <li><strong>Vos revenus</strong> : Le LEP est réservé aux revenus modestes</li>
-                    <li><strong>Votre âge</strong> : Le Livret Jeune est accessible jusqu'à 25 ans</li>
-                    <li><strong>Vos projets</strong> : Montant à épargner et horizon temporel</li>
-                    <li><strong>Vos valeurs</strong> : Financement du social (Livret A) ou écologie (LDDS)</li>
-                    <li><strong>Votre situation</strong> : Possibilité de cumuler plusieurs livrets</li>
-                </ol>
+            <h2 id="strategies">Stratégies d'investissement</h2>
+            
+            <h3 id="long-terme">Investissement long terme ("Buy and Hold")</h3>
+            <p>Cette stratégie consiste à acheter des actifs de qualité et à les conserver pendant plusieurs années, en profitant de la croissance des marchés et des intérêts composés.</p>
+            
+            <p><strong>Supports recommandés :</strong></p>
+            <ul>
+                <li>PEA pour les actions et ETF européens</li>
+                <li>Assurance-vie en unités de compte pour la diversification</li>
+                <li>CTO pour les actifs non éligibles au PEA</li>
+            </ul>
+            
+            <p><strong>Types d'actifs :</strong> Actions de croissance, ETF monde, fonds indiciels.</p>
+            
+            <h3 id="trading">Trading actif</h3>
+            <p>Le trading consiste à réaliser des opérations fréquentes pour profiter des variations de cours à court terme. Cette approche nécessite du temps et une bonne connaissance des marchés.</p>
+            
+            <p><strong>Supports recommandés :</strong></p>
+            <ul>
+                <li>Compte titres ordinaire (CTO)</li>
+                <li>Compte de trading spécifique chez un courtier en ligne</li>
+            </ul>
+            
+            <p><strong>Types d'actifs :</strong> Actions volatiles, produits dérivés, forex.</p>
+            
+            <div class="callout error">
+                <p>Le trading présente des risques très élevés. Plus de 80% des traders particuliers perdent de l'argent à long terme. Ne tradez qu'avec de l'argent que vous pouvez vous permettre de perdre.</p>
             </div>
             
-            <h3>La stratégie d'optimisation</h3>
-            <p>Pour maximiser votre épargne, la stratégie optimale consiste à :</p>
-            <ol>
-                <li>Remplir d'abord votre LEP si vous y êtes éligible (taux plus élevé)</li>
-                <li>Compléter ensuite votre Livret A jusqu'au plafond</li>
-                <li>Ajouter enfin un LDDS si vous avez encore de la capacité d'épargne</li>
-                <li>Ouvrir un Livret Jeune pour vos enfants s'ils sont dans la tranche d'âge</li>
-            </ol>
+            <h3 id="dividendes">Stratégie dividendes</h3>
+            <p>Cette approche vise à construire un portefeuille générant des revenus réguliers grâce aux dividendes versés par les entreprises.</p>
             
-            <h2 id="strategies">Stratégies d'épargne avec les livrets</h2>
+            <p><strong>Supports recommandés :</strong></p>
+            <ul>
+                <li>PEA pour l'exonération fiscale après 5 ans</li>
+                <li>Assurance-vie pour les plus de 8 ans</li>
+                <li>CTO pour les actions non européennes</li>
+            </ul>
             
-            <p>Les livrets s'adaptent à différents objectifs financiers :</p>
+            <p><strong>Types d'actifs :</strong> Actions à fort dividende, fonds de dividendes, obligations.</p>
+            
+            <h2 id="choix">Comment choisir ses investissements et supports</h2>
+            
+            <p>Vos choix doivent dépendre de plusieurs critères personnels :</p>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Objectif</th>
-                        <th>Stratégie</th>
-                        <th>Livrets recommandés</th>
+                        <th>Profil</th>
+                        <th>Types d'actifs recommandés</th>
+                        <th>Supports adaptés</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Épargne de précaution</td>
-                        <td>Constituer 3 à 6 mois de salaire disponible</td>
-                        <td>Livret A, LDDS</td>
+                        <td>Débutant</td>
+                        <td>ETF monde, fonds diversifiés</td>
+                        <td>PEA, assurance-vie</td>
                     </tr>
                     <tr>
-                        <td>Projet à court terme (1-3 ans)</td>
-                        <td>Épargner progressivement pour un achat</td>
-                        <td>Livret A, LDDS</td>
+                        <td>Investisseur prudent</td>
+                        <td>Obligations, ETF obligataires, actions de croissance stable</td>
+                        <td>PEA, assurance-vie (fonds en euros)</td>
                     </tr>
                     <tr>
-                        <td>Transmission aux enfants</td>
-                        <td>Initier les jeunes à l'épargne</td>
-                        <td>Livret Jeune</td>
+                        <td>Investisseur agressif</td>
+                        <td>Actions de croissance, ETF sectoriels, petites capitalisations</td>
+                        <td>PEA, CTO</td>
                     </tr>
                     <tr>
-                        <td>Optimisation fiscale</td>
-                        <td>Bénéficier de rendements nets élevés</td>
-                        <td>LEP, Livret A</td>
+                        <td>Recherche de revenus</td>
+                        <td>Actions à dividendes, obligations, SCPI</td>
+                        <td>PEA (après 5 ans), assurance-vie (après 8 ans)</td>
+                    </tr>
+                    <tr>
+                        <td>Trader actif</td>
+                        <td>Actions volatiles, produits dérivés</td>
+                        <td>CTO</td>
                     </tr>
                 </tbody>
             </table>
             
-            <h3>L'épargne de précaution</h3>
-            <p>Les experts recommandent de constituer une épargne de précaution représentant 3 à 6 mois de dépenses courantes. Cette somme doit être placée sur des supports sécurisés et immédiatement disponibles comme les livrets réglementés.</p>
-            
-            <div class="callout success">
-                <p>Selon une étude de l'INSEE, seulement 54% des Français disposent d'une épargne de précaution suffisante. Les livrets réglementés sont l'outil idéal pour combler ce retard et se prémunir contre les imprévus.</p>
+            <div class="highlight-box">
+                <div class="highlight-box-title">
+                    <i class="fas fa-calculator"></i> Règle d'or
+                </div>
+                <p>Diversifiez toujours vos investissements :</p>
+                <ul>
+                    <li>Entre différents types d'actifs (actions, obligations, etc.)</li>
+                    <li>Entre différentes zones géographiques</li>
+                    <li>Entre différents secteurs économiques</li>
+                    <li>Entre différents supports (PEA, CTO, assurance-vie)</li>
+                </ul>
+                <p>Cette diversification est la meilleure protection contre les risques de marché.</p>
             </div>
             
-            <h3>Plan d'action pour bien commencer</h3>
-            <ol>
-                <li>Évaluez votre besoin en épargne de précaution (3-6 mois de dépenses)</li>
-                <li>Vérifiez votre éligibilité au LEP (revenus modestes)</li>
-                <li>Ouvrez un Livret A dans votre banque principale</li>
-                <li>Mettez en place un virement automatique mensuel</li>
-                <li>Complétez avec un LDDS si besoin</li>
-                <li>Pour vos enfants, ouvrez un Livret Jeune dès 12 ans</li>
-            </ol>
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Investir en bourse offre de multiples possibilités pour faire croître votre patrimoine, mais nécessite une approche structurée. Les différents types d'investissement - actions, obligations, ETF, fonds - répondent à des objectifs et profils de risque différents.</p>
             
-            <h2 id="alternatives">Alternatives aux livrets réglementés</h2>
-            <p>Quand vos livrets réglementés sont pleins, d'autres solutions existent :</p>
+            <p>Le choix des supports (PEA, compte titres, assurance-vie) est tout aussi crucial que celui des investissements eux-mêmes, car il impacte directement votre rendement net via la fiscalité.</p>
             
             <div class="callout info">
-                <div class="callout-title">Solutions complémentaires</div>
+                <div class="callout-title">En résumé</div>
                 <ul>
-                    <li><strong>Compte à terme</strong> : Taux fixe pour une durée déterminée</li>
-                    <li><strong>Assurance-vie en fonds euros</strong> : Sécurisé avec rendement potentiellement supérieur</li>
-                    <li><strong>Plan d'épargne logement (PEL)</strong> : Pour un projet immobilier</li>
-                    <li><strong>Compte sur livret bancaire</strong> : Taux libre mais fiscalisé</li>
+                    <li>Pour la plupart des investisseurs : <strong>PEA + ETF diversifiés</strong></li>
+                    <li>Pour les gros montants : <strong>combinaison PEA + CTO</strong></li>
+                    <li>Pour la transmission : <strong>assurance-vie</strong></li>
+                    <li>Pour les PME : <strong>PEA-PME</strong></li>
                 </ul>
             </div>
             
-            <div class="investment-scenario">
-                <div class="scenario-title">
-                    <i class="fas fa-balance-scale"></i> Comparatif des alternatives
-                </div>
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Produit</th>
-                            <th>Taux moyen</th>
-                            <th>Fiscalité</th>
-                            <th>Liquidité</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Livret A</td>
-                            <td>3%</td>
-                            <td>Exonérée</td>
-                            <td>Immédiate</td>
-                        </tr>
-                        <tr>
-                            <td>Compte à terme</td>
-                            <td>2.5-3.5%</td>
-                            <td>30%</td>
-                            <td>À échéance</td>
-                        </tr>
-                        <tr>
-                            <td>Fonds euros AV</td>
-                            <td>2-3%</td>
-                            <td>Partielle après 8 ans</td>
-                            <td>Sous 2 mois</td>
-                        </tr>
-                        <tr>
-                            <td>Compte sur livret</td>
-                            <td>0.5-1.5%</td>
-                            <td>30%</td>
-                            <td>Immédiate</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <h2 id="conclusion">Conclusion : L'indispensable des placements sécurisés</h2>
-            <p>Les livrets d'épargne réglementés restent des placements incontournables dans toute stratégie financière. Leur combinaison unique de sécurité, de liquidité et d'avantages fiscaux en fait des produits idéaux pour l'épargne de précaution et les projets à court terme.</p>
-            
-            <p>En 2025, avec les incertitudes économiques, les Français continuent de plébisciter ces placements sécurisés. Près de 9 foyers sur 10 détiennent au moins un livret réglementé, preuve de leur utilité dans la gestion des finances personnelles.</p>
-            
-            <div class="callout success">
-                <div class="callout-title">Prochaine étape</div>
-                <p>1. Vérifiez que vous avez bien un Livret A<br>
-                2. Contrôlez votre éligibilité au LEP<br>
-                3. Évaluez votre épargne de précaution<br>
-                4. Mettez en place un virement automatique<br>
-                5. Consultez votre conseiller bancaire pour optimiser</p>
-            </div>
-            
-            <p>Comme le rappelle souvent le gouverneur de la Banque de France : "Les livrets réglementés constituent la première marche essentielle de l'épargne, avant de se tourner vers des placements plus risqués mais potentiellement plus rémunérateurs".</p>
+            <p>Quelle que soit votre stratégie, commencez par définir vos objectifs, votre horizon d'investissement et votre tolérance au risque. <strong>Un portefeuille bien construit et diversifié est la clé pour investir sereinement en bourse sur le long terme.</strong></p>
         </div>
     </div>
 

@@ -6,16 +6,17 @@
     <title>Panorama des Grandes Entreprises Cotées en Afrique</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Votre CSS existant reste inchangé */
         :root {
-            --primary-color: #1a5091; /* Bleu foncé */
-            --secondary-color: #0d7a3a; /* Vert foncé */
-            --accent-color: #2196F3; /* Bleu vif */
-            --light-color: #F1F2F6; /* Fond clair */
-            --dark-color: #0A0A1D; /* Texte foncé */
-            --neutral-color: #5a5a72; /* Texte neutre */
-            --success-color: #2E7D32; /* Vert */
-            --warning-color: #ED6C02; /* Orange */
-            --error-color: #D32F2F; /* Rouge */
+            --primary-color: #1a5091;
+            --secondary-color: #0d7a3a;
+            --accent-color: #2196F3;
+            --light-color: #F1F2F6;
+            --dark-color: #0A0A1D;
+            --neutral-color: #5a5a72;
+            --success-color: #2E7D32;
+            --warning-color: #ED6C02;
+            --error-color: #D32F2F;
             --border-radius: 8px;
         }
         
@@ -766,8 +767,22 @@
                     </div>
                 </div>
                 
+                <!-- Ajout de la BRVM ici -->
                 <div class="step-card">
                     <div class="step-number">3</div>
+                    <div class="step-title">Bourse Régionale des Valeurs Mobilières (BRVM)</div>
+                    <div class="step-details">
+                        <ul>
+                            <li>Bourse commune des 8 pays de l'UEMOA</li>
+                            <li>Capitalisation : $15 milliards</li>
+                            <li>Entreprises leaders : Sonatel, Coris Bank</li>
+                            <li>Secteurs dominants : Télécoms, Banque, Agroalimentaire</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
                     <div class="step-title">Nigerian Stock Exchange (NGX)</div>
                     <div class="step-details">
                         <ul>
@@ -794,7 +809,7 @@
                 <div class="card">
                     <div class="card-title"><i class="fas fa-tower-cell"></i> Télécommunications</div>
                     <div class="card-content">
-                        Avec la croissance du mobile money et d'internet, les télécoms représentent 25% du marché. Leaders : MTN Group, Vodacom, Maroc Telecom.
+                        Avec la croissance du mobile money et d'internet, les télécoms représentent 25% du marché. Leaders : MTN Group, Vodacom, Maroc Telecom, Sonatel (BRVM).
                     </div>
                 </div>
                 
@@ -808,7 +823,7 @@
                 <div class="card">
                     <div class="card-title"><i class="fas fa-shopping-cart"></i> Biens de consommation</div>
                     <div class="card-content">
-                        Secteur en croissance rapide (15% du marché) porté par l'urbanisation. Entreprises : Shoprite, Massmart, CFAO.
+                        Secteur en croissance rapide (15% du marché) porté par l'urbanisation. Entreprises : Shoprite, Massmart, CFAO, SICOR (BRVM).
                     </div>
                 </div>
             </div>
@@ -875,6 +890,33 @@
                 </div>
             </div>
             
+            <!-- Ajout d'une entreprise de la BRVM -->
+            <div class="company-card">
+                <div class="company-header">
+                    <div class="company-name">Sonatel</div>
+                    <div class="company-sector">Télécoms</div>
+                </div>
+                <p>Leader des télécommunications en Afrique de l'Ouest (BRVM), filiale d'Orange. Présent au Sénégal, Mali, Guinée, Guinée-Bissau et Sierra Leone.</p>
+                <div class="company-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Pays</div>
+                        <div class="detail-value">Sénégal (BRVM)</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Capitalisation</div>
+                        <div class="detail-value">$3.8 milliards</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Performance 2023</div>
+                        <div class="detail-value positive">+8.5%</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Dividende</div>
+                        <div class="detail-value">5.3%</div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Company Card 3 -->
             <div class="company-card">
                 <div class="company-header">
@@ -936,8 +978,14 @@
                     <tr>
                         <td class="feature-name">Afrique de l'Ouest (UEMOA)</td>
                         <td>$15 Mds</td>
-                        <td>Sonatel, Coris Bank</td>
+                        <td>Sonatel, Coris Bank (BRVM)</td>
                         <td>Télécoms, Banque, Agroalimentaire</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Afrique de l'Est</td>
+                        <td>$35 Mds</td>
+                        <td>Safaricom, Equity Bank</td>
+                        <td>Télécoms, Finance, Distribution</td>
                     </tr>
                 </tbody>
             </table>
@@ -973,6 +1021,7 @@
                             <li>Télécoms : 4.8%</li>
                             <li>Matériaux : 4.5%</li>
                             <li>Technologie : 1.2%</li>
+                            <li>Agroalimentaire (BRVM) : 4.7%</li>
                         </ul>
                     </div>
                 </div>
@@ -980,7 +1029,7 @@
             
             <div class="callout warning">
                 <div class="callout-title">Risques à considérer :</div>
-                <p>Les marchés africains présentent une volatilité plus élevée (+40% en moyenne) que les marchés développés, avec des risques politiques et de change significatifs. La liquidité peut également être limitée pour certaines valeurs.</p>
+                <p>Les marchés africains présentent une volatilité plus élevée (+40% en moyenne) que les marchés développés, avec des risques politiques et de change significatifs. La liquidité peut également être limitée pour certaines valeurs, notamment sur la BRVM.</p>
             </div>
             
             <h2 id="opportunities">Opportunités d'investissement</h2>
@@ -1032,6 +1081,7 @@
                     <li>Diversifier géographiquement et sectoriellement</li>
                     <li>Adopter un horizon d'investissement à long terme (5-10 ans)</li>
                     <li>Surveiller les risques politiques et de change</li>
+                    <li>Considérer la BRVM pour l'exposition à l'économie ouest-africaine</li>
                 </ul>
             </div>
             

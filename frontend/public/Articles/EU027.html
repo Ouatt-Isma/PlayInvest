@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Règle des 50/30/20 : Gestion Budgétaire Simplifiée</title>
+    <title>Meilleurs ETF Européens 2025 - Guide d'Investissement</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #2e7d32;
-            --secondary: #1565c0;
-            --accent: #ff8f00;
-            --dark: #37474f;
-            --light-bg: #f5f5f5;
-            --success: #4caf50;
-            --warning: #ff9800;
-            --error: #f44336;
-            --info: #2196f3;
+            /* Couleurs modernes */
+            --primary: #1a237e;
+            --secondary: #4a148c;
+            --accent: #2962ff;
+            --light: #f5f7ff;
+            --dark: #0d1020;
+            --success: #00c853;
+            --warning: #ffab00;
+            --info: #00b8d4;
+            --error: #ff1744;
+            --tech-gradient: linear-gradient(135deg, #2962ff 0%, #00b8d4 100%);
+            --green-gradient: linear-gradient(135deg, #00c853 0%, #64dd17 100%);
         }
         
         * {
@@ -27,7 +32,7 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
             color: #333;
             line-height: 1.6;
             padding-top: 40px;
@@ -38,17 +43,6 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-        
-        .reading-time {
-            display: inline-block;
-            background-color: rgba(33, 150, 243, 0.1);
-            color: var(--info);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 20px;
         }
         
         /* Table des matières */
@@ -64,7 +58,7 @@
             max-height: 85vh;
             overflow-y: auto;
             z-index: 1000;
-            border: 1px solid #eee;
+            border: 1px solid #e0e0e0;
             display: none;
         }
         
@@ -84,7 +78,7 @@
         .toc-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--dark);
+            color: var(--primary);
         }
         
         .close-toc {
@@ -124,8 +118,8 @@
         }
         
         #toc-list a:hover {
-            background-color: rgba(33, 150, 243, 0.1);
-            color: var(--info);
+            background-color: rgba(41, 98, 255, 0.1);
+            color: var(--accent);
         }
         
         #toc-list .h2-link {
@@ -142,7 +136,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(116deg, var(--primary) -36.05%, var(--accent) 100.05%);
+            background: var(--tech-gradient);
             color: white;
             border: none;
             width: 50px;
@@ -164,108 +158,41 @@
         .article-header {
             padding: 40px 0 20px;
             position: relative;
-            text-align: center;
         }
         
         .article-title {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             line-height: 1.3;
-            color: var(--dark);
+            color: var(--primary);
             font-weight: 700;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
         
         .article-subtitle {
             font-size: 1.2rem;
-            color: var(--primary);
+            color: #555;
+            margin-bottom: 30px;
+            font-weight: 400;
             max-width: 700px;
-            margin: 0 auto 20px;
-            font-weight: 500;
-        }
-        
-        .key-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .key-point {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .key-point:nth-child(1) {
-            border-top: 4px solid var(--primary);
-        }
-        
-        .key-point:nth-child(2) {
-            border-top: 4px solid var(--accent);
-        }
-        
-        .key-point:nth-child(3) {
-            border-top: 4px solid var(--secondary);
-        }
-        
-        .key-point:nth-child(4) {
-            border-top: 4px solid var(--success);
-        }
-        
-        .key-point:hover {
-            transform: translateY(-5px);
-        }
-        
-        .key-point i {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .key-point:nth-child(1) i {
-            color: var(--primary);
-        }
-        
-        .key-point:nth-child(2) i {
-            color: var(--accent);
-        }
-        
-        .key-point:nth-child(3) i {
-            color: var(--secondary);
-        }
-        
-        .key-point:nth-child(4) i {
-            color: var(--success);
-        }
-        
-        .key-point h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--dark);
         }
         
         /* Featured Image */
         .featured-image {
             width: 100%;
             height: 400px;
-            object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-size: 1.5rem;
-            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
         }
@@ -277,7 +204,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
         }
         
         /* Content Styling */
@@ -285,7 +214,7 @@
             background-color: #fff;
             border-radius: 12px;
             padding: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             margin-bottom: 40px;
         }
         
@@ -299,7 +228,7 @@
         .article-content h2 {
             font-size: 1.8rem;
             margin: 40px 0 20px;
-            color: var(--dark);
+            color: var(--primary);
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
             font-weight: 700;
@@ -309,7 +238,7 @@
         .article-content h3 {
             font-size: 1.4rem;
             margin: 30px 0 15px;
-            color: var(--primary);
+            color: var(--secondary);
             font-weight: 600;
             scroll-margin-top: 20px;
         }
@@ -327,7 +256,7 @@
         
         .article-content li::before {
             content: '•';
-            color: var(--primary);
+            color: var(--accent);
             font-weight: bold;
             display: inline-block;
             width: 1em;
@@ -342,7 +271,6 @@
             border-left: 4px solid;
             position: relative;
             overflow: hidden;
-            background-color: rgba(46, 125, 50, 0.08);
         }
         
         .callout::before {
@@ -356,346 +284,267 @@
         }
         
         .callout.success {
-            background-color: rgba(76, 175, 80, 0.1);
-            border-color: #4CAF50;
+            background-color: rgba(0, 200, 83, 0.1);
+            border-color: var(--success);
         }
         
         .callout.success::before {
-            background: #4CAF50;
+            background: var(--success);
         }
         
         .callout.warning {
-            background-color: rgba(255, 193, 7, 0.1);
-            border-color: #FFC107;
+            background-color: rgba(255, 171, 0, 0.1);
+            border-color: var(--warning);
         }
         
         .callout.warning::before {
-            background: #FFC107;
+            background: var(--warning);
         }
         
         .callout.info {
-            background-color: rgba(33, 150, 243, 0.1);
-            border-color: #2196F3;
+            background-color: rgba(0, 184, 212, 0.1);
+            border-color: var(--info);
         }
         
         .callout.info::before {
-            background: #2196F3;
+            background: var(--info);
         }
         
         .callout.error {
-            background-color: rgba(244, 67, 54, 0.1);
-            border-color: #F44336;
+            background-color: rgba(255, 23, 68, 0.1);
+            border-color: var(--error);
         }
         
         .callout.error::before {
-            background: #F44336;
-        }
-        
-        .callout.primary {
-            background-color: rgba(46, 125, 50, 0.1);
-            border-color: var(--primary);
-        }
-        
-        .callout.primary::before {
-            background: var(--primary);
+            background: var(--error);
         }
         
         .callout-title {
             font-weight: 600;
             margin-bottom: 10px;
             font-size: 1.1rem;
-            color: var(--dark);
+            color: var(--primary);
         }
         
-        /* Budget Table */
-        .budget-table {
+        /* Tables */
+        .comparison-table {
             width: 100%;
             border-collapse: collapse;
             margin: 30px 0;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
         }
         
-        .budget-table th {
-            background-color: var(--dark);
-            color: white;
-            font-weight: 600;
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 12px 15px;
             text-align: left;
-            padding: 15px;
-        }
-        
-        .budget-table td {
-            padding: 15px;
             border-bottom: 1px solid #eee;
         }
         
-        .budget-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .comparison-table th {
+            background-color: #f5f7ff;
+            font-weight: 600;
+            color: var(--primary);
         }
         
-        .budget-table tr:last-child td {
+        .comparison-table tr:last-child td {
             border-bottom: none;
         }
         
-        .budget-table .category-name {
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafbff;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: rgba(41, 98, 255, 0.03);
+        }
+        
+        .highlight-box {
+            background: rgba(41, 98, 255, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box-title {
             font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .budget-table .essential {
+            margin-bottom: 10px;
             color: var(--primary);
-            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
         
-        .budget-table .wants {
+        .highlight-box-title i {
+            margin-right: 10px;
             color: var(--accent);
-            font-weight: 500;
         }
         
-        .budget-table .savings {
+        .investment-scenario {
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .scenario-title {
+            font-weight: 600;
             color: var(--secondary);
-            font-weight: 500;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
         
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+        .scenario-title i {
+            margin-right: 10px;
         }
         
-        .benefit-card {
+        .performance-chart {
+            height: 200px;
+            background-color: #f5f7ff;
+            border-radius: 8px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 0 20px;
+        }
+        
+        .chart-bar {
+            flex: 1;
+            margin: 0 5px;
+            background: var(--tech-gradient);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            text-align: center;
+            color: white;
+            font-size: 0.8rem;
+            padding-top: 5px;
+            min-height: 30px;
+        }
+        
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5px;
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .icon-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .etf-card {
             background: white;
             border-radius: 12px;
-            padding: 25px;
+            padding: 20px;
+            margin: 20px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .benefit-card:nth-child(1) {
-            border-left: 5px solid var(--primary);
-        }
-        
-        .benefit-card:nth-child(2) {
-            border-left: 5px solid var(--accent);
-        }
-        
-        .benefit-card:nth-child(3) {
-            border-left: 5px solid var(--secondary);
-        }
-        
-        .benefit-card:hover {
+        .etf-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .etf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
-        .benefit-card:nth-child(1) .benefit-icon {
-            color: var(--primary);
-        }
-        
-        .benefit-card:nth-child(2) .benefit-icon {
-            color: var(--accent);
-        }
-        
-        .benefit-card:nth-child(3) .benefit-icon {
-            color: var(--secondary);
-        }
-        
-        .benefit-title {
+        .etf-name {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 15px;
+            color: var(--primary);
         }
         
-        .benefit-description {
-            margin-bottom: 15px;
-            color: #555;
-            font-size: 1.1rem;
-        }
-        
-        .risks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .risk-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-        
-        .risk-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .risk-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--error);
-            font-size: 1.2rem;
-        }
-        
-        .simulator-container {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            padding: 30px;
-            margin: 40px 0;
+        .etf-ticker {
+            background: var(--tech-gradient);
             color: white;
-        }
-        
-        .simulator-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .simulator-title {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        
-        .simulator-subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .simulator-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.25);
-        }
-        
-        .simulate-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 20px;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 20px auto;
-            width: 250px;
+            font-size: 0.9rem;
         }
         
-        .simulate-btn:hover {
-            background: #e07b00;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .simulator-result {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 25px;
-            margin-top: 30px;
-            display: none;
-        }
-        
-        .result-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .result-values {
+        .etf-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
         }
         
-        .result-category {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            padding: 20px;
+        .detail-item {
             text-align: center;
+            padding: 10px;
+            background: #f5f7ff;
+            border-radius: 8px;
         }
         
-        .result-category.essential {
-            border-top: 4px solid var(--primary);
-        }
-        
-        .result-category.wants {
-            border-top: 4px solid var(--accent);
-        }
-        
-        .result-category.savings {
-            border-top: 4px solid var(--secondary);
-        }
-        
-        .category-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .category-value {
-            font-size: 1.8rem;
+        .detail-value {
             font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 5px;
         }
         
-        .chart-container {
-            height: 300px;
-            margin-top: 30px;
-        }
-        
-        .disclaimer {
+        .detail-label {
             font-size: 0.9rem;
-            opacity: 0.7;
-            margin-top: 20px;
-            font-style: italic;
-            text-align: center;
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 30px 0;
             color: #666;
-            font-size: 0.9rem;
+        }
+        
+        .sector-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .sector-tag {
+            background: rgba(0, 184, 212, 0.1);
+            color: var(--info);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
         }
         
         /* Responsive */
@@ -704,8 +553,13 @@
                 font-size: 2rem;
             }
             
+            .article-subtitle {
+                font-size: 1.1rem;
+            }
+            
             .featured-image {
                 height: 250px;
+                font-size: 1.5rem;
             }
             
             .article-content {
@@ -721,6 +575,14 @@
                 right: 10px;
                 left: auto;
             }
+            
+            .icon-stats {
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                width: 50%;
+            }
         }
         
         @media (max-width: 480px) {
@@ -730,6 +592,7 @@
             
             .featured-image {
                 height: 200px;
+                font-size: 1.3rem;
             }
             
             .article-content {
@@ -742,41 +605,41 @@
                 left: 5%;
             }
             
-            .simulator-form {
-                grid-template-columns: 1fr;
+            .stat-item {
+                width: 100%;
             }
             
-            .result-values {
-                grid-template-columns: 1fr;
+            .etf-details {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
 </head>
 <body>
     <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle">
+    <button class="toc-toggle" id="toc-toggle" aria-label="Afficher la table des matières">
         <i class="fas fa-list"></i>
     </button>
     
     <!-- Table des matières -->
     <div id="toc-container">
         <div class="toc-header">
-            <div class="toc-title">Sommaire du guide</div>
-            <button class="close-toc" id="close-toc">
+            <div class="toc-title">Sommaire de l'article</div>
+            <button class="close-toc" id="close-toc" aria-label="Fermer la table des matières">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
-            <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            <li><a href="#understanding" class="h2-link">Comprendre la règle</a></li>
-            <li><a href="#essential" class="h3-link">Besoins essentiels (50%)</a></li>
-            <li><a href="#wants" class="h3-link">Envies (30%)</a></li>
-            <li><a href="#savings" class="h3-link">Épargne & dettes (20%)</a></li>
-            <li><a href="#benefits" class="h2-link">Avantages</a></li>
-            <li><a href="#limits" class="h2-link">Limites</a></li>
-            <li><a href="#application" class="h2-link">Comment l'appliquer</a></li>
-            <li><a href="#tools" class="h2-link">Outils pour vous aider</a></li>
-            <li><a href="#simulator" class="h2-link">Simulateur de budget</a></li>
+            <li><a href="#introduction" class="h2-link">Introduction aux ETF européens</a></li>
+            <li><a href="#avantages" class="h2-link">Avantages des ETF</a></li>
+            <li><a href="#criteria" class="h2-link">Critères de sélection</a></li>
+            <li><a href="#top-etfs" class="h2-link">Top ETF européens 2025</a></li>
+            <li><a href="#actions" class="h3-link">Actions européennes</a></li>
+            <li><a href="#technologie" class="h3-link">Technologie</a></li>
+            <li><a href="#energie" class="h3-link">Énergie renouvelable</a></li>
+            <li><a href="#obligations" class="h3-link">Obligations</a></li>
+            <li><a href="#strategies" class="h2-link">Stratégies d'investissement</a></li>
+            <li><a href="#risques" class="h2-link">Gestion des risques</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -784,560 +647,517 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Règle des 50/30/20 : une méthode simple pour gérer votre budget</h1>
-            <div class="article-subtitle">Équilibrez vos finances entre besoins, envies et épargne</div>
-            <div class="reading-time">
-                <i class="fas fa-clock"></i> 20 min de lecture
-            </div>
-            
-            <div class="key-points">
-                <div class="key-point">
-                    <i class="fas fa-home"></i>
-                    <h3>50% Essentiels</h3>
-                    <p>Logement, nourriture, transport et dépenses vitales</p>
-                </div>
-                <div class="key-point">
-                    <i class="fas fa-shopping-bag"></i>
-                    <h3>30% Envies</h3>
-                    <p>Loisirs, sorties, shopping et plaisirs</p>
-                </div>
-                <div class="key-point">
-                    <i class="fas fa-piggy-bank"></i>
-                    <h3>20% Épargne</h3>
-                    <p>Épargne, investissement et remboursement de dettes</p>
-                </div>
-                <div class="key-point">
-                    <i class="fas fa-balance-scale"></i>
-                    <h3>Équilibre financier</h3>
-                    <p>Présent et avenir harmonisés</p>
-                </div>
-            </div>
+            <h1 class="article-title">Sélection des Meilleurs ETF Européens en 2025</h1>
+            <div class="article-subtitle">Guide complet pour investir intelligemment dans les fonds négociés en bourse</div>
         </div>
         
         <!-- Featured Image -->
         <div class="featured-image">
-            La méthode 50/30/20 : Équilibrez votre budget simplement
+            Investissement stratégique : Les ETF européens en 2025
         </div>
         
         <!-- Article Content -->
         <div class="article-content">
-            <h2 id="introduction">Introduction</h2>
-            <p>La gestion d'un budget personnel peut sembler complexe, mais des méthodes simples existent pour la rendre accessible. La règle des 50/30/20 offre un cadre clair pour répartir vos revenus.</p>
-            
-            <p>Cette approche intuitive vous permet de prendre le contrôle de vos finances sans vous perdre dans des calculs complexes. En seulement trois catégories, elle crée un équilibre entre vos obligations, vos plaisirs et votre avenir financier.</p>
-            
-            <div class="callout primary">
-                <div class="callout-title">La règle des 50/30/20 : votre guide budgétaire</div>
-                <p>Cette méthode divise vos revenus après impôts en trois catégories distinctes : 50% pour les besoins essentiels, 30% pour les envies et 20% pour l'épargne et le remboursement des dettes. Son élégance réside dans sa simplicité, offrant une vision claire de l'équilibre entre vos obligations actuelles et vos objectifs futurs.</p>
-            </div>
-            
-            <h2 id="understanding">Comprendre la règle des 50/30/20</h2>
-            <p>Cette règle divise vos revenus après impôts en trois catégories distinctes, chacune avec un pourcentage spécifique :</p>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-home"></i></div>
-                    <div class="benefit-title">50% Besoins essentiels</div>
-                    <div class="benefit-description">Les dépenses indispensables à votre vie quotidienne et à votre sécurité : logement, nourriture, transport et soins de santé.</div>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-shopping-bag"></i></div>
-                    <div class="benefit-title">30% Envies</div>
-                    <div class="benefit-description">Les dépenses qui améliorent votre qualité de vie mais qui ne sont pas vitales : loisirs, voyages, restaurants et shopping.</div>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-piggy-bank"></i></div>
-                    <div class="benefit-title">20% Épargne et dettes</div>
-                    <div class="benefit-description">L'argent qui sécurise votre avenir financier : épargne, investissements et remboursement supplémentaire de dettes.</div>
-                </div>
-            </div>
+            <p>Les ETF (Exchange Traded Funds) représentent l'un des instruments d'investissement les plus populaires en Europe. En 2025, avec une capitalisation totale dépassant 2 000 milliards d'euros, ces fonds négociés en bourse offrent une combinaison unique de diversification, de liquidité et de faibles coûts. Ce guide présente les meilleurs ETF européens à considérer pour votre portefeuille en 2025.</p>
             
             <div class="callout info">
-                <div class="callout-title">Comment calculer votre revenu</div>
-                <p>Prenez votre revenu net (après impôts et prélèvements sociaux). Si vous avez des revenus variables, établissez une moyenne sur les 3-6 derniers mois. Les allocations et aides peuvent être incluses si elles sont régulières.</p>
+                <div class="callout-title">Les éléments clés :</div>
+                <ul>
+                    <li>Les ETF européens ont attiré 150 milliards d'euros de flux nets en 2024</li>
+                    <li>Frais moyens réduits à 0.15% contre 0.25% en 2020</li>
+                    <li>Croissance annuelle moyenne de 15% sur les 5 dernières années</li>
+                    <li>Plus de 2 500 ETF disponibles en Europe</li>
+                    <li>Les thématiques ESG et technologiques dominent les flux</li>
+                </ul>
             </div>
             
-            <h3 id="essential">Les besoins essentiels (50%)</h3>
-            <p>Cette catégorie regroupe toutes les dépenses indispensables à votre vie quotidienne. Si vous deviez réduire drastiquement votre budget, ce sont les dernières dépenses que vous couperiez :</p>
+            <h2 id="introduction">Introduction : L'essor des ETF en Europe</h2>
+            <p>Les ETF sont des fonds d'investissement cotés en bourse qui répliquent la performance d'un indice, d'un secteur ou d'une classe d'actifs. Leur popularité en Europe s'explique par plusieurs facteurs : frais de gestion réduits, transparence des portefeuilles, liquidité élevée et accès facilité à différentes classes d'actifs.</p>
             
-            <table class="budget-table">
-                <thead>
-                    <tr>
-                        <th>Type de dépense</th>
-                        <th>Exemples</th>
-                        <th>Pourcentage idéal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="category-name essential">Logement</td>
-                        <td>Loyer ou remboursement de prêt hypothécaire</td>
-                        <td class="essential">Part du 50%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name essential">Factures</td>
-                        <td>Électricité, gaz, eau, téléphone/internet</td>
-                        <td class="essential">Part du 50%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name essential">Épicerie</td>
-                        <td>Nourriture de base, produits d'hygiène essentiels</td>
-                        <td class="essential">Part du 50%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name essential">Transport</td>
-                        <td>Pour se rendre au travail ou effectuer des tâches indispensables</td>
-                        <td class="essential">Part du 50%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name essential">Santé</td>
-                        <td>Mutuelle et frais médicaux non couverts</td>
-                        <td class="essential">Part du 50%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name essential">Remboursements</td>
-                        <td>Le strict minimum pour éviter les pénalités</td>
-                        <td class="essential">Part du 50%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <p>En 2025, le marché européen des ETF continue sa croissance soutenue, porté par l'intérêt des investisseurs particuliers et institutionnels pour des solutions d'investissement efficaces et peu coûteuses. Les thématiques durables et technologiques dominent les nouveaux lancements.</p>
             
-            <div class="callout warning">
-                <div class="callout-title">Attention aux dépassements</div>
-                <p>Les dépenses de cette catégorie ne doivent pas dépasser 50% de vos revenus après impôts. Si c'est le cas, il est temps d'envisager des solutions comme un logement moins cher ou une réduction des coûts de transport.</p>
+            <div class="icon-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-value">2 100 Md€</div>
+                    <div class="stat-label">Capitalisation totale</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-value">0.15%</div>
+                    <div class="stat-label">Frais moyens</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-value">45%</div>
+                    <div class="stat-label">ETF ESG</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">8 M</div>
+                    <div class="stat-label">Investisseurs européens</div>
+                </div>
             </div>
             
-            <h3 id="wants">Les envies (30%)</h3>
-            <p>Cette partie du budget correspond à tout ce qui améliore votre qualité de vie mais qui n'est pas indispensable. Ce sont les dépenses que vous pourriez réduire ou supprimer en cas de difficultés financières :</p>
+            <div class="highlight-box">
+                <div class="highlight-box-title">
+                    <i class="fas fa-lightbulb"></i> À retenir
+                </div>
+                <p>Les ETF offrent une solution d'investissement diversifiée, liquide et économique, particulièrement adaptée aux investisseurs cherchant une exposition large aux marchés avec un suivi passif.</p>
+            </div>
             
-            <table class="budget-table">
-                <thead>
-                    <tr>
-                        <th>Type de dépense</th>
-                        <th>Exemples</th>
-                        <th>Pourcentage idéal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="category-name wants">Abonnements</td>
-                        <td>Streaming, salle de sport, magazines</td>
-                        <td class="wants">Part du 30%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name wants">Sorties</td>
-                        <td>Restaurants, cinéma, concerts</td>
-                        <td class="wants">Part du 30%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name wants">Voyages</td>
-                        <td>Vacances et escapades</td>
-                        <td class="wants">Part du 30%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name wants">Shopping</td>
-                        <td>Vêtements non essentiels, gadgets</td>
-                        <td class="wants">Part du 30%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name wants">Hobbies</td>
-                        <td>Matériel de sport, instruments de musique</td>
-                        <td class="wants">Part du 30%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name wants">Cadeaux</td>
-                        <td>Pour les proches et les amis</td>
-                        <td class="wants">Part du 30%</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2 id="avantages">Avantages des ETF européens</h2>
+            
+            <h3>Pourquoi choisir des ETF ?</h3>
+            <p>Les ETF présentent plusieurs avantages décisifs par rapport aux fonds traditionnels :</p>
+            
+            <ul>
+                <li><strong>Diversification instantanée</strong> : Accès à des centaines de titres en un seul achat</li>
+                <li><strong>Faibles coûts</strong> : Frais de gestion (TER) inférieurs à 0.5% en moyenne</li>
+                <li><strong>Transparence</strong> : Composition du portefeuille connue quotidiennement</li>
+                <li><strong>Liquidité</strong> : Négociation en bourse tout au long de la journée</li>
+                <li><strong>Fiscalité avantageuse</strong> : Traitement fiscal favorable dans de nombreux pays européens</li>
+            </ul>
             
             <div class="callout info">
-                <div class="callout-title">Flexibilité des envies</div>
-                <p>C'est dans cette catégorie que vous avez le plus de flexibilité. Si vous souhaitez épargner davantage, c'est souvent ici que vous pourrez trouver des économies. Vous pouvez également ajuster ce pourcentage selon vos priorités.</p>
+                <div class="callout-title">Croissance des encours ETF en Europe</div>
+                <div class="performance-chart">
+                    <div class="chart-bar" style="height: 30%">2019</div>
+                    <div class="chart-bar" style="height: 45%">2020</div>
+                    <div class="chart-bar" style="height: 60%">2021</div>
+                    <div class="chart-bar" style="height: 80%">2022</div>
+                    <div class="chart-bar" style="height: 100%">2023</div>
+                    <div class="chart-bar" style="height: 120%">2024</div>
+                </div>
+                <div class="chart-labels">
+                    <span>800 Md€</span>
+                    <span>1 200 Md€</span>
+                    <span>1 500 Md€</span>
+                    <span>1 700 Md€</span>
+                    <span>1 900 Md€</span>
+                    <span>2 100 Md€</span>
+                </div>
             </div>
             
-            <h3 id="savings">Épargne et dettes (20%)</h3>
-            <p>Cette partie cruciale du budget est souvent négligée. Elle représente votre sécurité financière future :</p>
-            
-            <table class="budget-table">
+            <h3>Comparaison ETF vs Fonds traditionnels</h3>
+            <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Type d'épargne</th>
-                        <th>Exemples</th>
-                        <th>Pourcentage idéal</th>
+                        <th>Caractéristique</th>
+                        <th>ETF</th>
+                        <th>Fonds traditionnels</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="category-name savings">Épargne d'urgence</td>
-                        <td>Un fonds de 3 à 6 mois de dépenses</td>
-                        <td class="savings">Part du 20%</td>
+                        <td>Frais de gestion</td>
+                        <td>0.05-0.30%</td>
+                        <td>0.50-2.00%</td>
                     </tr>
                     <tr>
-                        <td class="category-name savings">Placements retraite</td>
-                        <td>Pour préparer votre avenir</td>
-                        <td class="savings">Part du 20%</td>
+                        <td>Transparence</td>
+                        <td>Composition quotidienne</td>
+                        <td>Composition mensuelle/trimestrielle</td>
                     </tr>
                     <tr>
-                        <td class="category-name savings">Dettes</td>
-                        <td>Remboursement supplémentaire au-delà du minimum</td>
-                        <td class="savings">Part du 20%</td>
+                        <td>Liquidité</td>
+                        <td>Transaction en continu</td>
+                        <td>Valeur liquidative quotidienne</td>
                     </tr>
                     <tr>
-                        <td class="category-name savings">Investissements</td>
-                        <td>Pour faire fructifier votre capital</td>
-                        <td class="savings">Part du 20%</td>
+                        <td>Frais d'entrée</td>
+                        <td>Frais de courtage uniquement</td>
+                        <td>Droits d'entrée 1-5%</td>
                     </tr>
                     <tr>
-                        <td class="category-name savings">Formations</td>
-                        <td>Développement de compétences professionnelles</td>
-                        <td class="savings">Part du 20%</td>
-                    </tr>
-                    <tr>
-                        <td class="category-name savings">Projets</td>
-                        <td>Achat immobilier, création d'entreprise</td>
-                        <td class="savings">Part du 20%</td>
+                        <td>Accès</td>
+                        <td>Via compte-titres ou PEA</td>
+                        <td>Via compte-titres ou assurance-vie</td>
                     </tr>
                 </tbody>
             </table>
             
             <div class="callout success">
-                <div class="callout-title">Conseil pratique</div>
-                <p>Commencez par constituer votre épargne d'urgence avant d'investir. Une sécurité financière de base est indispensable avant de prendre des risques. Fixez-vous comme objectif d'atteindre 3 mois de dépenses essentielles.</p>
+                <p>Selon l'European Fund and Asset Management Association (EFAMA), les ETF représentent désormais plus de 15% du marché européen des fonds d'investissement, avec une croissance deux fois plus rapide que les fonds traditionnels.</p>
             </div>
             
-            <h2 id="benefits">Avantages de la méthode</h2>
-            <p>La règle des 50/30/20 présente plusieurs bénéfices majeurs pour la gestion de vos finances personnelles :</p>
+            <h2 id="criteria">Critères de sélection des meilleurs ETF</h2>
             
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-bolt"></i></div>
-                    <div class="benefit-title">Simplicité</div>
-                    <div class="benefit-description">Contrairement à de nombreuses méthodes budgétaires complexes, celle-ci se retient facilement et s'applique sans outils sophistiqués. Trois catégories seulement à suivre.</div>
+            <p>Pour choisir les meilleurs ETF européens en 2025, plusieurs critères essentiels doivent être considérés :</p>
+            
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-filter"></i> Critères clés d'évaluation
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-sliders-h"></i></div>
-                    <div class="benefit-title">Flexibilité</div>
-                    <div class="benefit-description">La méthode ne dicte pas comment dépenser à l'intérieur de chaque catégorie. Vous conservez votre liberté tout en gardant un cadre global.</div>
+                <ol>
+                    <li><strong>Taille du fonds</strong> : Préférer > 100M€ d'encours pour une bonne liquidité</li>
+                    <li><strong>Frais (TER)</strong> : Rechercher les frais les plus bas pour la même exposition</li>
+                    <li><strong>Tracking Error</strong> : Écart de performance avec l'indice de référence</li>
+                    <li><strong>Fournisseur</strong> : Privilégier les émetteurs établis (iShares, Amundi, Vanguard)</li>
+                    <li><strong>Liquidité</strong> : Volume de transactions quotidien élevé</li>
+                    <li><strong>Réplication</strong> : Physique (détention des titres) ou synthétique (dérivés)</li>
+                </ol>
+            </div>
+            
+            <h3>L'importance des frais sur le long terme</h3>
+            <p>Les frais de gestion peuvent sembler négligeables à court terme, mais leur impact est considérable sur le long terme :</p>
+            
+            <div class="performance-chart">
+                <div class="chart-bar" style="height: 100%; background: var(--green-gradient);">0.10%</div>
+                <div class="chart-bar" style="height: 95%; background: var(--tech-gradient);">0.20%</div>
+                <div class="chart-bar" style="height: 85%; background: var(--accent);">0.50%</div>
+                <div class="chart-bar" style="height: 75%; background: var(--info);">1.00%</div>
+            </div>
+            <div class="chart-labels">
+                <span>Performance après 20 ans sur 10 000€ investis</span>
+            </div>
+            
+            <p>Un investissement de 10 000€ avec un rendement annuel de 6% :</p>
+            <ul>
+                <li>Avec 0.10% de frais : 31 400€ après 20 ans</li>
+                <li>Avec 0.50% de frais : 28 200€ après 20 ans (soit 3 200€ de moins)</li>
+            </ul>
+            
+            <h2 id="top-etfs">Top des ETF européens pour 2025</h2>
+            
+            <h3 id="actions">Actions européennes large marché</h3>
+            
+            <div class="etf-card">
+                <div class="etf-header">
+                    <div class="etf-name">iShares Core MSCI Europe UCITS ETF</div>
+                    <div class="etf-ticker">IE00B4L5Y983</div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-balance-scale"></i></div>
-                    <div class="benefit-title">Équilibre</div>
-                    <div class="benefit-description">Cette règle crée un équilibre sain entre le présent (besoins et envies) et le futur (épargne et dettes).</div>
+                <p>L'ETF référence pour l'exposition au marché actions européen large, couvrant plus de 400 grandes et moyennes capitalisations dans 15 pays.</p>
+                <div class="etf-details">
+                    <div class="detail-item">
+                        <div class="detail-value">0.12%</div>
+                        <div class="detail-label">Frais annuels</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">12.8 Md€</div>
+                        <div class="detail-label">Encours</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">+8.2%</div>
+                        <div class="detail-label">Perf. 2024</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">AAA</div>
+                        <div class="detail-label">Rating ESG</div>
+                    </div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-lightbulb"></i></div>
-                    <div class="benefit-title">Prise de conscience</div>
-                    <div class="benefit-description">En classant vos dépenses, vous prenez conscience de vos habitudes financières et pouvez identifier les postes à ajuster.</div>
+                <div class="sector-tags">
+                    <div class="sector-tag">Finance</div>
+                    <div class="sector-tag">Santé</div>
+                    <div class="sector-tag">Industrie</div>
+                    <div class="sector-tag">Technologie</div>
+                    <div class="sector-tag">Consommation</div>
                 </div>
             </div>
             
-            <h2 id="limits">Limites de la règle</h2>
-            <p>Comme toute méthode, la règle des 50/30/20 a ses limites :</p>
-            
-            <div class="risks-grid">
-                <div class="risk-card">
-                    <div class="risk-title">Revenus modestes</div>
-                    <p>Pour les revenus modestes, respecter les 50% pour les besoins essentiels peut être difficile, surtout dans les zones où le coût de la vie est élevé.</p>
+            <div class="etf-card">
+                <div class="etf-header">
+                    <div class="etf-name">Amundi MSCI Europe ESG Leaders UCITS ETF</div>
+                    <div class="etf-ticker">LU1681043599</div>
                 </div>
-                
-                <div class="risk-card">
-                    <div class="risk-title">Situations exceptionnelles</div>
-                    <p>Période de chômage, problèmes de santé, ou autres situations imprévues peuvent rendre l'application stricte de la règle difficile.</p>
+                <p>Version ESG du précédent, sélectionnant les entreprises européennes leaders en matière de critères environnementaux, sociaux et de gouvernance.</p>
+                <div class="etf-details">
+                    <div class="detail-item">
+                        <div class="detail-value">0.18%</div>
+                        <div class="detail-label">Frais annuels</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">4.2 Md€</div>
+                        <div class="detail-label">Encours</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">+9.1%</div>
+                        <div class="detail-label">Perf. 2024</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">AA</div>
+                        <div class="detail-label">Rating ESG</div>
+                    </div>
                 </div>
-                
-                <div class="risk-card">
-                    <div class="risk-title">Variations géographiques</div>
-                    <p>Le coût de la vie varie considérablement selon les régions, ce qui peut déséquilibrer la répartition idéale.</p>
-                </div>
-                
-                <div class="risk-card">
-                    <div class="risk-title">Stades de vie différents</div>
-                    <p>Les besoins d'un étudiant, d'un jeune actif et d'un retraité diffèrent, nécessitant des ajustements à la règle.</p>
+                <div class="sector-tags">
+                    <div class="sector-tag">ESG</div>
+                    <div class="sector-tag">Durabilité</div>
+                    <div class="sector-tag">Gouvernance</div>
                 </div>
             </div>
             
-            <div class="callout primary">
-                <div class="callout-title">Adaptez la règle à votre situation</div>
-                <p>Dans ces cas, la règle sert de guide plutôt que de prescription absolue. L'important est de conserver l'esprit de la méthode : équilibre entre obligations, plaisirs et avenir financier. Vous pouvez par exemple ajuster les pourcentages à 55/25/20 ou 60/20/20 selon vos besoins.</p>
+            <h3 id="technologie">Technologie et innovation</h3>
+            
+            <div class="etf-card">
+                <div class="etf-header">
+                    <div class="etf-name">Lyxor Nasdaq-100 UCITS ETF</div>
+                    <div class="etf-ticker">FR0011871128</div>
+                </div>
+                <p>Exposition aux 100 plus grandes sociétés non financières cotées au Nasdaq, avec une forte concentration technologique.</p>
+                <div class="etf-details">
+                    <div class="detail-item">
+                        <div class="detail-value">0.20%</div>
+                        <div class="detail-label">Frais annuels</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">5.6 Md€</div>
+                        <div class="detail-label">Encours</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">+22.4%</div>
+                        <div class="detail-label">Perf. 2024</div>
+                    </div>
+                </div>
+                <div class="sector-tags">
+                    <div class="sector-tag">Technologie</div>
+                    <div class="sector-tag">IA</div>
+                    <div class="sector-tag">Cloud</div>
+                    <div class="sector-tag">Semi-conducteurs</div>
+                </div>
             </div>
             
-            <h2 id="application">Comment appliquer la règle</h2>
-            <p>Mettre en place la règle des 50/30/20 demande quelques étapes simples :</p>
+            <div class="etf-card">
+                <div class="etf-header">
+                    <div class="etf-name">Xtrackers Artificial Intelligence UCITS ETF</div>
+                    <div class="etf-ticker">IE00BKJCNQ03</div>
+                </div>
+                <p>ETF thématique concentré sur les entreprises leaders dans le domaine de l'intelligence artificielle.</p>
+                <div class="etf-details">
+                    <div class="detail-item">
+                        <div class="detail-value">0.35%</div>
+                        <div class="detail-label">Frais annuels</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">850 M€</div>
+                        <div class="detail-label">Encours</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">+35.7%</div>
+                        <div class="detail-label">Perf. 2024</div>
+                    </div>
+                </div>
+                <div class="sector-tags">
+                    <div class="sector-tag">IA</div>
+                    <div class="sector-tag">Robotique</div>
+                    <div class="sector-tag">Big Data</div>
+                </div>
+            </div>
             
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-calculator"></i></div>
-                    <div class="benefit-title">Étape 1 : Calculez votre revenu</div>
-                    <div class="benefit-description">Prenez votre revenu net (après impôts et prélèvements sociaux). Si vous avez des revenus variables, établissez une moyenne sur les 3-6 derniers mois.</div>
+            <h3 id="energie">Énergie renouvelable et transition écologique</h3>
+            
+            <div class="etf-card">
+                <div class="etf-header">
+                    <div class="etf-name">iShares Global Clean Energy UCITS ETF</div>
+                    <div class="etf-ticker">IE00B1XNHC34</div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <div class="benefit-title">Étape 2 : Suivez vos dépenses</div>
-                    <div class="benefit-description">Notez toutes vos dépenses pendant un mois complet. Utilisez un cahier, une application ou un simple tableur.</div>
+                <p>Exposition mondiale aux entreprises productrices d'énergie propre et aux technologies renouvelables.</p>
+                <div class="etf-details">
+                    <div class="detail-item">
+                        <div class="detail-value">0.65%</div>
+                        <div class="detail-label">Frais annuels</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">6.3 Md€</div>
+                        <div class="detail-label">Encours</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">+18.9%</div>
+                        <div class="detail-label">Perf. 2024</div>
+                    </div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-tasks"></i></div>
-                    <div class="benefit-title">Étape 3 : Classez chaque dépense</div>
-                    <div class="benefit-description">Pour chaque dépense, déterminez si elle relève des besoins essentiels (50%), des envies (30%) ou de l'épargne/dettes (20%).</div>
+                <div class="sector-tags">
+                    <div class="sector-tag">Solaire</div>
+                    <div class="sector-tag">Éolien</div>
+                    <div class="sector-tag">Hydrogène</div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-sliders-h"></i></div>
-                    <div class="benefit-title">Étape 4 : Ajustez vos dépenses</div>
-                    <div class="benefit-description">Comparez vos dépenses réelles aux pourcentages cibles. Identifiez les catégories où vous dépassez le budget et ajustez vos habitudes.</div>
+            </div>
+            
+            <h3 id="obligations">Obligations et stabilité</h3>
+            
+            <div class="etf-card">
+                <div class="etf-header">
+                    <div class="etf-name">Amundi ETF Euro Government Bond</div>
+                    <div class="etf-ticker">LU0292107645</div>
+                </div>
+                <p>ETF obligataire offrant une exposition aux obligations d'État de la zone euro avec une durée moyenne de 7 à 10 ans.</p>
+                <div class="etf-details">
+                    <div class="detail-item">
+                        <div class="detail-value">0.09%</div>
+                        <div class="detail-label">Frais annuels</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">3.8 Md€</div>
+                        <div class="detail-label">Encours</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">+3.2%</div>
+                        <div class="detail-label">Perf. 2024</div>
+                    </div>
+                </div>
+                <div class="sector-tags">
+                    <div class="sector-tag">Obligations</div>
+                    <div class="sector-tag">Stabilité</div>
+                    <div class="sector-tag">Rendement</div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <p>Attention : Les performances passées ne préjugent pas des performances futures. Les ETF thématiques et sectoriels présentent généralement une volatilité plus élevée que les ETF larges marchés.</p>
+            </div>
+            
+            <h2 id="strategies">Stratégies d'investissement avec ETF</h2>
+            
+            <p>Plusieurs approches peuvent être adoptées pour intégrer les ETF dans votre portefeuille :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Stratégie</th>
+                        <th>Description</th>
+                        <th>ETF recommandés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Core-Satellite</td>
+                        <td>Base large marché + satellites thématiques</td>
+                        <td>MSCI Europe + Techno/Clean Energy</td>
+                    </tr>
+                    <tr>
+                        <td>Asset Allocation</td>
+                        <td>Répartition actions/obligations selon profil</td>
+                        <td>MSCI Europe + Euro Gov Bond</td>
+                    </tr>
+                    <tr>
+                        <td>DCA (Moyennage)</td>
+                        <td>Investissement régulier mensuel/trimestriel</td>
+                        <td>Tous ETF à faible volatilité</td>
+                    </tr>
+                    <tr>
+                        <td>Thématique long terme</td>
+                        <td>Concentration sur mégatendances structurelles</td>
+                        <td>IA, Énergie propre, Biotech</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Exemple de portefeuille équilibré</h3>
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-chart-pie"></i> Allocation pour profil modéré
+                </div>
+                <div class="performance-chart">
+                    <div class="chart-bar" style="height: 70%; background: var(--primary);">Actions Europe</div>
+                    <div class="chart-bar" style="height: 50%; background: var(--accent);">Technologie</div>
+                    <div class="chart-bar" style="height: 40%; background: var(--success);">Énergie verte</div>
+                    <div class="chart-bar" style="height: 30%; background: var(--info);">Obligations</div>
+                </div>
+                <div class="chart-labels">
+                    <span>50% MSCI Europe</span>
+                    <span>20% Nasdaq-100</span>
+                    <span>15% Clean Energy</span>
+                    <span>15% Euro Bonds</span>
                 </div>
             </div>
             
             <div class="callout info">
-                <div class="callout-title">Conseil de pro</div>
-                <p>Ne cherchez pas la perfection immédiate. Commencez par vous rapprocher des pourcentages cibles, puis affinez mois après mois. Fixez-vous des objectifs progressifs pour ne pas vous décourager.</p>
+                <p>Pour les investisseurs français, le PEA (Plan d'Épargne en Actions) permet d'investir dans les ETF actions européennes avec une fiscalité avantageuse après 5 ans (exonération d'impôt sur les plus-values).</p>
             </div>
             
-            <h2 id="tools">Outils pour vous aider</h2>
-            <p>Plusieurs outils peuvent faciliter l'application de la règle des 50/30/20 :</p>
+            <h2 id="risques">Gestion des risques avec les ETF</h2>
+            <p>Malgré leurs avantages, les ETF présentent certains risques à maîtriser :</p>
             
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <div class="benefit-title">Applications mobiles</div>
-                    <div class="benefit-description">Suivez vos dépenses n'importe où avec des applications de gestion budgétaire comme Bankin', Linxo ou YNAB.</div>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-file-excel"></i></div>
-                    <div class="benefit-title">Tableurs</div>
-                    <div class="benefit-description">Créez votre propre budget avec des modèles personnalisables sur Excel ou Google Sheets.</div>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-university"></i></div>
-                    <div class="benefit-title">Outils bancaires</div>
-                    <div class="benefit-description">Utilisez les fonctionnalités de catégorisation de votre banque pour suivre vos dépenses automatiquement.</div>
-                </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <div class="benefit-title">Calendriers financiers</div>
-                    <div class="benefit-description">Planifiez vos dépenses récurrentes à l'avance pour éviter les mauvaises surprises.</div>
-                </div>
+            <div class="callout warning">
+                <div class="callout-title">Principaux risques des ETF</div>
+                <ul>
+                    <li><strong>Risque de marché</strong> : Sensibilité aux fluctuations boursières</li>
+                    <li><strong>Risque de change</strong> : Pour les ETF libellés en devises étrangères</li>
+                    <li><strong>Risque de liquidité</strong> : Pour les ETF peu échangés</li>
+                    <li><strong>Risque de réplication</strong> : Écart entre performance ETF et indice</li>
+                    <li><strong>Risque de concentration</strong> : Pour les ETF sectoriels ou thématiques</li>
+                </ul>
             </div>
             
-            <h2 id="simulator">Simulateur de budget</h2>
-            <p>Calculez instantanément la répartition idéale de votre budget selon la règle des 50/30/20 :</p>
+            <h3>Techniques de réduction des risques</h3>
+            <ol>
+                <li><strong>Diversification</strong> : Combiner ETF de différentes classes d'actifs et zones géographiques</li>
+                <li><strong>Horizon long terme</strong> : Investir pour minimum 5-7 ans</li>
+                <li><strong>DCA (Dollar Cost Averaging)</strong> : Investir régulièrement plutôt que ponctuellement</li>
+                <li><strong>Rebalancing</strong> : Rééquilibrer le portefeuille 1-2 fois par an</li>
+                <li><strong>Allocation adaptée</strong> : Proportion actions/obligations selon tolérance au risque</li>
+            </ol>
             
-            <div class="simulator-container">
-                <div class="simulator-header">
-                    <div class="simulator-title">Simulateur de budget 50/30/20</div>
-                    <div class="simulator-subtitle">Visualisez la répartition idéale de vos revenus</div>
-                </div>
-                
-                <div class="simulator-form">
-                    <div class="form-group">
-                        <label for="monthly-income">Revenu mensuel net (FCFA)</label>
-                        <input type="number" id="monthly-income" value="500000" min="100000" step="50000">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="currency">Devise</label>
-                        <select id="currency">
-                            <option value="FCFA" selected>FCFA</option>
-                            <option value="EUR">Euros (€)</option>
-                            <option value="USD">Dollars ($)</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <button class="simulate-btn" id="simulate-btn">
-                    <i class="fas fa-calculator"></i> Calculer mon budget
-                </button>
-                
-                <div class="simulator-result" id="simulator-result">
-                    <div class="result-title">Répartition idéale de votre budget</div>
-                    
-                    <div class="result-values">
-                        <div class="result-category essential">
-                            <div class="category-title">Besoins essentiels</div>
-                            <div class="category-value" id="essential-value">250 000 FCFA</div>
-                            <div>50% de votre revenu</div>
-                        </div>
-                        
-                        <div class="result-category wants">
-                            <div class="category-title">Envies</div>
-                            <div class="category-value" id="wants-value">150 000 FCFA</div>
-                            <div>30% de votre revenu</div>
-                        </div>
-                        
-                        <div class="result-category savings">
-                            <div class="category-title">Épargne & dettes</div>
-                            <div class="category-value" id="savings-value">100 000 FCFA</div>
-                            <div>20% de votre revenu</div>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <canvas id="budget-chart"></canvas>
-                    </div>
-                    
-                    <div class="disclaimer">
-                        Cette simulation est basée sur la règle des 50/30/20. Vous pouvez ajuster ces pourcentages selon votre situation personnelle.
-                    </div>
-                </div>
+            <h2 id="conclusion">Conclusion : Construire un portefeuille performant</h2>
+            <p>Les ETF européens offrent en 2025 des opportunités d'investissement diversifiées et efficaces. En combinant ETF larges marchés pour la stabilité et ETF thématiques pour la croissance, les investisseurs peuvent construire des portefeuilles adaptés à leurs objectifs et tolérance au risque.</p>
+            
+            <p>Les tendances structurelles comme la transition énergétique, l'intelligence artificielle et l'innovation technologique continueront de façonner le paysage des ETF dans les années à venir. Les critères ESG deviennent par ailleurs incontournables dans le processus de sélection.</p>
+            
+            <div class="callout success">
+                <div class="callout-title">Plan d'action pour bien démarrer</div>
+                <p>1. Définissez vos objectifs d'investissement et horizon temporel<br>
+                2. Évaluez votre tolérance au risque<br>
+                3. Choisissez une plateforme de courtage adaptée<br>
+                4. Commencez avec un ETF large marché (MSCI Europe)<br>
+                5. Diversifiez progressivement avec des ETF thématiques<br>
+                6. Rééquilibrez votre portefeuille annuellement</p>
             </div>
             
-            <h2 id="conclusion">Conclusion</h2>
-            <p>La règle des 50/30/20 n'est pas une solution magique mais un guide flexible pour équilibrer vos finances. Son principal atout est de simplifier la gestion budgétaire tout en couvrant l'essentiel : couvrir vos besoins, vous faire plaisir et préparer votre avenir.</p>
-            
-            <p>L'important est de commencer, même imparfaitement. Au fil du temps, vous affinerez votre budget et trouverez l'équilibre qui correspond à votre situation et à vos objectifs personnels.</p>
-            
-            <div class="callout primary">
-                <div class="callout-title">Un budget : une libération, pas une prison</div>
-                <p>Rappelez-vous : Un budget n'est pas une prison, mais une libération. Il vous donne la liberté de dépenser sans culpabilité dans les limites que vous vous êtes fixées, tout en sécurisant votre avenir financier. La règle des 50/30/20 offre ce cadre structurant sans rigidité excessive.</p>
-            </div>
-        </div>
-        
-        <div class="footer">
-            © 2023 - Guide de gestion budgétaire - Tous droits réservés<br>
-            <small>Les conseils fournis sont à titre informatif uniquement</small>
+            <p>Comme le souligne Christine Lagarde, présidente de la BCE : "Les ETF jouent un rôle crucial dans la diversification des portefeuilles et l'accès aux marchés pour les investisseurs particuliers, contribuant ainsi à une finance plus inclusive et efficace."</p>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Gestion de la table des matières
             const tocToggle = document.getElementById('toc-toggle');
             const tocContainer = document.getElementById('toc-container');
             const closeToc = document.getElementById('close-toc');
             
+            // Toggle TOC visibility
             tocToggle.addEventListener('click', function() {
                 tocContainer.classList.toggle('visible');
             });
             
+            // Close TOC
             closeToc.addEventListener('click', function() {
                 tocContainer.classList.remove('visible');
             });
             
-            // Navigation fluide
-            document.querySelectorAll('#toc-list a').forEach(anchor => {
+            // Close TOC when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!tocContainer.contains(event.target) && 
+                    !tocToggle.contains(event.target) && 
+                    tocContainer.classList.contains('visible')) {
+                    tocContainer.classList.remove('visible');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
+                    
                     const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
                         window.scrollTo({
-                            top: targetElement.offsetTop - 80,
+                            top: targetElement.offsetTop - 20,
                             behavior: 'smooth'
                         });
                         
-                        // Fermer la table des matières sur mobile
-                        if (window.innerWidth < 768) {
-                            tocContainer.classList.remove('visible');
-                        }
+                        // Close TOC after clicking on a link
+                        tocContainer.classList.remove('visible');
                     }
                 });
             });
-            
-            // Simulateur de budget
-            const simulateBtn = document.getElementById('simulate-btn');
-            const simulatorResult = document.getElementById('simulator-result');
-            const essentialValue = document.getElementById('essential-value');
-            const wantsValue = document.getElementById('wants-value');
-            const savingsValue = document.getElementById('savings-value');
-            let budgetChart = null;
-            
-            // Afficher le résultat par défaut
-            simulatorResult.style.display = 'block';
-            
-            simulateBtn.addEventListener('click', function() {
-                const monthlyIncome = parseFloat(document.getElementById('monthly-income').value);
-                const currency = document.getElementById('currency').value;
-                
-                // Calcul des valeurs
-                const essentialAmount = monthlyIncome * 0.5;
-                const wantsAmount = monthlyIncome * 0.3;
-                const savingsAmount = monthlyIncome * 0.2;
-                
-                // Formatage des montants
-                const formatOptions = { 
-                    minimumFractionDigits: 0, 
-                    maximumFractionDigits: 0 
-                };
-                
-                // Mise à jour des valeurs affichées
-                essentialValue.textContent = essentialAmount.toLocaleString('fr-FR', formatOptions) + ' ' + currency;
-                wantsValue.textContent = wantsAmount.toLocaleString('fr-FR', formatOptions) + ' ' + currency;
-                savingsValue.textContent = savingsAmount.toLocaleString('fr-FR', formatOptions) + ' ' + currency;
-                
-                // Mise à jour du graphique
-                updateChart(essentialAmount, wantsAmount, savingsAmount);
-                
-                // Afficher la section de résultats si cachée
-                simulatorResult.style.display = 'block';
-            });
-            
-            function updateChart(essential, wants, savings) {
-                const ctx = document.getElementById('budget-chart').getContext('2d');
-                
-                // Détruire le graphique existant s'il y en a un
-                if (budgetChart) {
-                    budgetChart.destroy();
-                }
-                
-                budgetChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Besoins essentiels (50%)', 'Envies (30%)', 'Épargne & dettes (20%)'],
-                        datasets: [{
-                            data: [essential, wants, savings],
-                            backgroundColor: [
-                                '#2e7d32',
-                                '#ff8f00',
-                                '#1565c0'
-                            ],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    color: 'white',
-                                    font: {
-                                        size: 14
-                                    },
-                                    padding: 20
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        const label = context.label || '';
-                                        const value = context.raw || 0;
-                                        const percentage = Math.round(context.parsed * 100 / (essential + wants + savings));
-                                        return `${label}: ${value.toLocaleString('fr-FR')} ${document.getElementById('currency').value} (${percentage}%)`;
-                                    }
-                                }
-                            }
-                        },
-                        cutout: '60%'
-                    }
-                });
-            }
-            
-            // Initialiser le graphique avec les valeurs par défaut
-            updateChart(250000, 150000, 100000);
         });
     </script>
 </body>

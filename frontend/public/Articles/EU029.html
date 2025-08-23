@@ -3,25 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meilleurs ETF Européens 2025 - Guide d'Investissement</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Apprendre à Investir en Bourse : Formation Complète 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Couleurs modernes */
-            --primary: #1a237e;
-            --secondary: #4a148c;
-            --accent: #2962ff;
-            --light: #f5f7ff;
-            --dark: #0d1020;
-            --success: #00c853;
-            --warning: #ffab00;
-            --info: #00b8d4;
-            --error: #ff1744;
-            --tech-gradient: linear-gradient(135deg, #2962ff 0%, #00b8d4 100%);
-            --green-gradient: linear-gradient(135deg, #00c853 0%, #64dd17 100%);
+            --primary-color: #1a5091; /* Bleu foncé */
+            --secondary-color: #0d7a3a; /* Vert foncé */
+            --accent-color: #2196F3; /* Bleu vif */
+            --light-color: #F1F2F6; /* Fond clair */
+            --dark-color: #0A0A1D; /* Texte foncé */
+            --neutral-color: #5a5a72; /* Texte neutre */
+            --success-color: #2E7D32; /* Vert */
+            --warning-color: #ED6C02; /* Orange */
+            --error-color: #D32F2F; /* Rouge */
+            --border-radius: 8px;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         * {
@@ -32,7 +28,7 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
+            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
             color: #333;
             line-height: 1.6;
             padding-top: 40px;
@@ -45,6 +41,17 @@
             padding: 0 20px;
         }
         
+        .reading-time {
+            display: inline-block;
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--accent-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
         /* Table des matières */
         #toc-container {
             position: fixed;
@@ -52,13 +59,13 @@
             right: 20px;
             background-color: white;
             border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             padding: 20px;
             width: 300px;
             max-height: 85vh;
             overflow-y: auto;
             z-index: 1000;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #eee;
             display: none;
         }
         
@@ -78,7 +85,7 @@
         .toc-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--primary);
+            color: var(--primary-color);
         }
         
         .close-toc {
@@ -118,8 +125,8 @@
         }
         
         #toc-list a:hover {
-            background-color: rgba(41, 98, 255, 0.1);
-            color: var(--accent);
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--accent-color);
         }
         
         #toc-list .h2-link {
@@ -136,7 +143,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--tech-gradient);
+            background-color: var(--primary-color);
             color: white;
             border: none;
             width: 50px;
@@ -147,7 +154,7 @@
             align-items: center;
             justify-content: center;
             z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow);
         }
         
         .toc-toggle i {
@@ -158,41 +165,45 @@
         .article-header {
             padding: 40px 0 20px;
             position: relative;
+            text-align: center;
         }
         
         .article-title {
             font-size: 2.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             line-height: 1.3;
-            color: var(--primary);
+            color: var(--primary-color);
             font-weight: 700;
             max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .article-subtitle {
             font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 30px;
-            font-weight: 400;
+            color: var(--neutral-color);
             max-width: 700px;
+            margin: 0 auto 20px;
+            font-weight: 500;
         }
         
         /* Featured Image */
         .featured-image {
             width: 100%;
             height: 400px;
+            object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #1a5091, #0d7a3a);
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2rem;
-            text-align: center;
+            font-weight: 600;
             padding: 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
         }
@@ -204,9 +215,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
-                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
         }
         
         /* Content Styling */
@@ -214,7 +223,7 @@
             background-color: #fff;
             border-radius: 12px;
             padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
             margin-bottom: 40px;
         }
         
@@ -228,7 +237,7 @@
         .article-content h2 {
             font-size: 1.8rem;
             margin: 40px 0 20px;
-            color: var(--primary);
+            color: var(--primary-color);
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
             font-weight: 700;
@@ -238,7 +247,7 @@
         .article-content h3 {
             font-size: 1.4rem;
             margin: 30px 0 15px;
-            color: var(--secondary);
+            color: var(--secondary-color);
             font-weight: 600;
             scroll-margin-top: 20px;
         }
@@ -256,17 +265,58 @@
         
         .article-content li::before {
             content: '•';
-            color: var(--accent);
+            color: var(--primary-color);
             font-weight: bold;
             display: inline-block;
             width: 1em;
             margin-left: -1em;
         }
         
+        /* Card styles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-title i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .card-content {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        
         /* Callout boxes */
         .callout {
             padding: 20px;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             margin: 25px 0;
             border-left: 4px solid;
             position: relative;
@@ -283,268 +333,214 @@
             background: inherit;
         }
         
-        .callout.success {
-            background-color: rgba(0, 200, 83, 0.1);
-            border-color: var(--success);
-        }
-        
-        .callout.success::before {
-            background: var(--success);
-        }
-        
-        .callout.warning {
-            background-color: rgba(255, 171, 0, 0.1);
-            border-color: var(--warning);
-        }
-        
-        .callout.warning::before {
-            background: var(--warning);
-        }
-        
         .callout.info {
-            background-color: rgba(0, 184, 212, 0.1);
-            border-color: var(--info);
+            background-color: rgba(33, 150, 243, 0.1);
+            border-color: var(--accent-color);
         }
         
         .callout.info::before {
-            background: var(--info);
+            background: var(--accent-color);
         }
         
-        .callout.error {
-            background-color: rgba(255, 23, 68, 0.1);
-            border-color: var(--error);
+        .callout.warning {
+            background-color: rgba(237, 108, 2, 0.1);
+            border-color: var(--warning-color);
         }
         
-        .callout.error::before {
-            background: var(--error);
+        .callout.warning::before {
+            background: var(--warning-color);
+        }
+        
+        .callout.success {
+            background-color: rgba(46, 125, 50, 0.1);
+            border-color: var(--success-color);
+        }
+        
+        .callout.success::before {
+            background: var(--success-color);
         }
         
         .callout-title {
             font-weight: 600;
             margin-bottom: 10px;
             font-size: 1.1rem;
-            color: var(--primary);
+            color: var(--primary-color);
         }
         
-        /* Tables */
-        .comparison-table {
+        /* Step-by-step */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--secondary-color);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: var(--secondary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .step-details {
+            color: #555;
+            font-size: 1rem;
+        }
+        
+        /* Table Styles */
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
-            border-radius: 8px;
+            margin: 25px 0;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
         }
         
-        .comparison-table th, 
-        .comparison-table td {
-            padding: 12px 15px;
+        .data-table th {
+            background-color: var(--primary-color);
+            color: white;
             text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 12px 15px;
             border-bottom: 1px solid #eee;
         }
         
-        .comparison-table th {
-            background-color: #f5f7ff;
-            font-weight: 600;
-            color: var(--primary);
+        .data-table tr:nth-child(even) {
+            background-color: rgba(241, 242, 246, 0.5);
         }
         
-        .comparison-table tr:last-child td {
+        .data-table tr:last-child td {
             border-bottom: none;
         }
         
-        .comparison-table tr:nth-child(even) {
-            background-color: #fafbff;
+        .data-table tr:hover {
+            background-color: rgba(33, 150, 243, 0.05);
         }
         
-        .comparison-table tr:hover {
-            background-color: rgba(41, 98, 255, 0.03);
-        }
-        
-        .highlight-box {
-            background: rgba(41, 98, 255, 0.05);
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-        }
-        
-        .highlight-box-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-        }
-        
-        .highlight-box-title i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-        
-        .investment-scenario {
-            background-color: white;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        
-        .scenario-title {
-            font-weight: 600;
-            color: var(--secondary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .scenario-title i {
-            margin-right: 10px;
-        }
-        
-        .performance-chart {
-            height: 200px;
-            background-color: #f5f7ff;
-            border-radius: 8px;
-            margin: 20px 0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            padding: 0 20px;
-        }
-        
-        .chart-bar {
-            flex: 1;
-            margin: 0 5px;
-            background: var(--tech-gradient);
-            border-radius: 8px 8px 0 0;
-            position: relative;
-            text-align: center;
-            color: white;
-            font-size: 0.8rem;
-            padding-top: 5px;
-            min-height: 30px;
-        }
-        
-        .chart-labels {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 5px;
-            margin-top: 5px;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .icon-stats {
+        /* Visualisation des types d'ordres */
+        .order-visual {
             display: flex;
             justify-content: space-around;
-            margin: 25px 0;
+            margin: 40px 0;
             flex-wrap: wrap;
+            gap: 20px;
         }
         
-        .stat-item {
-            text-align: center;
-            padding: 15px;
-            flex: 1;
-            min-width: 150px;
-        }
-        
-        .stat-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .etf-card {
+        .order-card {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #e0e0e0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary-color);
+            width: 280px;
+            transition: transform 0.3s ease;
         }
         
-        .etf-card:hover {
+        .order-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
-        .etf-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .order-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .order-icon {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
             margin-bottom: 15px;
         }
         
-        .etf-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .etf-ticker {
-            background: var(--tech-gradient);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .etf-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .detail-item {
+        .order-desc {
+            color: #555;
+            font-size: 1rem;
             text-align: center;
-            padding: 10px;
-            background: #f5f7ff;
-            border-radius: 8px;
         }
         
-        .detail-value {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 5px;
+        /* Resource Cards */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
         }
         
-        .detail-label {
-            font-size: 0.9rem;
-            color: #666;
+        .resource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+            text-align: center;
         }
         
-        .sector-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
+        .resource-card:hover {
+            transform: translateY(-5px);
         }
         
-        .sector-tag {
-            background: rgba(0, 184, 212, 0.1);
-            color: var(--info);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .resource-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .resource-list li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #555;
         }
         
         /* Responsive */
@@ -553,13 +549,8 @@
                 font-size: 2rem;
             }
             
-            .article-subtitle {
-                font-size: 1.1rem;
-            }
-            
             .featured-image {
                 height: 250px;
-                font-size: 1.5rem;
             }
             
             .article-content {
@@ -576,12 +567,9 @@
                 left: auto;
             }
             
-            .icon-stats {
-                flex-wrap: wrap;
-            }
-            
-            .stat-item {
-                width: 50%;
+            .order-visual {
+                flex-direction: column;
+                align-items: center;
             }
         }
         
@@ -592,7 +580,6 @@
             
             .featured-image {
                 height: 200px;
-                font-size: 1.3rem;
             }
             
             .article-content {
@@ -604,42 +591,41 @@
                 right: 5%;
                 left: 5%;
             }
-            
-            .stat-item {
-                width: 100%;
-            }
-            
-            .etf-details {
-                grid-template-columns: 1fr 1fr;
-            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 0.6s ease forwards;
         }
     </style>
 </head>
 <body>
     <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle" aria-label="Afficher la table des matières">
+    <button class="toc-toggle" id="toc-toggle">
         <i class="fas fa-list"></i>
     </button>
     
     <!-- Table des matières -->
     <div id="toc-container">
         <div class="toc-header">
-            <div class="toc-title">Sommaire de l'article</div>
-            <button class="close-toc" id="close-toc" aria-label="Fermer la table des matières">
+            <div class="toc-title">Sommaire</div>
+            <button class="close-toc" id="close-toc">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
-            <li><a href="#introduction" class="h2-link">Introduction aux ETF européens</a></li>
-            <li><a href="#avantages" class="h2-link">Avantages des ETF</a></li>
-            <li><a href="#criteria" class="h2-link">Critères de sélection</a></li>
-            <li><a href="#top-etfs" class="h2-link">Top ETF européens 2025</a></li>
-            <li><a href="#actions" class="h3-link">Actions européennes</a></li>
-            <li><a href="#technologie" class="h3-link">Technologie</a></li>
-            <li><a href="#energie" class="h3-link">Énergie renouvelable</a></li>
-            <li><a href="#obligations" class="h3-link">Obligations</a></li>
-            <li><a href="#strategies" class="h2-link">Stratégies d'investissement</a></li>
-            <li><a href="#risques" class="h2-link">Gestion des risques</a></li>
+            <li><a href="#introduction" class="h2-link">Introduction</a></li>
+            <li><a href="#preparation" class="h2-link">Préparation avant d'investir</a></li>
+            <li><a href="#education" class="h2-link">Éducation financière</a></li>
+            <li><a href="#selection" class="h2-link">Sélection d'actions</a></li>
+            <li><a href="#ordre" class="h2-link">Passer un ordre</a></li>
+            <li><a href="#gestion" class="h2-link">Gestion du portefeuille</a></li>
+            <li><a href="#ressources" class="h2-link">Ressources d'apprentissage</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -647,470 +633,572 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Sélection des Meilleurs ETF Européens en 2025</h1>
-            <div class="article-subtitle">Guide complet pour investir intelligemment dans les fonds négociés en bourse</div>
+            <h1 class="article-title">Apprendre à Investir en Bourse : Formation Complète 2025</h1>
+            <div class="article-subtitle">Maîtrisez les fondamentaux pour investir en toute confiance</div>
+            <div class="reading-time">
+                <i class="fas fa-clock"></i> 15 min de lecture
+            </div>
         </div>
         
         <!-- Featured Image -->
         <div class="featured-image">
-            Investissement stratégique : Les ETF européens en 2025
+            Transformez votre épargne en capital productif grâce à la bourse
+        </div>
+        
+        <!-- Points clés -->
+        <div class="callout success">
+            <div class="callout-title">Points clés à retenir</div>
+            <ul>
+                <li>En 2025, l'éducation financière est accessible à tous grâce aux ressources en ligne</li>
+                <li>Commencez à apprendre l'investissement sans dépenser un centime</li>
+                <li>La compréhension des concepts fondamentaux est plus importante que la sélection de courtiers</li>
+                <li>Les plateformes modernes proposent des simulateurs d'investissement pour s'entraîner</li>
+                <li>La formation continue est essentielle pour devenir un investisseur averti</li>
+            </ul>
         </div>
         
         <!-- Article Content -->
         <div class="article-content">
-            <p>Les ETF (Exchange Traded Funds) représentent l'un des instruments d'investissement les plus populaires en Europe. En 2025, avec une capitalisation totale dépassant 2 000 milliards d'euros, ces fonds négociés en bourse offrent une combinaison unique de diversification, de liquidité et de faibles coûts. Ce guide présente les meilleurs ETF européens à considérer pour votre portefeuille en 2025.</p>
+            <h2 id="introduction">Introduction</h2>
+            <p>Investir en bourse est avant tout une compétence qui s'apprend. En 2025, grâce à l'abondance de ressources éducatives et aux outils de simulation, acquérir les connaissances nécessaires pour investir en toute confiance est plus accessible que jamais.</p>
+            
+            <p>Ce guide de formation complet vous explique comment maîtriser les bases de l'investissement boursier, comprendre les mécanismes du marché, analyser les entreprises et développer une stratégie d'investissement solide à long terme.</p>
             
             <div class="callout info">
-                <div class="callout-title">Les éléments clés :</div>
-                <ul>
-                    <li>Les ETF européens ont attiré 150 milliards d'euros de flux nets en 2024</li>
-                    <li>Frais moyens réduits à 0.15% contre 0.25% en 2020</li>
-                    <li>Croissance annuelle moyenne de 15% sur les 5 dernières années</li>
-                    <li>Plus de 2 500 ETF disponibles en Europe</li>
-                    <li>Les thématiques ESG et technologiques dominent les flux</li>
-                </ul>
+                <p><strong>À savoir :</strong> L'investissement boursier est une discipline qui demande du temps et de la pratique. Ne vous précipitez pas - prenez le temps d'apprendre avant d'investir votre argent.</p>
             </div>
             
-            <h2 id="introduction">Introduction : L'essor des ETF en Europe</h2>
-            <p>Les ETF sont des fonds d'investissement cotés en bourse qui répliquent la performance d'un indice, d'un secteur ou d'une classe d'actifs. Leur popularité en Europe s'explique par plusieurs facteurs : frais de gestion réduits, transparence des portefeuilles, liquidité élevée et accès facilité à différentes classes d'actifs.</p>
+            <h2 id="preparation">Préparation avant d'investir</h2>
+            <p>Avant de vous lancer dans l'investissement, il est essentiel de définir clairement vos objectifs et d'établir un plan d'apprentissage structuré.</p>
             
-            <p>En 2025, le marché européen des ETF continue sa croissance soutenue, porté par l'intérêt des investisseurs particuliers et institutionnels pour des solutions d'investissement efficaces et peu coûteuses. Les thématiques durables et technologiques dominent les nouveaux lancements.</p>
+            <h3>Définir vos objectifs d'apprentissage</h3>
+            <p>Avant de commencer votre formation, clarifiez vos objectifs :</p>
             
-            <div class="icon-stats">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
+            <div class="card-grid">
+                <div class="card animated">
+                    <div class="card-title"><i class="fas fa-graduation-cap"></i> Niveau de connaissance</div>
+                    <div class="card-content">
+                        Débutant, intermédiaire ou avancé? Évaluez honnêtement votre niveau actuel.
                     </div>
-                    <div class="stat-value">2 100 Md€</div>
-                    <div class="stat-label">Capitalisation totale</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-money-bill-wave"></i>
+                
+                <div class="card animated" style="animation-delay: 0.2s;">
+                    <div class="card-title"><i class="fas fa-bullseye"></i> Objectif financier</div>
+                    <div class="card-content">
+                        Comprendre les marchés, préparer sa retraite, générer des revenus complémentaires.
                     </div>
-                    <div class="stat-value">0.15%</div>
-                    <div class="stat-label">Frais moyens</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-leaf"></i>
+                
+                <div class="card animated" style="animation-delay: 0.4s;">
+                    <div class="card-title"><i class="fas fa-clock"></i> Temps disponible</div>
+                    <div class="card-content">
+                        Combien d'heures par semaine pouvez-vous consacrer à votre formation?
                     </div>
-                    <div class="stat-value">45%</div>
-                    <div class="stat-label">ETF ESG</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
+            </div>
+            
+            <h3>Établir un programme d'apprentissage</h3>
+            <p>Un bon programme de formation doit couvrir :</p>
+            
+            <div class="steps-container">
+                <div class="step-card animated">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Les bases des marchés</div>
+                    <div class="step-details">
+                        Comprendre le fonctionnement de la bourse, les différents produits financiers et les acteurs du marché.
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Analyse fondamentale et technique</div>
+                    <div class="step-details">
+                        Maîtriser les deux principales méthodes d'analyse des actions et des marchés.
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.4s;">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Gestion du risque</div>
+                    <div class="step-details">
+                        Apprendre à protéger son capital et gérer la psychologie de l'investisseur.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout warning">
+                <p><strong>Attention :</strong> Méfiez-vous des formations promettant des rendements garantis ou des techniques infaillibles. L'investissement comporte toujours des risques.</p>
+            </div>
+            
+            <h3>Comprendre les bases indispensables</h3>
+            <p>Maîtrisez ces concepts fondamentaux avant de passer à la pratique :</p>
+            
+            <div class="card-grid">
+                <div class="card animated">
+                    <div class="card-title"><i class="fas fa-chart-line"></i> Actions vs Obligations</div>
+                    <div class="card-content">
+                        Différences fondamentales entre ces deux classes d'actifs.
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.2s;">
+                    <div class="card-title"><i class="fas fa-money-bill-wave"></i> Dividendes</div>
+                    <div class="card-content">
+                        Comment fonctionnent les revenus versés aux actionnaires.
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.4s;">
+                    <div class="card-title"><i class="fas fa-wave-square"></i> Volatilité</div>
+                    <div class="card-content">
+                        Comprendre les fluctuations normales des cours.
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.6s;">
+                    <div class="card-title"><i class="fas fa-layer-group"></i> Diversification</div>
+                    <div class="card-content">
+                        Pourquoi ne pas mettre tous ses œufs dans le même panier.
+                    </div>
+                </div>
+            </div>
+            
+            <h2 id="education">Éducation financière</h2>
+            <p>L'éducation financière est la base indispensable pour tout investisseur qui souhaite réussir sur les marchés.</p>
+            
+            <div class="steps-container">
+                <div class="step-card animated">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Formation théorique</div>
+                    <div class="step-details">
+                        Comprendre les marchés financiers, analyser les états financiers, évaluer les entreprises et suivre les indicateurs économiques clés.
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Analyse technique</div>
+                    <div class="step-details">
+                        Apprendre à lire les graphiques, reconnaître les tendances, identifier les niveaux de support et résistance, et gérer les positions.
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.4s;">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Psychologie de l'investisseur</div>
+                    <div class="step-details">
+                        Maîtriser ses émotions, éviter les biais cognitifs, gérer le stress, et apprendre de ses erreurs.
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Outils pédagogiques indispensables</h3>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Type d'outil</th>
+                        <th>Utilité</th>
+                        <th>Exemples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Simulateurs</td>
+                        <td>Pratiquer sans risque</td>
+                        <td>Portefeuilles virtuels, jeux boursiers</td>
+                    </tr>
+                    <tr>
+                        <td>Moocs</td>
+                        <td>Formations structurées</td>
+                        <td>Cours en ligne, certifications</td>
+                    </tr>
+                    <tr>
+                        <td>Livres</td>
+                        <td>Connaissances approfondies</td>
+                        <td>Classiques de l'investissement</td>
+                    </tr>
+                    <tr>
+                        <td>Communautés</td>
+                        <td>Échanges et partage</td>
+                        <td>Forums spécialisés, clubs d'investisseurs</td>
+                    </tr>
+                    <tr>
+                        <td>Podcasts</td>
+                        <td>Apprentissage au quotidien</td>
+                        <td>Analyses de marché, interviews d'experts</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout info">
+                <p><strong>Conseil :</strong> Commencez toujours par des simulateurs avant d'investir de l'argent réel. La pratique sans risque est la meilleure façon d'apprendre.</p>
+            </div>
+            
+            <h2 id="selection">Apprendre à sélectionner des actions</h2>
+            <p>Sélectionner les bonnes actions est au cœur de la réussite en bourse. Voici les méthodes et critères à maîtriser.</p>
+            
+            <h3>Méthodes d'analyse</h3>
+            
+            <div class="card-grid">
+                <div class="card animated">
+                    <div class="card-title"><i class="fas fa-file-invoice-dollar"></i> Analyse fondamentale</div>
+                    <div class="card-content">
+                        Étude des comptes de l'entreprise (bénéfices, dette, croissance)
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.2s;">
+                    <div class="card-title"><i class="fas fa-chart-bar"></i> Analyse technique</div>
+                    <div class="card-content">
+                        Étude des graphiques de prix et volumes
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.4s;">
+                    <div class="card-title"><i class="fas fa-lightbulb"></i> Investissement thématique</div>
+                    <div class="card-content">
+                        Technologies vertes, intelligence artificielle, santé
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.6s;">
+                    <div class="card-title"><i class="fas fa-industry"></i> Analyse sectorielle</div>
+                    <div class="card-content">
+                        Comprendre les dynamiques spécifiques à chaque secteur
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Critères d'évaluation d'une action</h3>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Définition</th>
+                        <th>Valeur idéale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PER (Price Earnings Ratio)</td>
+                        <td>Ratio cours/bénéfice</td>
+                        <td>Variable selon le secteur</td>
+                    </tr>
+                    <tr>
+                        <td>ROE (Return on Equity)</td>
+                        <td>Rentabilité des capitaux propres</td>
+                        <td>&gt; 15%</td>
+                    </tr>
+                    <tr>
+                        <td>Dette nette/EBITDA</td>
+                        <td>Niveau d'endettement</td>
+                        <td>&lt; 3</td>
+                    </tr>
+                    <tr>
+                        <td>Dividend Yield</td>
+                        <td>Rendement du dividende</td>
+                        <td>3-5%</td>
+                    </tr>
+                    <tr>
+                        <td>CAGR (Croissance annuelle)</td>
+                        <td>Croissance des bénéfices</td>
+                        <td>&gt; 8-10%</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout warning">
+                <p><strong>À éviter :</strong> Ne basez pas vos décisions d'investissement sur les réseaux sociaux ou les tendances passagères. Privilégiez toujours une analyse rigoureuse.</p>
+            </div>
+            
+            <h2 id="ordre">Passer un ordre : formation pratique</h2>
+            <p>Maîtriser les différents types d'ordres est essentiel pour exécuter efficacement vos stratégies d'investissement.</p>
+            
+            <div class="order-visual">
+                <div class="order-card animated">
+                    <div class="order-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="order-title">Ordre au marché</div>
+                    <div class="order-desc">
+                        Achat immédiat au meilleur prix disponible. Rapide mais prix non garanti.
+                    </div>
+                </div>
+                
+                <div class="order-card animated" style="animation-delay: 0.2s;">
+                    <div class="order-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <div class="order-title">Ordre limité</div>
+                    <div class="order-desc">
+                        N'achète que si le prix atteint un niveau spécifié. Contrôle total du prix.
+                    </div>
+                </div>
+                
+                <div class="order-card animated" style="animation-delay: 0.4s;">
+                    <div class="order-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="order-title">Ordre stop</div>
+                    <div class="order-desc">
+                        Devient un ordre au marché si le prix atteint un certain niveau. Pour limiter les pertes.
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Exercice pratique : simulation d'ordre</h3>
+            
+            <div class="steps-container">
+                <div class="step-card animated">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Utilisez un simulateur</div>
+                    <div class="step-details">
+                        Pratiquez avec un simulateur de bourse avec argent virtuel
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Sélectionnez une action</div>
+                    <div class="step-details">
+                        Choisissez une action fictive que vous souhaitez "acheter"
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.4s;">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Choisissez le type d'ordre</div>
+                    <div class="step-details">
+                        Pour débutant : ordre limité
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.6s;">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Fixez le prix maximum</div>
+                    <div class="step-details">
+                        Déterminez le prix maximum que vous acceptez de payer
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.8s;">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Analysez le résultat</div>
+                    <div class="step-details">
+                        Suivez l'exécution de votre ordre et notez vos observations
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout info">
+                <p><strong>Bon à savoir :</strong> En 2025, la plupart des plateformes éducatives proposent des simulateurs complexes qui reproduisent fidèlement les conditions du marché réel.</p>
+            </div>
+            
+            <h2 id="gestion">Gestion du portefeuille</h2>
+            <p>Une bonne gestion de portefeuille est essentielle pour protéger vos gains et minimiser les pertes.</p>
+            
+            <h3>Principes de base</h3>
+            
+            <div class="card-grid">
+                <div class="card animated">
+                    <div class="card-title"><i class="fas fa-layer-group"></i> Diversification</div>
+                    <div class="card-content">
+                        Répartition entre secteurs, zones géographiques et types d'actifs
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.2s;">
+                    <div class="card-title"><i class="fas fa-balance-scale"></i> Rééquilibrage</div>
+                    <div class="card-content">
+                        Ajuster périodiquement vos allocations
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.4s;">
+                    <div class="card-title"><i class="fas fa-eye"></i> Suivi</div>
+                    <div class="card-content">
+                        Surveiller sans obsession
+                    </div>
+                </div>
+                
+                <div class="card animated" style="animation-delay: 0.6s;">
+                    <div class="card-title"><i class="fas fa-sync-alt"></i> Revue stratégique</div>
+                    <div class="card-content">
+                        Adapter votre stratégie à l'évolution de vos objectifs
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Apprendre à gérer ses émotions</h3>
+            
+            <div class="steps-container">
+                <div class="step-card animated">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Reconnaître les biais</div>
+                    <div class="step-details">
+                        Identification des biais cognitifs (excès de confiance, aversion aux pertes, etc.)
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.2s;">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Établir des règles</div>
+                    <div class="step-details">
+                        Créer un plan d'investissement avec des règles strictes
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.4s;">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Journal de bord</div>
+                    <div class="step-details">
+                        Tenir un journal de vos décisions et émotions
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.6s;">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Mentorat</div>
+                    <div class="step-details">
+                        Discuter avec des investisseurs expérimentés
+                    </div>
+                </div>
+                
+                <div class="step-card animated" style="animation-delay: 0.8s;">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Auto-évaluation</div>
+                    <div class="step-details">
+                        Analyser régulièrement vos décisions passées
+                    </div>
+                </div>
+            </div>
+            
+            <h2 id="ressources">Ressources pour continuer à apprendre</h2>
+            <p>L'apprentissage en bourse est un processus continu. Voici les ressources indispensables pour approfondir vos connaissances.</p>
+            
+            <h3>Formations en ligne</h3>
+            
+            <div class="resource-grid">
+                <div class="resource-card animated">
+                    <div class="resource-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="resource-title">Cours d'introduction</div>
+                    <ul class="resource-list">
+                        <li>Cours d'introduction à la bourse (AMF)</li>
+                        <li>Moocs des grandes universités</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card animated" style="animation-delay: 0.2s;">
+                    <div class="resource-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="resource-title">Certifications</div>
+                    <ul class="resource-list">
+                        <li>Certifications en analyse financière</li>
+                        <li>Formations spécialisées par secteur</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Lectures essentielles</h3>
+            
+            <div class="resource-grid">
+                <div class="resource-card animated">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="resource-title">Classiques</div>
+                    <ul class="resource-list">
+                        <li>"L'Investisseur Intelligent" - Benjamin Graham</li>
+                        <li>"La Psychologie des Marchés Financiers" - David Cohen</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card animated" style="animation-delay: 0.2s;">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="resource-title">Documents pratiques</div>
+                    <ul class="resource-list">
+                        <li>Rapports annuels des entreprises</li>
+                        <li>Études sectorielles</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Communautés d'apprentissage</h3>
+            
+            <div class="resource-grid">
+                <div class="resource-card animated">
+                    <div class="resource-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <div class="stat-value">8 M</div>
-                    <div class="stat-label">Investisseurs européens</div>
+                    <div class="resource-title">En ligne</div>
+                    <ul class="resource-list">
+                        <li>Forums d'investisseurs indépendants</li>
+                        <li>Groupes de discussion spécialisés</li>
+                    </ul>
+                </div>
+                
+                <div class="resource-card animated" style="animation-delay: 0.2s;">
+                    <div class="resource-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="resource-title">En présentiel</div>
+                    <ul class="resource-list">
+                        <li>Clubs d'investissement locaux</li>
+                        <li>Rencontres avec des professionnels</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="highlight-box">
-                <div class="highlight-box-title">
-                    <i class="fas fa-lightbulb"></i> À retenir
+            <h3>Outils d'analyse</h3>
+            
+            <div class="resource-grid">
+                <div class="resource-card animated">
+                    <div class="resource-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="resource-title">Simulation</div>
+                    <ul class="resource-list">
+                        <li>Simulateurs de portefeuille</li>
+                        <li>Outils de backtesting</li>
+                    </ul>
                 </div>
-                <p>Les ETF offrent une solution d'investissement diversifiée, liquide et économique, particulièrement adaptée aux investisseurs cherchant une exposition large aux marchés avec un suivi passif.</p>
-            </div>
-            
-            <h2 id="avantages">Avantages des ETF européens</h2>
-            
-            <h3>Pourquoi choisir des ETF ?</h3>
-            <p>Les ETF présentent plusieurs avantages décisifs par rapport aux fonds traditionnels :</p>
-            
-            <ul>
-                <li><strong>Diversification instantanée</strong> : Accès à des centaines de titres en un seul achat</li>
-                <li><strong>Faibles coûts</strong> : Frais de gestion (TER) inférieurs à 0.5% en moyenne</li>
-                <li><strong>Transparence</strong> : Composition du portefeuille connue quotidiennement</li>
-                <li><strong>Liquidité</strong> : Négociation en bourse tout au long de la journée</li>
-                <li><strong>Fiscalité avantageuse</strong> : Traitement fiscal favorable dans de nombreux pays européens</li>
-            </ul>
-            
-            <div class="callout info">
-                <div class="callout-title">Croissance des encours ETF en Europe</div>
-                <div class="performance-chart">
-                    <div class="chart-bar" style="height: 30%">2019</div>
-                    <div class="chart-bar" style="height: 45%">2020</div>
-                    <div class="chart-bar" style="height: 60%">2021</div>
-                    <div class="chart-bar" style="height: 80%">2022</div>
-                    <div class="chart-bar" style="height: 100%">2023</div>
-                    <div class="chart-bar" style="height: 120%">2024</div>
-                </div>
-                <div class="chart-labels">
-                    <span>800 Md€</span>
-                    <span>1 200 Md€</span>
-                    <span>1 500 Md€</span>
-                    <span>1 700 Md€</span>
-                    <span>1 900 Md€</span>
-                    <span>2 100 Md€</span>
+                
+                <div class="resource-card animated" style="animation-delay: 0.2s;">
+                    <div class="resource-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="resource-title">Recherche</div>
+                    <ul class="resource-list">
+                        <li>Plateformes d'analyse technique</li>
+                        <li>Screener d'actions</li>
+                    </ul>
                 </div>
             </div>
             
-            <h3>Comparaison ETF vs Fonds traditionnels</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Caractéristique</th>
-                        <th>ETF</th>
-                        <th>Fonds traditionnels</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Frais de gestion</td>
-                        <td>0.05-0.30%</td>
-                        <td>0.50-2.00%</td>
-                    </tr>
-                    <tr>
-                        <td>Transparence</td>
-                        <td>Composition quotidienne</td>
-                        <td>Composition mensuelle/trimestrielle</td>
-                    </tr>
-                    <tr>
-                        <td>Liquidité</td>
-                        <td>Transaction en continu</td>
-                        <td>Valeur liquidative quotidienne</td>
-                    </tr>
-                    <tr>
-                        <td>Frais d'entrée</td>
-                        <td>Frais de courtage uniquement</td>
-                        <td>Droits d'entrée 1-5%</td>
-                    </tr>
-                    <tr>
-                        <td>Accès</td>
-                        <td>Via compte-titres ou PEA</td>
-                        <td>Via compte-titres ou assurance-vie</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Apprendre à investir en bourse est un parcours continu qui demande du temps, de la pratique et de la persévérance. En 2025, les ressources pédagogiques sont plus accessibles que jamais, permettant à chacun de se former à son rythme.</p>
             
             <div class="callout success">
-                <p>Selon l'European Fund and Asset Management Association (EFAMA), les ETF représentent désormais plus de 15% du marché européen des fonds d'investissement, avec une croissance deux fois plus rapide que les fonds traditionnels.</p>
-            </div>
-            
-            <h2 id="criteria">Critères de sélection des meilleurs ETF</h2>
-            
-            <p>Pour choisir les meilleurs ETF européens en 2025, plusieurs critères essentiels doivent être considérés :</p>
-            
-            <div class="investment-scenario">
-                <div class="scenario-title">
-                    <i class="fas fa-filter"></i> Critères clés d'évaluation
-                </div>
-                <ol>
-                    <li><strong>Taille du fonds</strong> : Préférer > 100M€ d'encours pour une bonne liquidité</li>
-                    <li><strong>Frais (TER)</strong> : Rechercher les frais les plus bas pour la même exposition</li>
-                    <li><strong>Tracking Error</strong> : Écart de performance avec l'indice de référence</li>
-                    <li><strong>Fournisseur</strong> : Privilégier les émetteurs établis (iShares, Amundi, Vanguard)</li>
-                    <li><strong>Liquidité</strong> : Volume de transactions quotidien élevé</li>
-                    <li><strong>Réplication</strong> : Physique (détention des titres) ou synthétique (dérivés)</li>
-                </ol>
-            </div>
-            
-            <h3>L'importance des frais sur le long terme</h3>
-            <p>Les frais de gestion peuvent sembler négligeables à court terme, mais leur impact est considérable sur le long terme :</p>
-            
-            <div class="performance-chart">
-                <div class="chart-bar" style="height: 100%; background: var(--green-gradient);">0.10%</div>
-                <div class="chart-bar" style="height: 95%; background: var(--tech-gradient);">0.20%</div>
-                <div class="chart-bar" style="height: 85%; background: var(--accent);">0.50%</div>
-                <div class="chart-bar" style="height: 75%; background: var(--info);">1.00%</div>
-            </div>
-            <div class="chart-labels">
-                <span>Performance après 20 ans sur 10 000€ investis</span>
-            </div>
-            
-            <p>Un investissement de 10 000€ avec un rendement annuel de 6% :</p>
-            <ul>
-                <li>Avec 0.10% de frais : 31 400€ après 20 ans</li>
-                <li>Avec 0.50% de frais : 28 200€ après 20 ans (soit 3 200€ de moins)</li>
-            </ul>
-            
-            <h2 id="top-etfs">Top des ETF européens pour 2025</h2>
-            
-            <h3 id="actions">Actions européennes large marché</h3>
-            
-            <div class="etf-card">
-                <div class="etf-header">
-                    <div class="etf-name">iShares Core MSCI Europe UCITS ETF</div>
-                    <div class="etf-ticker">IE00B4L5Y983</div>
-                </div>
-                <p>L'ETF référence pour l'exposition au marché actions européen large, couvrant plus de 400 grandes et moyennes capitalisations dans 15 pays.</p>
-                <div class="etf-details">
-                    <div class="detail-item">
-                        <div class="detail-value">0.12%</div>
-                        <div class="detail-label">Frais annuels</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">12.8 Md€</div>
-                        <div class="detail-label">Encours</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">+8.2%</div>
-                        <div class="detail-label">Perf. 2024</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">AAA</div>
-                        <div class="detail-label">Rating ESG</div>
-                    </div>
-                </div>
-                <div class="sector-tags">
-                    <div class="sector-tag">Finance</div>
-                    <div class="sector-tag">Santé</div>
-                    <div class="sector-tag">Industrie</div>
-                    <div class="sector-tag">Technologie</div>
-                    <div class="sector-tag">Consommation</div>
-                </div>
-            </div>
-            
-            <div class="etf-card">
-                <div class="etf-header">
-                    <div class="etf-name">Amundi MSCI Europe ESG Leaders UCITS ETF</div>
-                    <div class="etf-ticker">LU1681043599</div>
-                </div>
-                <p>Version ESG du précédent, sélectionnant les entreprises européennes leaders en matière de critères environnementaux, sociaux et de gouvernance.</p>
-                <div class="etf-details">
-                    <div class="detail-item">
-                        <div class="detail-value">0.18%</div>
-                        <div class="detail-label">Frais annuels</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">4.2 Md€</div>
-                        <div class="detail-label">Encours</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">+9.1%</div>
-                        <div class="detail-label">Perf. 2024</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">AA</div>
-                        <div class="detail-label">Rating ESG</div>
-                    </div>
-                </div>
-                <div class="sector-tags">
-                    <div class="sector-tag">ESG</div>
-                    <div class="sector-tag">Durabilité</div>
-                    <div class="sector-tag">Gouvernance</div>
-                </div>
-            </div>
-            
-            <h3 id="technologie">Technologie et innovation</h3>
-            
-            <div class="etf-card">
-                <div class="etf-header">
-                    <div class="etf-name">Lyxor Nasdaq-100 UCITS ETF</div>
-                    <div class="etf-ticker">FR0011871128</div>
-                </div>
-                <p>Exposition aux 100 plus grandes sociétés non financières cotées au Nasdaq, avec une forte concentration technologique.</p>
-                <div class="etf-details">
-                    <div class="detail-item">
-                        <div class="detail-value">0.20%</div>
-                        <div class="detail-label">Frais annuels</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">5.6 Md€</div>
-                        <div class="detail-label">Encours</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">+22.4%</div>
-                        <div class="detail-label">Perf. 2024</div>
-                    </div>
-                </div>
-                <div class="sector-tags">
-                    <div class="sector-tag">Technologie</div>
-                    <div class="sector-tag">IA</div>
-                    <div class="sector-tag">Cloud</div>
-                    <div class="sector-tag">Semi-conducteurs</div>
-                </div>
-            </div>
-            
-            <div class="etf-card">
-                <div class="etf-header">
-                    <div class="etf-name">Xtrackers Artificial Intelligence UCITS ETF</div>
-                    <div class="etf-ticker">IE00BKJCNQ03</div>
-                </div>
-                <p>ETF thématique concentré sur les entreprises leaders dans le domaine de l'intelligence artificielle.</p>
-                <div class="etf-details">
-                    <div class="detail-item">
-                        <div class="detail-value">0.35%</div>
-                        <div class="detail-label">Frais annuels</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">850 M€</div>
-                        <div class="detail-label">Encours</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">+35.7%</div>
-                        <div class="detail-label">Perf. 2024</div>
-                    </div>
-                </div>
-                <div class="sector-tags">
-                    <div class="sector-tag">IA</div>
-                    <div class="sector-tag">Robotique</div>
-                    <div class="sector-tag">Big Data</div>
-                </div>
-            </div>
-            
-            <h3 id="energie">Énergie renouvelable et transition écologique</h3>
-            
-            <div class="etf-card">
-                <div class="etf-header">
-                    <div class="etf-name">iShares Global Clean Energy UCITS ETF</div>
-                    <div class="etf-ticker">IE00B1XNHC34</div>
-                </div>
-                <p>Exposition mondiale aux entreprises productrices d'énergie propre et aux technologies renouvelables.</p>
-                <div class="etf-details">
-                    <div class="detail-item">
-                        <div class="detail-value">0.65%</div>
-                        <div class="detail-label">Frais annuels</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">6.3 Md€</div>
-                        <div class="detail-label">Encours</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">+18.9%</div>
-                        <div class="detail-label">Perf. 2024</div>
-                    </div>
-                </div>
-                <div class="sector-tags">
-                    <div class="sector-tag">Solaire</div>
-                    <div class="sector-tag">Éolien</div>
-                    <div class="sector-tag">Hydrogène</div>
-                </div>
-            </div>
-            
-            <h3 id="obligations">Obligations et stabilité</h3>
-            
-            <div class="etf-card">
-                <div class="etf-header">
-                    <div class="etf-name">Amundi ETF Euro Government Bond</div>
-                    <div class="etf-ticker">LU0292107645</div>
-                </div>
-                <p>ETF obligataire offrant une exposition aux obligations d'État de la zone euro avec une durée moyenne de 7 à 10 ans.</p>
-                <div class="etf-details">
-                    <div class="detail-item">
-                        <div class="detail-value">0.09%</div>
-                        <div class="detail-label">Frais annuels</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">3.8 Md€</div>
-                        <div class="detail-label">Encours</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value">+3.2%</div>
-                        <div class="detail-label">Perf. 2024</div>
-                    </div>
-                </div>
-                <div class="sector-tags">
-                    <div class="sector-tag">Obligations</div>
-                    <div class="sector-tag">Stabilité</div>
-                    <div class="sector-tag">Rendement</div>
-                </div>
-            </div>
-            
-            <div class="callout warning">
-                <p>Attention : Les performances passées ne préjugent pas des performances futures. Les ETF thématiques et sectoriels présentent généralement une volatilité plus élevée que les ETF larges marchés.</p>
-            </div>
-            
-            <h2 id="strategies">Stratégies d'investissement avec ETF</h2>
-            
-            <p>Plusieurs approches peuvent être adoptées pour intégrer les ETF dans votre portefeuille :</p>
-            
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Stratégie</th>
-                        <th>Description</th>
-                        <th>ETF recommandés</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Core-Satellite</td>
-                        <td>Base large marché + satellites thématiques</td>
-                        <td>MSCI Europe + Techno/Clean Energy</td>
-                    </tr>
-                    <tr>
-                        <td>Asset Allocation</td>
-                        <td>Répartition actions/obligations selon profil</td>
-                        <td>MSCI Europe + Euro Gov Bond</td>
-                    </tr>
-                    <tr>
-                        <td>DCA (Moyennage)</td>
-                        <td>Investissement régulier mensuel/trimestriel</td>
-                        <td>Tous ETF à faible volatilité</td>
-                    </tr>
-                    <tr>
-                        <td>Thématique long terme</td>
-                        <td>Concentration sur mégatendances structurelles</td>
-                        <td>IA, Énergie propre, Biotech</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Exemple de portefeuille équilibré</h3>
-            <div class="investment-scenario">
-                <div class="scenario-title">
-                    <i class="fas fa-chart-pie"></i> Allocation pour profil modéré
-                </div>
-                <div class="performance-chart">
-                    <div class="chart-bar" style="height: 70%; background: var(--primary);">Actions Europe</div>
-                    <div class="chart-bar" style="height: 50%; background: var(--accent);">Technologie</div>
-                    <div class="chart-bar" style="height: 40%; background: var(--success);">Énergie verte</div>
-                    <div class="chart-bar" style="height: 30%; background: var(--info);">Obligations</div>
-                </div>
-                <div class="chart-labels">
-                    <span>50% MSCI Europe</span>
-                    <span>20% Nasdaq-100</span>
-                    <span>15% Clean Energy</span>
-                    <span>15% Euro Bonds</span>
-                </div>
+                <p><strong>Rappelez-vous :</strong> La clé du succès en investissement réside dans l'éducation, la discipline et la gestion des émotions. L'argent ne doit être investi qu'après avoir acquis les connaissances nécessaires.</p>
             </div>
             
             <div class="callout info">
-                <p>Pour les investisseurs français, le PEA (Plan d'Épargne en Actions) permet d'investir dans les ETF actions européennes avec une fiscalité avantageuse après 5 ans (exonération d'impôt sur les plus-values).</p>
-            </div>
-            
-            <h2 id="risques">Gestion des risques avec les ETF</h2>
-            <p>Malgré leurs avantages, les ETF présentent certains risques à maîtriser :</p>
-            
-            <div class="callout warning">
-                <div class="callout-title">Principaux risques des ETF</div>
+                <h3>Prochaine étape</h3>
+                <p>Commencez par suivre une formation en ligne gratuite ou utiliser un simulateur d'investissement pour mettre en pratique vos connaissances sans risque.</p>
                 <ul>
-                    <li><strong>Risque de marché</strong> : Sensibilité aux fluctuations boursières</li>
-                    <li><strong>Risque de change</strong> : Pour les ETF libellés en devises étrangères</li>
-                    <li><strong>Risque de liquidité</strong> : Pour les ETF peu échangés</li>
-                    <li><strong>Risque de réplication</strong> : Écart entre performance ETF et indice</li>
-                    <li><strong>Risque de concentration</strong> : Pour les ETF sectoriels ou thématiques</li>
+                    <li>Explorez les ressources gratuites disponibles en ligne</li>
+                    <li>Créez un portefeuille virtuel pour tester vos stratégies</li>
+                    <li>Rejoignez une communauté d'apprentissage</li>
+                    <li>Commencez petit et augmentez progressivement</li>
                 </ul>
             </div>
-            
-            <h3>Techniques de réduction des risques</h3>
-            <ol>
-                <li><strong>Diversification</strong> : Combiner ETF de différentes classes d'actifs et zones géographiques</li>
-                <li><strong>Horizon long terme</strong> : Investir pour minimum 5-7 ans</li>
-                <li><strong>DCA (Dollar Cost Averaging)</strong> : Investir régulièrement plutôt que ponctuellement</li>
-                <li><strong>Rebalancing</strong> : Rééquilibrer le portefeuille 1-2 fois par an</li>
-                <li><strong>Allocation adaptée</strong> : Proportion actions/obligations selon tolérance au risque</li>
-            </ol>
-            
-            <h2 id="conclusion">Conclusion : Construire un portefeuille performant</h2>
-            <p>Les ETF européens offrent en 2025 des opportunités d'investissement diversifiées et efficaces. En combinant ETF larges marchés pour la stabilité et ETF thématiques pour la croissance, les investisseurs peuvent construire des portefeuilles adaptés à leurs objectifs et tolérance au risque.</p>
-            
-            <p>Les tendances structurelles comme la transition énergétique, l'intelligence artificielle et l'innovation technologique continueront de façonner le paysage des ETF dans les années à venir. Les critères ESG deviennent par ailleurs incontournables dans le processus de sélection.</p>
-            
-            <div class="callout success">
-                <div class="callout-title">Plan d'action pour bien démarrer</div>
-                <p>1. Définissez vos objectifs d'investissement et horizon temporel<br>
-                2. Évaluez votre tolérance au risque<br>
-                3. Choisissez une plateforme de courtage adaptée<br>
-                4. Commencez avec un ETF large marché (MSCI Europe)<br>
-                5. Diversifiez progressivement avec des ETF thématiques<br>
-                6. Rééquilibrez votre portefeuille annuellement</p>
-            </div>
-            
-            <p>Comme le souligne Christine Lagarde, présidente de la BCE : "Les ETF jouent un rôle crucial dans la diversification des portefeuilles et l'accès aux marchés pour les investisseurs particuliers, contribuant ainsi à une finance plus inclusive et efficace."</p>
         </div>
     </div>
 
@@ -1157,6 +1245,19 @@
                         tocContainer.classList.remove('visible');
                     }
                 });
+            });
+            
+            // Add animation class to elements when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.card, .step-card, .resource-card, .order-card').forEach(card => {
+                observer.observe(card);
             });
         });
     </script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investir en Bourse 2025 - Guide Complet</title>
+    <title>Épargne de précaution : pourquoi est-ce indispensable ? - Finary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -173,20 +173,32 @@
         .featured-image {
             width: 100%;
             height: 400px;
-            object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
-            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: linear-gradient(120deg, var(--finary-primary), var(--finary-secondary));
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
-            font-size: 1.5rem;
+            color: white;
+            font-size: 2rem;
             text-align: center;
             padding: 20px;
-            background: linear-gradient(135deg, #141145 0%, #7A2D8D 50%, #5682F2 100%);
-            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
         }
         
         /* Content Styling */
@@ -359,28 +371,16 @@
             color: var(--finary-accent);
         }
         
-        .investment-type {
+        .investment-scenario {
             background-color: white;
             border: 1px solid #eee;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
         }
         
-        .investment-type::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 4px;
-            background: var(--finary-accent);
-        }
-        
-        .type-title {
+        .scenario-title {
             font-weight: 600;
             color: var(--finary-secondary);
             margin-bottom: 15px;
@@ -388,79 +388,59 @@
             align-items: center;
         }
         
-        .type-title i {
+        .scenario-title i {
             margin-right: 10px;
         }
         
-        .risk-indicator {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-left: 10px;
+        .progress-bar {
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
         }
         
-        .risk-low {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #2E7D32;
+        .progress-fill {
+            height: 100%;
+            background: var(--finary-gradient);
+            border-radius: 6px;
+            transition: width 0.5s ease;
         }
         
-        .risk-medium {
-            background-color: rgba(255, 193, 7, 0.2);
-            color: #F57F17;
-        }
-        
-        .risk-high {
-            background-color: rgba(244, 67, 54, 0.2);
-            color: #C62828;
-        }
-        
-        .stats-container {
+        .progress-labels {
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
-            margin: 30px 0;
-            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
         }
         
-        .stat-box {
-            flex: 1;
-            min-width: 150px;
-            background: var(--finary-light);
-            border-radius: 8px;
-            padding: 20px;
+        .icon-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+        }
+        
+        .stat-item {
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 15px;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--finary-secondary);
+            margin-bottom: 10px;
         }
         
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--finary-primary);
-            margin-bottom: 5px;
         }
         
         .stat-label {
             font-size: 0.9rem;
             color: #666;
-        }
-        
-        .quote {
-            font-style: italic;
-            border-left: 3px solid var(--finary-accent);
-            padding: 15px 20px;
-            margin: 25px 0;
-            background: rgba(86, 130, 242, 0.05);
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .quote-author {
-            display: block;
-            text-align: right;
-            font-weight: 600;
-            margin-top: 10px;
-            color: var(--finary-primary);
         }
         
         /* Responsive */
@@ -471,7 +451,7 @@
             
             .featured-image {
                 height: 250px;
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
             
             .article-content {
@@ -488,8 +468,12 @@
                 left: auto;
             }
             
-            .stats-container {
-                flex-direction: column;
+            .icon-stats {
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                width: 50%;
             }
         }
         
@@ -500,7 +484,7 @@
             
             .featured-image {
                 height: 200px;
-                font-size: 1rem;
+                font-size: 1.3rem;
             }
             
             .article-content {
@@ -512,12 +496,16 @@
                 right: 5%;
                 left: 5%;
             }
+            
+            .stat-item {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle">
+    <button class="toc-toggle" id="toc-toggle" aria-label="Afficher la table des matières">
         <i class="fas fa-list"></i>
     </button>
     
@@ -525,32 +513,20 @@
     <div id="toc-container">
         <div class="toc-header">
             <div class="toc-title">Sommaire de l'article</div>
-            <button class="close-toc" id="close-toc">
+            <button class="close-toc" id="close-toc" aria-label="Fermer la table des matières">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
             <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            
-            <li><a href="#types-investissement" class="h2-link">Types d'investissement</a></li>
-            <li><a href="#actions" class="h3-link">Actions</a></li>
-            <li><a href="#obligations" class="h3-link">Obligations</a></li>
-            <li><a href="#etf" class="h3-link">ETF (Trackers)</a></li>
-            <li><a href="#fonds" class="h3-link">Fonds communs</a></li>
-            <li><a href="#produits-derives" class="h3-link">Produits dérivés</a></li>
-            
-            <li><a href="#supports" class="h2-link">Supports d'investissement</a></li>
-            <li><a href="#pea" class="h3-link">PEA</a></li>
-            <li><a href="#cto" class="h3-link">Compte Titres</a></li>
-            <li><a href="#assurance-vie" class="h3-link">Assurance-vie</a></li>
-            <li><a href="#pea-pme" class="h3-link">PEA-PME</a></li>
-            
-            <li><a href="#strategies" class="h2-link">Stratégies</a></li>
-            <li><a href="#long-terme" class="h3-link">Investissement long terme</a></li>
-            <li><a href="#trading" class="h3-link">Trading actif</a></li>
-            <li><a href="#dividendes" class="h3-link">Stratégie dividendes</a></li>
-            
-            <li><a href="#choix" class="h2-link">Comment choisir</a></li>
+            <li><a href="#importance" class="h2-link">L'indispensable épargne de précaution</a></li>
+            <li><a href="#montant" class="h2-link">Combien épargner ?</a></li>
+            <li><a href="#lieux" class="h2-link">Où placer son épargne de précaution ?</a></li>
+            <li><a href="#livret-a" class="h3-link">Livret A</a></li>
+            <li><a href="#ldds" class="h3-link">Livret de Développement Durable et Solidaire</a></li>
+            <li><a href="#lep" class="h3-link">Livret d'Épargne Populaire (LEP)</a></li>
+            <li><a href="#erreurs" class="h2-link">Les erreurs à éviter</a></li>
+            <li><a href="#constituer" class="h2-link">Comment constituer son épargne de précaution ?</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -558,353 +534,299 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Investir en Bourse en 2025 : Le Guide Complet</h1>
+            <h1 class="article-title">Épargne de précaution : pourquoi est-ce indispensable ?</h1>
+            <!-- Bloc en dessous du titre laissé vide comme demandé -->
+            <div></div>
         </div>
         
-        <!-- Featured Image -->
+        <!-- Featured Image corrigée -->
         <div class="featured-image">
-            Les clés pour investir sereinement en bourse en 2025
-        </div>
-        
-        <!-- Stats Container -->
-        <div class="stats-container">
-            <div class="stat-box">
-                <div class="stat-value">1 500Mds€</div>
-                <div class="stat-label">Investis par les Français</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value">40%</div>
-                <div class="stat-label">Via supports fiscaux</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value">+7%/an</div>
-                <div class="stat-label">Performance historique</div>
-            </div>
+            Votre sécurité financière commence par une épargne de précaution
         </div>
         
         <!-- Article Content -->
         <div class="article-content">
-            <p>Investir en bourse est aujourd'hui accessible à tous, mais comprendre les différentes options disponibles est essentiel pour construire un portefeuille adapté à ses objectifs. En 2025, les investisseurs disposent d'une large gamme d'options pour diversifier leurs portefeuilles.</p>
-            
-            <div class="quote">
-                "Un investisseur intelligent ne joue pas contre la bourse, il l'épouse avec patience."
-                <span class="quote-author">Adapté de Warren Buffett</span>
-            </div>
+            <p>Dans un monde économique incertain, l'épargne de précaution représente votre première ligne de défense contre les imprévus financiers. Cette réserve d'argent immédiatement disponible est bien plus qu'un simple matelas financier : c'est une assurance contre les coups durs qui peuvent survenir à tout moment.</p>
             
             <div class="callout info">
                 <div class="callout-title">Les éléments clés :</div>
                 <ul>
-                    <li>Les actions offrent un fort potentiel de croissance mais avec un risque élevé</li>
-                    <li>Les ETF permettent une diversification instantanée à faible coût</li>
-                    <li>Le PEA est le support privilégié pour les investissements long terme</li>
-                    <li>Chaque stratégie (dividendes, croissance, trading) nécessite des supports adaptés</li>
-                    <li>La diversification entre types d'actifs et supports réduit les risques</li>
+                    <li>L'épargne de précaution couvre 3 à 6 mois de dépenses courantes</li>
+                    <li>Seulement 54% des Français disposent d'une épargne de précaution suffisante</li>
+                    <li>Les livrets réglementés (Livret A, LDDS, LEP) sont les placements idéaux</li>
+                    <li>Cette épargne doit être disponible en moins de 72 heures</li>
+                    <li>Elle évite d'avoir à recourir au crédit en cas d'imprévu</li>
                 </ul>
             </div>
             
-            <h2 id="introduction">Introduction</h2>
-            <p>Investir en bourse ne se limite plus à l'achat d'actions individuelles. Aujourd'hui, les investisseurs disposent d'une large gamme d'options pour diversifier leurs portefeuilles : obligations, fonds communs, ETF, produits dérivés, etc. Chaque type d'investissement présente ses caractéristiques propres en termes de risque, rendement et horizon temporel.</p>
+            <h2 id="introduction">Introduction : Une protection contre les imprévus</h2>
+            <p>L'épargne de précaution, souvent appelée "fonds d'urgence", est une somme d'argent réservée exclusivement à la gestion des imprévus de la vie : perte d'emploi, panne de voiture, frais médicaux imprévus, réparation urgente dans le logement, etc.</p>
             
-            <p>Mais avant même de choisir vos investissements, il est crucial de sélectionner le bon support : PEA, compte titres, assurance-vie... Ces enveloppes fiscales influencent directement votre rendement net. <strong>Une stratégie d'investissement optimale combine à la fois les bons actifs et les supports adaptés.</strong></p>
+            <p>En 2025, avec un contexte économique marqué par l'inflation et l'instabilité des marchés, cette épargne n'a jamais été aussi cruciale. Pourtant, selon une étude récente, <strong>46% des Français ne disposent pas d'une épargne de précaution suffisante</strong> pour faire face à une dépense imprévue de 1 000€ sans recourir au crédit.</p>
+            
+            <div class="icon-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-value">46%</div>
+                    <div class="stat-label">des Français sans épargne suffisante</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="stat-value">3 200€</div>
+                    <div class="stat-label">moyenne d'épargne de précaution</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value">72h</div>
+                    <div class="stat-label">délai de disponibilité idéal</div>
+                </div>
+            </div>
             
             <div class="highlight-box">
                 <div class="highlight-box-title">
                     <i class="fas fa-lightbulb"></i> À retenir
                 </div>
-                <p>Les investisseurs français ont investi plus de 1 500 milliards d'euros en actions en 2024, dont 40% via des supports fiscaux avantageux comme le PEA ou l'assurance-vie. Cette tendance devrait continuer à croître avec la démocratisation de l'investissement boursier.</p>
+                <p>L'épargne de précaution n'est pas un luxe mais une nécessité financière. Elle vous protège contre l'endettement et vous donne la liberté de faire des choix sans pression financière immédiate.</p>
             </div>
             
-            <h2 id="types-investissement">Types d'investissement boursier</h2>
+            <h2 id="importance">Pourquoi l'épargne de précaution est indispensable</h2>
             
-            <div class="investment-type">
-                <div class="type-title">
-                    <i class="fas fa-chart-line"></i> Actions
-                    <span class="risk-indicator risk-high">Risque Élevé</span>
-                </div>
-                <p>Les actions représentent des parts de propriété dans une entreprise. Lorsque vous achetez une action, vous devenez actionnaire de la société et participez à son succès (ou à ses difficultés).</p>
-                
-                <p><strong>Avantages :</strong></p>
-                <ul>
-                    <li>Potentiel de rendement élevé à long terme</li>
-                    <li>Possibilité de percevoir des dividendes</li>
-                    <li>Droits de vote aux assemblées générales</li>
-                </ul>
-                
-                <p><strong>Inconvénients :</strong></p>
-                <ul>
-                    <li>Volatilité importante à court terme</li>
-                    <li>Risque de perte en capital</li>
-                    <li>Nécessite une analyse approfondie</li>
-                </ul>
-                
-                <p><strong>Idéal pour :</strong> Investisseurs ayant une bonne tolérance au risque et un horizon long terme (5 ans minimum).</p>
-            </div>
-            
-            <div class="investment-type">
-                <div class="type-title">
-                    <i class="fas fa-file-invoice-dollar"></i> Obligations
-                    <span class="risk-indicator risk-low">Risque Faible</span>
-                </div>
-                <p>Les obligations sont des titres de dette émis par des États ou des entreprises. En achetant une obligation, vous prêtez de l'argent à l'émetteur en échange d'intérêts réguliers.</p>
-                
-                <p><strong>Avantages :</strong></p>
-                <ul>
-                    <li>Revenus réguliers et prévisibles</li>
-                    <li>Moins volatiles que les actions</li>
-                    <li>Diversification du portefeuille</li>
-                </ul>
-                
-                <p><strong>Inconvénients :</strong></p>
-                <ul>
-                    <li>Rendements généralement plus faibles que les actions</li>
-                    <li>Risque de défaut (non-paiement)</li>
-                    <li>Sensibles aux taux d'intérêt</li>
-                </ul>
-                
-                <p><strong>Idéal pour :</strong> Investisseurs prudents ou en phase de préservation de capital, recherche de revenus stables.</p>
-            </div>
-            
-            <div class="investment-type">
-                <div class="type-title">
-                    <i class="fas fa-layer-group"></i> ETF (Exchange Traded Funds)
-                    <span class="risk-indicator risk-medium">Risque Variable</span>
-                </div>
-                <p>Les ETF, ou trackers, sont des fonds cotés en bourse qui répliquent la performance d'un indice (comme le CAC 40 ou le S&P 500). Ils permettent d'investir sur un panier de titres en une seule transaction.</p>
-                
-                <p><strong>Avantages :</strong></p>
-                <ul>
-                    <li>Diversification immédiate</li>
-                    <li>Frais de gestion très bas</li>
-                    <li>Transparence et liquidité</li>
-                    <li>Accès à des marchés complexes</li>
-                </ul>
-                
-                <p><strong>Inconvénients :</strong></p>
-                <ul>
-                    <li>Pas de performance supérieure au marché</li>
-                    <li>Certains ETF complexes peu adaptés aux débutants</li>
-                    <li>Risque de tracking error (décalage avec l'indice)</li>
-                </ul>
-                
-                <p><strong>Idéal pour :</strong> Tous les investisseurs, en particulier les débutants et ceux recherchant une gestion passive diversifiée.</p>
-            </div>
-            
-            <div class="investment-type">
-                <div class="type-title">
-                    <i class="fas fa-piggy-bank"></i> Fonds communs de placement
-                    <span class="risk-indicator risk-medium">Risque Variable</span>
-                </div>
-                <p>Les fonds communs de placement (FCP) et SICAV regroupent l'argent de plusieurs investisseurs pour acheter un portefeuille diversifié d'actifs, géré par des professionnels.</p>
-                
-                <p><strong>Avantages :</strong></p>
-                <ul>
-                    <li>Gestion professionnelle</li>
-                    <li>Diversification automatique</li>
-                    <li>Choix très large de stratégies</li>
-                </ul>
-                
-                <p><strong>Inconvénients :</strong></p>
-                <ul>
-                    <li>Frais de gestion plus élevés que les ETF</li>
-                    <li>Performance parfois décevante</li>
-                    <li>Manque de transparence sur les positions</li>
-                </ul>
-                
-                <p><strong>Idéal pour :</strong> Investisseurs souhaitant déléguer la gestion de leur portefeuille à des professionnels.</p>
-            </div>
-            
-            <div class="investment-type">
-                <div class="type-title">
-                    <i class="fas fa-exchange-alt"></i> Produits dérivés
-                    <span class="risk-indicator risk-high">Risque Très Élevé</span>
-                </div>
-                <p>Les produits dérivés (options, warrants, turbos, etc.) sont des instruments financiers dont la valeur dépend d'un actif sous-jacent (action, indice, matière première).</p>
-                
-                <p><strong>Avantages :</strong></p>
-                <ul>
-                    <li>Effet de levier important</li>
-                    <li>Possibilité de couvrir des positions</li>
-                    <li>Stratégies avancées de trading</li>
-                </ul>
-                
-                <p><strong>Inconvénients :</strong></p>
-                <ul>
-                    <li>Risques très élevés (perte totale possible)</li>
-                    <li>Complexité technique</li>
-                    <li>Frais de transaction élevés</li>
-                </ul>
-                
-                <p><strong>Idéal pour :</strong> Investisseurs expérimentés avec une bonne connaissance des marchés et une tolérance au risque très élevée.</p>
-            </div>
-            
-            <h2 id="supports">Supports d'investissement</h2>
-            
-            <h3 id="pea">PEA (Plan Épargne en Actions)</h3>
-            <p>Le Plan d'Épargne en Actions est le support privilégié pour l'investissement boursier des résidents français. Après 5 ans de détention, les plus-values sont exonérées d'impôt sur le revenu (seules les prélèvements sociaux de 17.2% s'appliquent).</p>
-            
-            <p><strong>Caractéristiques :</strong></p>
+            <h3>Votre bouclier contre les imprévus</h3>
+            <p>La vie réserve son lot de surprises, et toutes ne sont pas agréables. Sans épargne de précaution, un simple imprévu peut se transformer en crise financière :</p>
             <ul>
-                <li>Plafond de versement : 150 000€</li>
-                <li>Titres éligibles : actions européennes et ETF majoritairement européens</li>
-                <li>Avantage fiscal après 5 ans</li>
-                <li>Fermeture en cas de retrait avant 5 ans</li>
+                <li><strong>Perte d'emploi</strong> : 6 mois de recherche en moyenne pour retrouver un poste équivalent</li>
+                <li><strong>Panne de voiture</strong> : en moyenne 800€ à 2 000€ de réparation</li>
+                <li><strong>Dépenses médicales imprévues</strong> : dépassements d'honoraires, soins dentaires urgents</li>
+                <li><strong>Réparation domestique urgente</strong> : chaudière, toiture, fuite d'eau</li>
             </ul>
             
             <div class="callout success">
-                <p>Le PEA est particulièrement adapté pour les stratégies d'investissement long terme dans des actions européennes ou des ETF. C'est le support le plus avantageux fiscalement pour les investisseurs individuels.</p>
+                <p>Le véritable rôle de l'épargne de précaution est de vous éviter de puiser dans vos investissements à long terme ou de contracter des crédits coûteux lorsque survient un imprévu.</p>
             </div>
             
-            <h3 id="cto">Compte Titres Ordinaire (CTO)</h3>
-            <p>Le compte titres ordinaire est le support classique pour investir en bourse, sans avantage fiscal particulier mais sans restriction géographique ou de durée.</p>
+            <h3>Indépendance financière et tranquillité d'esprit</h3>
+            <p>Au-delà de la protection contre les imprévus, l'épargne de précaution offre un bien inestimable : la tranquillité d'esprit. Savoir que vous disposez d'une réserve pour faire face aux aléas de la vie réduit considérablement le stress financier.</p>
             
-            <p><strong>Caractéristiques :</strong></p>
-            <ul>
-                <li>Aucun plafond d'investissement</li>
-                <li>Tous les titres éligibles : actions mondiales, ETF, obligations, etc.</li>
-                <li>Flat tax de 30% sur les plus-values</li>
-                <li>Liquidité immédiate</li>
-            </ul>
+            <p>Cette sécurité vous permet aussi de prendre des décisions professionnelles ou personnelles plus éclairées, sans être contraint par des impératifs financiers immédiats.</p>
             
-            <p><strong>Idéal pour :</strong> Investissements internationaux, montants supérieurs à 150 000€, trading actif, stratégies complexes.</p>
-            
-            <h3 id="assurance-vie">Assurance-vie</h3>
-            <p>L'assurance-vie est un support polyvalent qui permet d'investir sur les marchés financiers via des fonds (unités de compte) tout en bénéficiant d'avantages fiscaux après 8 ans de détention.</p>
-            
-            <p><strong>Caractéristiques :</strong></p>
-            <ul>
-                <li>Exonération fiscale partielle après 8 ans</li>
-                <li>Grand choix de supports (fonds en euros, UC)</li>
-                <li>Transmission du capital facilitée</li>
-                <li>Frais souvent plus élevés que PEA/CTO</li>
-            </ul>
-            
-            <div class="callout warning">
-                <p>Attention aux frais sur les assurances-vie : frais d'entrée, frais de gestion, frais d'arbitrage... Comparer attentivement les différentes offres.</p>
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-user-check"></i> Témoignage
+                </div>
+                <p>"Quand j'ai perdu mon emploi en 2024, mon épargne de précaution m'a permis de traverser 5 mois de recherche sereinement, sans toucher à mes placements ni m'endetter. Cela a changé ma vision de l'argent." - Marie, 34 ans, responsable marketing</p>
             </div>
             
-            <h3 id="pea-pme">PEA-PME</h3>
-            <p>Le PEA-PME est une variante du PEA classique, destiné à financer les petites et moyennes entreprises. Il offre les mêmes avantages fiscaux que le PEA mais avec des règles spécifiques.</p>
+            <h2 id="montant">Combien d'épargne de précaution faut-il constituer ?</h2>
             
-            <p><strong>Caractéristiques :</strong></p>
-            <ul>
-                <li>Plafond de versement : 225 000€ (cumulable avec le PEA classique)</li>
-                <li>Titres éligibles : actions de PME européennes</li>
-                <li>Avantage fiscal après 5 ans</li>
-                <li>Risque généralement plus élevé</li>
-            </ul>
+            <p>Le montant idéal varie selon votre situation personnelle. Voici les références couramment admises :</p>
             
-            <h2 id="strategies">Stratégies d'investissement</h2>
-            
-            <h3 id="long-terme">Investissement long terme ("Buy and Hold")</h3>
-            <p>Cette stratégie consiste à acheter des actifs de qualité et à les conserver pendant plusieurs années, en profitant de la croissance des marchés et des intérêts composés.</p>
-            
-            <p><strong>Supports recommandés :</strong></p>
-            <ul>
-                <li>PEA pour les actions et ETF européens</li>
-                <li>Assurance-vie en unités de compte pour la diversification</li>
-                <li>CTO pour les actifs non éligibles au PEA</li>
-            </ul>
-            
-            <p><strong>Types d'actifs :</strong> Actions de croissance, ETF monde, fonds indiciels.</p>
-            
-            <h3 id="trading">Trading actif</h3>
-            <p>Le trading consiste à réaliser des opérations fréquentes pour profiter des variations de cours à court terme. Cette approche nécessite du temps et une bonne connaissance des marchés.</p>
-            
-            <p><strong>Supports recommandés :</strong></p>
-            <ul>
-                <li>Compte titres ordinaire (CTO)</li>
-                <li>Compte de trading spécifique chez un courtier en ligne</li>
-            </ul>
-            
-            <p><strong>Types d'actifs :</strong> Actions volatiles, produits dérivés, forex.</p>
-            
-            <div class="callout error">
-                <p>Le trading présente des risques très élevés. Plus de 80% des traders particuliers perdent de l'argent à long terme. Ne tradez qu'avec de l'argent que vous pouvez vous permettre de perdre.</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 50%"></div>
             </div>
-            
-            <h3 id="dividendes">Stratégie dividendes</h3>
-            <p>Cette approche vise à construire un portefeuille générant des revenus réguliers grâce aux dividendes versés par les entreprises.</p>
-            
-            <p><strong>Supports recommandés :</strong></p>
-            <ul>
-                <li>PEA pour l'exonération fiscale après 5 ans</li>
-                <li>Assurance-vie pour les plus de 8 ans</li>
-                <li>CTO pour les actions non européennes</li>
-            </ul>
-            
-            <p><strong>Types d'actifs :</strong> Actions à fort dividende, fonds de dividendes, obligations.</p>
-            
-            <h2 id="choix">Comment choisir ses investissements et supports</h2>
-            
-            <p>Vos choix doivent dépendre de plusieurs critères personnels :</p>
+            <div class="progress-labels">
+                <span>Minimum</span>
+                <span>Idéal</span>
+                <span>Confort</span>
+            </div>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Profil</th>
-                        <th>Types d'actifs recommandés</th>
-                        <th>Supports adaptés</th>
+                        <th>Situation</th>
+                        <th>Montant recommandé</th>
+                        <th>Détails</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Débutant</td>
-                        <td>ETF monde, fonds diversifiés</td>
-                        <td>PEA, assurance-vie</td>
+                        <td>Célibataire sans enfants</td>
+                        <td>3 mois de dépenses</td>
+                        <td>Couvre les dépenses essentielles (loyer, nourriture, transports)</td>
                     </tr>
                     <tr>
-                        <td>Investisseur prudent</td>
-                        <td>Obligations, ETF obligataires, actions de croissance stable</td>
-                        <td>PEA, assurance-vie (fonds en euros)</td>
+                        <td>Couple sans enfants</td>
+                        <td>3-4 mois de dépenses</td>
+                        <td>Prise en compte des revenus et dépenses du couple</td>
                     </tr>
                     <tr>
-                        <td>Investisseur agressif</td>
-                        <td>Actions de croissance, ETF sectoriels, petites capitalisations</td>
-                        <td>PEA, CTO</td>
+                        <td>Famille avec enfants</td>
+                        <td>6 mois de dépenses</td>
+                        <td>Augmentation des risques et dépenses potentielles</td>
                     </tr>
                     <tr>
-                        <td>Recherche de revenus</td>
-                        <td>Actions à dividendes, obligations, SCPI</td>
-                        <td>PEA (après 5 ans), assurance-vie (après 8 ans)</td>
-                    </tr>
-                    <tr>
-                        <td>Trader actif</td>
-                        <td>Actions volatiles, produits dérivés</td>
-                        <td>CTO</td>
+                        <td>Indépendant / Freelance</td>
+                        <td>6-12 mois de dépenses</td>
+                        <td>Revenus variables et absence de sécurité sociale complète</td>
                     </tr>
                 </tbody>
             </table>
             
-            <div class="highlight-box">
-                <div class="highlight-box-title">
-                    <i class="fas fa-calculator"></i> Règle d'or
-                </div>
-                <p>Diversifiez toujours vos investissements :</p>
-                <ul>
-                    <li>Entre différents types d'actifs (actions, obligations, etc.)</li>
-                    <li>Entre différentes zones géographiques</li>
-                    <li>Entre différents secteurs économiques</li>
-                    <li>Entre différents supports (PEA, CTO, assurance-vie)</li>
-                </ul>
-                <p>Cette diversification est la meilleure protection contre les risques de marché.</p>
+            <h3>Comment calculer vos besoins</h3>
+            <p>Pour déterminer votre épargne de précaution idéale :</p>
+            <ol>
+                <li>Listez vos dépenses mensuelles fixes (loyer, crédits, assurances, abonnements)</li>
+                <li>Ajoutez vos dépenses variables essentielles (nourriture, transports, énergie)</li>
+                <li>Multipliez ce total par le nombre de mois recommandé selon votre situation</li>
+                <li>Ajoutez une marge pour les imprévus spécifiques (santé, voiture, logement)</li>
+            </ol>
+            
+            <div class="callout warning">
+                <p>Attention : n'incluez pas dans ce calcul les dépenses non essentielles (loisirs, vacances, restaurants). L'épargne de précaution doit couvrir uniquement les besoins vitaux en période difficile.</p>
             </div>
             
-            <h2 id="conclusion">Conclusion</h2>
-            <p>Investir en bourse offre de multiples possibilités pour faire croître votre patrimoine, mais nécessite une approche structurée. Les différents types d'investissement - actions, obligations, ETF, fonds - répondent à des objectifs et profils de risque différents.</p>
+            <h2 id="lieux">Où placer son épargne de précaution ?</h2>
+            <p>Le placement de votre épargne de précaution doit répondre à trois critères essentiels :</p>
+            <ul>
+                <li><strong>Sécurité</strong> : préservation du capital</li>
+                <li><strong>Disponibilité</strong> : accès rapide à l'argent (sous 72h)</li>
+                <li><strong>Rentabilité</strong> : rémunération suffisante pour contrer l'inflation</li>
+            </ul>
             
-            <p>Le choix des supports (PEA, compte titres, assurance-vie) est tout aussi crucial que celui des investissements eux-mêmes, car il impacte directement votre rendement net via la fiscalité.</p>
+            <h3 id="livret-a">Livret A - La valeur sûre</h3>
+            <p>Le placement préféré des Français pour l'épargne de précaution :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : 3% (net d'impôt)</li>
+                <li><strong>Plafond</strong> : 22 950€</li>
+                <li><strong>Avantages</strong> : disponibilité immédiate, défiscalisé, sécurisé</li>
+                <li><strong>Inconvénients</strong> : plafond limité, taux parfois inférieur à l'inflation</li>
+            </ul>
+            
+            <h3 id="ldds">Livret de Développement Durable et Solidaire (LDDS)</h3>
+            <p>Complément idéal du Livret A :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : 3% (identique au Livret A)</li>
+                <li><strong>Plafond</strong> : 12 000€</li>
+                <li><strong>Avantages</strong> : même taux que le Livret A, fonds utilisés pour le financement durable</li>
+                <li><strong>Conditions</strong> : réservé aux résidents fiscaux français</li>
+            </ul>
+            
+            <h3 id="lep">Livret d'Épargne Populaire (LEP)</h3>
+            <p>Pour les revenus modestes :</p>
+            <ul>
+                <li><strong>Taux 2025</strong> : 6% (net d'impôt)</li>
+                <li><strong>Plafond</strong> : 7 700€</li>
+                <li><strong>Conditions</strong> : Revenu fiscal de référence inférieur à 21 393€ pour une personne seule</li>
+                <li><strong>Avantages</strong> : meilleure rémunération du marché, sécurité absolue</li>
+            </ul>
             
             <div class="callout info">
-                <div class="callout-title">En résumé</div>
-                <ul>
-                    <li>Pour la plupart des investisseurs : <strong>PEA + ETF diversifiés</strong></li>
-                    <li>Pour les gros montants : <strong>combinaison PEA + CTO</strong></li>
-                    <li>Pour la transmission : <strong>assurance-vie</strong></li>
-                    <li>Pour les PME : <strong>PEA-PME</strong></li>
-                </ul>
+                <div class="callout-title">Stratégie optimale</div>
+                <p>Commencez par remplir votre Livret A, puis le LDDS. Si vous êtes éligible, priorisez le LEP qui offre le meilleur rendement. Pour les montants supérieurs aux plafonds, tournez-vous vers les comptes à terme ou les fonds euros d'assurance-vie avec rachats partiels.</p>
             </div>
             
-            <p>Quelle que soit votre stratégie, commencez par définir vos objectifs, votre horizon d'investissement et votre tolérance au risque. <strong>Un portefeuille bien construit et diversifié est la clé pour investir sereinement en bourse sur le long terme.</strong></p>
+            <h2 id="erreurs">Les erreurs à éviter avec votre épargne de précaution</h2>
+            
+            <div class="callout error">
+                <p>Attention : ces erreurs peuvent compromettre votre sécurité financière</p>
+            </div>
+            
+            <h3>1. Confondre épargne de précaution et investissements</h3>
+            <p>Votre épargne de précaution ne doit pas être investie en bourse, en cryptomonnaies ou dans tout placement risqué ou bloqué. Son objectif n'est pas de générer des rendements élevés mais d'être disponible et sécurisée.</p>
+            
+            <h3>2. Négliger la réévaluation régulière</h3>
+            <p>Vos besoins en épargne de précaution évoluent avec votre vie :</p>
+            <ul>
+                <li>Changement de situation familiale (mariage, naissance, divorce)</li>
+                <li>Évolution de votre logement ou de vos modes de transport</li>
+                <li>Modification de vos revenus ou dépenses fixes</li>
+            </ul>
+            <p>Réévaluez votre épargne de précaution au moins une fois par an.</p>
+            
+            <h3>3. Utiliser cette épargne pour des dépenses non essentielles</h3>
+            <p>Résistez à la tentation d'utiliser votre épargne de précaution pour financer des vacances, un nouveau gadget ou des travaux d'agrément. Cette réserve est sacrée et ne doit servir qu'aux véritables urgences.</p>
+            
+            <h3>4. Oublier de reconstituer après utilisation</h3>
+            <p>Si vous devez puiser dans votre épargne de précaution, faites-en une priorité de la reconstituer dès que possible. Établissez un plan d'épargne mensuel pour retrouver votre niveau de sécurité optimal.</p>
+            
+            <h2 id="constituer">Comment constituer son épargne de précaution ?</h2>
+            
+            <p>Construire son épargne de précaution demande méthode et discipline. Voici une approche efficace :</p>
+            
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-rocket"></i> Méthode en 5 étapes
+                </div>
+                <ol>
+                    <li><strong>Fixez votre objectif</strong> : calculez le montant nécessaire (3 à 6 mois de dépenses)</li>
+                    <li><strong>Commencez petit</strong> : visez d'abord 1 000€, puis 1 mois de dépenses</li>
+                    <li><strong>Automatisez</strong> : mettez en place un virement automatique mensuel</li>
+                    <li><strong>Affectez les surplus</strong> : versez-y les primes, remboursements, héritages</li>
+                    <li><strong>Optimisez</strong> : placez l'argent sur les supports les plus rémunérateurs (LEP, Livret A, LDDS)</li>
+                </ol>
+            </div>
+            
+            <h3>Astuces pour épargner sans douleur</h3>
+            <ul>
+                <li><strong>La règle des 50/30/20</strong> : affectez 20% de vos revenus à l'épargne (dont épargne de précaution)</li>
+                <li><strong>L'arrondi</strong> : certaines applications arrondissent vos dépenses et épargnent la différence</li>
+                <li><strong>Les challenges d'épargne</strong> : épargnez 1€ le 1er jour, 2€ le 2e jour... pendant 1 mois (465€ économisés)</li>
+                <li><strong>Vendre l'inutile</strong> : objets inutilisés, vêtements portés une fois...</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <div class="highlight-box-title">
+                    <i class="fas fa-chart-line"></i> Suivi de votre progression
+                </div>
+                <p>Utilisez un tableau de suivi simple :</p>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Mois</th>
+                            <th>Objectif</th>
+                            <th>Atteint</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Janvier</td>
+                            <td>500€</td>
+                            <td>500€</td>
+                            <td>100%</td>
+                        </tr>
+                        <tr>
+                            <td>Février</td>
+                            <td>1 000€</td>
+                            <td>900€</td>
+                            <td>90%</td>
+                        </tr>
+                        <tr>
+                            <td>Mars</td>
+                            <td>1 500€</td>
+                            <td>1 400€</td>
+                            <td>93%</td>
+                        </tr>
+                        <tr>
+                            <td>Avril</td>
+                            <td>2 000€</td>
+                            <td>2 050€</td>
+                            <td>103%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h2 id="conclusion">Conclusion : Votre liberté financière commence ici</h2>
+            <p>L'épargne de précaution est bien plus qu'un simple compte épargne : c'est la fondation de votre sécurité financière. Elle vous protège contre les aléas de la vie, vous évite de contracter des dettes coûteuses et vous donne la liberté de faire des choix éclairés.</p>
+            
+            <p>En 2025, avec les incertitudes économiques et les défis environnementaux, disposer d'une épargne de précaution suffisante n'est pas un luxe mais une nécessité. Quel que soit votre niveau de revenus, commencez aujourd'hui à constituer cette réserve essentielle.</p>
+            
+            <div class="callout success">
+                <div class="callout-title">Prochaine étape</div>
+                <p>1. Calculez vos dépenses mensuelles essentielles<br>
+                2. Déterminez votre objectif d'épargne (3 à 6 mois de dépenses)<br>
+                3. Ouvrez ou vérifiez vos livrets réglementés (Livret A, LDDS, LEP)<br>
+                4. Mettez en place un virement automatique mensuel<br>
+                5. Suivez votre progression trimestriellement</p>
+            </div>
+            
+            <p>N'oubliez pas : la meilleure épargne de précaution est celle que vous avez constituée avant d'en avoir besoin. Commencez maintenant, votre futur vous remerciera.</p>
         </div>
     </div>
 

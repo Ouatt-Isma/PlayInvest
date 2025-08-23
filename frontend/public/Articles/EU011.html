@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychologie des Investisseurs : Comprendre vos biais pour mieux investir - Finary</title>
+    <title>Qu'est-ce qu'un ETF : Le guide complet - Finary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,17 +43,6 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-        
-        .reading-time {
-            display: inline-block;
-            background-color: rgba(86, 130, 242, 0.1);
-            color: var(--finary-accent);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 20px;
         }
         
         /* Table des matières */
@@ -173,7 +162,7 @@
         
         .article-title {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             line-height: 1.3;
             color: var(--finary-primary);
             font-weight: 700;
@@ -184,21 +173,32 @@
         .featured-image {
             width: 100%;
             height: 400px;
-            object-fit: cover;
             border-radius: 12px;
             margin: 30px 0;
-            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: linear-gradient(120deg, var(--finary-primary), var(--finary-secondary));
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            color: #666;
-            background: linear-gradient(135deg, #141145, #7A2D8D);
             color: white;
-            font-size: 1.5rem;
+            font-size: 2rem;
             text-align: center;
             padding: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
         }
         
         /* Content Styling */
@@ -235,7 +235,7 @@
             scroll-margin-top: 20px;
         }
         
-        .article-content ul, .article-content ol {
+        .article-content ul {
             padding-left: 30px;
             margin-bottom: 20px;
         }
@@ -253,83 +253,6 @@
             display: inline-block;
             width: 1em;
             margin-left: -1em;
-        }
-        
-        /* Bias visualization */
-        .bias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .bias-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--finary-accent);
-            transition: transform 0.3s ease;
-        }
-        
-        .bias-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .bias-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--finary-primary);
-            margin-bottom: 10px;
-        }
-        
-        .bias-description {
-            font-size: 0.95rem;
-            color: #666;
-        }
-        
-        /* Investor profile */
-        .profile-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .profile-card {
-            flex: 1;
-            min-width: 250px;
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            border-top: 4px solid;
-        }
-        
-        .profile-card.risk-averse {
-            border-color: var(--finary-info);
-        }
-        
-        .profile-card.balanced {
-            border-color: var(--finary-success);
-        }
-        
-        .profile-card.aggressive {
-            border-color: var(--finary-warning);
-        }
-        
-        .profile-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--finary-primary);
-        }
-        
-        .profile-description {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 15px;
         }
         
         /* Callout boxes - Style Finary */
@@ -395,42 +318,129 @@
             color: var(--finary-primary);
         }
         
-        /* Emotion meter */
-        .emotion-meter {
-            display: flex;
-            justify-content: space-between;
-            margin: 40px 0;
-            position: relative;
-            height: 40px;
-            background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
-            border-radius: 20px;
+        /* Tables - Style Finary */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
         }
         
-        .emotion-label {
-            position: absolute;
-            top: 50px;
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: #f5f5f7;
             font-weight: 600;
             color: var(--finary-primary);
         }
         
-        .emotion-label.left {
-            left: 10px;
+        .comparison-table tr:last-child td {
+            border-bottom: none;
         }
         
-        .emotion-label.right {
-            right: 10px;
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
         }
         
-        .emotion-pointer {
-            position: absolute;
-            top: -15px;
-            width: 30px;
-            height: 30px;
-            background: var(--finary-primary);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        .highlight-box {
+            background: rgba(86, 130, 242, 0.05);
+            border-left: 4px solid var(--finary-accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--finary-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .highlight-box-title i {
+            margin-right: 10px;
+            color: var(--finary-accent);
+        }
+        
+        .investment-scenario {
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .scenario-title {
+            font-weight: 600;
+            color: var(--finary-secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .scenario-title i {
+            margin-right: 10px;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--finary-gradient);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .icon-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--finary-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
         }
         
         /* Responsive */
@@ -441,6 +451,7 @@
             
             .featured-image {
                 height: 250px;
+                font-size: 1.5rem;
             }
             
             .article-content {
@@ -457,8 +468,12 @@
                 left: auto;
             }
             
-            .profile-container {
-                flex-direction: column;
+            .icon-stats {
+                flex-wrap: wrap;
+            }
+            
+            .stat-item {
+                width: 50%;
             }
         }
         
@@ -469,6 +484,7 @@
             
             .featured-image {
                 height: 200px;
+                font-size: 1.3rem;
             }
             
             .article-content {
@@ -480,12 +496,16 @@
                 right: 5%;
                 left: 5%;
             }
+            
+            .stat-item {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle">
+    <button class="toc-toggle" id="toc-toggle" aria-label="Afficher la table des matières">
         <i class="fas fa-list"></i>
     </button>
     
@@ -493,24 +513,21 @@
     <div id="toc-container">
         <div class="toc-header">
             <div class="toc-title">Sommaire de l'article</div>
-            <button class="close-toc" id="close-toc">
+            <button class="close-toc" id="close-toc" aria-label="Fermer la table des matières">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
-            <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            <li><a href="#importance" class="h2-link">Pourquoi la psychologie compte en investissement</a></li>
-            <li><a href="#biais" class="h2-link">Les biais cognitifs courants</a>
-                <ul>
-                    <li><a href="#biais-confirmation" class="h3-link">Biais de confirmation</a></li>
-                    <li><a href="#aversion-perte" class="h3-link">Aversion aux pertes</a></li>
-                    <li><a href="#surconfiance" class="h3-link">Surconfiance</a></li>
-                </ul>
-            </li>
-            <li><a href="#emotions" class="h2-link">L'impact des émotions</a></li>
-            <li><a href="#profils" class="h2-link">Profils psychologiques des investisseurs</a></li>
-            <li><a href="#strategies" class="h2-link">Stratégies pour surmonter ses biais</a></li>
-            <li><a href="#outils" class="h2-link">Outils et techniques</a></li>
+            <li><a href="#introduction" class="h2-link">Introduction aux ETF</a></li>
+            <li><a href="#fonctionnement" class="h2-link">Comment fonctionnent les ETF</a></li>
+            <li><a href="#avantages" class="h2-link">Avantages des ETF</a></li>
+            <li><a href="#types" class="h2-link">Types d'ETF</a></li>
+            <li><a href="#actions" class="h3-link">ETF actions</a></li>
+            <li><a href="#obligations" class="h3-link">ETF obligations</a></li>
+            <li><a href="#secteurs" class="h3-link">ETF secteurs</a></li>
+            <li><a href="#choisir" class="h2-link">Comment choisir un ETF</a></li>
+            <li><a href="#erreurs" class="h2-link">Erreurs à éviter</a></li>
+            <li><a href="#strategies" class="h2-link">Stratégies d'investissement</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -518,220 +535,298 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Psychologie des Investisseurs : Comprendre vos biais pour mieux investir</h1>
-            <div class="reading-time">
-                <i class="fas fa-clock"></i> 15 min de lecture
-            </div>
+            <h1 class="article-title">Qu'est-ce qu'un ETF : Le guide complet pour investir intelligemment</h1>
+            <div></div>
         </div>
         
         <!-- Featured Image -->
         <div class="featured-image">
-            Comprendre la psychologie pour maîtriser vos investissements
+            Les ETF : L'investissement diversifié accessible à tous
         </div>
         
         <!-- Article Content -->
         <div class="article-content">
-            <div class="callout success">
-                <div class="callout-title">Points clés à retenir :</div>
+            <p>Les ETF (Exchange Traded Funds) ont révolutionné l'investissement ces dernières années. Ces fonds indiciels cotés en bourse offrent une manière simple et économique de diversifier son portefeuille tout en suivant la performance d'un indice boursier. Mais qu'est-ce qu'un ETF exactement et comment fonctionne-t-il ?</p>
+            
+            <div class="callout info">
+                <div class="callout-title">Les éléments clés :</div>
                 <ul>
-                    <li>Les émotions et biais cognitifs influencent 80% des décisions d'investissement</li>
-                    <li>L'aversion aux pertes est deux fois plus puissante que l'attrait du gain</li>
-                    <li>Les investisseurs surconfiants réalisent souvent de moins bonnes performances</li>
-                    <li>Identifier votre profil psychologique est essentiel pour une stratégie adaptée</li>
-                    <li>La discipline et l'éducation financière sont vos meilleurs alliés</li>
+                    <li>Un ETF réplique la performance d'un indice boursier</li>
+                    <li>Frais de gestion très bas (0.05% à 0.5% en moyenne)</li>
+                    <li>Accessible à partir de quelques euros seulement</li>
+                    <li>Plus de 10 000 ETF disponibles dans le monde</li>
+                    <li>Gestion passive qui surperforme souvent les fonds actifs</li>
                 </ul>
             </div>
             
-            <h2 id="introduction">Introduction</h2>
-            <p>L'investissement n'est pas seulement une question de chiffres et d'analyses financières. La psychologie joue un rôle crucial dans les décisions que nous prenons, souvent à notre insu. Comprendre les mécanismes psychologiques qui sous-tendent nos choix d'investissement peut faire la différence entre succès et échec sur les marchés financiers.</p>
-            <p>Dans cet article, nous explorerons les principaux biais cognitifs qui affectent les investisseurs, l'impact des émotions sur nos décisions financières, et les stratégies pour investir de manière plus rationnelle et disciplinée.</p>
+            <h2 id="introduction">Introduction : Les ETF, l'investissement du XXIᵉ siècle</h2>
+            <p>Un ETF, ou fonds négocié en bourse, est un produit financier qui combine les caractéristiques d'un fonds d'investissement traditionnel avec la flexibilité de la bourse. Contrairement aux fonds communs de placement, les ETF se négocient en continu pendant les heures d'ouverture des marchés, tout comme les actions individuelles.</p>
             
-            <div class="callout info">
-                <p><strong>Saviez-vous ?</strong> Selon une étude de Dalbar, les investisseurs particuliers sous-performent le marché de 4-5% par an en moyenne, principalement à cause de décisions émotionnelles.</p>
+            <p>Le premier ETF a été créé en 1993 par State Street Global Advisors pour suivre l'indice S&P 500. Depuis, le marché des ETF a explosé : en 2025, les actifs sous gestion dans les ETF dépassent les 15 000 milliards de dollars à l'échelle mondiale.</p>
+            
+            <div class="icon-stats">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-value">15 000 Md$</div>
+                    <div class="stat-label">d'actifs sous gestion</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-value">0.15%</div>
+                    <div class="stat-label">frais moyens</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-value">10 000+</div>
+                    <div class="stat-label">ETF disponibles</div>
+                </div>
             </div>
             
-            <h2 id="importance">Pourquoi la psychologie compte en investissement</h2>
-            <p>Contrairement à la croyance populaire, les marchés financiers ne sont pas entièrement rationnels. Les émotions humaines - peur, cupidité, excès de confiance - créent des tendances et des cycles qui peuvent être prévisibles pour qui comprend la psychologie des foules.</p>
+            <div class="highlight-box">
+                <div class="highlight-box-title">
+                    <i class="fas fa-lightbulb"></i> À retenir
+                </div>
+                <p>Les ETF permettent aux investisseurs de détenir un panier diversifié d'actions ou d'obligations avec un seul produit, ce qui réduit considérablement le risque spécifique et les frais de transaction.</p>
+            </div>
             
-            <p>L'économie comportementale, domaine à la croisée de la psychologie et de l'économie, a démontré que :</p>
+            <h2 id="fonctionnement">Comment fonctionnent les ETF ?</h2>
+            
+            <h3>La réplication d'indice</h3>
+            <p>Le cœur du fonctionnement d'un ETF repose sur sa capacité à répliquer fidèlement la performance d'un indice de référence. Il existe deux méthodes principales :</p>
             
             <ul>
-                <li>Nous prenons systématiquement des décisions irrationnelles dans des contextes d'incertitude</li>
-                <li>Nos jugements sont influencés par des raccourcis mentaux (heuristiques)</li>
-                <li>L'émotion l'emporte souvent sur la raison dans les décisions financières</li>
-                <li>Nous sommes fortement influencés par le comportement du groupe</li>
+                <li><strong>Réplication physique</strong> : L'ETF détient effectivement tous les titres composant l'indice dans les mêmes proportions</li>
+                <li><strong>Réplication synthétique</strong> : L'ETF utilise des produits dérivés pour reproduire la performance de l'indice sans détenir physiquement les titres</li>
             </ul>
             
-            <h2 id="biais">Les biais cognitifs courants</h2>
-            <p>Les biais cognitifs sont des distorsions systématiques dans notre façon de penser qui affectent nos jugements et décisions. En investissement, ils peuvent coûter très cher.</p>
-            
-            <div class="bias-grid">
-                <div class="bias-card">
-                    <div class="bias-title">Biais de confirmation</div>
-                    <div class="bias-description">Tendance à privilégier les informations qui confirment nos croyances existantes et à ignorer les preuves contradictoires.</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Aversion aux pertes</div>
-                    <div class="bias-description">Nous ressentons la douleur d'une perte deux fois plus intensément que le plaisir d'un gain équivalent.</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Biais de surconfiance</div>
-                    <div class="bias-description">Tendance à surestimer ses connaissances et capacités, conduisant à un excès de transactions.</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Effet de disposition</div>
-                    <div class="bias-description">Tendance à vendre trop vite les investissements gagnants et à conserver trop longtemps les perdants.</div>
-                </div>
+            <div class="callout info">
+                <div class="callout-title">Mécanisme de création/rachat</div>
+                <p>Les ETF fonctionnent grâce à un mécanisme impliquant des "participants autorisés". Ces institutions financières créent et rachètent des blocs d'ETF (appelés "création units") en échange du panier de titres sous-jacents, ce qui permet de maintenir le prix de l'ETF aligné sur la valeur liquidative de ses actifs.</p>
             </div>
             
-            <h3 id="biais-confirmation">Biais de confirmation</h3>
-            <p>L'investisseur affecté par ce biais va naturellement chercher des analyses, des experts ou des données qui confirment son opinion sur une action ou un marché, tout en ignorant ou en minimisant les signaux contraires. Cela peut conduire à :</p>
+            <h3>La négociation en bourse</h3>
+            <p>Contrairement aux fonds traditionnels qui ne sont valorisés qu'une fois par jour, les ETF se négocient en continu pendant les heures d'ouverture des marchés. Cela signifie que vous pouvez acheter et vendre des ETF comme n'importe quelle action, avec les mêmes ordres (au marché, limite, stop, etc.).</p>
             
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-exchange-alt"></i> Exemple concret
+                </div>
+                <p>Imaginons que vous souhaitiez investir sur l'indice CAC 40. Plutôt que d'acheter les 40 actions séparément (ce qui impliquerait 40 frais de courtage), vous pouvez acheter un seul ETF CAC 40 qui réplique la performance de l'indice. Si le CAC 40 augmente de 2%, votre ETF augmentera également d'environ 2% (moins les frais de gestion).</p>
+            </div>
+            
+            <h2 id="avantages">Les avantages majeurs des ETF</h2>
+            
+            <p>Les ETF présentent plusieurs avantages décisifs par rapport aux autres produits d'investissement :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Avantage</th>
+                        <th>Description</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Diversification</td>
+                        <td>Accès à des centaines de titres avec un seul produit</td>
+                        <td>Réduction du risque spécifique</td>
+                    </tr>
+                    <tr>
+                        <td>Faible coût</td>
+                        <td>Frais de gestion très compétitifs</td>
+                        <td>Meilleure performance nette à long terme</td>
+                    </tr>
+                    <tr>
+                        <td>Transparence</td>
+                        <td>Composition quotidienne accessible</td>
+                        <td>Contrôle précis de son investissement</td>
+                    </tr>
+                    <tr>
+                        <td>Liquidité</td>
+                        <td>Négociation en continu</td>
+                        <td>Flexibilité d'entrée/sortie</td>
+                    </tr>
+                    <tr>
+                        <td>Accessibilité</td>
+                        <td>Investissement possible à partir de quelques euros</td>
+                        <td>Démocratisation de l'investissement</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="callout success">
+                <p>Selon une étude de Morningstar, 85% des fonds actifs sous-performent leur indice de référence sur 10 ans. Les ETF offrent donc un moyen efficace de capturer la performance du marché sans payer pour une gestion active qui, statistiquement, a peu de chances de surperformer.</p>
+            </div>
+            
+            <h3>La magie des frais réduits</h3>
+            <p>Les frais de gestion des ETF sont généralement bien inférieurs à ceux des fonds traditionnels :</p>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 30%"></div>
+            </div>
+            <div class="progress-labels">
+                <span>ETF (0.05-0.3%)</span>
+                <span>Fonds indiciels (0.5-1%)</span>
+                <span>Fonds actifs (1-2%)</span>
+            </div>
+            
+            <p>Cette différence peut sembler minime sur une année, mais sur le long terme, l'effet cumulé est considérable. Sur 30 ans, des frais de 1% au lieu de 0.2% peuvent réduire votre capital final de plus de 25% !</p>
+            
+            <h2 id="types">Les différents types d'ETF</h2>
+            
+            <h3 id="actions">ETF actions</h3>
+            <p>Les ETF actions sont les plus répandus. Ils répliquent des indices composés d'actions :</p>
             <ul>
-                <li>Rester investi dans un actif en perte malgré des signaux négatifs</li>
-                <li>Surenchérir sur des actifs surévalués</li>
-                <li>Manquer des opportunités par refus de considérer des perspectives différentes</li>
+                <li><strong>Indices larges</strong> : S&P 500, MSCI World, CAC 40...</li>
+                <li><strong>Indices régionaux</strong> : Europe, pays émergents, Asie-Pacifique...</li>
+                <li><strong>Indices par taille d'entreprise</strong> : Large cap, mid cap, small cap</li>
+            </ul>
+            
+            <h3 id="obligations">ETF obligations</h3>
+            <p>Les ETF obligataires offrent une exposition aux marchés de la dette :</p>
+            <ul>
+                <li>Obligations d'État (France, Allemagne, USA...)</li>
+                <li>Obligations d'entreprises</li>
+                <li>Obligations à haut rendement</li>
+                <li>Obligations inflation-linked</li>
+            </ul>
+            
+            <h3 id="secteurs">ETF secteurs et thématiques</h3>
+            <p>Ces ETF ciblent des secteurs spécifiques ou des tendances d'avenir :</p>
+            <ul>
+                <li>Technologie, santé, énergie renouvelable</li>
+                <li>ESG (critères environnementaux, sociaux et de gouvernance)</li>
+                <li>Intelligence artificielle, cybersécurité, blockchain</li>
+                <li>Dividendes, valeur, croissance</li>
             </ul>
             
             <div class="callout warning">
-                <p>Contre-mesure : Recherchez activement des opinions contradictoires et testez régulièrement vos hypothèses d'investissement.</p>
+                <p>Attention : les ETF thématiques et sectoriels sont généralement plus volatils et risqués que les ETF largement diversifiés. Ils conviennent mieux à une partie limitée du portefeuille.</p>
             </div>
             
-            <h3 id="aversion-perte">Aversion aux pertes</h3>
-            <p>Découvert par les prix Nobel Kahneman et Tversky, ce biais explique pourquoi nous détestons perdre plus que nous aimons gagner. En pratique :</p>
+            <h2 id="choisir">Comment choisir le bon ETF ?</h2>
             
-            <div class="emotion-meter">
-                <div class="emotion-pointer" style="left: 30%;"></div>
-                <div class="emotion-label left">Plaisir du gain</div>
-                <div class="emotion-label right">Douleur de la perte</div>
+            <p>Face à la multitude d'ETF disponibles, voici les critères essentiels à considérer :</p>
+            
+            <div class="investment-scenario">
+                <div class="scenario-title">
+                    <i class="fas fa-filter"></i> Critères de sélection
+                </div>
+                <ol>
+                    <li><strong>Indice sous-jacent</strong> : Correspond-il à votre stratégie d'investissement ?</li>
+                    <li><strong>Frais de gestion (TER)</strong> : Plus bas est généralement meilleur</li>
+                    <li><strong>Tracking difference</strong> : Écart de performance avec l'indice</li>
+                    <li><strong>Liquidité</strong> : Volume d'échanges journalier et spread</li>
+                    <li><strong>Mode de réplication</strong> : Physique ou synthétique</li>
+                    <li><strong>Capitalisation</strong> : Taille de l'ETF</li>
+                </ol>
             </div>
             
-            <p>Conséquences en investissement :</p>
-            <ul>
-                <li>Vendre trop vite lors de petites corrections par peur de perdre davantage</li>
-                <li>Ne pas prendre de profits suffisants par crainte de "manquer" un plus grand gain</li>
-                <li>Éviter des investissements nécessaires par peur exagérée du risque</li>
-            </ul>
+            <h3>Comprendre la tracking difference</h3>
+            <p>La tracking difference mesure l'écart de performance entre l'ETF et son indice de référence. Une tracking difference négative signifie que l'ETF sous-performe son indice, généralement à cause des frais. Une différence positive (rare) indique une surperformance.</p>
             
-            <h3 id="surconfiance">Surconfiance</h3>
-            <p>Particulièrement fréquent en période de bulle, ce biais amène les investisseurs à :</p>
+            <p>Un bon ETF aura une tracking difference proche de ses frais annuels. Par exemple, un ETF avec 0.2% de frais devrait avoir une tracking difference d'environ -0.2% par an.</p>
             
-            <ul>
-                <li>Croire qu'ils peuvent "battre le marché" systématiquement</li>
-                <li>Effectuer un nombre excessif de transactions, augmentant les frais</li>
-                <li>Prendre des risques disproportionnés par conviction de maîtriser les marchés</li>
-            </ul>
+            <h2 id="erreurs">Erreurs à éviter avec les ETF</h2>
             
             <div class="callout error">
-                <p>Une étude de Barber et Odean montre que les investisseurs les plus actifs (et donc souvent les plus surconfiants) sous-performent le marché de 6,5% par an.</p>
+                <p>Attention : ces erreurs peuvent compromettre votre performance à long terme</p>
             </div>
             
-            <h2 id="emotions">L'impact des émotions</h2>
-            <p>Les émotions sont le principal ennemi de l'investisseur rationnel. Deux émotions dominent les marchés :</p>
+            <h3>1. Surpayer les frais</h3>
+            <p>Certains ETF thématiques ou complexes peuvent avoir des frais supérieurs à 0.5%. À long terme, ces frais élevés grèvent significativement la performance.</p>
             
-            <div class="callout info">
-                <p><strong>La cupidité</strong> conduit aux bulles spéculatives - les investisseurs achètent à des prix irrationnels par peur de manquer une opportunité.</p>
-                <p><strong>La peur</strong> provoque les krachs - les investisseurs vendent massivement par panique, souvent au pire moment.</p>
+            <h3>2. Négliger la fiscalité</h3>
+            <p>Les ETF distribuants versent des dividendes imposables chaque année, tandis que les ETF capitalisants réinvestissent les dividendes. Dans un compte titre, les ETF capitalisants sont souvent plus avantageux fiscalement.</p>
+            
+            <h3>3. Trader trop fréquemment</h3>
+            <p>Les ETF sont conçus pour du long terme. Les acheter et vendre fréquemment génère des frais de courtage et peut déclencher des impôts sur les plus-values.</p>
+            
+            <h3>4. Oublier la diversification</h3>
+            <p>Investir dans un seul ETF sectoriel expose à des risques importants. Une allocation diversifiée sur plusieurs classes d'actifs et zones géographiques est préférable.</p>
+            
+            <h2 id="strategies">Stratégies d'investissement avec les ETF</h2>
+            
+            <p>Les ETF s'adaptent à différentes stratégies d'investissement :</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Stratégie</th>
+                        <th>Description</th>
+                        <th>ETF recommandés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Portefeuille cœur</td>
+                        <td>Allocation de base diversifiée</td>
+                        <td>ETF monde, ETF obligations</td>
+                    </tr>
+                    <tr>
+                        <td>Bouclier défensif</td>
+                        <td>Protection contre la volatilité</td>
+                        <td>ETF obligations d'État, ETF or</td>
+                    </tr>
+                    <tr>
+                        <td>Exposition thématique</td>
+                        <td>Investissement sur des tendances</td>
+                        <td>ETF techno, ESG, santé</td>
+                    </tr>
+                    <tr>
+                        <td>Rentier</td>
+                        <td>Recherche de revenus réguliers</td>
+                        <td>ETF dividendes, obligations corporate</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>L'approche Bogleheads</h3>
+            <p>Popularisée par John Bogle, fondateur de Vanguard, cette approche prône :</p>
+            <ul>
+                <li>Une allocation simple (ex: 60% ETF monde, 40% ETF obligations)</li>
+                <li>Des frais très bas</li>
+                <li>Un investissement régulier</li>
+                <li>Un horizon long terme</li>
+                <li>Une absence de market timing</li>
+            </ul>
+            
+            <div class="callout success">
+                <p>Étude Vanguard : Un portefeuille 60/40 (actions/obligations) rééquilibré annuellement a généré une performance annuelle moyenne de 8.2% sur les 30 dernières années, avec une volatilité réduite de 30% par rapport à un portefeuille 100% actions.</p>
             </div>
             
-            <p>Le cycle émotionnel typique des marchés :</p>
-            
+            <h3>Plan d'action pour débuter</h3>
             <ol>
-                <li><strong>Optimisme</strong> : Les prix commencent à monter, attirant de nouveaux investisseurs</li>
-                <li><strong>Excitation</strong> : Les gains rapides créent un sentiment d'invincibilité</li>
-                <li><strong>Euphorie</strong> : Phase de bulle où les fondamentaux sont ignorés</li>
-                <li><strong>Anxiété</strong> : Les premières corrections font douter les investisseurs</li>
-                <li><strong>Déni</strong> : On minimise les pertes en se disant que "ça va remonter"</li>
-                <li><strong>Peur</strong> : La baisse s'accélère, déclenchant des ventes de panique</li>
-                <li><strong>Désespoir</strong> : Les investisseurs vendent au plus bas, jurant de ne plus jamais investir</li>
+                <li>Déterminez votre profil risque et horizon d'investissement</li>
+                <li>Choisissez une allocation d'actifs adaptée</li>
+                <li>Sélectionnez 2-4 ETF correspondant à cette allocation</li>
+                <li>Ouvrez un compte titre ou PEA selon votre situation</li>
+                <li>Mettez en place des versements programmés mensuels</li>
+                <li>Rééquilibrez votre portefeuille 1 à 2 fois par an</li>
             </ol>
             
-            <h2 id="profils">Profils psychologiques des investisseurs</h2>
-            <p>Connaître votre profil psychologique est essentiel pour développer une stratégie adaptée à votre tempérament :</p>
+            <h2 id="conclusion">Conclusion : Les ETF, un outil indispensable</h2>
+            <p>Les ETF ont démocratisé l'accès à l'investissement diversifié et performant. Grâce à leurs frais réduits, leur transparence et leur flexibilité, ils constituent un outil de choix tant pour les investisseurs débutants que pour les plus expérimentés.</p>
             
-            <div class="profile-container">
-                <div class="profile-card risk-averse">
-                    <div class="profile-title">Investisseur prudent</div>
-                    <div class="profile-description">Cherche avant tout la sécurité, supporte mal la volatilité, préfère les placements garantis.</div>
-                    <p><strong>Points forts :</strong> Évite les pertes importantes</p>
-                    <p><strong>Risques :</strong> Rendements insuffisants face à l'inflation</p>
-                </div>
-                
-                <div class="profile-card balanced">
-                    <div class="profile-title">Investisseur équilibré</div>
-                    <div class="profile-description">Accepte une volatilité modérée pour de meilleurs rendements, diversifie son portefeuille.</div>
-                    <p><strong>Points forts :</strong> Bon équilibre risque/rendement</p>
-                    <p><strong>Risques :</strong> Peut sous-performer en période de forte hausse</p>
-                </div>
-                
-                <div class="profile-card aggressive">
-                    <div class="profile-title">Investisseur dynamique</div>
-                    <div class="profile-description">Recherche la performance maximale, supporte bien la volatilité, investit dans des actifs risqués.</div>
-                    <p><strong>Points forts :</strong> Fort potentiel de rendement</p>
-                    <p><strong>Risques :</strong> Pertes importantes possibles</p>
-                </div>
-            </div>
-            
-            <h2 id="strategies">Stratégies pour surmonter ses biais</h2>
-            <p>Voici des stratégies éprouvées pour limiter l'impact des biais psychologiques :</p>
-            
-            <h3>Investissement systématique</h3>
-            <p>Mettre en place des versements réguliers (mensuels ou trimestriels) permet de :</p>
-            <ul>
-                <li>Lisser le prix d'achat sur différentes conditions de marché</li>
-                <li>Éliminer le besoin de "timer le marché"</li>
-                <li>Réduire l'impact émotionnel des fluctuations</li>
-            </ul>
-            
-            <h3>Diversification</h3>
-            <p>Un portefeuille bien diversifié :</p>
-            <ul>
-                <li>Réduit la volatilité globale</li>
-                <li>Limite l'impact d'une mauvaise décision</li>
-                <li>Empêche la surconcentration dans un secteur ou un actif</li>
-            </ul>
-            
-            <h3>Planification à long terme</h3>
-            <p>Définir clairement :</p>
-            <ul>
-                <li>Vos objectifs financiers (retraite, achat immobilier, etc.)</li>
-                <li>Votre horizon temporel</li>
-                <li>Votre tolérance au risque réelle (pas celle que vous imaginez)</li>
-            </ul>
+            <p>En 2025, avec l'évolution de la réglementation et la multiplication des options, les ETF continuent de s'imposer comme la solution d'investissement la plus efficace pour la majorité des épargnants. Que votre objectif soit la constitution d'un capital retraite, la préparation d'un projet ou simplement faire fructifier votre épargne, les ETF offrent une réponse adaptée et accessible.</p>
             
             <div class="callout success">
-                <p>Conseil Finary : Écrivez votre stratégie d'investissement et vos règles de décision à froid, avant d'être confronté aux turbulences des marchés.</p>
+                <div class="callout-title">Prochaine étape</div>
+                <p>1. Déterminez votre tolérance au risque<br>
+                2. Choisissez un courtier en ligne adapté (PEA ou compte titre)<br>
+                3. Sélectionnez 1-2 ETF largement diversifiés pour commencer<br>
+                4. Mettez en place un virement automatique mensuel<br>
+                5. Consultez un conseiller financier pour valider votre stratégie</p>
             </div>
             
-            <h2 id="outils">Outils et techniques</h2>
-            <p>Plusieurs outils peuvent vous aider à rester rationnel :</p>
-            
-            <ul>
-                <li><strong>Journal d'investissement :</strong> Notez vos décisions, raisonnements et émotions au moment de chaque investissement</li>
-                <li><strong>Checklists :</strong> Liste de critères à vérifier avant toute décision</li>
-                <li><strong>Robo-advisors :</strong> Solutions automatisées qui éliminent l'émotion</li>
-                <li><strong>Conseil indépendant :</strong> Un professionnel peut apporter un regard objectif</li>
-                <li><strong>Finary :</strong> Suivi de portefeuille et alertes pour éviter les décisions impulsives</li>
-            </ul>
-            
-            <h2 id="conclusion">Conclusion</h2>
-            <p>La psychologie est l'élément sous-estimé de la réussite en investissement. Comprendre vos biais cognitifs et apprendre à gérer vos émotions sont aussi importants que l'analyse financière elle-même.</p>
-            
-            <p>En prenant conscience de ces mécanismes psychologiques et en mettant en place des stratégies pour les contrer, vous pouvez :</p>
-            
-            <ul>
-                <li>Prendre des décisions plus rationnelles</li>
-                <li>Éviter les erreurs coûteuses dues aux émotions</li>
-                <li>Rester fidèle à votre stratégie à long terme</li>
-                <li>Améliorer significativement vos rendements sur le long terme</li>
-            </ul>
-            
-            <div class="callout success">
-                <p>Rappelez-vous : Le plus grand risque en investissement n'est pas la volatilité des marchés, mais nos propres comportements irrationnels. La discipline et la connaissance de soi sont vos meilleurs atouts pour réussir.</p>
-            </div>
+            <p>Comme le disait Warren Buffett : "Ne cherchez pas l'aiguille dans la botte de foin. Achetez la botte de foin !". Les ETF vous permettent précisément d'acheter toute la botte de foin à moindre coût.</p>
         </div>
     </div>
 

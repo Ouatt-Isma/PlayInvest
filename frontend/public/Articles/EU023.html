@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placements sans risque : Le guide complet | Stratégie Financière</title>
+    <title>Fiscalité du PEA en 2025 - Guide complet - Finary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --finary-primary: #141145;
@@ -14,11 +16,11 @@
             --finary-light: #F1F2F6;
             --finary-dark: #0A0A1D;
             --finary-gold: #F1C086;
+            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
             --finary-success: #4CAF50;
             --finary-warning: #FFC107;
             --finary-info: #2196F3;
             --finary-error: #F44336;
-            --finary-safe: #2E7D32;
         }
         
         * {
@@ -29,7 +31,7 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
+            background-color: #f8f9fa;
             color: #333;
             line-height: 1.6;
             padding-top: 40px;
@@ -37,7 +39,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -144,7 +146,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: linear-gradient(116deg, var(--finary-safe) -36.05%, var(--finary-accent) 100.05%);
+            background: var(--finary-gradient);
             color: white;
             border: none;
             width: 50px;
@@ -166,7 +168,6 @@
         .article-header {
             padding: 40px 0 20px;
             position: relative;
-            text-align: center;
         }
         
         .article-title {
@@ -176,47 +177,6 @@
             color: var(--finary-primary);
             font-weight: 700;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .article-subtitle {
-            font-size: 1.2rem;
-            color: var(--finary-secondary);
-            max-width: 700px;
-            margin: 0 auto 20px;
-            font-weight: 500;
-        }
-        
-        /* Featured Image */
-        .featured-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 30px 0;
-            background: linear-gradient(135deg, var(--finary-primary), var(--finary-safe));
-            color: white;
-            font-size: 1.5rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .featured-image::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
         }
         
         /* Content Styling */
@@ -266,48 +226,145 @@
         
         .article-content li::before {
             content: '•';
-            color: var(--finary-safe);
+            color: var(--finary-accent);
             font-weight: bold;
             display: inline-block;
             width: 1em;
             margin-left: -1em;
         }
         
-        /* Bias visualization */
-        .bias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+        /* Fiscalité visualization */
+        .tax-visualization {
+            display: flex;
+            flex-direction: column;
             margin: 40px 0;
+            gap: 20px;
         }
         
-        .bias-card {
-            background: white;
+        .tax-scenario {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .tax-box {
+            flex: 1;
+            min-width: 300px;
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--finary-safe);
-            transition: transform 0.3s ease;
+            border-top: 4px solid;
         }
         
-        .bias-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        .scenario-pea {
+            border-top-color: var(--finary-accent);
         }
         
-        .bias-title {
-            font-size: 1.2rem;
+        .scenario-cto {
+            border-top-color: var(--finary-secondary);
+        }
+        
+        .tax-title {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--finary-primary);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .bias-description {
-            font-size: 0.95rem;
+        .tax-title i {
+            font-size: 1.8rem;
+        }
+        
+        .scenario-pea .tax-title {
+            color: var(--finary-accent);
+        }
+        
+        .scenario-cto .tax-title {
+            color: var(--finary-secondary);
+        }
+        
+        .tax-highlight {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: var(--finary-primary);
+            text-align: center;
+        }
+        
+        .tax-details {
+            background-color: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .tax-breakdown {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tax-element {
+            text-align: center;
+            padding: 15px;
+            min-width: 150px;
+        }
+        
+        .tax-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .tax-label {
+            font-size: 0.9rem;
             color: #666;
         }
         
-        /* Callout boxes - Style Finary */
+        .tax-zero {
+            color: var(--finary-success);
+        }
+        
+        .tax-flat {
+            color: var(--finary-secondary);
+        }
+        
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: #f5f5f7;
+            font-weight: 600;
+            color: var(--finary-primary);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        /* Callout boxes */
         .callout {
             padding: 20px;
             border-radius: 8px;
@@ -315,7 +372,6 @@
             border-left: 4px solid;
             position: relative;
             overflow: hidden;
-            background-color: rgba(46, 125, 50, 0.08);
         }
         
         .callout::before {
@@ -364,15 +420,6 @@
             background: var(--finary-error);
         }
         
-        .callout.safe {
-            background-color: rgba(46, 125, 50, 0.1);
-            border-color: var(--finary-safe);
-        }
-        
-        .callout.safe::before {
-            background: var(--finary-safe);
-        }
-        
         .callout-title {
             font-weight: 600;
             margin-bottom: 10px;
@@ -380,289 +427,56 @@
             color: var(--finary-primary);
         }
         
-        /* Comparison table */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        
-        .comparison-table th {
-            background-color: var(--finary-primary);
-            color: white;
-            font-weight: 600;
-            text-align: left;
-            padding: 15px;
-        }
-        
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .comparison-table .safe {
-            background-color: rgba(46, 125, 50, 0.05);
-        }
-        
-        .comparison-table .risk {
-            background-color: rgba(244, 67, 54, 0.05);
-        }
-        
-        .comparison-table .feature-name {
-            font-weight: 600;
-            color: var(--finary-primary);
-        }
-        
-        .highlight {
-            background-color: rgba(241, 192, 134, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-        
-        .icon-check {
-            color: var(--finary-success);
-            font-size: 1.2rem;
-        }
-        
-        .icon-cross {
-            color: var(--finary-error);
-            font-size: 1.2rem;
-        }
-        
-        /* Simulateur */
-        .simulator-container {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
+        /* Timeline */
+        .timeline {
             margin: 40px 0;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--finary-safe);
-        }
-        
-        .simulator-title {
-            font-size: 1.8rem;
-            color: var(--finary-primary);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .simulator-description {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #555;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .simulator-inputs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .input-group label {
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--finary-primary);
-        }
-        
-        .input-group input, .input-group select {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        .input-group input:focus, .input-group select:focus {
-            outline: none;
-            border-color: var(--finary-accent);
-            box-shadow: 0 0 0 3px rgba(86, 130, 242, 0.2);
-        }
-        
-        .input-group input[type="range"] {
-            padding: 0;
-            height: 10px;
-        }
-        
-        .range-value {
-            display: inline-block;
-            background: var(--finary-safe);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-left: 10px;
-        }
-        
-        .simulator-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(116deg, var(--finary-safe), var(--finary-accent));
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: var(--finary-light);
-            color: var(--finary-primary);
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .simulator-results {
-            display: none;
-            margin-top: 30px;
-        }
-        
-        .results-header {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .result-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        
-        .result-card.safe {
-            border-top: 4px solid var(--finary-safe);
-        }
-        
-        .result-card.risk {
-            border-top: 4px solid var(--finary-error);
-        }
-        
-        .result-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--finary-primary);
-        }
-        
-        .result-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--finary-primary);
-        }
-        
-        .result-subtitle {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .chart-container {
-            height: 400px;
-            margin-top: 20px;
-        }
-        
-        .tax-note {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #666;
-            text-align: center;
-            font-style: italic;
-        }
-        
-        .step-boxes {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .step-box {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--finary-safe);
-            transition: transform 0.3s ease;
             position: relative;
-            counter-increment: step-counter;
+            padding-left: 30px;
         }
         
-        .step-box:hover {
-            transform: translateY(-5px);
-        }
-        
-        .step-box::before {
-            content: counter(step-counter);
+        .timeline:before {
+            content: '';
             position: absolute;
-            top: -15px;
-            left: 20px;
-            background: var(--finary-safe);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--finary-accent);
         }
         
-        .step-title {
-            font-weight: 700;
+        .timeline-step {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+        
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-step:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--finary-accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--finary-accent);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
             color: var(--finary-primary);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            margin-top: 10px;
+            margin-bottom: 5px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .article-title {
                 font-size: 2rem;
-            }
-            
-            .featured-image {
-                height: 250px;
             }
             
             .article-content {
@@ -679,18 +493,14 @@
                 left: auto;
             }
             
-            .results-header {
-                grid-template-columns: 1fr;
+            .tax-scenario {
+                flex-direction: column;
             }
         }
         
         @media (max-width: 480px) {
             .article-title {
                 font-size: 1.8rem;
-            }
-            
-            .featured-image {
-                height: 200px;
             }
             
             .article-content {
@@ -703,9 +513,86 @@
                 left: 5%;
             }
             
-            .simulator-inputs {
-                grid-template-columns: 1fr;
+            .tax-title {
+                font-size: 1.3rem;
             }
+            
+            .tax-box {
+                min-width: 100%;
+            }
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(86, 130, 242, 0.1) 0%, rgba(86, 130, 242, 0.3) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .calculator {
+            background-color: #f8f9ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid var(--finary-accent);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--finary-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .calculator-group {
+            margin-bottom: 15px;
+        }
+        
+        .calculator-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .calculator-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .calculator-button {
+            grid-column: span 2;
+            background: var(--finary-gradient);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .calculator-result {
+            grid-column: span 2;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--finary-primary);
         }
     </style>
 </head>
@@ -718,19 +605,21 @@
     <!-- Table des matières -->
     <div id="toc-container">
         <div class="toc-header">
-            <div class="toc-title">Sommaire du guide</div>
+            <div class="toc-title">Sommaire de l'article</div>
             <button class="close-toc" id="close-toc">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <ul id="toc-list">
             <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            <li><a href="#definition" class="h2-link">Qu'est-ce qu'un placement sans risque ?</a></li>
-            <li><a href="#types" class="h2-link">Types de placements sans risque</a></li>
-            <li><a href="#comparaison" class="h2-link">Comparatif des placements</a></li>
-            <li><a href="#fiscalite" class="h2-link">Aspects fiscaux</a></li>
-            <li><a href="#strategie" class="h2-link">Stratégies de placement</a></li>
-            <li><a href="#simulateur" class="h2-link">Simulateur de rendement</a></li>
+            <li><a href="#avantage" class="h2-link">L'avantage fiscal du PEA</a></li>
+            <li><a href="#duree" class="h2-link">La règle des 5 ans</a></li>
+            <li><a href="#plus-values" class="h2-link">Fiscalité des plus-values</a></li>
+            <li><a href="#dividendes" class="h2-link">Fiscalité des dividendes</a></li>
+            <li><a href="#retraits" class="h2-link">Fiscalité des retraits</a></li>
+            <li><a href="#fermeture" class="h2-link">Fermeture du PEA</a></li>
+            <li><a href="#comparaison" class="h2-link">Comparaison avec le CTO</a></li>
+            <li><a href="#strategie" class="h2-link">Stratégies d'optimisation</a></li>
             <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
         </ul>
     </div>
@@ -738,391 +627,310 @@
     <!-- Article Header -->
     <div class="container">
         <div class="article-header">
-            <h1 class="article-title">Placements sans risque : Protégez votre épargne en 2024</h1>
-            <div class="article-subtitle">Découvrez les meilleurs placements sécurisés pour préserver votre capital tout en générant des revenus</div>
+            <h1 class="article-title">Fiscalité du PEA en 2025 : le guide complet</h1>
             <div class="reading-time">
                 <i class="fas fa-clock"></i> 10 min de lecture
             </div>
         </div>
         
-        <!-- Featured Image -->
-        <div class="featured-image">
-            Sécurité et rendement : les meilleurs placements sans risque
-        </div>
-        
         <!-- Article Content -->
         <div class="article-content">
-            <div class="callout safe">
+            <div class="callout success">
                 <div class="callout-title">Points clés à retenir :</div>
                 <ul>
-                    <li>Les placements sans risque protègent votre capital contre les pertes</li>
-                    <li>Rendement moyen : <span class="highlight">1% à 3%</span> par an en 2024</li>
-                    <li>Ils sont idéaux pour votre épargne de précaution</li>
-                    <li>La fiscalité varie selon les produits (PEA, assurance-vie, etc.)</li>
-                    <li>Diversifiez entre plusieurs placements pour optimiser</li>
+                    <li>Le PEA bénéficie d'une exonération d'impôt sur le revenu après 5 ans de détention</li>
+                    <li>Les prélèvements sociaux restent à 17.2% sur les plus-values et dividendes</li>
+                    <li>En 2025, aucun changement majeur n'est prévu dans la fiscalité du PEA</li>
+                    <li>Pour les retraits avant 5 ans, l'imposition est de 12.8% + 17.2% de prélèvements sociaux</li>
+                    <li>Le PEA reste le placement boursier le plus avantageux fiscalement en France</li>
                 </ul>
             </div>
             
             <h2 id="introduction">Introduction</h2>
-            <p>Dans un contexte économique incertain, les placements sans risque sont devenus une option privilégiée pour les épargnants soucieux de préserver leur capital. Ces solutions financières offrent une sécurité maximale tout en générant des revenus réguliers, bien que modestes.</p>
+            <p>Le Plan d'Épargne en Actions (PEA) demeure en 2025 le placement boursier préféré des investisseurs français, principalement grâce à son avantage fiscal exceptionnel. Alors que les gouvernements successifs ont parfois envisagé de modifier sa fiscalité, le PEA conserve en 2025 ses principaux atouts.</p>
             
-            <p>Que vous constituiez votre épargne de précaution, prépariez un apport immobilier ou cherchiez simplement à sécuriser une partie de votre patrimoine, ce guide vous présente les meilleures options sans risque disponibles en 2024.</p>
+            <p>Cette stabilité réglementaire fait du PEA un pilier de la stratégie d'investissement long terme. Comprendre sa fiscalité précise est essentiel pour maximiser vos rendements et éviter les mauvaises surprises.</p>
+            
+            <h2 id="avantage">L'avantage fiscal du PEA</h2>
+            <p>Le principal attrait du PEA réside dans son traitement fiscal privilégié après 5 ans de détention :</p>
+            
+            <div class="tax-visualization">
+                <div class="tax-highlight tax-zero">0% d'impôt sur les plus-values après 5 ans</div>
+                
+                <div class="tax-details">
+                    <p>Cette exonération d'impôt sur le revenu représente un avantage considérable par rapport aux autres placements boursiers. Cependant, il est important de noter que :</p>
+                    <ul>
+                        <li>Les <span class="highlight">prélèvements sociaux de 17.2%</span> restent dus sur les plus-values</li>
+                        <li>L'exonération ne s'applique qu'aux <span class="highlight">plus-values réalisées</span> après la période de 5 ans</li>
+                        <li>Le délai de 5 ans est calculé à partir du <span class="highlight">premier versement</span> sur le compte</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h2 id="duree">La règle des 5 ans</h2>
+            <p>La période de 5 ans est la clé de voûte de la fiscalité du PEA. Voici ce que vous devez savoir :</p>
+            
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-date">J+0 : Ouverture du PEA</div>
+                    <p>Le délai de 5 ans commence à courir à partir de la date d'ouverture de votre PEA et du premier versement effectué.</p>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-date">Entre J+0 et J+5 ans</div>
+                    <p>Tout retrait entraîne la clôture du PEA et l'imposition des plus-values au taux de 12.8% (impôt sur le revenu) + 17.2% (prélèvements sociaux).</p>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-date">Après J+5 ans</div>
+                    <p>Vous bénéficiez de l'exonération d'impôt sur le revenu. Les prélèvements sociaux de 17.2% restent applicables sur les plus-values.</p>
+                </div>
+            </div>
             
             <div class="callout info">
-                <p><strong>Saviez-vous ?</strong> En France, les livrets réglementés (Livret A, LDDS, LEP) représentent plus de 500 milliards d'euros d'épargne, soit près de 20% de l'épargne financière des ménages.</p>
+                <p>À noter : Vous pouvez effectuer des retraits partiels après 5 ans sans clôturer votre PEA, tant que vous maintenez un solde positif. Seuls les retraits entraînant la clôture du compte avant 5 ans sont pénalisés fiscalement.</p>
             </div>
             
-            <h2 id="definition">Qu'est-ce qu'un placement sans risque ?</h2>
-            <p>Un placement sans risque garantit la conservation du capital investi. Cela signifie que vous récupérerez au minimum la somme initialement placée, indépendamment des fluctuations des marchés financiers.</p>
+            <h2 id="plus-values">Fiscalité des plus-values</h2>
             
-            <div class="bias-grid">
-                <div class="bias-card">
-                    <div class="bias-title">Garantie en capital</div>
-                    <div class="bias-description">Votre investissement initial est protégé</div>
+            <div class="tax-scenario">
+                <div class="tax-box scenario-pea">
+                    <div class="tax-title">
+                        <i class="fas fa-chart-line"></i>
+                        PEA après 5 ans
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value tax-zero">0%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Total fiscalité</div>
+                        </div>
+                    </div>
+                    <p>Exemple : Pour 10 000€ de plus-values, vous paierez 1 720€ de prélèvements sociaux et conserverez 8 280€ net.</p>
                 </div>
                 
-                <div class="bias-card">
-                    <div class="bias-title">Liquidité</div>
-                    <div class="bias-description">Accès rapide à votre épargne si besoin</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Faible volatilité</div>
-                    <div class="bias-description">Pas de variations brutales de valeur</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Rendement prévisible</div>
-                    <div class="bias-description">Performance connue à l'avance ou très stable</div>
+                <div class="tax-box scenario-cto">
+                    <div class="tax-title">
+                        <i class="fas fa-globe"></i>
+                        Compte Titres (CTO)
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value">12.8%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value tax-flat">30%</div>
+                            <div class="tax-label">Flat tax</div>
+                        </div>
+                    </div>
+                    <p>Exemple : Pour 10 000€ de plus-values, vous paierez 3 000€ d'impôts (flat tax) et conserverez 7 000€ net.</p>
                 </div>
             </div>
-            
-            <div class="callout warning">
-                <p>Attention : Aucun placement n'est totalement sans risque. Même les solutions les plus sûres sont soumises au risque d'inflation qui érode votre pouvoir d'achat sur le long terme.</p>
-            </div>
-            
-            <h3>Quand choisir un placement sans risque ?</h3>
-            <ul>
-                <li>Épargne de précaution (3 à 6 mois de salaire)</li>
-                <li>Projet à court terme (moins de 3 ans)</li>
-                <li>Profils d'investisseurs très prudents</li>
-                <li>Complément à un portefeuille plus risqué</li>
-            </ul>
-            
-            <h2 id="types">Types de placements sans risque</h2>
-            <p>Voici les principales solutions pour placer votre argent en toute sécurité :</p>
-            
-            <div class="step-boxes">
-                <div class="step-box">
-                    <div class="step-title">Livrets réglementés</div>
-                    <p>Livret A, LDDS, LEP : fonds disponibles à tout moment, exonérés d'impôts</p>
-                    <div class="bias-description">Rendement 2024 : 3% (LEP) à 3.5% (Livret A)</div>
-                </div>
-                
-                <div class="step-box">
-                    <div class="step-title">Assurance-vie en euros</div>
-                    <p>Fonds euros avec garantie en capital, rendement annuel garanti</p>
-                    <div class="bias-description">Rendement moyen 2024 : 2% à 3%</div>
-                </div>
-                
-                <div class="step-box">
-                    <div class="step-title">Comptes à terme</div>
-                    <p>Dépôt bloqué pour une durée déterminée à taux fixe</p>
-                    <div class="bias-description">Rendement : 2.5% à 4% selon durée</div>
-                </div>
-                
-                <div class="step-box">
-                    <div class="step-title">Obligations d'État</div>
-                    <p>Emprunts d'État (OAT, Bunds) très court terme</p>
-                    <div class="bias-description">Rendement : 2.5% à 3.5%</div>
-                </div>
-            </div>
-            
-            <h3>Détails des livrets réglementés</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Livret</th>
-                        <th>Taux 2024</th>
-                        <th>Plafond</th>
-                        <th>Conditions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Livret A</td>
-                        <td>3.5%</td>
-                        <td>22,950 €</td>
-                        <td>Accessible à tous</td>
-                    </tr>
-                    <tr>
-                        <td>LDDS</td>
-                        <td>3.5%</td>
-                        <td>12,000 €</td>
-                        <td>Réservé aux résidents fiscaux</td>
-                    </tr>
-                    <tr>
-                        <td>LEP</td>
-                        <td>5%</td>
-                        <td>7,700 €</td>
-                        <td>Revenus modestes</td>
-                    </tr>
-                    <tr>
-                        <td>Livret Jeune</td>
-                        <td>3.5%</td>
-                        <td>1,600 €</td>
-                        <td>12-25 ans</td>
-                    </tr>
-                </tbody>
-            </table>
             
             <div class="callout success">
-                <p>Le LEP (Livret d'Épargne Populaire) offre le meilleur rendement des livrets réglementés en 2024. Si vous y êtes éligible, c'est la solution la plus intéressante pour votre épargne sans risque.</p>
+                <p>L'avantage fiscal du PEA est considérable : après 5 ans, vous économisez 12.8% d'impôt sur le revenu par rapport à un compte titres ordinaire. Sur un gain de 100 000€, cela représente 12 800€ d'économies d'impôt.</p>
             </div>
             
-            <h2 id="comparaison">Comparatif des placements sans risque</h2>
-            <p>Chaque solution présente des avantages et inconvénients :</p>
+            <h2 id="dividendes">Fiscalité des dividendes</h2>
+            <p>Contrairement aux plus-values, les dividendes perçus dans un PEA sont imposés différemment :</p>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Placement</th>
-                        <th>Rendement</th>
-                        <th>Liquidité</th>
-                        <th>Fiscalité</th>
-                        <th>Plafond</th>
+                        <th>Type de revenu</th>
+                        <th>Fiscalité PEA</th>
+                        <th>Fiscalité CTO</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Livret A</td>
-                        <td>3.5%</td>
-                        <td>Immédiate</td>
-                        <td>Exonéré</td>
-                        <td>22,950 €</td>
+                        <td>Dividendes</td>
+                        <td>17.2% (prélèvements sociaux uniquement)</td>
+                        <td>30% (flat tax : 12.8% IR + 17.2% PS)</td>
                     </tr>
                     <tr>
-                        <td>Assurance-vie (fonds €)</td>
-                        <td>2-3%</td>
-                        <td>Partielle</td>
-                        <td>Avantageuse après 8 ans</td>
-                        <td>150,000 €</td>
-                    </tr>
-                    <tr>
-                        <td>Compte à terme 1 an</td>
-                        <td>3%</td>
-                        <td>Bloquée</td>
-                        <td>Flat tax 30%</td>
-                        <td>Aucun</td>
-                    </tr>
-                    <tr>
-                        <td>Obligations d'État</td>
-                        <td>2.5-3.5%</td>
-                        <td>Marché secondaire</td>
-                        <td>Flat tax 30%</td>
-                        <td>Aucun</td>
+                        <td>Plus-values</td>
+                        <td>0% IR + 17.2% PS après 5 ans</td>
+                        <td>30% flat tax</td>
                     </tr>
                 </tbody>
             </table>
             
-            <div class="bias-grid">
-                <div class="bias-card">
-                    <div class="bias-title">Meilleure liquidité</div>
-                    <div class="bias-description">Livrets réglementés (retraits immédiats)</div>
+            <p>Les dividendes perçus dans un PEA sont soumis aux prélèvements sociaux de 17.2% dès leur versement, que le PEA ait 5 ans ou non. Cependant :</p>
+            <ul>
+                <li>Ces dividendes ne sont <span class="highlight">pas soumis à l'impôt sur le revenu</span></li>
+                <li>Ils peuvent être <span class="highlight">réinvestis</span> dans le PEA sans frais supplémentaires</li>
+                <li>Après réinvestissement, les plus-values réalisées sur ces montants bénéficieront de l'exonération d'impôt après 5 ans</li>
+            </ul>
+            
+            <h2 id="retraits">Fiscalité des retraits</h2>
+            <p>La fiscalité des retraits dépend principalement de l'âge de votre PEA :</p>
+            
+            <div class="tax-scenario">
+                <div class="tax-box scenario-pea">
+                    <div class="tax-title">
+                        <i class="fas fa-lock"></i>
+                        Retrait avant 5 ans
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value">12.8%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value tax-flat">30%</div>
+                            <div class="tax-label">Total fiscalité</div>
+                        </div>
+                    </div>
+                    <p>Le retrait entraîne la <span class="highlight">clôture définitive</span> du PEA. Vous ne pourrez pas en rouvrir un autre pendant l'année civile en cours.</p>
                 </div>
                 
-                <div class="bias-card">
-                    <div class="bias-title">Meilleur rendement</div>
-                    <div class="bias-description">LEP (5%) pour les éligibles</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Meilleure fiscalité</div>
-                    <div class="bias-description">Livrets réglementés (exonérés d'impôts)</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Meilleure capacité</div>
-                    <div class="bias-description">Assurance-vie (jusqu'à 150,000€ par contrat)</div>
+                <div class="tax-box scenario-pea">
+                    <div class="tax-title">
+                        <i class="fas fa-unlock"></i>
+                        Retrait après 5 ans
+                    </div>
+                    <div class="tax-breakdown">
+                        <div class="tax-element">
+                            <div class="tax-value tax-zero">0%</div>
+                            <div class="tax-label">Impôt sur le revenu</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Prélèvements sociaux</div>
+                        </div>
+                        <div class="tax-element">
+                            <div class="tax-value">17.2%</div>
+                            <div class="tax-label">Total fiscalité</div>
+                        </div>
+                    </div>
+                    <p>Vous pouvez effectuer des <span class="highlight">retraits partiels</span> sans clôturer le PEA. Seules les plus-values réalisées sont taxées à 17.2%.</p>
                 </div>
             </div>
             
-            <h2 id="fiscalite">Aspects fiscaux des placements sans risque</h2>
-            <p>La fiscalité varie considérablement selon les produits :</p>
+            <h2 id="fermeture">Fermeture du PEA</h2>
+            <p>La fermeture du PEA suit des règles fiscales spécifiques :</p>
+            
+            <ul>
+                <li><span class="highlight">Avant 5 ans :</span> Toutes les plus-values sont imposées à 30% (12.8% IR + 17.2% PS)</li>
+                <li><span class="highlight">Après 5 ans :</span> Seules les plus-values réalisées depuis l'ouverture sont taxées à 17.2% (PS uniquement)</li>
+                <li><span class="highlight">En cas de décès :</span> Le PEA est transmis aux héritiers sans imposition immédiate. Le délai de 5 ans est maintenu.</li>
+            </ul>
+            
+            <div class="callout warning">
+                <p>Attention : La fermeture du PEA avant 5 ans entraîne non seulement une imposition défavorable, mais vous empêche également d'ouvrir un nouveau PEA pendant le reste de l'année civile. Cette décision doit donc être mûrement réfléchie.</p>
+            </div>
+            
+            <h2 id="comparaison">Comparaison avec le CTO</h2>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Placement</th>
-                        <th>Fiscalité</th>
-                        <th>Avantages</th>
+                        <th>Critère fiscal</th>
+                        <th>PEA (après 5 ans)</th>
+                        <th>Compte Titres (CTO)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Livrets réglementés</td>
-                        <td>Exonération totale</td>
-                        <td>Pas de déclaration, pas d'impôt</td>
+                        <td>Impôt sur les plus-values</td>
+                        <td>0%</td>
+                        <td>12.8%</td>
                     </tr>
                     <tr>
-                        <td>Assurance-vie</td>
-                        <td>Flat tax 30% ou barème progressif</td>
-                        <td>Abattement 4,600€/an après 8 ans</td>
+                        <td>Prélèvements sociaux</td>
+                        <td>17.2%</td>
+                        <td>17.2%</td>
                     </tr>
                     <tr>
-                        <td>Comptes à terme</td>
-                        <td>Flat tax 30%</td>
-                        <td>Prélèvement à la source</td>
+                        <td>Total fiscalité plus-values</td>
+                        <td>17.2%</td>
+                        <td>30%</td>
                     </tr>
                     <tr>
-                        <td>Obligations</td>
-                        <td>Flat tax 30%</td>
-                        <td>Défiscalisation partielle possible</td>
+                        <td>Fiscalité des dividendes</td>
+                        <td>17.2% (PS uniquement)</td>
+                        <td>30% (flat tax)</td>
+                    </tr>
+                    <tr>
+                        <td>Report des moins-values</td>
+                        <td>Non</td>
+                        <td>Oui (10 ans)</td>
+                    </tr>
+                    <tr>
+                        <td>Transmission</td>
+                        <td>Avantageuse</td>
+                        <td>Standard</td>
                     </tr>
                 </tbody>
             </table>
+            
+            <div class="calculator">
+                <div class="calculator-title">Calculateur fiscal PEA vs CTO</div>
+                <div class="calculator-form">
+                    <div class="calculator-group">
+                        <label class="calculator-label">Plus-values réalisées</label>
+                        <input type="number" class="calculator-input" id="gains" placeholder="10 000€">
+                    </div>
+                    <div class="calculator-group">
+                        <label class="calculator-label">Type de compte</label>
+                        <select class="calculator-input" id="account-type">
+                            <option value="pea">PEA (après 5 ans)</option>
+                            <option value="cto">Compte Titres (CTO)</option>
+                            <option value="pea-early">PEA (avant 5 ans)</option>
+                        </select>
+                    </div>
+                    <button class="calculator-button" id="calculate-btn">Calculer l'impôt</button>
+                    <div class="calculator-result" id="result">Résultat s'affichera ici</div>
+                </div>
+            </div>
+            
+            <h2 id="strategie">Stratégies d'optimisation fiscale</h2>
+            <p>Pour maximiser l'avantage fiscal de votre PEA en 2025 :</p>
+            
+            <h3>1. Respecter la durée de 5 ans</h3>
+            <p>La règle d'or : ne pas toucher à son PEA avant 5 ans. Programmez vos investissements en conséquence.</p>
+            
+            <h3>2. Utiliser le PEA en priorité</h3>
+            <p>Maximisez votre PEA (jusqu'à 150 000€) avant d'investir sur un compte titres ordinaire.</p>
+            
+            <h3>3. Réinvestir les dividendes</h3>
+            <p>Les dividendes perçus dans le PEA, une fois réinvestis, pourront générer des plus-values exonérées d'impôt.</p>
+            
+            <h3>4. Privilégier les ETF capitalisants</h3>
+            <p>Les ETF qui réinvestissent automatiquement les dividendes permettent de différer l'imposition de ces revenus.</p>
+            
+            <h3>5. Transférer son PEA</h3>
+            <p>Vous pouvez transférer votre PEA vers un autre établissement sans rompre la durée des 5 ans.</p>
             
             <div class="callout info">
-                <p>Conseil : Pour les montants importants, l'assurance-vie devient intéressante après 8 ans grâce à l'abattement annuel de 4,600€ sur les plus-values (9,200€ pour un couple).</p>
-            </div>
-            
-            <h2 id="strategie">Stratégies de placement sans risque</h2>
-            <p>Optimisez votre épargne sécurisée avec ces approches :</p>
-            
-            <div class="bias-grid">
-                <div class="bias-card">
-                    <div class="bias-title">Échelonnement</div>
-                    <div class="bias-description">Répartir les échéances des comptes à terme</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Pyramide des livrets</div>
-                    <div class="bias-description">Commencer par le LEP, puis Livret A, puis LDDS</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Périmètre de sécurité</div>
-                    <div class="bias-description">Conserver 3 mois de dépenses en livrets</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Ladder obligataire</div>
-                    <div class="bias-description">Échelonner les échéances d'obligations</div>
-                </div>
-            </div>
-            
-            <h3>Portefeuille type "sans risque"</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Placement</th>
-                        <th>Allocation</th>
-                        <th>Montant moyen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Livret A</td>
-                        <td>30%</td>
-                        <td>6,885 €</td>
-                    </tr>
-                    <tr>
-                        <td>LEP (si éligible)</td>
-                        <td>20%</td>
-                        <td>1,540 €</td>
-                    </tr>
-                    <tr>
-                        <td>Assurance-vie (fonds €)</td>
-                        <td>40%</td>
-                        <td>Jusqu'à 60,000 €</td>
-                    </tr>
-                    <tr>
-                        <td>Compte à terme 1 an</td>
-                        <td>10%</td>
-                        <td>Variable</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="callout safe">
-                <p>Pour une épargne de précaution, privilégiez les livrets réglementés. Pour un projet à moyen terme (2-5 ans), combinez assurance-vie et comptes à terme.</p>
-            </div>
-            
-            <!-- Simulateur -->
-            <h2 id="simulateur">Simulateur de rendement</h2>
-            <p>Calculez les revenus générés par votre épargne sans risque :</p>
-            
-            <div class="simulator-container">
-                <h3 class="simulator-title">Simulateur de placements sécurisés</h3>
-                <p class="simulator-description">Estimez les revenus de votre épargne en fonction des différents placements sans risque.</p>
-                
-                <div class="simulator-inputs">
-                    <div class="input-group">
-                        <label for="capital">Capital à placer (€)</label>
-                        <input type="number" id="capital" min="0" step="1000" value="20000">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="duration">Durée de placement (années)</label>
-                        <input type="number" id="duration" min="1" max="30" value="5">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="inflation">Inflation annuelle estimée (%) <span id="inflation-value" class="range-value">2%</span></label>
-                        <input type="range" id="inflation" min="0" max="10" step="0.1" value="2">
-                    </div>
-                </div>
-                
-                <div class="simulator-actions">
-                    <button class="btn btn-primary" id="calculate-btn">
-                        <i class="fas fa-calculator"></i> Calculer
-                    </button>
-                    <button class="btn btn-secondary" id="reset-btn">
-                        <i class="fas fa-redo"></i> Réinitialiser
-                    </button>
-                </div>
-                
-                <div class="simulator-results" id="results-section">
-                    <div class="results-header">
-                        <div class="result-card safe">
-                            <div class="result-title">Livret A</div>
-                            <div class="result-value" id="livret-a">0 €</div>
-                            <div class="result-subtitle">Rendement net : 3.5%</div>
-                        </div>
-                        
-                        <div class="result-card safe">
-                            <div class="result-title">Assurance-vie</div>
-                            <div class="result-value" id="assurance-vie">0 €</div>
-                            <div class="result-subtitle">Rendement net : 2.5%</div>
-                        </div>
-                        
-                        <div class="result-card safe">
-                            <div class="result-title">Compte à terme</div>
-                            <div class="result-value" id="compte-terme">0 €</div>
-                            <div class="result-subtitle">Rendement net : 3%</div>
-                        </div>
-                    </div>
-                    
-                    <div class="result-difference">
-                        Perte de pouvoir d'achat estimée : <span id="inflation-loss" class="negative">0 €</span>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <canvas id="investment-chart"></canvas>
-                    </div>
-                    
-                    <p class="tax-note">* Les calculs incluent les intérêts composés mais pas la fiscalité spécifique à chaque produit. Rendements basés sur les taux moyens 2024.</p>
-                </div>
+                <p>Astuce : Ouvrez votre PEA le plus tôt possible, même avec un petit montant, pour démarrer le compte à rebours des 5 ans. Vous pourrez effectuer des versements complémentaires à tout moment.</p>
             </div>
             
             <h2 id="conclusion">Conclusion</h2>
-            <p>Les placements sans risque constituent la pierre angulaire de toute stratégie financière équilibrée. Ils offrent une sécurité capitale pour votre épargne tout en générant des revenus stables, bien que modérés.</p>
+            <p>En 2025, la fiscalité du PEA reste extrêmement avantageuse pour les investisseurs à long terme. Avec une exonération d'impôt sur les plus-values après 5 ans et une fiscalité réduite sur les dividendes, le PEA conserve sa position de placement boursier le plus compétitif en France.</p>
             
-            <div class="callout safe">
-                <p>L'idéal est de combiner plusieurs solutions sans risque (livrets, assurance-vie, comptes à terme) pour bénéficier à la fois de liquidité, de rendement et d'avantages fiscaux. N'oubliez pas de réévaluer régulièrement votre allocation en fonction de l'évolution des taux et de votre situation personnelle.</p>
+            <p>Les prélèvements sociaux de 17.2% constituent le seul impôt incompressible, mais cette charge reste inférieure à la flat tax de 30% appliquée sur les comptes titres ordinaires.</p>
+            
+            <div class="callout success">
+                <p>Pour tout investisseur résident fiscal français ayant un horizon de placement supérieur à 5 ans, le PEA doit être la pierre angulaire de sa stratégie d'investissement en actions. Sa fiscalité avantageuse, combinée à la large gamme d'ETF éligibles, en fait un outil incontournable pour bâtir un patrimoine financier solide.</p>
             </div>
-            
-            <p>Pour une stratégie patrimoniale complète, associez ces placements sécurisés à des investissements plus risqués mais potentiellement plus rémunérateurs (actions, immobilier) selon votre profil et vos objectifs. La diversification reste la clé d'une gestion saine de votre épargne.</p>
         </div>
     </div>
 
@@ -1131,16 +939,6 @@
             const tocToggle = document.getElementById('toc-toggle');
             const tocContainer = document.getElementById('toc-container');
             const closeToc = document.getElementById('close-toc');
-            const inflationSlider = document.getElementById('inflation');
-            const inflationValue = document.getElementById('inflation-value');
-            const calculateBtn = document.getElementById('calculate-btn');
-            const resetBtn = document.getElementById('reset-btn');
-            const resultsSection = document.getElementById('results-section');
-            const livretAResult = document.getElementById('livret-a');
-            const assuranceVieResult = document.getElementById('assurance-vie');
-            const compteTermeResult = document.getElementById('compte-terme');
-            const inflationLoss = document.getElementById('inflation-loss');
-            let investmentChart = null;
             
             // Toggle TOC visibility
             tocToggle.addEventListener('click', function() {
@@ -1181,202 +979,51 @@
                 });
             });
             
-            // Mise à jour des valeurs des sliders
-            inflationSlider.addEventListener('input', function() {
-                inflationValue.textContent = `${this.value}%`;
-            });
-            
-            // Calcul de la projection
-            calculateBtn.addEventListener('click', calculateInvestment);
-            
-            // Réinitialisation
-            resetBtn.addEventListener('click', function() {
-                document.getElementById('capital').value = 20000;
-                document.getElementById('duration').value = 5;
-                inflationSlider.value = 2;
-                inflationValue.textContent = '2%';
-                resultsSection.style.display = 'none';
+            // Tax calculator
+            document.getElementById('calculate-btn').addEventListener('click', function() {
+                const gains = parseFloat(document.getElementById('gains').value);
+                const accountType = document.getElementById('account-type').value;
                 
-                if (investmentChart) {
-                    investmentChart.destroy();
-                }
-            });
-            
-            function calculateInvestment() {
-                // Récupération des valeurs
-                const capital = parseFloat(document.getElementById('capital').value) || 0;
-                const duration = parseInt(document.getElementById('duration').value) || 1;
-                const inflation = parseFloat(inflationSlider.value) / 100;
-                
-                // Validation
-                if (capital <= 0) {
-                    alert('Veuillez saisir un capital valide.');
+                if (isNaN(gains) || gains <= 0) {
+                    document.getElementById('result').textContent = "Veuillez entrer un montant valide";
                     return;
                 }
                 
-                if (duration <= 0) {
-                    alert('La durée doit être supérieure à zéro.');
-                    return;
+                let taxRate, taxAmount, netAmount;
+                
+                switch(accountType) {
+                    case 'pea':
+                        taxRate = 0.172; // 17.2%
+                        taxAmount = gains * taxRate;
+                        netAmount = gains - taxAmount;
+                        document.getElementById('result').innerHTML = `
+                            Impôt: <strong>${taxAmount.toFixed(0)}€</strong> (17.2%)<br>
+                            Net perçu: <strong>${netAmount.toFixed(0)}€</strong>
+                        `;
+                        break;
+                        
+                    case 'cto':
+                        taxRate = 0.30; // 30%
+                        taxAmount = gains * taxRate;
+                        netAmount = gains - taxAmount;
+                        document.getElementById('result').innerHTML = `
+                            Impôt: <strong>${taxAmount.toFixed(0)}€</strong> (30%)<br>
+                            Net perçu: <strong>${netAmount.toFixed(0)}€</strong>
+                        `;
+                        break;
+                        
+                    case 'pea-early':
+                        taxRate = 0.30; // 30%
+                        taxAmount = gains * taxRate;
+                        netAmount = gains - taxAmount;
+                        document.getElementById('result').innerHTML = `
+                            Impôt: <strong>${taxAmount.toFixed(0)}€</strong> (30%)<br>
+                            Net perçu: <strong>${netAmount.toFixed(0)}€</strong><br>
+                            <span style="color:${getComputedStyle(document.documentElement).getPropertyValue('--finary-error')}; font-size:0.9em">Le PEA sera clôturé</span>
+                        `;
+                        break;
                 }
-                
-                // Taux de rendement (net de frais)
-                const tauxLivretA = 0.035;
-                const tauxAssuranceVie = 0.025;
-                const tauxCompteTerme = 0.03;
-                
-                // Calcul des valeurs futures
-                const livretAFuture = capital * Math.pow(1 + tauxLivretA, duration);
-                const assuranceVieFuture = capital * Math.pow(1 + tauxAssuranceVie, duration);
-                const compteTermeFuture = capital * Math.pow(1 + tauxCompteTerme, duration);
-                
-                // Calcul de l'érosion monétaire
-                const inflationFuture = capital * Math.pow(1 + inflation, duration);
-                const inflationLossValue = inflationFuture - capital;
-                
-                // Affichage des résultats
-                livretAResult.textContent = formatCurrency(livretAFuture);
-                assuranceVieResult.textContent = formatCurrency(assuranceVieFuture);
-                compteTermeResult.textContent = formatCurrency(compteTermeFuture);
-                inflationLoss.textContent = formatCurrency(inflationLossValue);
-                
-                // Création du graphique
-                createChart(capital, tauxLivretA, tauxAssuranceVie, tauxCompteTerme, duration);
-                
-                // Affichage des résultats
-                resultsSection.style.display = 'block';
-                
-                // Scroll vers les résultats
-                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            
-            function createChart(capital, tauxLivretA, tauxAssuranceVie, tauxCompteTerme, years) {
-                const ctx = document.getElementById('investment-chart').getContext('2d');
-                
-                // Destruction du graphique précédent s'il existe
-                if (investmentChart) {
-                    investmentChart.destroy();
-                }
-                
-                // Préparation des données
-                const labels = [];
-                const livretAData = [];
-                const assuranceVieData = [];
-                const compteTermeData = [];
-                const inflationData = [];
-                
-                for (let year = 0; year <= years; year++) {
-                    labels.push(`Année ${year}`);
-                    livretAData.push(capital * Math.pow(1 + tauxLivretA, year));
-                    assuranceVieData.push(capital * Math.pow(1 + tauxAssuranceVie, year));
-                    compteTermeData.push(capital * Math.pow(1 + tauxCompteTerme, year));
-                    inflationData.push(capital * Math.pow(1 + parseFloat(inflationSlider.value)/100, year));
-                }
-                
-                investmentChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: 'Livret A (3.5%)',
-                                data: livretAData,
-                                borderColor: '#2E7D32',
-                                backgroundColor: 'rgba(46, 125, 50, 0.1)',
-                                borderWidth: 3,
-                                pointRadius: 3,
-                                tension: 0.1,
-                                fill: false
-                            },
-                            {
-                                label: 'Assurance-vie (2.5%)',
-                                data: assuranceVieData,
-                                borderColor: '#2196F3',
-                                backgroundColor: 'rgba(33, 150, 243, 0.1)',
-                                borderWidth: 3,
-                                pointRadius: 3,
-                                tension: 0.1,
-                                fill: false
-                            },
-                            {
-                                label: 'Compte à terme (3%)',
-                                data: compteTermeData,
-                                borderColor: '#7A2D8D',
-                                backgroundColor: 'rgba(122, 45, 141, 0.1)',
-                                borderWidth: 3,
-                                pointRadius: 3,
-                                tension: 0.1,
-                                fill: false
-                            },
-                            {
-                                label: 'Inflation',
-                                data: inflationData,
-                                borderColor: '#F44336',
-                                borderWidth: 2,
-                                borderDash: [5, 5],
-                                pointRadius: 0,
-                                fill: false
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Évolution de votre épargne',
-                                font: {
-                                    size: 16
-                                }
-                            },
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false,
-                                callbacks: {
-                                    label: function(context) {
-                                        return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
-                                    }
-                                }
-                            },
-                            legend: {
-                                position: 'top',
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return formatCurrency(value);
-                                    }
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Valeur (€)'
-                                }
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Années'
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            function formatCurrency(amount) {
-                return new Intl.NumberFormat('fr-FR', {
-                    style: 'currency',
-                    currency: 'EUR',
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }).format(amount);
-            }
-            
-            // Calcul initial au chargement
-            setTimeout(calculateInvestment, 1000);
+            });
         });
     </script>
 </body>
