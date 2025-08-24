@@ -135,18 +135,19 @@ def get_weekly_pair(
                 "type": asset_row.type,
             },
         }
-
+    print("man")
+    print(challenge.selection_end_at.isoformat(),)
     return {
         "pair": [
             asset_a.to_dict(),
             asset_b.to_dict()
         ],
         "endAt": challenge.end_at.isoformat(),
+        "selectionEndAt": challenge.selection_end_at.isoformat(),
         "description": challenge.description,
         "alreadyPicked": already_picked,
         "myPick": my_pick_data
     }
-
 
 @router.post("/challenges/weekly/pick", status_code=status.HTTP_200_OK)
 def submit_weekly_pick(

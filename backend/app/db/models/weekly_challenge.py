@@ -33,6 +33,7 @@ class WeeklyChallenge(Base):
     id = Column(BigInteger, primary_key=True, autoincrement=True)
     start_at = Column(DateTime(timezone=True), nullable=False)
     end_at   = Column(DateTime(timezone=True), nullable=False)
+    selection_end_at   = Column(DateTime(timezone=True), nullable=False)
     is_active = Column(Boolean, nullable=False, default=False, server_default="false")
 
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())

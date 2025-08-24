@@ -20,11 +20,19 @@
 
         <!-- Countdown -->
         <div class="mt-3 text-sm">
-          <span class="text-gray-500" v-if="isBeforeFriday">Résultats vendredi 23h59 GMT</span>
-          <span class="text-gray-500" v-else>Clôture dimanche 23h59 GMT</span>
+          <!-- <span class="text-gray-500" v-if="isBetweenPick">Résultats vendredi 23h59 GMT</span> -->
+           <div v-if="isBetweenPick">
+          <span class="text-red-500">Clôture dimanche 23h59 GMT:</span>
+          <span class="ml-2 font-semibold">
+            {{ countdown_selec.d }}j {{ countdown_selec.h }}h {{ countdown_selec.m }}m {{ countdown_selec.s }}s
+          </span>
+          </div>
+          <div>
+          <span class="text-gray-500">Résultats vendredi 23h59 GMT:</span>
           <span class="ml-2 font-semibold">
             {{ countdown.d }}j {{ countdown.h }}h {{ countdown.m }}m {{ countdown.s }}s
           </span>
+          </div>
         </div>
 
         <!-- Already picked notice -->
@@ -85,6 +93,7 @@
 </template>
 
 <script setup>
+
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import axios from 'axios'
 import AssetPickCard from '~/components/AssetPickCard.vue'
@@ -110,6 +119,7 @@ const error = ref('')
 const assets = ref([])
 const selectedId = ref(null)
 const serverEndAt = ref(null)
+const serverSelectionEndAt = ref(null)
 const serverDescription = ref(null)
 
 const alreadyPicked = ref(false)
@@ -123,6 +133,7 @@ const pickedAsset = computed(() => {
 
 // Countdown (GMT)
 const countdown = ref({ d:'00', h:'00', m:'00', s:'00' })
+const countdown_selec = ref({ d:'00', h:'00', m:'00', s:'00' })
 let t = null
 
 function toParis(date = new Date()) {
@@ -156,8 +167,17 @@ function nextFridayEnd() {
   return end
 }
 
-function isBeforeFridayDeadline() {
+function isBetweenPickDeadline() {
   const now = new Date()
+  if (serverSelectionEndAt.value) {
+    const serverSelectionDate = new Date(serverSelectionEndAt.value)
+    if (serverSelectionDate > now) {
+      return true
+    } else {
+      // server date is past → deadline expired, use nextFriday
+      return false
+    }
+  }
 
   const friday = new Date(now)
   const daysUntilFriday = (5 - now.getDay() + 7) % 7 // 5 = Friday
@@ -166,7 +186,7 @@ function isBeforeFridayDeadline() {
 
   return now < friday
 }
-const isBeforeFriday = isBeforeFridayDeadline()
+const isBetweenPick = isBetweenPickDeadline()
 
 const endTime = computed(() => {
   const now = new Date()
@@ -180,6 +200,20 @@ const endTime = computed(() => {
       return nextFridayEnd()
     }
   }
+})
+  const endSelectionTime = computed(() => {
+  const now = new Date()
+  // 1. If serverEndAt exists and is still in the future → use it
+  console.log(serverSelectionEndAt.value)
+  if (serverSelectionEndAt.value) {
+    const serverDate = new Date(serverSelectionEndAt.value)
+    if (serverDate > now) {
+      return serverDate
+    } else {
+      // server date is past → deadline expired, use nextFriday
+      return nextSundayEnd()
+    }
+  }
 
   // 2. If props.endAt is provided → use it
   if (props.endAt) {
@@ -187,7 +221,7 @@ const endTime = computed(() => {
   }
 
   // 3. Otherwise → fallback logic
-  return isBeforeFridayDeadline() ? nextFridayEnd() : nextSundayEnd()
+  return isBetweenPickDeadline() ? nextFridayEnd() : nextSundayEnd()
 })
 
 function tick() {
@@ -199,6 +233,25 @@ function tick() {
   const minutes = Math.floor((ms % 3600000) / 60000)
   const seconds = Math.floor((ms % 60000) / 1000)
   countdown.value = {
+    d: String(days).padStart(2, '0'),
+    h: String(hours).padStart(2, '0'),
+    m: String(minutes).padStart(2, '0'),
+    s: String(seconds).padStart(2, '0'),
+  }
+}
+
+function tickSelection() {
+  const now = toParis()
+
+  console.log(endSelectionTime)
+  console.log(endTime)
+  let ms = endSelectionTime.value - now
+  if (ms < 0) ms = 0
+  const days = Math.floor(ms / 86400000)
+  const hours = Math.floor((ms % 86400000) / 3600000)
+  const minutes = Math.floor((ms % 3600000) / 60000)
+  const seconds = Math.floor((ms % 60000) / 1000)
+  countdown_selec.value = {
     d: String(days).padStart(2, '0'),
     h: String(hours).padStart(2, '0'),
     m: String(minutes).padStart(2, '0'),
@@ -239,6 +292,7 @@ async function fetchPair() {
     assets.value = normalizePair(payload.pair).slice(0, 2)
     serverEndAt.value = payload.endAt || null
     serverDescription.value = payload.description || ''
+    serverSelectionEndAt.value = payload.selectionEndAt || null
 
     alreadyPicked.value = !!payload.alreadyPicked
     myPick.value = payload.myPick || null
@@ -321,9 +375,15 @@ async function loadExistingPick() {
 onMounted(async () => {
   await fetchPair()
   tick()
-  t = setInterval(tick, 1000)
+  tickSelection()
+  t = setInterval(() => {
+    tick()
+    tickSelection()
+  }, 1000)
 })
 onBeforeUnmount(() => { if (t) clearInterval(t) })
+
+
 </script>
 
 <style scoped>
