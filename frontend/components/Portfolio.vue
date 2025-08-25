@@ -141,6 +141,8 @@ onMounted(async () => {
     const data = response.data
     assets.value = data.assets
     cash.value = data.cash
+    const cashcookie = useCookie("cash")
+    cashcookie.value = cash.value
     totalInvested.value = data.total_investi
     currency.value = data.currency
     

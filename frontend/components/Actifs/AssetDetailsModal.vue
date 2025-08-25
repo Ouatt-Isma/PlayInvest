@@ -6,7 +6,9 @@ import { nextTick } from 'vue'
 import { getLogo} from '@/composables/assets'
 import { useAuth } from "@/composables/useAuth"
 
-const { isAuthenticated, checkAuth } = useAuth()
+const { isAuthenticated, checkAuth, user} = useAuth()
+const cash = ref(0)
+const currency = ref([])
 
 const notification = ref({ type: '', message: '', visible: false })
 const props = defineProps({
@@ -57,6 +59,9 @@ const fetchAssetDetails = async () => {
     }
     volume.value = data.volume || 0
     lastUpdate.value = new Date(data.updated_at || Date.now()).toLocaleString()
+    cash.value = useCookie("cash").value
+    currency.value = user.currency
+
   } catch (error) {
     console.error('Failed to fetch asset data:', error)
   } finally {
@@ -184,15 +189,15 @@ function openPdf(symbol) {
       <img src="/icons/file-icon.svg" class="w-4" />
       </button>
 
-      <div class="flex items-center gap-2 text-green-700">
+      <div class="ml-auto flex items-center gap-2 text-green-700">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z"/>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 14v4m0 0h-3m3 0h3"/>
         </svg>
-        <!-- Cash Total: {{ formatCurrency(cash, currency) }} -->
-         Cash Total: 1000 EUR
+        Cash Total: {{ formatCurrency(cash, currency) }}
+         <!-- Cash Total: 1000 EUR -->
       </div>
 
       <PdfModal :pdfUrl="selectedPdf" :visible="showPdf" @close="showPdf = false" />

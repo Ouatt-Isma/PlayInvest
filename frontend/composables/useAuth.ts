@@ -6,7 +6,6 @@ interface User {
   last_name?: string
   avatar_url?: string
   currency?: string
-  // extend as needed
 }
 
 export const useAuth = () => {
@@ -58,6 +57,7 @@ export const useAuth = () => {
     useCookie("avatar_url").value = null
     useCookie("first_name").value = null
     useCookie("user").value = null
+    useCookie("cash").value = null
 
     // Redirect
     await navigateTo("/login", { replace: true })

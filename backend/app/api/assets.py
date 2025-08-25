@@ -27,7 +27,6 @@ def get_asset(asset_id: int, db: Session = Depends(get_db)):
     asset = db.query(Asset).filter(Asset.id == asset_id).first()
     if not asset:
         raise HTTPException(404)
-    
     return asset.to_dict()
 
 @router.get("/buy")
