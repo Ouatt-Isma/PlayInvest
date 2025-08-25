@@ -21,7 +21,7 @@
         <tr>
           <th class="px-4 py-2">Date</th>
           <th class="px-4 py-2">Nom de l’actif</th>
-          <th class="px-4 py-2">Montant investi</th>
+          <th class="px-4 py-2">Montant total</th>
           <th class="px-4 py-2">Type de transaction</th>
         </tr>
       </thead>
