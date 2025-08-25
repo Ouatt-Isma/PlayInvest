@@ -12,6 +12,8 @@ from app.auth.auth import get_current_user
 
 from app.utils.currency import convert 
 
+from app.core.config import settings
+
 router = APIRouter()
 
 @router.get("/assets")
@@ -35,11 +37,19 @@ def buy_asset(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    # 0. check quantity 
+    if(amount<settings.minimum_asset):
+        raise HTTPException(status_code=400, detail=f"Quantité d'achat minimum est {settings.minimum_asset} > {amount}")
+    
+    
     # 1. Récupération de l'actif
     asset_obj = db.query(Asset).filter(Asset.id == asset).first()
     if not asset_obj:
         raise HTTPException(status_code=404, detail="Asset not found")
+    if(asset_obj.isStock() and not amount.is_integer() ):
+        raise HTTPException(status_code=400, detail=f"La quantité d'achat doit être entière pour les actions")
 
+        
 
     
     
