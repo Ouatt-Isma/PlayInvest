@@ -20,7 +20,7 @@ def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = D
 
     user.validated = True
     portfolio = Portfolio(user_id=user.id, cash=0.0, currency=user.currency)
-    portfolio.cash += convert(settings.currency, portfolio.currency, settings.amount_godfather)
+    portfolio.cash += convert(settings.currency, portfolio.currency, settings.amount_begin)
     db.add(portfolio)
     parrain_uid = None 
     if(user.referrer_id):

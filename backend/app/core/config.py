@@ -25,6 +25,7 @@ class Settings:
     amount_godfather = 50
     amount_qcm = 25
     amount_challenge = 50
+    amount_begin = 500
     currency = 'EUR'
     ADMIN_EMAIL = "ouattaraismael1999@gmail.com"
     # TZ_FR = ZoneInfo("GMT")

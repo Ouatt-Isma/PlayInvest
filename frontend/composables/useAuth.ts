@@ -11,12 +11,9 @@ interface User {
 export const useAuth = () => {
   const isAuthenticated = useState("isAuthenticated", () => false)
   const user = useState<User | null>("user", () => null)
-  const token = useCookie<string | null>("token")
+  const token = useCookie<string | null>("token", { path: "/" })
+  const userCookie = useCookie<User | null>("user", { path: "/" })
 
-  /**
-   * Runs on app init / refresh → validates the token with backend.
-   * Use only when you need to confirm session is still valid.
-   */
   const checkAuth = async () => {
     if (!token.value) {
       isAuthenticated.value = false
@@ -25,17 +22,16 @@ export const useAuth = () => {
     }
     try {
       const config = useRuntimeConfig()
-      const data = await $fetch<User>(`${config.public.apiBase}/users/me`, {
-        headers: { Authorization: `Bearer ${token.value}` }
-      })
+      const data = await $fetch<User>(`${config.public.apiBase}/users/me`)
       isAuthenticated.value = true
       user.value = data
+      userCookie.value = data // refresh persisted user
       return true
     } catch (err) {
-      console.error("Auth check failed:", err)
       token.value = null
       isAuthenticated.value = false
       user.value = null
+      userCookie.value = null
       return false
     }
   }
@@ -44,22 +40,15 @@ export const useAuth = () => {
     token.value = jwt
     isAuthenticated.value = true
     user.value = userData
+    userCookie.value = userData
   }
 
   const logout = async () => {
-    console.log("Logging out…")
-    // Clear state
     isAuthenticated.value = false
     user.value = null
-
-    // Clear cookies
     token.value = null
-    useCookie("avatar_url").value = null
-    useCookie("first_name").value = null
-    useCookie("user").value = null
+    userCookie.value = null
     useCookie("cash").value = null
-
-    // Redirect
     await navigateTo("/login", { replace: true })
   }
 
