@@ -8,6 +8,7 @@ from app.db.schemas.user import UserUpdate
 from app.db.models.portfolio import Portfolio 
 from fastapi import Request, HTTPException
 from app.auth.auth import get_current_user
+from app.utils.currency import convert 
 
 router = APIRouter()
 
@@ -26,7 +27,9 @@ def update_current_user(
     for field, value in user_update.dict(exclude_unset=True).items():
         setattr(current_user, field, value)
     portfolio = db.query(Portfolio).filter_by(user_id=current_user.id).first()
+    portfolio.cash= convert(portfolio.currency, user_update.currency, portfolio.cash) 
     portfolio.currency= user_update.currency
+    
     db.commit()
     db.refresh(current_user)
 

@@ -9,6 +9,7 @@ from app.db.models.portfolio import Portfolio
 from app.db.models.asset import Asset
 from app.db.models.portfolio_assets import PortfolioAsset
 from app.auth.auth import get_current_user
+from app.utils.currency import convert 
 
 router = APIRouter()
 
@@ -34,11 +35,11 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     for pa, asset in assets:
         asset_dict = asset.to_dict() 
         pa_dict = pa.to_dict()
-        # print(pa_dict)
-        tt+= pa_dict["total_invest"]
+
+        tt+= convert(asset.currency, portfolio.currency, pa_dict["total_invest"]) 
         asset_dict.update(pa_dict) 
-        # result.append()
-        result.append(asset_dict )
+
+        result.append(asset_dict)
         
     print({
     # "assets": result,

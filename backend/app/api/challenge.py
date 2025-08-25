@@ -92,7 +92,7 @@ def get_weekly_pair(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    print("here")
+
     challenge = get_active_challenge(db)
 
     if not challenge:

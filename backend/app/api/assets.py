@@ -69,7 +69,7 @@ def buy_asset(
         raise HTTPException(status_code=400, detail=f"Fonds insuffisants. Requis: {round(total_price,2)}{asset_dict['currency']}, disponible: {portfolio.cash}{portfolio.currency}")
 
     # 5. Déduction du cash
-    portfolio.cash -= convert(asset_obj.currency, portfolio.currency, total_price)
+    portfolio.cash -= total_price_conv
     db.add(portfolio)
 
     # 6. Mise à jour ou ajout de la ligne dans portfolio_assets
