@@ -168,7 +168,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
     <hr class="my-2" />
 
-    <div class="flex items-center justify-between text-gray-700 px-4 py-2">
+    <!-- <div class="flex items-center justify-between text-gray-700 px-4 py-2">
     <span class="text-sm font-medium">Mode sombre</span>
     <label class="relative inline-flex items-center cursor-pointer">
         <input type="checkbox" v-model="darkMode" class="sr-only peer" />
@@ -176,7 +176,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-teal-500 dark:bg-gray-600 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"
         ></div>
     </label>
-    </div>
+    </div> -->
   </div>
 </div>
 
