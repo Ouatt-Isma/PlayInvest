@@ -204,17 +204,15 @@ const endTime = computed(() => {
   const endSelectionTime = computed(() => {
   const now = new Date()
   // 1. If serverEndAt exists and is still in the future → use it
-  console.log(serverSelectionEndAt.value)
+  console.log("endAT SERVER", serverSelectionEndAt.value)
   if (serverSelectionEndAt.value) {
     const serverDate = new Date(serverSelectionEndAt.value)
     if (serverDate > now) {
       return serverDate
-    } else {
-      // server date is past → deadline expired, use nextFriday
-      return nextSundayEnd()
+    } else{
+      return null 
     }
   }
-
   // 2. If props.endAt is provided → use it
   if (props.endAt) {
     return new Date(props.endAt)
