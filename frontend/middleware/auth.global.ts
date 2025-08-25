@@ -1,15 +1,14 @@
-// middleware/auth.global.ts (or auth.ts if not global)
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { checkAuth, isAuthenticated } = useAuth()
+// middleware/auth.global.ts
+export default defineNuxtRouteMiddleware((to, from) => {
+  const { isAuthenticated } = useAuth()
 
-  // run checkAuth only if needed
-  if (to.meta.requiresAuth) {
-    const ok = await checkAuth()
-    if (!ok) return navigateTo("/login")
+  // Protect routes that require login
+  if (to.meta.requiresAuth && !isAuthenticated.value) {
+    return navigateTo("/login")
   }
 
-  if (to.meta.guestOnly) {
-    const ok = await checkAuth()
-    if (ok) return navigateTo("/dashboard")
+  // Redirect logged-in users away from guest-only pages
+  if (to.meta.guestOnly && isAuthenticated.value) {
+    return navigateTo("/dashboard")
   }
 })

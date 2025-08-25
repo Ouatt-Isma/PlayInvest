@@ -1,11 +1,6 @@
 <script setup>
 const route = useRoute()
-const { isAuthenticated, checkAuth } = useAuth()
-
-// Run auth check once on app load
-onMounted(() => {
-  checkAuth()
-})
+const { isAuthenticated } = useAuth()
 
 const layout = computed(() => {
   const authPages = ["/login", "/register"]
