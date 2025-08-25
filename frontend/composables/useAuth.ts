@@ -14,6 +14,10 @@ export const useAuth = () => {
   const user = useState<User | null>("user", () => null)
   const token = useCookie<string | null>("token")
 
+  /**
+   * Runs on app init / refresh → validates the token with backend.
+   * Use only when you need to confirm session is still valid.
+   */
   const checkAuth = async () => {
     if (!token.value) {
       isAuthenticated.value = false
@@ -37,5 +41,27 @@ export const useAuth = () => {
     }
   }
 
-  return { isAuthenticated, user, checkAuth }
+  const login = (userData: User, jwt: string) => {
+    token.value = jwt
+    isAuthenticated.value = true
+    user.value = userData
+  }
+
+  const logout = async () => {
+    console.log("Logging out…")
+    // Clear state
+    isAuthenticated.value = false
+    user.value = null
+
+    // Clear cookies
+    token.value = null
+    useCookie("avatar_url").value = null
+    useCookie("first_name").value = null
+    useCookie("user").value = null
+
+    // Redirect
+    await navigateTo("/login", { replace: true })
+  }
+
+  return { isAuthenticated, user, checkAuth, login, logout }
 }

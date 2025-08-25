@@ -9,25 +9,7 @@ const avatar_url = ref('')
 const first_name = ref('')
 
 const router = useRouter()
-const logout = async () => {
-  console.log('Logging out...')
-  showDropdown.value = false
-
-  const userState = useState('user')
-  userState.value = null
-
-  const token = useCookie("token")
-  const userCookie = useCookie("user")
-  const avatarUrl = useCookie("avatar_url")
-  const firstName = useCookie("first_name")
-
-  token.value = null
-  userCookie.value = null
-  avatarUrl.value = null
-  firstName.value = null
-  await navigateTo('/login', { replace: true })
-}
-
+const { logout, user } = useAuth() 
 
 onMounted(() => {
 
