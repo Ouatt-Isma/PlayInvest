@@ -43,6 +43,8 @@ def update_challenge_result(db: Session, weekly_challenge_id: int, current_date:
     if len(sides) != 2:
         raise NameError("Challenge is not properly configured")
     side_a, side_b = sides
+    print(side_a)
+    print(side_a.id)
     asset_a = db.query(Asset).filter(Asset.id == side_a.asset_id).first()
     asset_b = db.query(Asset).filter(Asset.id == side_b.asset_id).first()
     perf_a = compute_last_5days_perf(asset_a, current_date, check)

@@ -156,7 +156,11 @@ def submit_weekly_pick(
     current_user: User = Depends(get_current_user),
 ):
     challenge = get_active_challenge(db)
-
+    sides = (
+        db.query(WeeklyChallengeSide)
+        .filter(WeeklyChallengeSide.challenge_id == challenge.id)
+        .all()
+    )
     # deadline
     if now_utc() > challenge.end_at or now_utc() <challenge.start_at:
         raise HTTPException(status_code=400, detail="Le challenge est clôturé.")
@@ -167,13 +171,14 @@ def submit_weekly_pick(
         .filter(WeeklyChallengeSide.challenge_id == challenge.id)
         .all()
     )
+    
     if len(sides) != 2:
         raise HTTPException(status_code=500, detail="Challenge mal configuré.")
 
 
     # asset_to_side = {s.asset_id: s.id for s in sides if s.asset_id is not None}
-
-
+    
+    
     picked_side_id = body.sideId
     # enforce one pick per user/challenge
     existing = (
@@ -191,7 +196,7 @@ def submit_weekly_pick(
         challenge_id=challenge.id,
         user_id=current_user.id,
         # 👉 choose ONE of the two lines below depending on your model:
-        side_id=picked_side_id,            # new schema (recommended)
+        side_id=sides[picked_side_id-1].id,      # new schema (recommended)
         # picked_asset_id=body.assetId,    # old schema (if your table still uses this column)
     )
     db.add(pick)

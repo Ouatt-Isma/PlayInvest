@@ -1,3 +1,4 @@
+import os
 try:
     from backports.zoneinfo import ZoneInfo
 except: 
@@ -5,7 +6,7 @@ except:
     
 import os 
 class Settings:
-    FRONTEND_URL = "http://localhost:3000"
+    FRONTEND_URL = os.getenv("FRONTEND_URL", "https://www.playinvest-hd.com")  
     EMAIL = "ouattaraismael258852@gmail.com"
     DATABASE_URL = os.getenv("DATABASE_URL")
     
