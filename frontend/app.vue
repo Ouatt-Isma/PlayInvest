@@ -1,13 +1,18 @@
 <script setup>
 const route = useRoute()
-const userCookie = useCookie("user")
+const { isAuthenticated, checkAuth } = useAuth()
+
+// Run auth check once on app load
+onMounted(() => {
+  checkAuth()
+})
 
 const layout = computed(() => {
   const authPages = ["/login", "/register"]
   const isAuthPage = authPages.includes(route.path)
 
   if (isAuthPage) return "auth"
-  return userCookie.value ? "connected" : "default"
+  return isAuthenticated.value ? "connected" : "default"
 })
 </script>
 
