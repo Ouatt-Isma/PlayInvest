@@ -93,48 +93,59 @@ def _next_week_window_utc(now: Optional[datetime] = None) -> Tuple[datetime, dat
     """
     now = now or datetime.now(timezone.utc)
     weekday = now.date().weekday()  # Monday=0
-    days_until_next_monday = (7 - weekday) % 7 or 7
-    start = datetime.combine(now.date() + timedelta(days=days_until_next_monday), time(0, 0), tzinfo=timezone.utc)
+    
+    days_until_next_saturday = (5 - weekday) % 7 or 7
+    start = datetime.combine(now.date() + timedelta(days=days_until_next_saturday), time(0, 0), tzinfo=timezone.utc)
     end = start + timedelta(days=7) - timedelta(microseconds=1)
-    return start, end
+    end_select = start + timedelta(days=2) - timedelta(microseconds=1)
+    return start, end_select, end
 
-def _next_weekend_window_fr(
-    now: Optional[datetime] = None,
-    return_utc: bool = False
-) -> Tuple[datetime, datetime]:
-    """
-    Next weekend window in France time (GMT):
-      Start: Saturday 00:00
-      End:   Sunday 23:59:59.999999
-    Returns datetimes either in GMT or converted to UTC if return_utc=True.
-    """
-    # Get 'now' in GMT
-    if now is None:
-        local_now = datetime.now(TZ_GMT)
-    else:
-        local_now = now.astimezone(TZ_GMT) if now.tzinfo else now.replace(tzinfo=TZ_GMT)
+# def _next_weekend_window_fr(
+#     now: Optional[datetime] = None,
+#     return_utc: bool = False
+# ) -> Tuple[datetime, datetime]:
+#     """
+#     Next weekend window in France time (GMT):
+#       Start: Saturday 00:00
+#       End:   Sunday 23:59:59.999999
+#     Returns datetimes either in GMT or converted to UTC if return_utc=True.
+#     """
+#     # Get 'now' in GMT
+#     if now is None:
+#         local_now = datetime.now(TZ_GMT)
+#     else:
+#         local_now = now.astimezone(TZ_GMT) if now.tzinfo else now.replace(tzinfo=TZ_GMT)
 
-    # Monday=0 ... Saturday=5, Sunday=6
-    weekday = local_now.date().weekday()
-    days_until_saturday = (5 - weekday) % 7 or 7  # next Saturday, not "today" if it's already Saturday
+#     # Monday=0 ... Saturday=5, Sunday=6
+#     weekday = local_now.date().weekday()
+#     days_until_saturday = (5 - weekday) % 7 or 7  # next Saturday, not "today" if it's already Saturday
+    
+#     days_until_monday = days_until_saturday+2
 
-    # Start: Saturday 00:00 (local France time)
-    start_local = datetime.combine(
-        local_now.date() + timedelta(days=days_until_saturday),
-        time(0, 0, 0, 0),
-        tzinfo=TZ_GMT,
-    )
+#     # Start: Saturday 00:00 (local France time)
+#     start_local = datetime.combine(
+#         local_now.date() + timedelta(days=days_until_saturday),
+#         time(0, 0, 0, 0),
+#         tzinfo=TZ_GMT,
+#     )
 
-    # End: Sunday 23:59:59.999999 (local France time)
-    end_local = datetime.combine(
-        start_local.date() + timedelta(days=1),
-        time(23, 59, 59, 999_999),
-        tzinfo=TZ_GMT,
-    )
+#     # Start: Saturday 00:00 (local France time)
+#     end_select_local = datetime.combine(
+#         local_now.date() + timedelta(days=days_until_monday),
+#         time(0, 0, 0, 0),
+#         tzinfo=TZ_GMT,
+#     )
+    
+#     # End: Sunday 23:59:59.999999 (local France time)
+#     end_local = datetime.combine(
+#         start_local.date() + timedelta(days=1),
+#         time(23, 59, 59, 999_999),
+#         tzinfo=TZ_GMT,
+#     )
 
-    if return_utc:
-        return start_local.astimezone(timezone.utc), end_local.astimezone(timezone.utc)
-    return start_local, end_local
+#     if return_utc:
+#         return start_local.astimezone(timezone.utc), end_select_local.astimezone(timezone.utc),  end_local.astimezone(timezone.utc)
+#     return start_local, end_select_local, end_local
 
 # -----------------------------------------------------------------------------
 # 4) Asset picking helpers
@@ -205,7 +216,10 @@ def create_challenge_for_next_week(db: Session, check=True) -> WeeklyChallenge:
     Pick a random template, draw two concrete assets matching the filters
     (or fallback to any two assets), and create a challenge for the NEXT week.
     """
-    start_at, end_at = _next_weekend_window_fr()
+    start_at, selection_end_at, end_at = _next_week_window_utc()
+    print(start_at)
+    print(selection_end_at)
+    print(end_at)
     now_fr = datetime.now(TZ_GMT)
     tomorrow = (now_fr + timedelta(days=1)).date()
     today = (now_fr).date()
@@ -237,6 +251,7 @@ def create_challenge_for_next_week(db: Session, check=True) -> WeeklyChallenge:
         end_at=end_at,
         is_active=True,
         description=desc,
+        selection_end_at = selection_end_at
     )
     db.add(challenge)
     db.flush()  # to get challenge.id
