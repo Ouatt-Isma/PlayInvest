@@ -49,7 +49,8 @@ def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = D
         
         
     db.commit()
-    db.refresh(portfolio_parrain)
     db.refresh(portfolio)
+    if (parrain_uid):
+        db.refresh(portfolio_parrain)
 
     return {"message": "Email confirmé avec succès"}

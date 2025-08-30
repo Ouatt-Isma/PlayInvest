@@ -4,7 +4,7 @@ from app.core.database import Base
 from datetime import datetime 
 from app.db.models.performance import Performance
 from app.db.models.user import User
-
+from sqlalchemy.sql import func
 
 class Portfolio(Base):
     __tablename__ = "portfolios"
@@ -16,7 +16,12 @@ class Portfolio(Base):
     cash = Column(Float)
     currency = Column(String)
     rank = Column(Integer)
-    updated_at = Column(DateTime)
+    updated_at = Column(
+        DateTime, 
+        default=func.now(),       # set on INSERT
+        onupdate=func.now(),      # refresh on UPDATE
+        nullable=False
+    )
     
     transactions = relationship("Transaction", back_populates="portfolio", cascade="all, delete-orphan")
     performances = relationship(Performance, back_populates="portfolio", cascade="all, delete")
