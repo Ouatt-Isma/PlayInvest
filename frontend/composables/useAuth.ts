@@ -18,6 +18,9 @@ export function useAuth() {
     const tokenCookie = useCookie<string | null>('token')
     const userCookie = useCookie<string | null>('user')
 
+    console.log('[init] raw tokenCookie =', tokenCookie.value)
+  console.log('[init] raw userCookie =', userCookie.value)
+  
     if (tokenCookie.value && userCookie.value) {
       token.value = tokenCookie.value
       user.value = userCookie.value
@@ -42,10 +45,14 @@ export function useAuth() {
     })
 
     token.value = authToken
-    user.value = JSON.stringify(userData)
+    user.value = userData
 
     tokenCookie.value = authToken
     userCookie.value = JSON.stringify(userData)
+
+    console.log('[login] token =', authToken)
+  console.log('[login] userData =', userData)
+  console.log('[login] userCookie.value =', userCookie.value)
   }
 
   /**

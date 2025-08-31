@@ -35,6 +35,8 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
 
     // ✅ use useAuth helper instead of setting cookies manually
     login(user, token)
+    console.log('[submitLogin] token =', token)
+    console.log('[submitLogin] user =', user)
 
     success.value = "Connexion réussie !"
     error.value = null
