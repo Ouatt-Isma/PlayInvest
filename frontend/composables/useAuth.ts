@@ -9,71 +9,64 @@ const isInitialized = ref(false)
 export function useAuth() {
   const router = useRouter()
 
-  /**
-   * Initialize auth state from cookies
-   */
   function init() {
     if (isInitialized.value) return
 
     const tokenCookie = useCookie<string | null>('token')
     const userCookie = useCookie<string | null>('user')
 
-    console.log('[init] raw tokenCookie =', tokenCookie.value)
-  console.log('[init] raw userCookie =', userCookie.value)
-
     if (tokenCookie.value) {
-    token.value = tokenCookie.value
+      token.value = tokenCookie.value
     }
+
     if (userCookie.value) {
       try {
         const lightUser = JSON.parse(userCookie.value)
-      const avatar_url = localStorage.getItem('avatar_url') || null
+        const avatar_url = localStorage.getItem('avatar_url') || null
 
-      user.value = { ...lightUser, avatar_url }  // recombine
+        user.value = { ...lightUser, avatar_url }
       } catch (e) {
         console.error('[init] failed to parse user cookie:', e)
         user.value = null
       }
     }
-        isInitialized.value = true
-      }
 
-  /**
-   * Save user + token after successful login
-   */
+    isInitialized.value = true
+  }
+
   function login(userData: any, authToken: string) {
+    const isProd = process.env.NODE_ENV === 'production'
+
     const tokenCookie = useCookie<string>('token', {
-    sameSite: 'lax',
-    secure: true,
-    path: '/',
-  })
+      sameSite: 'lax',
+      secure: isProd,
+      path: '/',
+    })
     const userCookie = useCookie<string>('user', {
       sameSite: 'lax',
-      secure: true,
+      secure: isProd,
       path: '/',
     })
 
     const { avatar_url, ...lightUser } = userData
     if (avatar_url) {
-    localStorage.setItem('avatar_url', avatar_url) // store only avatar separately
-  }
+      localStorage.setItem('avatar_url', avatar_url)
+    }
+
     token.value = authToken
-    user.value = lightUser
+    user.value = { ...lightUser, avatar_url }   // ✅ keep avatar in memory too
 
     tokenCookie.value = authToken
     userCookie.value = JSON.stringify(lightUser)
 
     console.log('[login] token =', authToken)
-  console.log('[login] userData =', userData)
-  console.log('[login] userCookie.value =', userCookie.value)
+    console.log('[login] userData =', userData)
+    console.log('[login] userCookie.value =', userCookie.value)
   }
 
-  /**
-   * Logout: clear cookies + state
-   */
   function logout() {
-    const tokenCookie = useCookie<string| null>('token')
-    const userCookie = useCookie<string| null>('user')
+    const tokenCookie = useCookie<string | null>('token')
+    const userCookie = useCookie<string | null>('user')
 
     token.value = null
     user.value = null
@@ -85,9 +78,6 @@ export function useAuth() {
     router.push('/login')
   }
 
-  /**
-   * Check if user is authenticated
-   */
   function checkAuth() {
     if (!isInitialized.value) {
       init()
