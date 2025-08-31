@@ -20,15 +20,29 @@ export function useAuth() {
     }
 
     if (userCookie.value) {
-      try {
-        const lightUser = JSON.parse(userCookie.value)
-        const avatar_url = localStorage.getItem('avatar_url') || null
+//       try {
+//         console.log(userCookie.value)
+//         console.log('[login] typeof userCookie.value =', typeof userCookie.value)
+// console.log('[login] raw userCookie.value =', String(userCookie.value))
+//         const lightUser = JSON.parse(userCookie.value)
+//         const avatar_url = localStorage.getItem('avatar_url') || null
 
-        user.value = { ...lightUser, avatar_url }
-      } catch (e) {
-        console.error('[init] failed to parse user cookie:', e)
-        user.value = null
-      }
+//         user.value = { ...lightUser, avatar_url }
+//       } catch (e) {
+//         console.error('[init] failed to parse user cookie:', e)
+//         user.value = null
+//       }
+
+      try {
+    // Nuxt has already parsed it into an object
+    const lightUser = userCookie.value as any
+    const avatar_url = localStorage.getItem('avatar_url') || null
+
+    user.value = { ...lightUser, avatar_url }
+  } catch (e) {
+    console.error('[init] failed to parse user cookie:', e)
+    user.value = null
+  }
     }
 
     isInitialized.value = true
@@ -42,7 +56,7 @@ export function useAuth() {
       secure: isProd,
       path: '/',
     })
-    const userCookie = useCookie<string>('user', {
+    const userCookie = useCookie<any>('user', {
       sameSite: 'lax',
       secure: isProd,
       path: '/',
@@ -58,7 +72,8 @@ export function useAuth() {
 
     tokenCookie.value = authToken
     userCookie.value = JSON.stringify(lightUser)
-
+    console.log('[setting login] typeof userCookie.value =', typeof userCookie.value)
+console.log('[setting login] raw userCookie.value =', String(userCookie.value))
     console.log('[login] token =', authToken)
     console.log('[login] userData =', userData)
     console.log('[login] userCookie.value =', userCookie.value)
