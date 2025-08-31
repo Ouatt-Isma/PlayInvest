@@ -30,8 +30,16 @@ export function useAuth() {
    * Save user + token after successful login
    */
   function login(userData: any, authToken: string) {
-    const tokenCookie = useCookie<string>('token')
-    const userCookie = useCookie<any>('user')
+    const tokenCookie = useCookie<string>('token', {
+    sameSite: 'lax',
+    secure: true,
+    path: '/',
+  })
+    const userCookie = useCookie<any>('user', {
+      sameSite: 'lax',
+      secure: true,
+      path: '/',
+    })
 
     token.value = authToken
     user.value = userData
