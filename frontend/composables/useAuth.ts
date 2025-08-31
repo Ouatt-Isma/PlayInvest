@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRouter, useCookie } from '#app'
 
-const user = ref<any | null>(null)
+const user = ref<string | null>(null)
 const token = ref<string | null>(null)
 const isInitialized = ref(false)
 
@@ -16,7 +16,7 @@ export function useAuth() {
     if (isInitialized.value) return
 
     const tokenCookie = useCookie<string | null>('token')
-    const userCookie = useCookie<any | null>('user')
+    const userCookie = useCookie<string | null>('user')
 
     if (tokenCookie.value && userCookie.value) {
       token.value = tokenCookie.value
@@ -29,13 +29,13 @@ export function useAuth() {
   /**
    * Save user + token after successful login
    */
-  function login(userData: any, authToken: string) {
+  function login(userData: string, authToken: string) {
     const tokenCookie = useCookie<string>('token', {
     sameSite: 'lax',
     secure: true,
     path: '/',
   })
-    const userCookie = useCookie<any>('user', {
+    const userCookie = useCookie<string>('user', {
       sameSite: 'lax',
       secure: true,
       path: '/',
@@ -53,7 +53,7 @@ export function useAuth() {
    */
   function logout() {
     const tokenCookie = useCookie<string| null>('token')
-    const userCookie = useCookie<any>('user')
+    const userCookie = useCookie<string| null>('user')
 
     token.value = null
     user.value = null
