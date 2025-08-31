@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import { useRouter, useCookie } from '#app'
 
-const user = ref<string | null>(null)
+const user = ref<any | null>(null)
 const token = ref<string | null>(null)
 const isInitialized = ref(false)
 
@@ -20,14 +20,20 @@ export function useAuth() {
 
     console.log('[init] raw tokenCookie =', tokenCookie.value)
   console.log('[init] raw userCookie =', userCookie.value)
-  
-    if (tokenCookie.value && userCookie.value) {
-      token.value = tokenCookie.value
-      user.value = userCookie.value
-    }
 
-    isInitialized.value = true
-  }
+    if (tokenCookie.value) {
+    token.value = tokenCookie.value
+    }
+    if (userCookie.value) {
+      try {
+        user.value = JSON.parse(userCookie.value)
+      } catch (e) {
+        console.error('[init] failed to parse user cookie:', e)
+        user.value = null
+      }
+    }
+        isInitialized.value = true
+      }
 
   /**
    * Save user + token after successful login
