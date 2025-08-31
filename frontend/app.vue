@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 const route = useRoute()
 const { isAuthenticated } = useAuth()
 
@@ -9,10 +9,10 @@ const layout = computed(() => {
   if (isAuthPage) return "auth"
   return isAuthenticated.value ? "connected" : "default"
 })
-</script>
+</script> -->
 
 <template>
-  <NuxtLayout :name="layout">
+  <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>

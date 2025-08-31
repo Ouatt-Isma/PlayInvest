@@ -23,7 +23,7 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
 
     // call backend
     const res = await axios.post(`${apiBase}/api/login`, { email, password })
-    const user = res.data
+    const { token, ...user } = res.data
 
     if (!user.validated) {
       error.value = "Votre email n’est pas encore confirmé. Veuillez vérifier votre boîte mail."
@@ -39,7 +39,7 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
     success.value = "Connexion réussie !"
     error.value = null
     showToast.value = true
-
+    console.log("Login response:", res.data)
     setTimeout(() => {
       router.push('/dashboard')
     }, 0)

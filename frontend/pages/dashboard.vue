@@ -133,15 +133,18 @@ const pair = ref([null])
 import ChallengeHistory from '~/components/ChallengeHistory.vue'
 
 const lastUpdate= ref('')
+const auth = useAuth()
+auth.init()
 
-  const token = useCookie("token").value
-  const config = useRuntimeConfig()
-  const apiBase = config.public.apiBase 
-  const response = await axios.get(`${apiBase}/api/portfolio`,{
-      headers: {
-        Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
-      }
-    })
+
+const token = useCookie("token").value
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase 
+const response = await axios.get(`${apiBase}/api/portfolio`,{
+    headers: {
+      Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
+    }
+  })
 
 onMounted(async () => {
   console.log("✅ Dashboard mounted, fetching last update...")

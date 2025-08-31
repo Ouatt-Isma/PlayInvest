@@ -158,11 +158,14 @@ def sell_asset(
         pa.sold = True
         pa.selling_price = current_price
         pa.selling_date = datetime.utcnow()
+        
+    ## update total_invest
+    pa.total_invest-= pa.buying_price*amount
     # 4. Calcul du prix de vente et conversion vers la devise du portefeuille
     total_sale_price = current_price * amount
 
     total_sale_price = convert(asset_obj.currency, portfolio.currency, total_sale_price)
-
+    
     # 5. Incrémenter le cash du portefeuille
     portfolio.cash += total_sale_price
     db.add(portfolio)

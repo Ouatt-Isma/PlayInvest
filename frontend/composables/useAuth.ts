@@ -1,56 +1,81 @@
-interface User {
-  id: number
-  username: string
-  email: string
-  first_name?: string
-  last_name?: string
-  avatar_url?: string
-  currency?: string
-}
+// composables/useAuth.ts
+import { ref, computed } from 'vue'
+import { useRouter, useCookie } from '#app'
 
-export const useAuth = () => {
-  const isAuthenticated = useState("isAuthenticated", () => false)
-  const user = useState<User | null>("user", () => null)
-  const token = useCookie<string | null>("token", { path: "/" })
-  const userCookie = useCookie<User | null>("user", { path: "/" })
+const user = ref<any | null>(null)
+const token = ref<string | null>(null)
+const isInitialized = ref(false)
 
-  const checkAuth = async () => {
-    if (!token.value) {
-      isAuthenticated.value = false
-      user.value = null
-      return false
+export function useAuth() {
+  const router = useRouter()
+
+  /**
+   * Initialize auth state from cookies
+   */
+  function init() {
+    if (isInitialized.value) return
+
+    const tokenCookie = useCookie<string | null>('token')
+    const userCookie = useCookie<any | null>('user')
+
+    if (tokenCookie.value && userCookie.value) {
+      token.value = tokenCookie.value
+      user.value = userCookie.value
     }
-    try {
-      const config = useRuntimeConfig()
-      const data = await $fetch<User>(`${config.public.apiBase}/users/me`)
-      isAuthenticated.value = true
-      user.value = data
-      userCookie.value = data // refresh persisted user
-      return true
-    } catch (err) {
-      token.value = null
-      isAuthenticated.value = false
-      user.value = null
-      userCookie.value = null
-      return false
-    }
+
+    isInitialized.value = true
   }
 
-  const login = (userData: User, jwt: string) => {
-    token.value = jwt
-    isAuthenticated.value = true
+  /**
+   * Save user + token after successful login
+   */
+  function login(userData: any, authToken: string) {
+    const tokenCookie = useCookie<string>('token')
+    const userCookie = useCookie<any>('user')
+
+    token.value = authToken
     user.value = userData
+
+    tokenCookie.value = authToken
     userCookie.value = userData
   }
 
-  const logout = async () => {
-    isAuthenticated.value = false
-    user.value = null
+  /**
+   * Logout: clear cookies + state
+   */
+  function logout() {
+    const tokenCookie = useCookie<string| null>('token')
+    const userCookie = useCookie<any>('user')
+
     token.value = null
+    user.value = null
+
+    tokenCookie.value = null
     userCookie.value = null
-    useCookie("cash").value = null
-    await navigateTo("/login", { replace: true })
+
+    router.push('/login')
   }
 
-  return { isAuthenticated, user, checkAuth, login, logout }
+  /**
+   * Check if user is authenticated
+   */
+  function checkAuth() {
+    if (!isInitialized.value) {
+      init()
+    }
+    return isAuthenticated.value
+  }
+
+  const isAuthenticated = computed(() => !!user.value && !!token.value)
+
+  return {
+    user,
+    token,
+    isInitialized,
+    init,
+    login,
+    logout,
+    checkAuth,
+    isAuthenticated,
+  }
 }
