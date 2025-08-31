@@ -26,7 +26,10 @@ export function useAuth() {
     }
     if (userCookie.value) {
       try {
-        user.value = JSON.parse(userCookie.value)
+        const lightUser = JSON.parse(userCookie.value)
+      const avatar_url = localStorage.getItem('avatar_url') || null
+
+      user.value = { ...lightUser, avatar_url }  // recombine
       } catch (e) {
         console.error('[init] failed to parse user cookie:', e)
         user.value = null
@@ -38,7 +41,7 @@ export function useAuth() {
   /**
    * Save user + token after successful login
    */
-  function login(userData: string, authToken: string) {
+  function login(userData: any, authToken: string) {
     const tokenCookie = useCookie<string>('token', {
     sameSite: 'lax',
     secure: true,
@@ -50,11 +53,15 @@ export function useAuth() {
       path: '/',
     })
 
+    const { avatar_url, ...lightUser } = userData
+    if (avatar_url) {
+    localStorage.setItem('avatar_url', avatar_url) // store only avatar separately
+  }
     token.value = authToken
-    user.value = userData
+    user.value = lightUser
 
     tokenCookie.value = authToken
-    userCookie.value = JSON.stringify(userData)
+    userCookie.value = JSON.stringify(lightUser)
 
     console.log('[login] token =', authToken)
   console.log('[login] userData =', userData)
@@ -73,6 +80,7 @@ export function useAuth() {
 
     tokenCookie.value = null
     userCookie.value = null
+    localStorage.removeItem('avatar_url')
 
     router.push('/login')
   }
