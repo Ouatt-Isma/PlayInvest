@@ -45,7 +45,7 @@ export function useAuth() {
     user.value = JSON.stringify(userData)
 
     tokenCookie.value = authToken
-    userCookie.value = userData
+    userCookie.value = JSON.stringify(userData)
   }
 
   /**
