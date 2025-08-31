@@ -86,7 +86,7 @@ def _description_generic(a_name: str, b_name: str) -> str:
 # -----------------------------------------------------------------------------
 # 3) Time window helpers (UTC)
 # -----------------------------------------------------------------------------
-def _next_week_window_utc(now: Optional[datetime] = None) -> Tuple[datetime, datetime]:
+def _next_week_window_utc(now: Optional[datetime] = None) -> Tuple[datetime, datetime, datetime]:
     """
     Next week window in UTC:
       Monday 00:00:00 → Sunday 23:59:59.999999
