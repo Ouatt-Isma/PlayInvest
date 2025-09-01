@@ -21,6 +21,8 @@ from app.db.models.weekly_challenge import (
     EntityKind,
 )
 
+from app.api.challenge import get_active_challenge
+
 def compute_last_5days_perf(asset: Asset, current_date, check=True):
     date_4_days_ago = current_date - timedelta(days=4)
     if(check):
@@ -70,7 +72,7 @@ def update_user_result_one(db: Session, weekly_pick: int, current_date: datetime
 
 # Function to update challenge and all picks
 def update_all_challenge_result(db: Session, current_date: datetime, check=True):
-    weekly_challenge = db.query(WeeklyChallenge).filter_by(is_active=True).first()
+    weekly_challenge = get_active_challenge(db)
     if(not weekly_challenge):
         return
     update_challenge_result(db, weekly_challenge.id, current_date, check)

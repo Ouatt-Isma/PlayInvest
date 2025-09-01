@@ -49,7 +49,7 @@ def serialize_asset(a: Asset) -> dict:
     }
 
 
-def get_active_challenge(db: Session) -> WeeklyChallenge:
+def get_active_challenge(db: Session, oldest=True) -> WeeklyChallenge:
     """
     Returns the current active challenge (this week).
     Strategy:
@@ -59,7 +59,16 @@ def get_active_challenge(db: Session) -> WeeklyChallenge:
     now = now_utc()
 
     # Prefer explicitly active
-    q = (
+   
+    if (oldest):
+        challenge = (
+        db.query(WeeklyChallenge)
+        .filter(WeeklyChallenge.is_active.is_(True))
+        .order_by(WeeklyChallenge.start_at.asc())
+        .first())   
+
+    else:
+        q = (
         db.query(WeeklyChallenge)
         .filter(
             WeeklyChallenge.is_active.is_(True),
@@ -67,8 +76,9 @@ def get_active_challenge(db: Session) -> WeeklyChallenge:
             # WeeklyChallenge.end_at >= now,
         )
         .order_by(WeeklyChallenge.start_at.desc())
-    )
-    challenge = q.first()
+        )
+        challenge = q.first()
+    
     if challenge:
         return challenge
 
@@ -92,16 +102,16 @@ def get_weekly_pair(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-
+    print("avant")
     challenge = get_active_challenge(db)
-
+    print("apres")
     if not challenge:
         raise HTTPException(status_code=404, detail="No active challenge")
 
     sides = db.query(WeeklyChallengeSide).filter(
         WeeklyChallengeSide.challenge_id == challenge.id
     ).all()
-
+    print(len(sides))
     if len(sides) != 2:
         raise HTTPException(status_code=500, detail="Challenge is not properly configured")
 

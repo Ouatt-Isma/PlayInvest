@@ -38,17 +38,37 @@ def get_db() -> Session:
         db.close()
 
 # --- Jobs ---
-def challenge():
+def challenge(check=True):
     try:
         with get_db() as db:
             current_date = datetime.now(TZ_GMT)
-            update_all_challenge_result(db, current_date, False)
-            seed_next_week(db)
+            update_all_challenge_result(db, current_date, check)
+            seed_next_week(db, check)
         log.info("challenge() completed")
     except Exception as e:
         log.exception("challenge() failed")
         asyncio.run(send_admin_issue("CHALLENGE UPDATE"))
 
+def challenge_res(check=True):
+    try:
+        with get_db() as db:
+            current_date = datetime.now(TZ_GMT)
+            update_all_challenge_result(db, current_date, check)
+        log.info("challenge_res() completed")
+    except Exception as e:
+        log.exception("challenge_res() failed")
+        asyncio.run(send_admin_issue("CHALLENGE RESULT UPDATE"))
+        
+def challenge_seed():
+    try:
+        with get_db() as db:
+            current_date = datetime.now(TZ_GMT)
+            seed_next_week(db, check)
+        log.info("challenge_seed() completed")
+    except Exception as e:
+        log.exception("challenge_seed() failed")
+        asyncio.run(send_admin_issue("CHALLENGE SEED UPDATE"))
+        
 def assets():
     try:
         with get_db() as db:
