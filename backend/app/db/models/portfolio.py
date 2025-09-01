@@ -25,7 +25,8 @@ class Portfolio(Base):
     
     transactions = relationship("Transaction", back_populates="portfolio", cascade="all, delete-orphan")
     performances = relationship(Performance, back_populates="portfolio", cascade="all, delete")
-    
+    passets = relationship("PortfolioAsset", back_populates="portfolio", cascade="all, delete-orphan")
+
     performances = relationship(Performance, back_populates="portfolio", cascade="all, delete")
     
     user = relationship(User, back_populates='portfolios')

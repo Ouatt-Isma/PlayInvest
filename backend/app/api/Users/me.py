@@ -44,3 +44,19 @@ def update_current_user(
         "avatar_url": current_user.avatar_url,
         "currency": current_user.currency,
     }
+
+@router.delete("/me")
+def delete_current_user(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    # Retrieve portfolio if it exists
+    portfolio = db.query(Portfolio).filter_by(user_id=current_user.id).first()
+    if portfolio:
+        db.delete(portfolio)
+
+    # Delete the user
+    db.delete(current_user)
+    db.commit()
+
+    return {"message": "Compte supprimé avec succès"}

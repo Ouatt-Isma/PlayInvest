@@ -126,6 +126,51 @@ const updateProfile = async ()  => {
   }
 
 }
+
+const deleteAccount = async () => {
+  const token = useCookie("token").value
+
+  if (!token) {
+    console.warn("No token found")
+    return
+  }
+
+  if (!confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) {
+    return
+  }
+
+  try {
+    const config = useRuntimeConfig()
+    const apiBase = config.public.apiBase
+    await axios.delete(`${apiBase}/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    // clean up cookies & storage
+    useCookie("token").value = null
+    useCookie("user").value = null
+    useCookie("avatar_url").value = null
+    localStorage.removeItem("avatar_url")
+
+    toastMessage.value = "✅ Compte supprimé avec succès"
+    showToast.value = true
+
+    setTimeout(() => {
+      window.location.href = "/login"
+    }, 1500)
+  } catch (err) {
+    console.error("Erreur lors de la suppression du compte:", err)
+    toastMessage.value = "❌ Erreur lors de la suppression du compte"
+    showToast.value = true
+    setTimeout(() => {
+      showToast.value = false
+    }, 3000)
+  }
+}
+
+
 const showAvatarList = ref(false)
 const avatarUrl = ref(avatarUrltmp)
 const avatarOptions = Object.values(
@@ -258,6 +303,14 @@ function downloadAvatar() {
 
       <button type="submit" class="bg-teal-800 text-white px-6 py-3 rounded mt-4">
         Sauvegarder
+      </button>
+
+      <button
+        type="button"
+        @click="deleteAccount"
+        class="bg-red-600 text-white px-6 py-3 rounded mt-4 ml-4"
+      >
+        Supprimer mon compte
       </button>
     </form>
     <transition name="fade">
