@@ -30,7 +30,7 @@
     <!-- Quiz View -->
     <div class="w-full max-w-3xl mx-auto">
       <p v-if="alreadyPassed" class="text-green-600 text-sm font-medium">
-        ✅ Vous avez déjà réussi ce quiz. Vous pouvez le refaire si vous le souhaitez.
+        ✅ Vous avez déjà réussi ce quiz. Vous pouvez le refaire si vous le souhaitez. Aucun bonus ne sera débloqué.
       </p>
 
       <div v-if="quiz.length" class="space-y-6">
@@ -179,7 +179,7 @@ const scorePercent = computed(() => {
 
 const scoreMessage = computed(() =>
   scorePercent.value >= 80
-    ? `🎉 Bravo ! Vous avez réussi (${scorePercent.value}%)`
+    ? `🎉 Bravo ! Vous avez réussi (${scorePercent.value}%). Vous venez de débloquer 25€ de fonds fictifs à investir.`
     : `❌ Échec (${scorePercent.value}%) — minimum 80% requis`
 )
 
