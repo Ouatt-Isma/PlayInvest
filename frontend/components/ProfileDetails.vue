@@ -192,7 +192,7 @@ function downloadAvatar() {
         </div>
         <div>
           <label class="block text-sm font-medium">Nom d'utilisateur</label>
-          <input v-model="form.username" type="text" class="w-full mt-1 rounded border p-2" />
+          <input v-model="form.username" type="text" class="w-full mt-1 rounded border p-2" readonly disable/>
         </div>
         <div>
           <label class="block text-sm font-medium">Date de naissance</label>
