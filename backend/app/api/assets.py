@@ -141,6 +141,11 @@ def sell_asset(
     asset_obj = db.query(Asset).filter(Asset.id == asset).first()
     if not asset_obj:
         raise HTTPException(status_code=404, detail="Asset not found")
+    if(asset_obj.isStock() and not amount.is_integer() ):
+        raise HTTPException(status_code=400, detail=f"La quantité de vente doit être entière pour les actions")
+    # 0. check quantity 
+    if(amount<settings.minimum_asset):
+        raise HTTPException(status_code=400, detail=f"Quantité de vente minimum est {settings.minimum_asset} > {amount}")
     
     asset_dict = asset_obj.to_dict()
     current_price = asset_dict["buying_price"]

@@ -17,7 +17,7 @@ class Asset(Base):
     type = Column(String)
     region = Column(String)
     description = Column(String)
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     transactions = relationship(Transaction, back_populates="asset", cascade="all, delete-orphan")
 
     def to_dict(self):
