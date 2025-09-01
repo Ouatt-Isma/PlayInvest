@@ -37,7 +37,7 @@
 
       <!-- Price + Chart -->
       <div class="mb-4">
-        <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }}</p>
+        <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }} (Mise à jour une fois par jour)</p>
         <div class="text-2xl font-bold mt-1">{{ formattedPrice }}</div>
         <div class="text-sm text-gray-400">USD {{ volume.toLocaleString() }} <span class="text-green-600">(7.42%)</span></div>
       </div>

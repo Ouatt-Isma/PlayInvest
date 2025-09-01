@@ -4,7 +4,7 @@
     <div class="flex justify-between items-center mb-6">
       <div>
       <h1 class="text-3xl font-bold">Tableau de Bord des Investissements</h1>
-      <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }}</p>
+      <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }} (Mise à jour une fois par jour)</p>
       </div>
 
       <NuxtLink to="/assets" class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700">

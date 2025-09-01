@@ -96,6 +96,7 @@
         <p class="text-xs text-gray-400">
         Dernière mise à jour : 
         <span class="text-gray-500">{{ formatDate(selectedAsset.updated_at) }}</span>
+        (Mise à jour une fois par jour)
         </p>
       </div>
     </div>
