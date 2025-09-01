@@ -59,7 +59,7 @@ def challenge_res(check=True):
         log.exception("challenge_res() failed")
         asyncio.run(send_admin_issue("CHALLENGE RESULT UPDATE"))
         
-def challenge_seed():
+def challenge_seed(check=True):
     try:
         with get_db() as db:
             current_date = datetime.now(TZ_GMT)
@@ -112,7 +112,11 @@ def main():
     scheduler.add_job(news,     trigger='cron', hour=8,  id="news_daily",     replace_existing=True)
     scheduler.add_job(assets,   trigger='cron', hour=23, id="assets_daily",   replace_existing=True)
     scheduler.add_job(perf,     trigger='cron', hour=12, id="perf_daily",     replace_existing=True)
-    scheduler.add_job(challenge, trigger='cron', day_of_week='fri', hour=23, minute=58, 
+    # scheduler.add_job(challenge, trigger='cron', day_of_week='fri', hour=23, minute=58, 
+    #                   id="challenge_fri_23", replace_existing=True)
+    scheduler.add_job(challenge_seed, trigger='cron', day_of_week='fri', hour=11, minute=58, 
+                      id="challenge_fri_23", replace_existing=True)
+    scheduler.add_job(challenge_res, trigger='cron', day_of_week='fri', hour=23, minute=59, 
                       id="challenge_fri_23", replace_existing=True)
     scheduler.add_job(
     challenge,
