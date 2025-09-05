@@ -54,7 +54,7 @@ def get(url):
     # Close the browser window
     driver.quit()
     
-    return {"date": formatted_date, "open": open_value, "close": close_value}
+    return {"date": formatted_date, "open": float(open_value), "close": float(close_value)}
 
 def test():
     print(get('https://fr.investing.com/equities/societe-generale-de-banques-historical-data'))

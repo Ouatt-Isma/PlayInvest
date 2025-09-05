@@ -36,8 +36,8 @@ class Asset(Base):
                     item["date"] = datetime.strptime(item["date"], "%Y-%m-%d")
 
             latest_data = sorted_data[0]
-            latest_date = latest_data["date"]
-            latest_close = latest_date.get("close", None)
+            latest_date = float(latest_data["date"])
+            latest_close = float(latest_date.get("close", None))
         return latest_close
     
             
@@ -66,7 +66,7 @@ class Asset(Base):
 
             latest_data = sorted_data[0]
             latest_date = latest_data["date"]
-            latest_close = latest_data.get("close", None)
+            latest_close = float(latest_data.get("close", None))
 
             def find_closest(days):
                 target_date = latest_date - timedelta(days=days)
