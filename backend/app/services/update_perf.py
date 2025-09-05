@@ -31,11 +31,11 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
     for pa in assets:
         asset = db.query(Asset).filter_by(id=pa.asset_id).first()   # requires relationship on PortfolioAsset
         if (not pa.sold):
-            buying_price = pa.buying_price
-            total_price = asset.to_dict()["latest_price"]
-            current_price = convert(asset.currency, portfolio.currency, total_price)
+            buying_price = convert(asset.currency, portfolio.currency, pa.buying_price)
+            current_price_unnorm = asset.to_dict()["latest_price"]
+            current_price = convert(asset.currency, portfolio.currency, current_price_unnorm)
 
-            performance_pct = ((current_price - buying_price) / buying_price * 100) if buying_price else 0
+            performance_pct = (((current_price - buying_price) / (buying_price)) * 100) if buying_price else 0
             pa.performance_pct = performance_pct
             pa.total_invest = pa.quantity * buying_price
             
