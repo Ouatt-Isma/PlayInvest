@@ -29,7 +29,7 @@
           </div>
           <div>
           <span class="text-gray-500">Résultats vendredi 23h59 GMT:</span>
-          <span class="ml-2 font-semibold">
+          <span v-if="token" class="ml-2 font-semibold">
             {{ countdown.d }}j {{ countdown.h }}h {{ countdown.m }}m {{ countdown.s }}s
           </span>
           </div>
@@ -52,7 +52,7 @@
         </div>
 
         <div v-else-if="error" class="mt-5 p-4 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-between">
-          <span>{{ error }}</span>
+          <span>Veuillez vous connecter en cliquant <NuxtLink to="/register">  <u>ici</u> </NuxtLink>. </span> 
           <button class="px-3 py-1.5 text-sm rounded border" @click="fetchPair">Réessayer</button>
         </div>
 

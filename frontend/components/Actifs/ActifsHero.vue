@@ -8,7 +8,7 @@
       <p class="text-gray-600 mb-6">
         Explorez les meilleures opportunités d’investissement sur le continent africain avec PlayInvest.
       </p>
-      <NuxtLink to="/plateforme" class="bg-[#0D5254] text-white px-6 py-3 rounded-md font-semibold">
+      <NuxtLink to="/register" class="bg-[#0D5254] text-white px-6 py-3 rounded-md font-semibold">
         Découvrir la Plateforme
       </NuxtLink>
     </div>

@@ -23,6 +23,8 @@ const emits = defineEmits(['close'])
 // Dynamic state
 const amount = ref()
 const currentPrice = ref(null)
+const buyingPrice = ref(null)
+const buyingFees= ref(null)
 const variations = ref({})
 const volume = ref(null)
 const lastUpdate = ref('')
@@ -48,6 +50,8 @@ const fetchAssetDetails = async () => {
     const response = await axios.get(`${apiBase}/api/assets/${props.asset.id}`)
     const data = response.data
     currentPrice.value = data.latest_price
+    buyingPrice.value = data.buying_price
+    buyingFees.value = data.fees
     variations.value = {
       '1d': data.variation_1d,
       '7d': data.variation_7d,
@@ -172,7 +176,7 @@ function openPdf(symbol) {
 
 
 <template>
-  <div v-if="visible" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+  <div v-if="visible" class="fixed inset-0 bg-black/40 z-[9999] flex items-center justify-center">
     <div class="bg-white rounded-xl shadow-xl w-[90%] max-w-2xl p-6 relative">
       <!-- Close Button -->
       <button @click="close" class="absolute top-3 right-3 text-gray-400 hover:text-black text-xl">×</button>
@@ -220,7 +224,10 @@ function openPdf(symbol) {
       <!-- Price + Chart -->
       <div class="mb-4">
         <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }} (Mise à jour une fois par jour)</p>
-        <div class="text-2xl font-bold mt-1">{{ formatCurrency(currentPrice, asset.currency) }}</div>
+        <!-- <div class="text-2xl font-bold mt-1">{{ formatCurrency(currentPrice, asset.currency) }}</div> -->
+        
+        <div class="text-2xl font-bold mt-1">{{ formatCurrency(buyingPrice, asset.currency) }}</div>
+        <p>(incluant {{ buyingFees * 100 }}% de commission)</p>
         <!-- <div class="text-2xl font-bold mt-1">{{ formattedPrice }}</div> -->
         <div class="text-sm text-gray-400">
           <p class="text-xs text-gray-500 mt-1">

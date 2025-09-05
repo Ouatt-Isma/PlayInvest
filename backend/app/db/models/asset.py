@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import relationship
 from app.db.models.transactions import Transaction
 from sqlalchemy.sql import func
+from app.core.config import settings
 
 class Asset(Base):
     __tablename__ = "assets"
@@ -20,6 +21,26 @@ class Asset(Base):
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     transactions = relationship(Transaction, back_populates="asset", cascade="all, delete-orphan")
 
+    def get_latest_price(self):
+        if isinstance(self.financial_data, list) and self.financial_data:
+            # Parse and sort data by date descending
+            sorted_data = sorted(
+                self.financial_data,
+                key=lambda d: d.get("date", ""),
+                reverse=True
+            )
+
+            # Convert string dates to datetime objects
+            for item in sorted_data:
+                if isinstance(item["date"], str):
+                    item["date"] = datetime.strptime(item["date"], "%Y-%m-%d")
+
+            latest_data = sorted_data[0]
+            latest_date = latest_data["date"]
+            latest_close = latest_date.get("close", None)
+        return latest_close
+    
+            
     def to_dict(self):
         latest_data = None
         variation_1 = None
@@ -86,7 +107,8 @@ class Asset(Base):
             "name": self.name,
             "symbol": self.symbol,
             "latest_price": latest_price,
-            "buying_price": latest_price,  #faire varier en fonction de commission
+            "fees": self.get_fees(), 
+            "buying_price": (1+self.get_fees())*latest_price,  #faire varier en fonction de commission
             "variation_1d": variation_1,
             "variation_7d": variation_7,
             "variation_1M": variation_1M,
@@ -136,3 +158,18 @@ class Asset(Base):
         if(open):
             return closest["open"] if closest else None
         return closest["close"] if closest else None
+    
+    def get_fees(self):
+        if (self.isETF):
+            return settings.fees["ETF"]
+        if (self.isStock):
+            if (self.isAfrica):
+                return settings.fees["AFRIQUE"]
+            if (self.isEurope):
+                return settings.fees["EU"]
+            if (self.isWorld):
+                return settings.fees["WORLD"]
+            if (self.isUSA):
+                return settings.fees["US"]
+        if (self.isCrypto):
+            return settings.fees["CRYPTO"]

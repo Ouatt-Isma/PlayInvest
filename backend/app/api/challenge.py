@@ -100,8 +100,9 @@ def get_active_challenge(db: Session, oldest=True) -> WeeklyChallenge:
 @router.get("/challenges/weekly/pair")
 def get_weekly_pair(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user = Depends(get_current_user),
 ):
+    
     print("avant")
     challenge = get_active_challenge(db)
     print("apres")
