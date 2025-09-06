@@ -10,6 +10,7 @@ from app.db.models.asset import Asset
 from app.db.models.portfolio_assets import PortfolioAsset
 from app.auth.auth import get_current_user
 from app.utils.currency import convert 
+from app.core.config import settings
 
 router = APIRouter()
 
@@ -41,7 +42,7 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
 
         result.append(asset_dict)
         
-    print({
+    settings.log.info({
     # "assets": result,
     "cash": round(portfolio.cash,2),
     "total_investi": round(tt,2)
@@ -54,7 +55,7 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
 
 
 @router.get("/portfolio/last_update")
-def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(get_current_user)):
+def get_portfolio_last( db: Session = Depends(get_db),current_user: User = Depends(get_current_user)):
     user_id = current_user.id
     portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
     return {"last_update": portfolio.updated_at}
