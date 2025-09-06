@@ -29,7 +29,7 @@ def get_asset(asset_id: int, db: Session = Depends(get_db)):
         raise HTTPException(404)
     return asset.to_dict()
 
-@router.get("/buy")
+@router.post("/buy")
 def buy_asset(
     asset: int = Query(..., gt=0),
     amount: float = Query(..., gt=0),
@@ -130,7 +130,7 @@ def buy_asset(
     }
     
     
-@router.get("/sell")
+@router.post("/sell")
 def sell_asset(
     asset: int = Query(..., gt=0),
     amount: float = Query(..., gt=0),

@@ -114,7 +114,7 @@ const invest = async () => {
     const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
-    const res = await axios.get(`${apiBase}/api/buy`, {
+    const res = await axios.post(`${apiBase}/api/buy`, {
       params: {
         asset: props.asset.id,
         amount: amount.value
@@ -144,7 +144,7 @@ const tosell = async () => {
     const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
-    const res = await axios.get(`${apiBase}/api/sell`, {
+    const res = await axios.post(`${apiBase}/api/sell`, {
       params: {
         asset: props.asset.id,
         amount: amount.value
