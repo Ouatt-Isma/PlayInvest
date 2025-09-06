@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from app.core.database import get_db
 from app.db.models.asset import Asset
+from app.utils.conv import to_float
 
 router = APIRouter()
 
@@ -32,10 +33,13 @@ def get_asset_graph(
 
     # Parse financial data into usable structure
     try:
+        # print(type(asset.financial_data[0]["close"]))
+        # print(type(to_float(asset.financial_data[0]["close"])))
+        # print()
         parsed_data = [
             {
                 "date": datetime.strptime(entry["date"], "%Y-%m-%d"),
-                "price": round(entry["close"], 2)
+                "price": round(to_float(entry["close"]), 2)
             }
             for entry in asset.financial_data
             if "date" in entry and "close" in entry
