@@ -9,11 +9,20 @@ from app.db.models.portfolio_assets import PortfolioAsset
 from app.db.models.user import User
 from app.db.models.transactions import Transaction
 from app.auth.auth import get_current_user
+from pydantic import BaseModel, Field
 
 from app.utils.currency import convert 
 
 from app.core.config import settings
 
+class BuyRequest(BaseModel):
+    asset: int = Field(..., gt=0)
+    amount: float = Field(..., gt=0)
+
+class SellRequest(BaseModel):
+    asset: int = Field(..., gt=0)
+    amount: float = Field(..., gt=0)
+    
 router = APIRouter()
 
 @router.get("/assets")
@@ -31,11 +40,12 @@ def get_asset(asset_id: int, db: Session = Depends(get_db)):
 
 @router.post("/buy")
 def buy_asset(
-    asset: int = Query(..., gt=0),
-    amount: float = Query(..., gt=0),
+    req: BuyRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    asset = req.asset
+    amount = req.amount
     # 0. check quantity 
     if(amount<settings.minimum_asset):
         raise HTTPException(status_code=400, detail=f"Quantité d'achat minimum est {settings.minimum_asset} > {amount}")
@@ -75,7 +85,7 @@ def buy_asset(
     print(total_price_conv)
     
     if portfolio.cash < total_price_conv:
-        raise HTTPException(status_code=400, detail=f"Fonds insuffisants. Requis: {round(total_price,2)}{asset_dict['currency']}, disponible: {portfolio.cash}{portfolio.currency}")
+        raise HTTPException(status_code=400, detail=f"Fonds insuffisants. Requis: {round(total_price_conv,2)}{portfolio.currency}, disponible: {portfolio.cash}{portfolio.currency}")
 
     # 5. Déduction du cash
     portfolio.cash -= total_price_conv
@@ -132,11 +142,12 @@ def buy_asset(
     
 @router.post("/sell")
 def sell_asset(
-    asset: int = Query(..., gt=0),
-    amount: float = Query(..., gt=0),
+    req: SellRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    asset = req.asset
+    amount = req.amount
     # 1. Récupérer l'actif
     asset_obj = db.query(Asset).filter(Asset.id == asset).first()
     if not asset_obj:

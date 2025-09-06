@@ -114,15 +114,11 @@ const invest = async () => {
     const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
-    const res = await axios.post(`${apiBase}/api/buy`, {
-      params: {
-        asset: props.asset.id,
-        amount: amount.value
-      },
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    const res = await axios.post(
+  `${apiBase}/api/buy`,
+  { asset: props.asset.id, amount: amount.value },          // <- body
+  { headers: { Authorization: `Bearer ${token.trim()}` } }  );
+    
     showNotification('success', 'Achat effectué avec succès !')
     emits('close')  // close modal
   } catch (error) {
@@ -144,15 +140,11 @@ const tosell = async () => {
     const token = useCookie("token").value
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
-    const res = await axios.post(`${apiBase}/api/sell`, {
-      params: {
-        asset: props.asset.id,
-        amount: amount.value
-      },
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    const res = await axios.post(
+  `${apiBase}/api/buy`,
+  { asset: props.asset.id, amount: amount.value },          // <- body
+  { headers: { Authorization: `Bearer ${token.trim()}` } }  );
+  
     showNotification('success', 'Vente effectué avec succès !')
     emits('close')  // close modal
   } catch (error) {
