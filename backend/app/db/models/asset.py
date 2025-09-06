@@ -78,7 +78,7 @@ class Asset(Base):
                 return closest
             def compute_variation(past_entry):
                 try:
-                    past_close = past_entry["close"]
+                    past_close = to_float(past_entry["close"])
                     if not past_close:
                         return None
                     return round((latest_close - past_close) / past_close * 100, 2)
@@ -159,8 +159,8 @@ class Asset(Base):
             default=None
         )
         if(open):
-            return closest["open"] if closest else None
-        return closest["close"] if closest else None
+            return to_float(closest["open"]) if closest else None
+        return to_float(closest["close"]) if closest else None
     
     def get_fees(self):
         if (self.isETF):

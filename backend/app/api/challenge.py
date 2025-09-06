@@ -166,6 +166,7 @@ def submit_weekly_pick(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
+    print("111111111111111111111111111111111111111111 CHALL")
     challenge = get_active_challenge(db)
     sides = (
         db.query(WeeklyChallengeSide)
@@ -175,7 +176,7 @@ def submit_weekly_pick(
     # deadline
     if now_utc() > challenge.end_at or now_utc() <challenge.start_at:
         raise HTTPException(status_code=400, detail="Le challenge est clôturé.")
-
+    print("2111111111111111111111111111111111111111111 CHALL")
     # load both sides for this challenge
     sides = (
         db.query(WeeklyChallengeSide)
