@@ -34,24 +34,20 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     )
     .all()
     )
-    
     result = []
     tt = 0 
     for pa, asset in assets:
         asset_dict = asset.to_dict() 
         pa_dict = pa.to_dict()
-
         tt+= convert(asset.currency, portfolio.currency, pa_dict["total_invest"]) 
         asset_dict.update(pa_dict) 
-
-        result.append(asset_dict)
-        
+        result.append(asset_dict) 
     settings.log.info(f' cash: {round(portfolio.cash,2)}')
     settings.log.info(f'total_investi: {round(tt,2)},')
     settings.log.info(f' user_id: {user_id},')
 
     merged = {
-    "assets": result, "total_investi":round(tt,2)}
+    "assets": result, "total_investi":round(tt,2), "last_update": portfolio.updated_at}
     merged.update(portfolio.to_dict())
     return merged 
 

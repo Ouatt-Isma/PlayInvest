@@ -118,6 +118,13 @@ const chartOptions = {
     <div class="flex justify-between items-center mb-4">
       <div>
         <h2 class="text-xl font-bold">Évolution du rendement global</h2>
+        <p class="text-xs text-gray-400">
+          Mise à jour une fois par jour
+        <!-- Dernière mise à jour :  -->
+        <!-- <span class="text-gray-500">{{ formatDate(selectedAsset.updated_at) }}</span> -->
+        <!-- <span class="text-gray-500"></span> -->
+        
+        </p>
         <p class="text-sm text-gray-500">Filtrable par catégorie ou région, période personnalisable</p>
       </div>
 
