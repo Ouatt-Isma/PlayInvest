@@ -21,24 +21,24 @@ class Asset(Base):
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     transactions = relationship(Transaction, back_populates="asset", cascade="all, delete-orphan")
 
-    def get_latest_price(self):
-        if isinstance(self.financial_data, list) and self.financial_data:
-            # Parse and sort data by date descending
-            sorted_data = sorted(
-                self.financial_data,
-                key=lambda d: d.get("date", ""),
-                reverse=True
-            )
+    # def get_latest_price(self):
+    #     if isinstance(self.financial_data, list) and self.financial_data:
+    #         # Parse and sort data by date descending
+    #         sorted_data = sorted(
+    #             self.financial_data,
+    #             key=lambda d: d.get("date", ""),
+    #             reverse=True
+    #         )
 
-            # Convert string dates to datetime objects
-            for item in sorted_data:
-                if isinstance(item["date"], str):
-                    item["date"] = datetime.strptime(item["date"], "%Y-%m-%d")
+    #         # Convert string dates to datetime objects
+    #         for item in sorted_data:
+    #             if isinstance(item["date"], str):
+    #                 item["date"] = datetime.strptime(item["date"], "%Y-%m-%d")
 
-            latest_data = sorted_data[0]
-            latest_date = float(latest_data["date"])
-            latest_close = float(latest_date.get("close", None))
-        return latest_close
+    #         latest_data = sorted_data[0]
+    #         latest_date = latest_data["date"]
+    #         latest_close = float(latest_data.get("close", None))
+    #     return latest_close
     
             
     def to_dict(self):
@@ -101,7 +101,9 @@ class Asset(Base):
             variation_6M = compute_variation(closest_180)
             variation_1y = compute_variation(closest_365)
             variation_all = compute_variation(earliest)
-        latest_price = latest_data.get("close") if latest_data else None
+        latest_price = float(latest_data.get("close")) if latest_data else None
+        print((1+self.get_fees()))
+        print(latest_price)
         return {
             "id": self.id,
             "name": self.name,
