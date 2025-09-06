@@ -141,10 +141,10 @@ const tosell = async () => {
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase 
     const res = await axios.post(
-  `${apiBase}/api/buy`,
+  `${apiBase}/api/sell`,
   { asset: props.asset.id, amount: amount.value },          // <- body
   { headers: { Authorization: `Bearer ${token.trim()}` } }  );
-  
+
     showNotification('success', 'Vente effectué avec succès !')
     emits('close')  // close modal
   } catch (error) {
