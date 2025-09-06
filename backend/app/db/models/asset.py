@@ -40,7 +40,22 @@ class Asset(Base):
     #         latest_close = float(latest_data.get("close", None))
     #     return latest_close
     
-            
+    def to_float(value):
+        """Convert string values like '14.150,00' to float 14150.00."""
+        if isinstance(value, str):
+            try: 
+                return float(value)
+            except:
+                pass
+            # Remove the thousands separator (e.g. dot in '14.150,00')
+            value = value.replace('.', '')
+            # Replace the comma with a dot for decimal point
+            value = value.replace(',', '.')
+            try:
+                return float(value)
+            except ValueError:
+                return None
+        return value
     def to_dict(self):
         latest_data = None
         variation_1 = None
@@ -66,7 +81,7 @@ class Asset(Base):
 
             latest_data = sorted_data[0]
             latest_date = latest_data["date"]
-            latest_close = float(latest_data.get("close", None))
+            latest_close = Asset.to_float(latest_data.get("close", None))
 
             def find_closest(days):
                 target_date = latest_date - timedelta(days=days)
@@ -101,7 +116,7 @@ class Asset(Base):
             variation_6M = compute_variation(closest_180)
             variation_1y = compute_variation(closest_365)
             variation_all = compute_variation(earliest)
-        latest_price = float(latest_data.get("close")) if latest_data else None
+        latest_price = Asset.to_float(latest_data.get("close")) if latest_data else None
         print((1+self.get_fees()))
         print(latest_price)
         return {
