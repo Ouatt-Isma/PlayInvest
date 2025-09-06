@@ -12,7 +12,7 @@ import random
 
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-
+from app.core.config import settings 
 from app.db.models.asset import Asset
 from app.db.models.weekly_challenge import (
     WeeklyChallenge,
@@ -64,6 +64,12 @@ def update_user_result_one(db: Session, weekly_pick: int, current_date: datetime
     weekly_challenge = db.query(WeeklyChallenge).filter_by(id=weekly_pick.challenge_id).first()
     if(weekly_pick.side== weekly_challenge.winning_side):
         weekly_pick.result = True
+        # add money
+        portfolio_user = db.query(Portfolio).filter_by(user_id=weekly_pick.user_id).first()
+        if not portfolio_user:
+            raise NotImplementedError
+        portfolio_user.cash += convert(settings.currency, portfolio_user.currency, settings.amount_godfather)
+        db.add(portfolio_user)
     else:
         weekly_pick.result = False
     db.add(weekly_pick)  
