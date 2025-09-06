@@ -27,7 +27,7 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     assets = (
     db.query(PortfolioAsset, Asset)
     .select_from(PortfolioAsset)  # make PA the lead entity (optional but clear)
-    .join(Asset, PortfolioAsset.asset_id == Asset.id)
+    .outerjoin(Asset, PortfolioAsset.asset_id == Asset.id)
     .filter(
         PortfolioAsset.portfolio_id == portfolio.id,
         PortfolioAsset.sold.is_(False),   # safer than == False
