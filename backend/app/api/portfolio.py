@@ -19,7 +19,7 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     user_id = current_user.id
     portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
   
-    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh", portfolio.cash, portfolio.performance_pct)
+    settings.log.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh", portfolio.cash, portfolio.performance_pct)
     
     if not portfolio:
         raise HTTPException(status_code=404, detail="Portfolio not found")
@@ -27,7 +27,7 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     assets = (
         db.query(PortfolioAsset, Asset)
         .join(Asset, PortfolioAsset.asset_id == Asset.id)
-        .filter(PortfolioAsset.portfolio_id == portfolio.id and PortfolioAsset.sold==False)
+        .filter_by(portfolio_id=portfolio.id, sold=False)
         .all()
     )
 
