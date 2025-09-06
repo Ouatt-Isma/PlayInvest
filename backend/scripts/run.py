@@ -7,7 +7,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run maintenance tasks manually")
     parser.add_argument(
         "task",
-        choices=["assets", "perf", "challenge", "news"],
+        choices=["assets", "perf", "challenge", "news", "seed", "result"],
         help="Which task to run"
     )
     args = parser.parse_args()
