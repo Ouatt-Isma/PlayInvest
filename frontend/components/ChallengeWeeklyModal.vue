@@ -29,7 +29,7 @@
           </div>
           <div>
           <span class="text-gray-500">Résultats vendredi 23h59 GMT:</span>
-          <span v-if="token" class="ml-2 font-semibold">
+          <span v-if="!error" class="ml-2 font-semibold">
             {{ countdown.d }}j {{ countdown.h }}h {{ countdown.m }}m {{ countdown.s }}s
           </span>
           </div>
