@@ -19,18 +19,22 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     user_id = current_user.id
     portfolio = db.query(Portfolio).filter_by(user_id=user_id).first()
   
-    settings.log.info("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh", portfolio.cash, portfolio.performance_pct)
+    settings.log.info(f"hhhhhhhhhhhhhhhhhhhhhhhhhhhhh {portfolio.cash}{portfolio.performance_pct}")
     
     if not portfolio:
         raise HTTPException(status_code=404, detail="Portfolio not found")
 
     assets = (
-        db.query(PortfolioAsset, Asset)
-        .join(Asset, PortfolioAsset.asset_id == Asset.id)
-        .filter_by(portfolio_id=portfolio.id, sold=False)
-        .all()
+    db.query(PortfolioAsset, Asset)
+    .select_from(PortfolioAsset)  # make PA the lead entity (optional but clear)
+    .join(Asset, PortfolioAsset.asset_id == Asset.id)
+    .filter(
+        PortfolioAsset.portfolio_id == portfolio.id,
+        PortfolioAsset.sold.is_(False),   # safer than == False
     )
-
+    .all()
+    )
+    
     result = []
     tt = 0 
     for pa, asset in assets:
@@ -42,11 +46,10 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
 
         result.append(asset_dict)
         
-    settings.log.info({
-    # "assets": result,
-    "cash": round(portfolio.cash,2),
-    "total_investi": round(tt,2)
-    }, user_id)
+    settings.log.info(f' cash: {round(portfolio.cash,2)}')
+    settings.log.info(f'total_investi: {round(tt,2)},')
+    settings.log.info(f' user_id: {user_id},')
+
     merged = {
     "assets": result, "total_investi":round(tt,2)}
     merged.update(portfolio.to_dict())
