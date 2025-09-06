@@ -5,7 +5,7 @@ import time
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
-
+from app.utils.conv import to_float 
 # Set up Chrome options
 options = Options()
 options.add_argument("--headless=new")
@@ -54,7 +54,7 @@ def get(url):
     # Close the browser window
     driver.quit()
     
-    return {"date": formatted_date, "open": float(open_value), "close": float(close_value)}
+    return {"date": formatted_date, "open": to_float(open_value), "close": to_float(close_value)}
 
 def test():
     print(get('https://fr.investing.com/equities/societe-generale-de-banques-historical-data'))
