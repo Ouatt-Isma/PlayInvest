@@ -79,11 +79,6 @@ def buy_asset(
     
     
     # 4. Vérification du solde
-    
-    
-    print(portfolio.cash)
-    print(total_price_conv)
-    
     if portfolio.cash < total_price_conv:
         raise HTTPException(status_code=400, detail=f"Fonds insuffisants. Requis: {round(total_price_conv,2)}{portfolio.currency}, disponible: {portfolio.cash}{portfolio.currency}")
 

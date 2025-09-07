@@ -2,7 +2,14 @@
 import { ref, computed } from 'vue'
 import { useRouter, useCookie } from '#app'
 
-const user = ref<any | null>(null)
+interface LightUser {
+  id: number
+  email: string
+  name: string
+  // add other fields you need
+}
+
+const user = ref<LightUser & { avatar_url?: string } | null>(null)
 const token = ref<string | null>(null)
 const isInitialized = ref(false)
 
@@ -13,43 +20,21 @@ export function useAuth() {
     if (isInitialized.value) return
 
     const tokenCookie = useCookie<string | null>('token')
-    const userCookie = useCookie<string | null>('user')
+    const userCookie = useCookie<LightUser | null>('user')
 
     if (tokenCookie.value) {
       token.value = tokenCookie.value
     }
 
     if (userCookie.value) {
-//       try {
-//         console.log(userCookie.value)
-//         console.log('[login] typeof userCookie.value =', typeof userCookie.value)
-// console.log('[login] raw userCookie.value =', String(userCookie.value))
-//         const lightUser = JSON.parse(userCookie.value)
-//         const avatar_url = localStorage.getItem('avatar_url') || null
+      const lightUser = userCookie.value
+      let avatar_url: string | null = null
 
-//         user.value = { ...lightUser, avatar_url }
-//       } catch (e) {
-//         console.error('[init] failed to parse user cookie:', e)
-//         user.value = null
-//       }
+      if (import.meta.client) {
+        avatar_url = localStorage.getItem('avatar_url')
+      }
 
-
-    // already an object (Nuxt auto-parsed)
-  try{
-    const lightUser = userCookie.value
-
-
-  let avatar_url = null
-  if (import.meta.client) {
-    avatar_url = localStorage.getItem('avatar_url')
-  }
-
-  user.value = { ...lightUser, avatar_url }
-} catch (e) {
-  console.error('[init] failed to parse user cookie:', e)
-  user.value = null
-}
-
+      user.value = { ...lightUser, avatar_url: avatar_url || undefined }
     }
 
     isInitialized.value = true
@@ -63,42 +48,38 @@ export function useAuth() {
       secure: isProd,
       path: '/',
     })
-    const userCookie = useCookie<any>('user', {
+    const userCookie = useCookie<LightUser>('user', {
       sameSite: 'lax',
       secure: isProd,
       path: '/',
     })
 
     const { avatar_url, ...lightUser } = userData
+
     if (import.meta.client && avatar_url) {
       localStorage.setItem('avatar_url', avatar_url)
     }
 
     token.value = authToken
-    user.value = { ...lightUser, avatar_url }   // ✅ keep avatar in memory too
+    user.value = { ...lightUser, avatar_url }
 
     tokenCookie.value = authToken
-    userCookie.value = JSON.stringify(lightUser)
-    console.log('[setting login] typeof userCookie.value =', typeof userCookie.value)
-console.log('[setting login] raw userCookie.value =', String(userCookie.value))
-    console.log('[login] token =', authToken)
-    console.log('[login] userData =', userData)
-    console.log('[login] userCookie.value =', userCookie.value)
+    userCookie.value = lightUser // 🚨 store as object (no stringify)
   }
 
   function logout() {
     const tokenCookie = useCookie<string | null>('token')
-    const userCookie = useCookie<string | null>('user')
+    const userCookie = useCookie<LightUser | null>('user')
 
     token.value = null
     user.value = null
 
     tokenCookie.value = null
     userCookie.value = null
+
     if (import.meta.client) {
-  localStorage.removeItem('avatar_url')
-}
-   
+      localStorage.removeItem('avatar_url')
+    }
 
     router.push('/login')
   }
