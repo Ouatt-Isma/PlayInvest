@@ -33,16 +33,23 @@ export function useAuth() {
 //         user.value = null
 //       }
 
-      try {
-    // Nuxt has already parsed it into an object
-    const lightUser = userCookie.value as any
-    const avatar_url = localStorage.getItem('avatar_url') || null
 
-    user.value = { ...lightUser, avatar_url }
-  } catch (e) {
-    console.error('[init] failed to parse user cookie:', e)
-    user.value = null
+    // already an object (Nuxt auto-parsed)
+  try{
+    const lightUser = userCookie.value
+
+
+  let avatar_url = null
+  if (import.meta.client) {
+    avatar_url = localStorage.getItem('avatar_url')
   }
+
+  user.value = { ...lightUser, avatar_url }
+} catch (e) {
+  console.error('[init] failed to parse user cookie:', e)
+  user.value = null
+}
+
     }
 
     isInitialized.value = true
@@ -63,7 +70,7 @@ export function useAuth() {
     })
 
     const { avatar_url, ...lightUser } = userData
-    if (avatar_url) {
+    if (import.meta.client && avatar_url) {
       localStorage.setItem('avatar_url', avatar_url)
     }
 
@@ -88,7 +95,10 @@ console.log('[setting login] raw userCookie.value =', String(userCookie.value))
 
     tokenCookie.value = null
     userCookie.value = null
-    localStorage.removeItem('avatar_url')
+    if (import.meta.client) {
+  localStorage.removeItem('avatar_url')
+}
+   
 
     router.push('/login')
   }

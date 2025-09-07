@@ -1,4 +1,4 @@
-from recurring import assets, perf, challenge, challenge_seed, challenge_res, news 
+from recurring import assets, perf, challenge, challenge_seed, challenge_res, news, assets_first
 
 # --- Manual runner ---
 if __name__ == '__main__':
@@ -7,11 +7,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run maintenance tasks manually")
     parser.add_argument(
         "task",
-        choices=["assets", "perf", "challenge", "news", "seed", "result"],
+        choices=["assets_first", "assets", "perf", "challenge", "news", "seed", "result"],
         help="Which task to run"
     )
     args = parser.parse_args()
 
+    if args.task == "assets_first":
+        assets_first()
     if args.task == "assets":
         assets()
     elif args.task == "perf":
