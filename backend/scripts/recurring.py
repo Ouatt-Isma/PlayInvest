@@ -83,7 +83,7 @@ def assets():
 def assets_first():
     try:
         with get_db() as db:
-            # update_all_assets_first(db)
+            update_all_assets_first(db)
             update_assets_from_csv(db)
             # update_all_assets(db)
         log.info("assets First() completed")
