@@ -28,44 +28,48 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
     
     investment_data = {k: 0 for k in performance_data.keys()}
     total_investment = 0
+    weighted_perf_all = 0
     for pa in assets:
         asset = db.query(Asset).filter_by(id=pa.asset_id).first()   # requires relationship on PortfolioAsset
         if (not pa.sold):
-            buying_price = convert(asset.currency, portfolio.currency, pa.buying_price)
             # current_price_unnorm = to_float(asset.to_dict()["latest_price"])
             current_price_unnorm = asset.to_dict()["latest_price"]
-            current_price = convert(asset.currency, portfolio.currency, current_price_unnorm)
-
-            performance_pct = (((current_price - buying_price) / (buying_price)) * 100) if buying_price else 0
+            performance_pct = (((current_price_unnorm - pa.buying_price) / (pa.buying_price)) * 100) if pa.buying_price else 0
             pa.performance_pct = performance_pct
-            pa.total_invest = pa.quantity * buying_price
-            
-        total_investment += pa.total_invest
-        weighted_perf = pa.performance_pct * pa.buying_price * pa.quantity 
+            pa.total_invest = pa.quantity * pa.buying_price
+            buying_price = convert(asset.currency, portfolio.currency, pa.buying_price)
+        db.add(pa)  # ensure all portfolio_assets are tracked for update
+        total_investment += convert(asset.currency, portfolio.currency, pa.total_invest)
+        weighted_perf = pa.performance_pct * buying_price * pa.quantity 
+        weighted_perf_all += weighted_perf
         if asset.isETF():
             performance_data['etf'] += weighted_perf
-            investment_data['etf'] += pa.total_invest
+            investment_data['etf'] += convert(asset.currency, portfolio.currency,pa.total_invest)
         elif asset.isCrypto():
             performance_data['crypto'] += weighted_perf
-            investment_data['crypto'] += pa.total_invest
+            investment_data['crypto'] += convert(asset.currency, portfolio.currency,pa.total_invest)
         elif asset.isStock():
             performance_data['stock'] += weighted_perf
-            investment_data['stock'] += pa.total_invest
+            investment_data['stock'] += convert(asset.currency, portfolio.currency,pa.total_invest)
 
         if asset.isAfrica():
             performance_data['africa'] += weighted_perf
-            investment_data['africa'] += pa.total_invest
+            investment_data['africa'] += convert(asset.currency, portfolio.currency,pa.total_invest)
         elif asset.isUSA():
             performance_data['usa'] += weighted_perf
-            investment_data['usa'] += pa.total_invest
+            investment_data['usa'] += convert(asset.currency, portfolio.currency,pa.total_invest)
         elif asset.isEurope():
             performance_data['europe'] += weighted_perf
-            investment_data['europe'] += pa.total_invest
+            investment_data['europe'] += convert(asset.currency, portfolio.currency,pa.total_invest)
         elif asset.isWorld():
             performance_data['world'] += weighted_perf
-            investment_data['world'] += pa.total_invest
+            investment_data['world'] += convert(asset.currency, portfolio.currency,pa.total_invest)
+        
     # Update portfolio total performance
-    portfolio.performance_pct = sum(performance_data.values()) / total_investment if total_investment else 0
+    # print("PID:", portfolio_id)
+    # print("SUM:", weighted_perf_all)
+    # print("total_investment:", total_investment)
+    portfolio.performance_pct = weighted_perf_all/ total_investment if total_investment else 0
 
     # Previous performance for carry-over
     prev_perf = (
@@ -89,8 +93,7 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
 
     db.add(perf_record)
     db.add(portfolio)  # ensure portfolio is tracked for update
-    for pa in assets:
-        db.add(pa)  # ensure all portfolio_assets are tracked for update
+        
 
     db.commit()
 

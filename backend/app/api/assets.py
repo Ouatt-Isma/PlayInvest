@@ -95,6 +95,7 @@ def buy_asset(
             pa.total_invest = pa.total_invest+total_price
             pa.buying_price=asset_dict["buying_price"],
             pa.buying_date=datetime.now(),
+        
     else:
         pa = PortfolioAsset(
             portfolio_id=portfolio.id,
@@ -104,7 +105,7 @@ def buy_asset(
             buying_date=datetime.now(),
             total_invest = total_price, 
             sold=False,
-            performance_pct=(100*(asset_dict["latest_price"] - pa.buying_price))/pa.buying_price,
+            performance_pct=(100*(asset_dict["latest_price"]*amount - total_price))/total_price,
             
         )
         db.add(pa)
