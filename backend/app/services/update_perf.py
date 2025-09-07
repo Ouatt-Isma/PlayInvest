@@ -28,12 +28,12 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
     
     investment_data = {k: 0 for k in performance_data.keys()}
     total_investment = 0
-
     for pa in assets:
         asset = db.query(Asset).filter_by(id=pa.asset_id).first()   # requires relationship on PortfolioAsset
         if (not pa.sold):
             buying_price = convert(asset.currency, portfolio.currency, pa.buying_price)
-            current_price_unnorm = to_float(asset.to_dict()["latest_price"])
+            # current_price_unnorm = to_float(asset.to_dict()["latest_price"])
+            current_price_unnorm = asset.to_dict()["latest_price"]
             current_price = convert(asset.currency, portfolio.currency, current_price_unnorm)
 
             performance_pct = (((current_price - buying_price) / (buying_price)) * 100) if buying_price else 0
@@ -64,7 +64,6 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
         elif asset.isWorld():
             performance_data['world'] += weighted_perf
             investment_data['world'] += pa.total_invest
-
     # Update portfolio total performance
     portfolio.performance_pct = sum(performance_data.values()) / total_investment if total_investment else 0
 
@@ -75,7 +74,6 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
         .order_by(Performance.date.desc())
         .first()
     )
-
     perf_record = Performance(
         portfolio_id=portfolio_id,
         date=current_date,

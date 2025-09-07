@@ -6,6 +6,7 @@ from sqlalchemy.orm.attributes import flag_modified
 from datetime import datetime
 import os 
 import pandas as pd 
+from app.utils.conv import to_float_inv
     
 
 
@@ -134,19 +135,6 @@ def update_all_assets_first(db: Session):
         # print("After:", asset.financial_data)
 
     db.close()
-
-def to_float(value):
-    """Convert string values like '14.150,00' to float 14150.00."""
-    if isinstance(value, str):
-        # Remove the thousands separator (e.g. dot in '14.150,00')
-        value = value.replace('.', '')
-        # Replace the comma with a dot for decimal point
-        value = value.replace(',', '.')
-        try:
-            return float(value)
-        except ValueError:
-            return None
-    return value
     
 def update_assets_from_csv(db: Session, folder_path="app/services/Historique BRVM"):
    # Iterate over all CSV files in the folder
@@ -183,8 +171,8 @@ def update_assets_from_csv(db: Session, folder_path="app/services/Historique BRV
                     entry_date = pd.to_datetime(row['Date'], format='%d/%m/%Y').strftime('%Y-%m-%d')
                     new_data = {
                         "date": entry_date,
-                        "open": to_float(row['Ouv.']),
-                        "close": to_float(row['Dernier']),
+                        "open": to_float_inv(row['Ouv.']),
+                        "close": to_float_inv(row['Dernier']),
                     }
                     added+=1
                     existing.append(new_data)

@@ -67,8 +67,9 @@ class Asset(Base):
 
             latest_data = sorted_data[0]
             latest_date = latest_data["date"]
-            latest_close = to_float(latest_data.get("close", None))
-
+            # latest_close = to_float(latest_data.get("close", None))
+            latest_close = latest_data.get("close", None)
+        
             def find_closest(days):
                 target_date = latest_date - timedelta(days=days)
                 candidates = [entry for entry in sorted_data[1:] if entry["date"] >= target_date]
@@ -78,7 +79,8 @@ class Asset(Base):
                 return closest
             def compute_variation(past_entry):
                 try:
-                    past_close = to_float(past_entry["close"])
+                    # past_close = to_float(past_entry["close"])
+                    past_close = past_entry["close"]
                     if not past_close:
                         return None
                     return round((latest_close - past_close) / past_close * 100, 2)
@@ -102,9 +104,8 @@ class Asset(Base):
             variation_6M = compute_variation(closest_180)
             variation_1y = compute_variation(closest_365)
             variation_all = compute_variation(earliest)
-        latest_price = to_float(latest_data.get("close")) if latest_data else None
-        print((1+self.get_fees()))
-        print(latest_price)
+        # latest_price = to_float(latest_data.get("close")) if latest_data else None
+        latest_price = latest_data.get("close") if latest_data else None
         return {
             "id": self.id,
             "name": self.name,
@@ -139,7 +140,7 @@ class Asset(Base):
 
     # --- Region checks ---
     def isAfrica(self) -> bool:
-        return self.region == "Africa"
+        return self.region == "Afrique"
 
     def isUSA(self) -> bool:
         return self.region == "États-Unis"
@@ -159,8 +160,10 @@ class Asset(Base):
             default=None
         )
         if(open):
-            return to_float(closest["open"]) if closest else None
-        return to_float(closest["close"]) if closest else None
+            # return to_float(closest["open"]) if closest else None
+            return closest["open"] if closest else None
+        return closest["close"] if closest else None
+        # return to_float(closest["close"]) if closest else None
     
     def get_fees(self):
         if (self.isETF):

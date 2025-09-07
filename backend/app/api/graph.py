@@ -39,7 +39,8 @@ def get_asset_graph(
         parsed_data = [
             {
                 "date": datetime.strptime(entry["date"], "%Y-%m-%d"),
-                "price": round(to_float(entry["close"]), 2)
+                # "price": round(to_float(entry["close"]), 2)
+                "price": round(entry["close"], 2)
             }
             for entry in asset.financial_data
             if "date" in entry and "close" in entry

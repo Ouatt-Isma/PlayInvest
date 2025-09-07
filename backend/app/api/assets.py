@@ -94,19 +94,12 @@ def buy_asset(
     # 6. Mise à jour ou ajout de la ligne dans portfolio_assets
     pa = db.query(PortfolioAsset).filter_by(portfolio_id=portfolio.id, asset_id=asset).first()
     
-    if pa:
-        if pa.sold:
-            pa.sold=False
-            pa.quantity = amount
-            pa.selling_date = None
-            pa.selling_price = None 
-            pa.total_invest = total_price
-        else:
+    if pa and not pa.sold:
             pa.quantity += amount
             pa.buying_price = (asset_dict["buying_price"]*amount +  pa.buying_price *pa.quantity) / (pa.quantity+amount) # optionnel : mise à jour du prix
             pa.total_invest = pa.total_invest+total_price
-        pa.buying_price=asset_dict["buying_price"],
-        pa.buying_date=datetime.now(),
+            pa.buying_price=asset_dict["buying_price"],
+            pa.buying_date=datetime.now(),
     else:
         pa = PortfolioAsset(
             portfolio_id=portfolio.id,
@@ -116,7 +109,7 @@ def buy_asset(
             buying_date=datetime.now(),
             total_invest = total_price, 
             sold=False,
-            performance_pct=0,
+            performance_pct=(100*(asset_dict["latest_price"] - pa.buying_price))/pa.buying_price,
             
         )
         db.add(pa)
@@ -170,10 +163,8 @@ def sell_asset(
     pa = db.query(PortfolioAsset).filter_by(portfolio_id=portfolio.id, asset_id=asset, sold=False).first()
     if not pa or pa.quantity < amount:
         raise HTTPException(status_code=400, detail="Quantité à vendre invalide ou actif non détenu")
-    if pa.quantity == amount:
-        pa.sold = True
-        pa.selling_price = current_price
-        pa.selling_date = datetime.utcnow()
+    
+        
         
     ## update total_invest
     pa.total_invest-= pa.buying_price*amount
@@ -187,9 +178,16 @@ def sell_asset(
     db.add(portfolio)
 
     # 6. Mettre à jour la ligne d’actif
-    
-    
-    pa.quantity -= amount  # ou garder la quantité d’origine si tu veux un historique complet
+    refresh_pa = True
+    if pa.quantity == amount:
+        # pa.sold = True
+        # pa.selling_price = current_price
+        # pa.selling_date = datetime.utcnow()
+        db.delete(pa)
+        refresh_pa = False
+    else:
+        pa.quantity -= amount  # ou garder la quantité d’origine si tu veux un historique complet
+        db.add(pa)
     transaction = Transaction(portfolio_id=portfolio.id,
         asset_id=asset,
         transaction_type="sell",
@@ -197,10 +195,11 @@ def sell_asset(
         price_per_unit=asset_dict["buying_price"]
     )
     db.add(transaction)
-    db.add(pa)
+    
     db.commit()
     db.refresh(transaction)
-    db.refresh(pa)
+    if refresh_pa:
+        db.refresh(pa)
     return {
         "message": "Vente effectuée avec succès",
         "asset_id": asset,

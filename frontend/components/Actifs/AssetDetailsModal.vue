@@ -64,7 +64,7 @@ const fetchAssetDetails = async () => {
     volume.value = data.volume || 0
     lastUpdate.value = new Date(data.updated_at || Date.now()).toLocaleString()
     cash.value = useCookie("cash").value
-    currency.value = user.currency
+    currency.value = useCookie("currency").value
 
   } catch (error) {
     console.error('Failed to fetch asset data:', error)
