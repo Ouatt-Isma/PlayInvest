@@ -136,7 +136,7 @@ def update_all_assets_first(db: Session):
 
     db.close()
     
-def update_assets_from_csv(db: Session, folder_path="app/services/Historique BRVM"):
+def update_assets_from_csv(db: Session, folder_path="backend/app/services/Historique-_-BRVM"):
    # Iterate over all CSV files in the folder
     for filename in os.listdir(folder_path):
         # Ensure that the file is a CSV and the filename matches a symbol
@@ -154,7 +154,7 @@ def update_assets_from_csv(db: Session, folder_path="app/services/Historique BRV
             try:
                 # Read the CSV file into a DataFrame
                 csv_path = os.path.join(folder_path, filename)
-                data = pd.read_csv(csv_path)
+                data = pd.read_csv(csv_path, converters={'Ouv.': lambda x: str(x), "Dernier": lambda x: str(x)})
 
                 # Ensure the CSV has necessary columns
                 if 'Date' not in data.columns or 'Ouv.' not in data.columns or 'Dernier' not in data.columns:
@@ -173,6 +173,8 @@ def update_assets_from_csv(db: Session, folder_path="app/services/Historique BRV
                         "date": entry_date,
                         "open": to_float_inv(row['Ouv.']),
                         "close": to_float_inv(row['Dernier']),
+                        # "open": row['Ouv.'],
+                        # "close": row['Dernier'],
                     }
                     added+=1
                     existing.append(new_data)
