@@ -80,6 +80,8 @@ class Asset(Base):
                 # closest = min(candidates, key=lambda x: (x["date"] - target_date).days)
                 # return closest
             def compute_variation(past_close):
+                    print("ttttttttttttttt             ttttt")
+                    print("past_close:", past_close)
                     return round((latest_close - past_close) / past_close * 100, 2)
 
             # Variations
