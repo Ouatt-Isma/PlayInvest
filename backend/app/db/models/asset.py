@@ -86,7 +86,8 @@ class Asset(Base):
 
             # Variations
             if len(sorted_data) > 1:
-                variation_1 = compute_variation(sorted_data[1])
+                closest_1 = sorted_data[1]["close"]
+                variation_1 = compute_variation(closest_1)
             if len(sorted_data) > 7:
                 closest_7 = find_closest(7)
                 print("closest_7:", closest_7)
