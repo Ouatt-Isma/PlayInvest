@@ -72,9 +72,9 @@ class Asset(Base):
         
             def find_closest(days):
                 print("LATTTTE", latest_date)
-                print("DT", datetime.utcnow())
-                raise NotImplemented
-                target_date = datetime.utcnow() - timedelta(days=days+1) 
+                print("DT", datetime.utcnow().date())
+                # raise NotImplemented
+                target_date = datetime.utcnow().date() - timedelta(days=days+1) 
                 return self.get_price_at(target_date, open=False)
                 
                 # candidates = [entry for entry in sorted_data[1:] if entry["date"] >= target_date]
