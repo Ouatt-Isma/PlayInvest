@@ -96,7 +96,7 @@ class Asset(Base):
             closest_90 = find_closest(90)
             closest_180 = find_closest(180)
             closest_365 = find_closest(365)
-            earliest = sorted_data[-1] if len(sorted_data) > 1 else None
+            earliest = sorted_data[-1]["close"] if len(sorted_data) > 1 else None
 
             variation_1M = compute_variation(closest_30)
             variation_3M = compute_variation(closest_90)
