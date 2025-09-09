@@ -15,6 +15,10 @@ PERIOD_TO_DAYS = {
     "1y": 360,
     "all": None,
 }
+PERIOD_TO_DAYS = {
+    k: (v + 1 if v is not None else None)
+    for k, v in PERIOD_TO_DAYS.items()
+}
 
 @router.get("/graph/{symbol}")
 def get_asset_graph(
