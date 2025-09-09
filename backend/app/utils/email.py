@@ -60,17 +60,21 @@ PlayInvest
         password=settings.EMAIL_PWD
     )
 
-async def send_godfather_email(to_email: str, username: str, username_f: str):
+async def send_godfather_email(to_email: str, username: str, username_f: str, amount_conv=None, portfolio_curr=""):
     message = EmailMessage()
     message["From"] = settings.EMAIL
     message["To"] = to_email
     message["Subject"] = ""
+    conversion_part = (
+    f" ({amount_conv} {portfolio_curr})"
+    if settings.currency != portfolio_curr and amount_conv and portfolio_curr
+    else "")   
     message.set_content(f"""
 Bonjour {username},
 
 Bonne nouvelle ! Un nouvel utilisateur ({username_f}) vient de vous désigner comme parrain lors de son inscription.
 
-En guise de remerciement, votre solde vient d’être crédité de {settings.amount_godfather}, {settings.currency}. 🎁
+En guise de remerciement, votre solde vient d’être crédité de {settings.amount_godfather} {settings.currency}{conversion_part}. 🎁
 Vous pouvez consulter votre nouveau solde depuis votre espace personnel: {settings.FRONTEND_URL}/dashboard .
 
 Merci pour votre confiance et votre engagement. Continuez à parrainer pour cumuler encore plus de récompenses !

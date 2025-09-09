@@ -45,7 +45,7 @@ def confirm_email(token: str, background_tasks: BackgroundTasks, db: Session = D
         print(portfolio_parrain.cash)
         print()
         db.add(portfolio_parrain)
-        background_tasks.add_task(send_godfather_email, parrain.email, parrain.username, user.username)
+        background_tasks.add_task(send_godfather_email, parrain.email, parrain.username, user.username, convert(settings.currency, portfolio.currency, settings.amount_godfather), portfolio_parrain.currency)
         
         
     db.commit()
