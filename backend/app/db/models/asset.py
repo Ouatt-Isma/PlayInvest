@@ -72,7 +72,7 @@ class Asset(Base):
         
             def find_closest(days):
                 # Shift 
-                target_date = latest_date - timedelta(days=days) - 1
+                target_date = latest_date - timedelta(days=days+1) 
                 return self.get_price_at(target_date, open=False)
 
             def compute_variation(past_entry):
