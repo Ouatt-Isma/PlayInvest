@@ -72,8 +72,7 @@ class Asset(Base):
         
             def find_closest(days):
                 target_date = latest_date - timedelta(days=days+1) 
-                target_date_str= target_date.strftime("%Y-%m-%d")
-                return self.get_price_at(target_date_str, open=False)
+                return self.get_price_at(target_date, open=False)
                 
                 # candidates = [entry for entry in sorted_data[1:] if entry["date"] >= target_date]
                 # if not candidates:
@@ -155,18 +154,30 @@ class Asset(Base):
         return self.region == "Monde"
        
     # Extract prices
-    def get_price_at(self, date_str, open=False):
-        target_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    def get_price_at(self, date_input, open=False):
+        # Normalize to a date
+        if isinstance(date_input, datetime):
+            target_date = date_input.date()
+        elif isinstance(date_input, str):
+            target_date = datetime.strptime(date_input, "%Y-%m-%d").date()
+        else:
+            raise TypeError(f"Unsupported type for date_input: {type(date_input)}")
+
         closest = min(
             self.financial_data,
-            key=lambda x: abs(datetime.strptime(x["date"], "%Y-%m-%d").date() - target_date),
+            key=lambda x: abs(
+                (
+                    x["date"].date() if isinstance(x["date"], datetime)
+                    else datetime.strptime(x["date"], "%Y-%m-%d").date()
+                ) - target_date
+            ),
             default=None
         )
-        if(open):
-            # return to_float(closest["open"]) if closest else None
+
+        if open:
             return closest["open"] if closest else None
         return closest["close"] if closest else None
-        # return to_float(closest["close"]) if closest else None
+
     
     def get_fees(self):
         if (self.isETF):
