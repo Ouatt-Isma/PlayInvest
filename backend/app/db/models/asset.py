@@ -71,13 +71,7 @@ class Asset(Base):
             latest_close = latest_data.get("close", None)
         
             def find_closest(days):
-                print("LATTTTE", latest_date)
-                print("DT", datetime.utcnow().date())
-                # raise NotImplemented
-                target_date = datetime.combine(
-                    datetime.utcnow().date() - timedelta(days=days+1),
-                    datetime.min.time()
-                )
+                target_date = datetime.utcnow() - timedelta(days=days+1) 
                 return self.get_price_at(target_date, open=False)
                 
                 # candidates = [entry for entry in sorted_data[1:] if entry["date"] >= target_date]
@@ -85,15 +79,8 @@ class Asset(Base):
                 #     return None
                 # closest = min(candidates, key=lambda x: (x["date"] - target_date).days)
                 # return closest
-            def compute_variation(past_entry):
-                try:
-                    # past_close = to_float(past_entry["close"])
-                    past_close = past_entry["close"]
-                    if not past_close:
-                        return None
+            def compute_variation(past_close):
                     return round((latest_close - past_close) / past_close * 100, 2)
-                except:
-                    return None
 
             # Variations
             if len(sorted_data) > 1:
