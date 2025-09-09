@@ -71,8 +71,8 @@ class Asset(Base):
             latest_close = latest_data.get("close", None)
         
             def find_closest(days):
-                print(latest_date)
-                print(datetime.utcnow())
+                print("LATTTTE", latest_date)
+                print("DT", datetime.utcnow())
                 raise NotImplemented
                 target_date = datetime.utcnow() - timedelta(days=days+1) 
                 return self.get_price_at(target_date, open=False)
