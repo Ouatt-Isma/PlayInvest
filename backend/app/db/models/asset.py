@@ -155,10 +155,9 @@ class Asset(Base):
             default=None
         )
         if(open):
-            # return to_float(closest["open"]) if closest else None
             return closest["open"] if closest else None
         return closest["close"] if closest else None
-        # return to_float(closest["close"]) if closest else None
+
         
     def get_fees(self):
         if (self.isETF):
