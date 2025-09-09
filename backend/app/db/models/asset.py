@@ -80,8 +80,6 @@ class Asset(Base):
                 # closest = min(candidates, key=lambda x: (x["date"] - target_date).days)
                 # return closest
             def compute_variation(past_close):
-                    print("ttttttttttttttt             ttttt")
-                    print("past_close:", past_close)
                     return round((latest_close - past_close) / past_close * 100, 2)
 
             # Variations
@@ -90,7 +88,6 @@ class Asset(Base):
                 variation_1 = compute_variation(closest_1)
             if len(sorted_data) > 7:
                 closest_7 = find_closest(7)
-                print("closest_7:", closest_7)
                 variation_7 = compute_variation(closest_7)
             closest_30 = find_closest(30)
             closest_90 = find_closest(90)
