@@ -71,7 +71,7 @@ class Asset(Base):
             latest_close = latest_data.get("close", None)
         
             def find_closest(days):
-                target_date = latest_date - timedelta(days=days+1) 
+                target_date = latest_date - timedelta(days=days) 
                 return self.get_price_at(target_date, open=False)
                 
                 # candidates = [entry for entry in sorted_data[1:] if entry["date"] >= target_date]
