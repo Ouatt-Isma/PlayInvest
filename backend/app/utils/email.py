@@ -64,7 +64,7 @@ async def send_godfather_email(to_email: str, username: str, username_f: str, am
     message = EmailMessage()
     message["From"] = settings.EMAIL
     message["To"] = to_email
-    message["Subject"] = ""
+    message["Subject"] = "Bonus de Parrainage Playinvest!"
     conversion_part = (
     f" ({amount_conv} {portfolio_curr})"
     if settings.currency != portfolio_curr and amount_conv and portfolio_curr
