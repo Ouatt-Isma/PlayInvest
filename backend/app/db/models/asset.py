@@ -74,7 +74,10 @@ class Asset(Base):
                 print("LATTTTE", latest_date)
                 print("DT", datetime.utcnow().date())
                 # raise NotImplemented
-                target_date = datetime.utcnow().date() - timedelta(days=days+1) 
+                target_date = datetime.combine(
+                    datetime.utcnow().date() - timedelta(days=days+1),
+                    datetime.min.time()
+                )
                 return self.get_price_at(target_date, open=False)
                 
                 # candidates = [entry for entry in sorted_data[1:] if entry["date"] >= target_date]
