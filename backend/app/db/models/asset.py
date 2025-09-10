@@ -174,20 +174,17 @@ class Asset(Base):
 
         
     def get_fees(self):
-        if (self.isCrypto):
-            print("isCryptoisCryptoisCryptoisCryptoisCrypto",self.name,self.type)
-        if (self.isETF):
-            print("isETFisETFisETFisETFisETFisETFisETF",self.name,self.type)
+        if (self.isETF()):
             return settings.fees["ETF"]
-        if (self.isStock):
-            if (self.isAfrica):
+        if (self.isStock()):
+            if (self.isAfrica()):
                 return settings.fees["STOCK"]["AFRIQUE"]
-            if (self.isEurope):
+            if (self.isEurope()):
                 return settings.fees["STOCK"]["EU"]
-            if (self.isWorld):
+            if (self.isWorld()):
                 return settings.fees["STOCK"]["WORLD"]
-            if (self.isUSA):
+            if (self.isUSA()):
                 return settings.fees["STOCK"]["US"]
-        if (self.isCrypto):
+        if (self.isCrypto()):
             return settings.fees["CRYPTO"]
-        raise NotImplementedError
+  
