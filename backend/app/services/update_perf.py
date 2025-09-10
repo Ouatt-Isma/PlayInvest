@@ -31,14 +31,14 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
     weighted_perf_all = 0
     for pa in assets:
         asset = db.query(Asset).filter_by(id=pa.asset_id).first()   # requires relationship on PortfolioAsset
+        buying_price = convert(asset.currency, portfolio.currency, pa.buying_price)
         if (not pa.sold):
             # current_price_unnorm = to_float(asset.to_dict()["latest_price"])
             current_price_unnorm = asset.to_dict()["latest_price"]
             performance_pct = (((current_price_unnorm - pa.buying_price) / (pa.buying_price)) * 100) if pa.buying_price else 0
             pa.performance_pct = performance_pct
             pa.total_invest = pa.quantity * pa.buying_price
-            buying_price = convert(asset.currency, portfolio.currency, pa.buying_price)
-        db.add(pa)  # ensure all portfolio_assets are tracked for update
+            db.add(pa)  # ensure all portfolio_assets are tracked for update
         total_investment += convert(asset.currency, portfolio.currency, pa.total_invest)
         weighted_perf = pa.performance_pct * buying_price * pa.quantity 
         weighted_perf_all += weighted_perf
