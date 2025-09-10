@@ -12,7 +12,7 @@
         <div class="flex items-start justify-between gap-4">
           <div>
             <h3 id="challenge-title" class="text-xl font-bold">Challenge de la semaine</h3>
-            <p class="text-sm text-gray-500">Choisissez l’actif qui performera le mieux d’ici la fin de la semaine.</p>
+            <p class="text-sm text-gray-500">Choisissez l’actif qui performera le mieux d’ici la fin de la semaine (vendredi). Vous devez faire votre choix durant le week end.</p>
             <p class="text-sm text-gray-600 mt-2" v-if="serverDescription">{{ serverDescription }}</p>
           </div>
           <button @click="close" aria-label="Fermer" class="p-2 rounded hover:bg-gray-100">✕</button>
