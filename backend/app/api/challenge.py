@@ -175,7 +175,7 @@ def submit_weekly_pick(
     )
     # deadline
     if now_utc() > challenge.selection_end_at or now_utc() <challenge.start_at:
-        raise HTTPException(status_code=408, detail="Le challenge est clôturé.")
+        raise HTTPException(status_code=400, detail="Le challenge est clôturé.")
     print("2111111111111111111111111111111111111111111 CHALL")
     # load both sides for this challenge
     sides = (

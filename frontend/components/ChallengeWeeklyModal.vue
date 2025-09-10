@@ -12,7 +12,7 @@
         <div class="flex items-start justify-between gap-4">
           <div>
             <h3 id="challenge-title" class="text-xl font-bold">Challenge de la semaine</h3>
-            <p class="text-sm text-gray-500">Choisissez l’actif qui performera le mieux d’ici la fin de la semaine (vendredi). Vous devez faire votre choix durant le week end.</p>
+            <p class="text-sm text-gray-500">Choisissez l’actif qui performera le mieux d’ici la fin de la semaine à venir (vendredi). Vous devez faire votre choix durant le week end.</p>
             <p class="text-sm text-gray-600 mt-2" v-if="serverDescription">{{ serverDescription }}</p>
           </div>
           <button @click="close" aria-label="Fermer" class="p-2 rounded hover:bg-gray-100">✕</button>
@@ -52,7 +52,8 @@
         </div>
 
         <div v-else-if="error" class="mt-5 p-4 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-between">
-          <span>Veuillez vous connecter en cliquant <NuxtLink to="/register">  <u>ici</u> </NuxtLink>. </span> 
+          <!-- <span>Veuillez vous connecter en cliquant <NuxtLink to="/register">  <u>ici</u> </NuxtLink>. </span>  -->
+           <span v-html="error"></span>
           <button class="px-3 py-1.5 text-sm rounded border" @click="fetchPair">Réessayer</button>
         </div>
 
@@ -203,8 +204,6 @@ const endTime = computed(() => {
 })
   const endSelectionTime = computed(() => {
   const now = new Date()
-  // 1. If serverEndAt exists and is still in the future → use it
-  console.log("endAT SERVER", serverSelectionEndAt.value)
   if (serverSelectionEndAt.value) {
     const serverDate = new Date(serverSelectionEndAt.value)
     if (serverDate > now) {
@@ -240,9 +239,6 @@ function tick() {
 
 function tickSelection() {
   const now = toParis()
-
-  console.log(endSelectionTime)
-  console.log(endTime)
   let ms = endSelectionTime.value - now
   if (ms < 0) ms = 0
   const days = Math.floor(ms / 86400000)
@@ -271,13 +267,12 @@ async function fetchPair() {
   error.value = ''
   selectedId.value = null
   const token = useCookie("token").value
-  console.log("perplot: ", token)
+
 
   try {
     const token = useCookie("token").value
-    console.log("perplot: ", token)
     if (!token) {
-      error.value = 'Veuillez vous connecter.'
+      error.value = 'Veuillez vous connecter en cliquant <NuxtLink to="/register">  <u>ici</u> </NuxtLink>.'
       return
     }
     const config = useRuntimeConfig()
@@ -302,6 +297,7 @@ async function fetchPair() {
 
     emit('loaded', { pair: assets.value, endAt: serverEndAt.value })
   } catch (e) {
+    console.log("response status: ", e.response.status)
     error.value = 'Impossible de charger la paire du challenge.'
   } finally {
     loading.value = false
@@ -330,6 +326,7 @@ async function submitPick() {
     close()
   } catch (e) {
     if (axios.isAxiosError(e) && e.response) {
+      console.log("response status: ", e.response.status)
       if (e.response.status === 409) {
         error.value = e.response.data?.detail || 'Vous avez déjà participé à ce challenge.'
         // refresh pick and preselect
