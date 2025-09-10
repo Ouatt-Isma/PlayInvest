@@ -39,7 +39,7 @@ class Settings:
     amount_challenge = 50
     amount_begin = 500
     currency = 'EUR'
-    ADMIN_EMAIL = "ouattaraismael1999@gmail.com, harolddoue@gmail.com"
+    ADMIN_EMAIL = "ouattaraismael1999@gmail.com, harolddoue@gmail.com, ne-pas-repondre@playinvest-hd.com"
     # TZ_FR = ZoneInfo("GMT")
     TZ_GMT = ZoneInfo("UTC")
     minimum_asset = 0.01 
