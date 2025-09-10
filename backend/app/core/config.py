@@ -39,7 +39,7 @@ class Settings:
     # TZ_FR = ZoneInfo("GMT")
     TZ_GMT = ZoneInfo("UTC")
     minimum_asset = 0.01 
-    fees = {"STOCK": {"FRANCE": 0.0065, "US": 0.0140, "EU": 0.0145, "AFRIQUE": 0.0185}, "CRYPTO": 0.0175, "ETF": 0.002} #fees
+    fees = {"STOCK": {"EU": 0.0065, "US": 0.0140, "WORLD": 0.0145, "AFRIQUE": 0.0185}, "CRYPTO": 0.0175, "ETF": 0.002} #fees
     log = logging.getLogger("fastapi")
 
 settings = Settings()

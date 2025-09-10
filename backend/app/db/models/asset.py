@@ -178,12 +178,12 @@ class Asset(Base):
             return settings.fees["ETF"]
         if (self.isStock):
             if (self.isAfrica):
-                return settings.fees["AFRIQUE"]
+                return settings.fees["STOCK"]["AFRIQUE"]
             if (self.isEurope):
-                return settings.fees["EU"]
+                return settings.fees["STOCK"]["EU"]
             if (self.isWorld):
-                return settings.fees["WORLD"]
+                return settings.fees["STOCK"]["WORLD"]
             if (self.isUSA):
-                return settings.fees["US"]
+                return settings.fees["STOCK"]["US"]
         if (self.isCrypto):
             return settings.fees["CRYPTO"]
