@@ -15,7 +15,7 @@ logging.basicConfig(
 
 class Settings:
     FRONTEND_URL = os.getenv("FRONTEND_URL", "https://www.playinvest-hd.com")  
-    EMAIL = "ouattaraismael258852@gmail.com, harolddoue@gmail.com"
+    EMAIL = "ouattaraismael258852@gmail.com"
     DATABASE_URL = os.getenv("DATABASE_URL")
     
     DEFAULT_AVATAR = 'icons/default.png'
@@ -35,7 +35,7 @@ class Settings:
     amount_challenge = 50
     amount_begin = 500
     currency = 'EUR'
-    ADMIN_EMAIL = "ouattaraismael1999@gmail.com"
+    ADMIN_EMAIL = "ouattaraismael1999@gmail.com, harolddoue@gmail.com"
     # TZ_FR = ZoneInfo("GMT")
     TZ_GMT = ZoneInfo("UTC")
     minimum_asset = 0.01 
