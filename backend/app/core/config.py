@@ -15,7 +15,7 @@ logging.basicConfig(
 
 class Settings:
     FRONTEND_URL = os.getenv("FRONTEND_URL", "https://www.playinvest-hd.com")  
-    EMAIL = "ouattaraismael258852@gmail.com"
+    EMAIL = "ouattaraismael258852@gmail.com, harolddoue@gmail.com"
     DATABASE_URL = os.getenv("DATABASE_URL")
     
     DEFAULT_AVATAR = 'icons/default.png'
