@@ -174,8 +174,10 @@ class Asset(Base):
 
         
     def get_fees(self):
+        if (self.isCrypto):
+            print("isCryptoisCryptoisCryptoisCryptoisCrypto",self.name,self.type)
         if (self.isETF):
-            print("isETFisETFisETFisETFisETFisETFisETF",self.name)
+            print("isETFisETFisETFisETFisETFisETFisETF",self.name,self.type)
             return settings.fees["ETF"]
         if (self.isStock):
             if (self.isAfrica):
