@@ -219,7 +219,7 @@ function openPdf(symbol) {
         <!-- <div class="text-2xl font-bold mt-1">{{ formatCurrency(currentPrice, asset.currency) }}</div> -->
         
         <div class="text-2xl font-bold mt-1">{{ formatCurrency(buyingPrice, asset.currency) }}</div>
-        <p>(incluant {{ buyingFees * 100 }}% de commission)</p>
+        <p>(incluant {{ (buyingFees * 100).toFixed(2) }}% de commission)</p>
         <!-- <div class="text-2xl font-bold mt-1">{{ formattedPrice }}</div> -->
         <div class="text-sm text-gray-400">
           <p class="text-xs text-gray-500 mt-1">
