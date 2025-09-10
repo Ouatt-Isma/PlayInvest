@@ -15,19 +15,23 @@ logging.basicConfig(
 
 class Settings:
     FRONTEND_URL = os.getenv("FRONTEND_URL", "https://www.playinvest-hd.com")  
-    EMAIL = "ouattaraismael258852@gmail.com"
+    # EMAIL = "ouattaraismael258852@gmail.com"
+    # EMAIL_PWD = "gnem sunc xoqn kpak"
+    # hostname = "smtp.gmail.com"
+    
+    EMAIL = "ne-pas-repondre@playinvest-hd.com"
+    EMAIL_PWD = "Play1nvest"
+    hostname = "mail.privateemail.com"
+    
     DATABASE_URL = os.getenv("DATABASE_URL")
     
     DEFAULT_AVATAR = 'icons/default.png'
     SECRET_KEY = "mykey"
-    # EMAIL_PWD = "oswbxjdwsthvfreg"
-    # EMAIL_PWD = "stmmpggbsapyysif"
     
     ALGORITHM = "HS256"
-    EMAIL_PWD = "gnem sunc xoqn kpak"
+    
     SECURITY_PASSWORD_SALT = "reset-password-salt"
     
-    hostname = "smtp.gmail.com"
     port = 587
     start_tls = True
     amount_godfather = 50

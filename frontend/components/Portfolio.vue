@@ -41,7 +41,7 @@
         <tr class="text-left bg-gray-100">
           <th class="p-2">Nom de l’actif</th>
           <th class="p-2">Quantité</th>
-          <th class="p-2">Prix</th>
+          <th class="p-2">Prix (Unitaire)</th>
           <th class="p-2">Variation jour</th>
           <th class="p-2">Performance</th>
         </tr>
