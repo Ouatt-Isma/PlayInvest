@@ -187,3 +187,4 @@ class Asset(Base):
                 return settings.fees["STOCK"]["US"]
         if (self.isCrypto):
             return settings.fees["CRYPTO"]
+        raise NotImplementedError
