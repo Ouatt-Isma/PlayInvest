@@ -47,7 +47,7 @@ onMounted(async () => {
     const { data } = await axios.get(`${apiBase}${props.endpoint}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
-
+    console.log("daaaaaattttaaa", data)
     // Normalize with mapping in case your keys differ
     const m = props.map
 

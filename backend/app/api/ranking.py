@@ -60,13 +60,14 @@ def get_ranking(
         }
         for p in best_per_user
     ]
-
+    print("rrrrrra", ranking_list)
     # Remove "user_id" from the payload later; keep it internally to find "me"
     user_id_to_pos = {row["user_id"]: i + 1 for i, row in enumerate(ranking_list)}
     me_pos = user_id_to_pos.get(current_user.id)
 
     me_entry = None
     if me_pos is not None:
+        print("MEPOSSSSSS")
         me_portfolio = next(r for r in ranking_list if r["user_id"] == current_user.id)
         me_entry = {
             "username": me_portfolio["username"],

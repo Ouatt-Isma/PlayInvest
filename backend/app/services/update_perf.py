@@ -112,5 +112,4 @@ def update_all_portfolio_performance(db: Session, current_date: datetime):
             current_rank = idx
         p.rank = current_rank
         last_score = p.performance_pct
-        db.add(p)
     db.commit()

@@ -9,7 +9,7 @@ from sqlalchemy.sql import func
 class Portfolio(Base):
     __tablename__ = "portfolios"
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, unique=True)
     name = Column(String)
     performance = Column(Float)
     performance_pct = Column(Float)
