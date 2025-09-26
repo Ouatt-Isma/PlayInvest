@@ -19,6 +19,12 @@ origins = [
     "http://196.177.137.59",          # default HTTP (port 80)
     "https://196.177.137.59",         # default HTTPS (port 443)
     
+    
+    
+    "http://88.247.87.213:3000",     # your IP + port (if frontend runs on 3000)
+    "http://88.247.87.213",          # default HTTP (port 80)
+    "https://88.247.87.213",         # default HTTPS (port 443)
+     
 ]
 
 # Allow frontend origin
