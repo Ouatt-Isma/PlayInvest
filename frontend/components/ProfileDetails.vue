@@ -9,7 +9,6 @@ const avatarUrltmp =  ref('')
 
 onMounted(() => {
   const storedAvatar = useCookie("avatar_url").value
-
   if (storedAvatar) {
     avatarUrltmp.value = storedAvatar
   }
@@ -102,6 +101,9 @@ const updateProfile = async ()  => {
 
     const avatar_url = useCookie("avatar_url")
     avatar_url.value = avatarUrl.value 
+    if (import.meta.client) {
+      localStorage.setItem("avatar_url", avatarUrl.value || "")
+    }
 
     const currency_c = useCookie("currency")
     currency_c.value = form.value.currency

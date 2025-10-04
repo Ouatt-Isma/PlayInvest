@@ -235,5 +235,21 @@ const handleSubmit = () => {
         S'inscrire
       </button>
     </form>
+
+    <div class="relative"> 
+      <div class="absolute inset-0 flex items-center"> 
+        <div class="w-full border-t border-gray-300">
+
+        </div> 
+      </div> 
+      <div class="relative flex justify-center text-sm"> 
+        <span class="bg-white px-2 text-gray-500">Ou inscrivez-vous avec</span> 
+      </div> 
+    </div> 
+    <div class="flex gap-4 justify-between"> 
+      <NuxtLink to="/account" class="w-full border py-2 rounded-lg flex justify-center items-center gap-2"> <img src="/logos/google.webp" class="h-5" /> <span>Google</span> 
+      </NuxtLink> 
+      <NuxtLink to="/account" class="w-full border py-2 rounded-lg flex justify-center items-center gap-2"> <img src="/logos/facebook.webp" class="h-5" /> <span>Facebook</span> </NuxtLink> 
+    </div> <p class="text-center text-sm text-gray-500"> Vous avez déjà un compte ? <a href="/login" class="text-teal-700 font-medium hover:underline">Connectez-vous</a> </p> 
   </div>
 </template>

@@ -13,11 +13,7 @@ const { logout, user } = useAuth()
 
 onMounted(() => {
 
-  const storedAvatar = user.avatar_url
-  //  useCookie("avatar_url") 
-  if (storedAvatar) {
-    avatar_url.value = storedAvatar.value
-  }
+  avatar_url.value = user.value?.avatar_url
   const storedfirst_name = user.first_name
   // useCookie("first_name") 
   if (storedfirst_name) {
