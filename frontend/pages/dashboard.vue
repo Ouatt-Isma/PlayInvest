@@ -33,7 +33,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Left: chart -->
           <div class="lg:col-span-8">
-            <div class="w-full h-[280px] sm:h-[350px] lg:h-[420px]">
+            <div class="w-full h-[320px] sm:h-[400px] lg:h-[500px]">
               <PerfPlot />
             </div>
           </div>
@@ -71,12 +71,13 @@
   <div
     class="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full max-w-6xl"
   >
+  
     <!-- Challenge Card -->
     <div
-      class="flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
+      class=" w-full lg:w-1/2  flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
     >
       <img
-        src="/images/Challenge.png"
+        src="/images/challenge.png"
         alt="Challenge icon"
         class="w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-0 sm:mr-6"
       />
@@ -102,7 +103,7 @@
 
     <!-- Quiz Card -->
     <div
-      class="flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
+      class="w-full lg:w-1/2 flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
     >
       <img
         src="/images/image Q5.png"
@@ -141,7 +142,7 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 
 

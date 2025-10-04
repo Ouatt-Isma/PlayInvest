@@ -82,6 +82,7 @@ const toPct = (v) => {
 
 const chartOptions = {
   responsive: true,
+  maintainAspectRatio: false, // allow chart to expand vertically
   plugins: {
     legend: { position: 'bottom' },
     tooltip: {
@@ -160,4 +161,6 @@ const chartOptions = {
   width: 100%;
   height: 100%; /* or auto */
 }
+
+
 </style>
