@@ -129,7 +129,7 @@ const chartOptions = {
         <p class="text-sm text-gray-500">Filtrable par catégorie ou région, période personnalisable</p>
       </div>
 
-      <div class="flex gap-2">
+      <div class="flex flex-col sm:flex-row gap-2 w-full">
         <select v-model="filterType" class="border px-2 py-1 rounded text-sm">
           <option value="all">Vue d'ensemble</option>
           <option value="category">Par catégorie</option>
