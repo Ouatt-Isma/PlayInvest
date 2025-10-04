@@ -1,110 +1,147 @@
 <template>
-  <div class="p-6 bg-gray-50 min-h-screen">
+  <div class="p-4 sm:p-6 bg-gray-50 min-h-screen">
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
       <div>
-      <h1 class="text-3xl font-bold">Tableau de Bord des Investissements</h1>
-      <p class="text-sm text-gray-500">Dernière mise à jour : {{ lastUpdate }} </p>
+        <h1 class="text-2xl sm:text-3xl font-bold">
+          Tableau de Bord des Investissements
+        </h1>
+        <p class="text-xs sm:text-sm text-gray-500">
+          Dernière mise à jour : {{ lastUpdate }}
+        </p>
       </div>
 
-      <NuxtLink to="/assets" class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700">
+      <NuxtLink
+        to="/assets"
+        class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700 text-center"
+      >
         Investir
       </NuxtLink>
     </div>
-    
-    <div class="space-y-10">
-    <!-- Performance: chart + right-side tools -->
-    <div class="bg-white p-6 rounded-xl shadow-md mb-6">
-      <h2 class="text-lg font-semibold mb-1">Graphique d’évolution du rendement global des investissements</h2>
-      <p class="text-sm text-gray-500 mb-4">
-        Suivez l’évolution de la valeur totale de votre portefeuille d'investissements, visualisez vos gains et pertes au fil du temps.
-      </p>
 
-      <!-- 2-col layout: chart left, controls right -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Left: smaller chart -->
-        <div class="lg:col-span-8">
-          <div class="h-full"> <!-- ~320px; PerfPlot should have maintainAspectRatio:false -->
-            <PerfPlot />
+    <div class="space-y-10">
+      <!-- Performance: chart + right-side tools -->
+      <div class="bg-white p-4 sm:p-6 rounded-xl shadow-md mb-6">
+        <h2 class="text-base sm:text-lg font-semibold mb-1">
+          Graphique d’évolution du rendement global des investissements
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-500 mb-4">
+          Suivez l’évolution de la valeur totale de votre portefeuille d’investissements, visualisez vos gains et pertes au fil du temps.
+        </p>
+
+        <!-- 2-col layout: chart left, controls right -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Left: chart -->
+          <div class="lg:col-span-8">
+            <div class="w-full h-[280px] sm:h-[350px] lg:h-[420px]">
+              <PerfPlot />
+            </div>
+          </div>
+
+          <!-- Right: date range + ranking -->
+          <div class="lg:col-span-4 space-y-6">
+            <PerfDateRangeCard />
+            <UserRankingCard />
           </div>
         </div>
+      </div>
 
-        <!-- Right: two small components -->
-        <div class="lg:col-span-4 space-y-6">
-          <PerfDateRangeCard />
-          <UserRankingCard />
+      <!-- Main Grid Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left column -->
+        <div class="lg:col-span-2 space-y-6">
+          <Portfolio />
+          <InvestmentHistory />
+          <ChallengeHistory />
+        </div>
+
+        <!-- Right column: Simulator -->
+        <div class="space-y-6">
+          <PastPerfSimulator />
         </div>
       </div>
     </div>
-
-    <!-- Grid Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Left column: Portfolio + History -->
-      <div class="lg:col-span-2 space-y-6">
-        <Portfolio />
-        <InvestmentHistory />
-        <ChallengeHistory />
-      </div>
-
-      <!-- Right column: Simulator -->
-      <div class="space-y-6">
-        <PastPerfSimulator />
-      </div>
-    </div>
-    </div>
   </div>
+
+
+
 
   <!-- Bottom promo row -->
-  <div class="bg-[#f8faff] py-10 px-6 flex justify-center">
-    <div class="flex gap-6 w-full max-w-6xl">
-      <!-- Challenge Card -->
-      <div class="flex items-center bg-white p-6 rounded-2xl shadow w-1/2">
-        <img src="/images/Challenge.png" alt="Challenge icon" class="w-24 h-24 mr-6" />
-        <div>
-          <h3 class="text-xl font-bold mb-1">Challenge Hebo</h3>
-          <p class="text-gray-500 mb-4">
-            Déposez de l’argent fictif dans votre portefeuille et participez à des challenges pour gagner des fonds fictifs.
-          </p>
-          <!-- <button class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100">
-            Commencer le Challenge
-            <span>→</span>
-          </button> -->
+<div class="bg-[#f8faff] py-8 sm:py-10 px-4 sm:px-6 flex justify-center">
+  <div
+    class="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full max-w-6xl"
+  >
+    <!-- Challenge Card -->
+    <div
+      class="flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
+    >
+      <img
+        src="/images/Challenge.png"
+        alt="Challenge icon"
+        class="w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-0 sm:mr-6"
+      />
+      <div class="text-center sm:text-left">
+        <h3 class="text-lg sm:text-xl font-bold mb-1">
+          Challenge Hebo
+        </h3>
+        <p class="text-gray-500 mb-4 text-sm sm:text-base">
+          Déposez de l’argent fictif dans votre portefeuille et participez à des challenges pour gagner des fonds fictifs.
+        </p>
 
-          <button class="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100" @click="open = true">
-            Commencer le Challenge
-            <span>→</span>
-          </button>
-          <NuxtLink to="/">
+        <button
+          class="flex items-center justify-center sm:justify-start gap-2 px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100 mx-auto sm:mx-0"
+          @click="open = true"
+        >
+          Commencer le Challenge
+          <span>→</span>
+        </button>
 
-          </NuxtLink>
-
-          <ChallengeWeeklyModal
-            v-model="open"
-            :assets="pair"
-          />
-
-        </div>
+        <ChallengeWeeklyModal v-model="open" :assets="pair" />
       </div>
+    </div>
 
-      <!-- Quiz Card -->
-      <div class="flex items-center bg-white p-6 rounded-2xl shadow w-1/2">
-        <img src="/images/image Q5.png" alt="Quiz icon" class="w-24 h-24 mr-6" />
-        <div>
-          <h3 class="text-xl font-bold mb-1">Quiz</h3>
-          <p class="text-gray-500 mb-4">
-            Répondez à des quiz interactifs pour débloquer des fonds fictifs et améliorer vos compétences en investissement.
-          </p>
-           <NuxtLink
-              to="/makequiz"
-              class="inline-flex items-center px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100"
-            >
-              Commencez un Quiz →
-            </NuxtLink>
+    <!-- Quiz Card -->
+    <div
+      class="flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
+    >
+      <img
+        src="/images/image Q5.png"
+        alt="Quiz icon"
+        class="w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-0 sm:mr-6"
+      />
+      <div class="text-center sm:text-left">
+        <h3 class="text-lg sm:text-xl font-bold mb-1">Quiz</h3>
+        <p class="text-gray-500 mb-4 text-sm sm:text-base">
+          Répondez à des quiz interactifs pour débloquer des fonds fictifs et améliorer vos compétences en investissement.
+        </p>
 
-        </div>
+        <NuxtLink
+          to="/makequiz"
+          class="inline-flex items-center justify-center sm:justify-start px-4 py-2 rounded-full border border-gray-300 text-sm font-semibold hover:bg-gray-100 mx-auto sm:mx-0"
+        >
+          Commencez un Quiz →
+        </NuxtLink>
       </div>
     </div>
   </div>
+</div>
+
+  <!-- Bottom promo row -->
+  <div class="bg-[#f8faff] py-8 sm:py-10 px-4 sm:px-6 flex justify-center">
+    <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-6xl items-center sm:items-stretch">
+      <!-- Example promo boxes -->
+      <div class="flex-1 bg-white rounded-xl shadow p-4 sm:p-6 text-center">
+        <h3 class="font-semibold text-gray-700 text-sm sm:text-base">Découvrez nos nouvelles stratégies</h3>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">Explorez les opportunités de croissance à long terme.</p>
+      </div>
+
+      <div class="flex-1 bg-white rounded-xl shadow p-4 sm:p-6 text-center">
+        <h3 class="font-semibold text-gray-700 text-sm sm:text-base">Suivi en temps réel</h3>
+        <p class="text-xs sm:text-sm text-gray-500 mt-2">Gardez un œil sur les performances de vos investissements.</p>
+      </div>
+    </div>
+  </div>
+  
 </template>
 
 
