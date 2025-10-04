@@ -26,8 +26,8 @@ class Settings:
     DATABASE_URL = os.getenv("DATABASE_URL")
     
     DEFAULT_AVATAR = 'icons/default.png'
-    SECRET_KEY = "mykey"
-    
+    # SECRET_KEY = "mykey"
+    SECRET_KEY = os.getenv("SECRET_KEY","mykey")
     ALGORITHM = "HS256"
     
     SECURITY_PASSWORD_SALT = "reset-password-salt"
