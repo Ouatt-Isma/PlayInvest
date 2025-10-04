@@ -16,7 +16,8 @@
     </div>
 
     <!-- Table -->
-    <table class="w-full table-auto text-left">
+     <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+    <table class="min-w-full table-auto text-left">
       <thead class="bg-blue-50">
         <tr>
           <th class="px-4 py-2">Date</th>
@@ -47,6 +48,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
 
     <!-- Filters and Load More -->
     <div class="mt-4 text-center">

@@ -1,7 +1,9 @@
 <template>
   <section class="mx-auto max-w-7xl px-4 sm:px-6 md:px-10 py-12 bg-gradient-to-br from-white to-[#e6f6f8]">
+    
   <div class="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-    <table class="w-full bg-white rounded-lg shadow table-auto">
+    
+    <table class="min-w-full bg-white rounded-lg shadow table-auto">
       <thead>
         <tr class="text-left bg-gray-100">
           <th class="p-4">#</th>
