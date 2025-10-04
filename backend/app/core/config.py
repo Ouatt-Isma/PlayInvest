@@ -27,7 +27,7 @@ class Settings:
     
     DEFAULT_AVATAR = 'icons/default.png'
     # SECRET_KEY = "mykey"
-    SECRET_KEY = os.getenv("SECRET_KEY","mykey")
+    SECRET_KEY = os.getenv("SECRET_KEY")
     ALGORITHM = "HS256"
     
     SECURITY_PASSWORD_SALT = "reset-password-salt"
