@@ -7,7 +7,7 @@ from email.message import EmailMessage
 
 async def send_confirmation_email(to_email: str, username: str, token: str):
     message = EmailMessage()
-    message["From"] = settings.EMAIL
+    message["From"] = f"PlayInvest <{settings.EMAIL}>"
     message["To"] = to_email
     message["Subject"] = "Confirmez votre compte PlayInvest"
     message.set_content(f"""
@@ -33,7 +33,7 @@ Merci !
 
 async def send_password_reset_email(to_email: str, username: str, token: str):
     message = EmailMessage()
-    message["From"] = settings.EMAIL
+    message["From"] = f"PlayInvest <{settings.EMAIL}>"
     message["To"] = to_email
     message["Subject"] = "Réinitialisez votre mot de passe PlayInvest"
     message.set_content(f"""
@@ -62,7 +62,7 @@ PlayInvest
 
 async def send_godfather_email(to_email: str, username: str, username_f: str, amount_conv=None, portfolio_curr=""):
     message = EmailMessage()
-    message["From"] = settings.EMAIL
+    message["From"] = f"PlayInvest <{settings.EMAIL}>"
     message["To"] = to_email
     message["Subject"] = "Bonus de Parrainage Playinvest!"
     conversion_part = (
@@ -94,7 +94,7 @@ Merci pour votre confiance et votre engagement. Continuez à parrainer pour cumu
 
 async def send_admin_issue(subject):
     message = EmailMessage()
-    message["From"] = settings.EMAIL
+    message["From"] = f"PlayInvest <{settings.EMAIL}>"
     message["To"] = settings.ADMIN_EMAIL
     message["Subject"] = subject
     message.set_content(f"""
