@@ -21,7 +21,6 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
     const config = useRuntimeConfig()
     const apiBase = config.public.apiBase
 
-    // call backend
     const res = await axios.post(`${apiBase}/api/login`, { email, password })
     const { token, ...user } = res.data
 
@@ -33,15 +32,10 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
       return
     }
 
-    // ✅ use useAuth helper instead of setting cookies manually
     login(user, token)
-    console.log('[submitLogin] token =', token)
-    console.log('[submitLogin] user =', user)
-
     success.value = "Connexion réussie !"
     error.value = null
     showToast.value = true
-    console.log("Login response:", res.data)
     setTimeout(() => {
       router.push('/dashboard')
     }, 0)
@@ -55,25 +49,36 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
 </script>
 
 <template>
-  <div class="flex w-full min-h-screen">
+  <div class="flex flex-col md:flex-row w-full min-h-screen">
     <!-- Left -->
-    <div class="w-1/2">
+    <div class="w-full md:w-1/2">
       <LoginSlider />
     </div>
 
     <!-- Right -->
-    <div class="w-1/2 flex flex-col items-center justify-center bg-white px-10">
+    <div class="w-full md:w-1/2 flex flex-col items-center justify-center bg-white px-6 md:px-10 py-8">
       <LoginForm @submit="submitLogin" />
 
       <transition name="fade">
         <div
           v-if="showToast"
-          class="fixed top-6 right-6 bg-white shadow-lg rounded px-6 py-4 border border-gray-200 text-sm text-gray-800 z-50"
+          class="fixed top-6 right-6 bg-white shadow-lg rounded-xl px-6 py-3 text-sm font-medium border border-gray-200"
         >
-          <p v-if="error" class="text-red-600 text-center mt-4">{{ error }}</p>
-          <p v-if="success" class="text-green-600 text-center mt-4">{{ success }}</p>
+          <p v-if="error" class="text-red-600">{{ error }}</p>
+          <p v-if="success" class="text-green-600">{{ success }}</p>
         </div>
       </transition>
     </div>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
