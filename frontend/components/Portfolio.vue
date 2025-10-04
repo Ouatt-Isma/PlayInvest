@@ -36,7 +36,8 @@
     </div>
       <NuxtLink to='/assets' class="bg-teal-700 text-white px-4 py-2 rounded">Ajouter un actif</NuxtLink>
     </div>
-    <table class="w-full">
+    <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+    <table class="min-w-full">
       <thead>
         <tr class="text-left bg-gray-100">
           <th class="p-2">Nom de l’actif</th>
@@ -80,7 +81,8 @@
             </td>
         </tr>
       </tbody>
-    </table>
+    </table>  
+    </div>
     <AssetDetailsModal
   :visible="showModal"
   :asset="selectedAsset"
