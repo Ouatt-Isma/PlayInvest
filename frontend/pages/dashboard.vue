@@ -30,7 +30,7 @@
         </p>
 
         <!-- 2-col layout: chart left, controls right -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pr-2 sm:pr-4">
           <!-- Left: chart -->
           <div class="lg:col-span-8">
             <div class="w-full h-[560px] sm:h-[420px] lg:h-[500px]">

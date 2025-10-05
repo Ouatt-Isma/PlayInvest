@@ -83,6 +83,11 @@ const toPct = (v) => {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false, // allow chart to expand vertically
+  layout: {
+  padding: {
+    right: 15 // space for labels or overflow tooltips
+  }
+},
   plugins: {
     legend: { position: 'bottom' },
     tooltip: {
@@ -145,10 +150,12 @@ const chartOptions = {
     </div>
 
     <!-- Chart container fills the remaining height -->
-    <div class="flex-1 w-full">
-      <div v-if="loading" class="text-center text-gray-500 py-4">Chargement…</div>
-      <Line v-else :data="chartData" :options="chartOptions" />
-    </div>
+    <div class="flex-1 w-full overflow-visible">
+  <div v-if="loading" class="text-center text-gray-500 py-4">Chargement…</div>
+  <div v-else class="relative w-full h-full">
+    <Line  :data="chartData" :options="chartOptions" />
+  </div>
+</div>
   </section>
 </template>
 
