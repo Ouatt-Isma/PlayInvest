@@ -115,43 +115,40 @@ const chartOptions = {
 </script>
 
 <template>
-  <section class="p-6 bg-white rounded-xl shadow">
-    <div class="flex justify-between items-center mb-4">
-      <div>
-        <h2 class="text-xl font-bold">Évolution du rendement global</h2>
-        <p class="text-xs text-gray-400">
-          Mise à jour une fois par jour
-        <!-- Dernière mise à jour :  -->
-        <!-- <span class="text-gray-500">{{ formatDate(selectedAsset.updated_at) }}</span> -->
-        <!-- <span class="text-gray-500"></span> -->
-        
-        </p>
-        <p class="text-sm text-gray-500">Filtrable par catégorie ou région, période personnalisable</p>
-      </div>
+  <section class="bg-white rounded-xl shadow flex flex-col h-full">
+    <div class="p-6 flex flex-col gap-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold">Évolution du rendement global</h2>
+          <p class="text-xs text-gray-400">Mise à jour une fois par jour</p>
+          <p class="text-sm text-gray-500">
+            Filtrable par catégorie ou région, période personnalisable
+          </p>
+        </div>
 
-      <div class="flex flex-col sm:flex-row gap-2 w-full">
-        <select v-model="filterType" class="border px-2 py-1 rounded text-sm">
-          <option value="all">Vue d'ensemble</option>
-          <option value="category">Par catégorie</option>
-          <option value="region">Par région</option>        
-        </select>
-        <select v-model="period" class="border px-2 py-1 rounded text-sm">
-          <option value="7d">7 jours</option>
-          <option value="1m">1 mois</option>
-          <option value="3m">3 mois</option>
-          <option value="6m">6 mois</option>
-          <option value="1y">1 an</option>
-          <option value="all">Tout</option>
-        </select>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <select v-model="filterType" class="border px-2 py-1 rounded text-sm">
+            <option value="all">Vue d'ensemble</option>
+            <option value="category">Par catégorie</option>
+            <option value="region">Par région</option>
+          </select>
+          <select v-model="period" class="border px-2 py-1 rounded text-sm">
+            <option value="7d">7 jours</option>
+            <option value="1m">1 mois</option>
+            <option value="3m">3 mois</option>
+            <option value="6m">6 mois</option>
+            <option value="1y">1 an</option>
+            <option value="all">Tout</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <div class="w-full h-full">
-    <div v-if="loading" class="text-center text-gray-500 py-4">Chargement…</div>
-    
+    <!-- Chart container fills the remaining height -->
+    <div class="flex-1 w-full">
+      <div v-if="loading" class="text-center text-gray-500 py-4">Chargement…</div>
       <Line v-else :data="chartData" :options="chartOptions" />
     </div>
-    
   </section>
 </template>
 

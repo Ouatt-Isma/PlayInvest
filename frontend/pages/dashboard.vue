@@ -33,7 +33,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Left: chart -->
           <div class="lg:col-span-8">
-            <div class="w-full h-[460px] sm:h-[420px] lg:h-[500px]">
+            <div class="w-full h-[560px] sm:h-[420px] lg:h-[500px]">
               <PerfPlot />
             </div>
           </div>
