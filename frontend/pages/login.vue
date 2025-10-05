@@ -65,7 +65,7 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
           class="fixed top-6 right-6 bg-white shadow-lg rounded-xl px-6 py-3 text-sm font-medium border border-gray-200"
         >
           <p v-if="error" class="text-red-600">{{ error }}</p>
-          <p v-if="success" class="text-green-600">{{ success }}</p>
+          <p v-if="success" class="text-green-600" style="z-index: 950;">{{ success }}</p>
         </div>
       </transition>
     </div>
