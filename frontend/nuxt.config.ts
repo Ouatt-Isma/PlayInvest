@@ -19,12 +19,26 @@ export default defineNuxtConfig({
   modules: ['nuxt-keen-slider'],
   app: {
     head: {
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap',
-        },
+      title: 'PlayInvest',
+      meta: [
+        { name: 'apple-mobile-web-app-title', content: 'PlayInvest-HD' }
       ],
+      link: [
+        // Favicon PNG
+        { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '96x96' },
+
+        // Favicon SVG
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+
+        // Favicon classique (.ico)
+        { rel: 'shortcut icon', href: '/favicon.ico' },
+
+        // Apple icon (iPhone / iPad)
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+
+        // Web manifest (PWA)
+        { rel: 'manifest', href: '/site.webmanifest' }
+      ]
     },
   },
 })
