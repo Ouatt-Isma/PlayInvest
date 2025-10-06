@@ -94,7 +94,7 @@ const handleSubmit = () => {
       <!-- Referrer -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">
-          Nom d'utilisateur du parrain
+          Nom d'utilisateur du parrain (Si vous êtes parrainé(e))
         </label>
         <input
           v-model="form.referrer_id"
