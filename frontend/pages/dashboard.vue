@@ -86,7 +86,7 @@
           Challenge Hebo
         </h3>
         <p class="text-gray-500 mb-4 text-sm sm:text-base">
-          Déposez de l’argent fictif dans votre portefeuille et participez à des challenges pour gagner des fonds fictifs.
+          Débloquez de l’argent fictif dans votre portefeuille et participez à des challenges pour gagner des fonds fictifs.
         </p>
 
         <button
