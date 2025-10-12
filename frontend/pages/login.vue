@@ -25,7 +25,7 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
     const { token, ...user } = res.data
 
     if (!user.validated) {
-      error.value = "Votre email n’est pas encore confirmé. Veuillez vérifier votre boîte mail."
+      error.value = "Votre email n’est pas encore confirmé. Veuillez vérifier votre boîte mail. Un nouvel email de confirmation vient de vous être envoyé."
       success.value = null
       showToast.value = true
       setTimeout(() => (showToast.value = false), 3000)

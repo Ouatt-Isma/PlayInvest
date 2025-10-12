@@ -8,6 +8,10 @@ from app.db.models.portfolio import Portfolio
 import uuid
 from typing import Optional
 from app.core.jwt_handler import create_access_token
+from fastapi import BackgroundTasks
+import uuid
+from app.utils.email import send_confirmation_email
+
 
 router = APIRouter()
 
@@ -24,12 +28,24 @@ class LoginResponse(BaseModel):
     currency: Optional[str] = None  
 
 @router.post("/login", response_model=LoginResponse)
-def login_user(request: LoginRequest, db: Session = Depends(get_db)):
+def login_user(request: LoginRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == request.email.lower()).first()
     if not user or not bcrypt.verify(request.password, user.password_hash):
         raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect")
 
     if not user.validated:
+        if not user.confirmation_token:
+            user.confirmation_token = str(uuid.uuid4())
+            db.commit()
+            db.refresh(user)
+
+        # resend the confirmation email asynchronously
+        background_tasks.add_task(
+            send_confirmation_email,
+            user.email.lower(),
+            user.username.lower(),
+            user.confirmation_token
+        )
         return {
             "token": "",
             "validated": False,
