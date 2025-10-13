@@ -77,7 +77,7 @@
       class=" w-full lg:w-1/2  flex flex-col sm:flex-row items-center bg-white p-4 sm:p-6 rounded-2xl shadow w-full lg:w-1/2"
     >
       <img
-        src="/images/challenge.png"
+        src="/images/Challenge.png"
         alt="Challenge icon"
         class="w-20 h-20 sm:w-24 sm:h-24 mb-4 sm:mb-0 sm:mr-6"
       />
