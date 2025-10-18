@@ -5,6 +5,8 @@ import axios from 'axios'
 import countries from '@/assets/data/countries.json'
 // const usercook = useCookie<UserCookie>('user', { path: '/' })
 const avatarUrltmp =  ref('')
+import { useAuth } from '~/composables/useAuth'
+const { user } = useAuth()
 
 
 onMounted(() => {
@@ -107,6 +109,9 @@ const updateProfile = async ()  => {
 
     const currency_c = useCookie("currency")
     currency_c.value = form.value.currency
+    if (user.value) {
+      user.value.avatar_url = avatarUrl.value
+    }
 
     console.log('Profil mis à jour avec succès:', res.data)
     toastMessage.value = '✅ Profil mis à jour avec succès!'

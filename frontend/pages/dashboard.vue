@@ -127,6 +127,7 @@
   </div>
 </div>
 
+<Simulators/>
   <!-- Bottom promo row -->
   <div class="bg-[#f8faff] py-8 sm:py-10 px-4 sm:px-6 flex justify-center">
     <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-6xl items-center sm:items-stretch">
@@ -169,6 +170,7 @@ const open = ref(false)
 const pair = ref([null])
 
 import ChallengeHistory from '~/components/ChallengeHistory.vue'
+import Simulators from '~/components/Simulators.vue'
 
 const lastUpdate= ref('')
 const auth = useAuth()

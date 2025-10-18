@@ -1,25 +1,52 @@
 <script setup>
-
-import { ref, watch, onMounted, onBeforeUnmount } 
-from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '~/composables/useAuth'
 
 const darkMode = ref(false)
-const avatar_url = ref('')
+const avatar_url = ref('/icons/default.png')
 const first_name = ref('')
 
 const router = useRouter()
-const { logout, user } = useAuth() 
+const { logout, user } = useAuth()
 
-onMounted(() => {
+// ✅ Always reflect user updates
+watch(
+  user,
+  (newUser) => {
+    console.log('🔎 avatar_url from backend:', newUser?.avatar_url)
+  },
+  { immediate: true }
+)
 
-  avatar_url.value = user.value?.avatar_url
-  const storedfirst_name = user.first_name
-  // useCookie("first_name") 
-  if (storedfirst_name) {
-    first_name.value = storedfirst_name.value
-  }
-})
+watch(
+  user,
+  (newUser) => {
+    if (newUser) {
+      let url =
+        newUser.avatar_url ||
+        (import.meta.client ? localStorage.getItem('avatar_url') : '') ||
+        '/icons/default.png'
+
+      // 🧹 normalize to correct public path
+      url = url
+        .replace('/_nuxt/public', '')
+        .replace('/public', '')
+        .replace(/^\/+/, '/')
+
+       const finalUrl = `${url}?v=${Date.now()}`
+
+      avatar_url.value = finalUrl
+      first_name.value = newUser.first_name || newUser.name || ''
+    } else {
+      avatar_url.value = '/icons/default.png'
+      first_name.value = ''
+    }
+  },
+  { immediate: true }
+)
+
+// ... rest of your dropdown & menu code ...
 
 watch(darkMode, (val) => {
   const html = document.documentElement
@@ -107,12 +134,13 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 
       <div class="relative group">
         <div class="relative">
+          <ClientOnly>
   <img
     :src="avatar_url || '/icons/default.png'"
     alt="User Avatar"
     class="h-8 w-8 rounded-full border cursor-pointer"
     @click="toggleDropdown"
-  />
+  /></ClientOnly>
 
     <div
       v-if="showDropdown"

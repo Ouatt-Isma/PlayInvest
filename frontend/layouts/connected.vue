@@ -20,5 +20,7 @@
   import HeaderDashboard from '@/components/HeaderDashboard.vue'
   import Footer from '@/components/Footer.vue'
   import BandeauTicker from '@/components/BandeauTicker.vue'
+  import { useAuth } from '~/composables/useAuth'
+  const { init } = useAuth()
+  init() // ✅ ensures user + avatar loaded before any page/component
   </script>
- 
