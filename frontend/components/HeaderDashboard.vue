@@ -33,10 +33,7 @@ watch(
         .replace('/_nuxt/public', '')
         .replace('/public', '')
         .replace(/^\/+/, '/')
-
-       const finalUrl = `${url}?v=${Date.now()}`
-
-      avatar_url.value = finalUrl
+      avatar_url.value = url
       first_name.value = newUser.first_name || newUser.name || ''
     } else {
       avatar_url.value = '/icons/default.png'
