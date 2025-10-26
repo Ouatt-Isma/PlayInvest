@@ -81,8 +81,12 @@
                   <td style="padding:4px 20px 18px 20px;">
                     <table role="presentation" width="100%" cellpadding="6" cellspacing="0" border="0">
                       <tr>
-                        <td>Valeur totale</td>
-                        <td align="right"><strong>{{ portfolio_value | euro }}</strong></td>
+                        <td>Valeur totale Actif</td>
+                        <td align="right"><strong>{{ portfolio_value }} {{currency}} </strong></td>
+                      </tr>
+                      <tr>
+                        <td>Cash Disponible </td>
+                        <td align="right"><strong>{{ cash }} {{currency}}</strong></td>
                       </tr>
                       <tr>
                         <td>Performance hebdo</td>
@@ -156,7 +160,7 @@
                   <td style="padding:18px 20px;">
                     <strong>Challenge de la semaine</strong>
                     <p style="margin:8px 0 0 0; font-size:14px;color:#1a2b34;">
-                      Choisissez l’actif qui performera le mieux d’ici la fin de la semaine à venir (vendredi).
+                      {{Chall_description}}
                     </p>
                     <p style="margin:8px 0 0 0; font-size:14px;color:#1a2b34;">
                       Qui va mieux performer cette semaine : <strong>{{Actif1}}</strong> ou <strong>{{Actif2}}</strong> ?

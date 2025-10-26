@@ -19,6 +19,7 @@ class PortfolioAsset(Base):
     sold = Column(Boolean)
     
     portfolio = relationship("Portfolio", back_populates="passets")
+    asset = relationship("Asset", backref="portfolio_assets")
     
     def to_dict(self):
         return {"quantity": self.quantity, "buying_price": self.buying_price, "performance": self.performance, "performance_pct": self.performance_pct, "total_invest": self.total_invest, "sold":self.sold}
