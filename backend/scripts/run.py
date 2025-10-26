@@ -5,7 +5,7 @@ from app.services.weekly_notifs import send_weekly_notif_all_users
 
 
 def test(db):
-    notif(db)
+    send_weekly_notif_all_users(db)
 # --- Manual runner ---
 if __name__ == '__main__':
     import argparse

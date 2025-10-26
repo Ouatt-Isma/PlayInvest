@@ -185,7 +185,7 @@ def send_weekly_notif_all_users(db: Session):
         "Chall_description": description,
         }    
     for user in users:
-        if user.email == "harolddoue@gmail.com" or user.email == "ouattaraismael258852@gmail.com" :
+        # if user.email != "cewiney225@gmail.com" and user.email != "guyangejordan@gmail.com" :
             try:
                 subject = "Votre résumé hebdomadaire sur PlayInvest 🚀"
                 
