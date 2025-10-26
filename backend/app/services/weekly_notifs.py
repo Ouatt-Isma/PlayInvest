@@ -89,8 +89,6 @@ def get_data(db, user):
         .order_by(desc(Performance.date))
         .first()
     ).global_perf
-    
-    print(latest_perf)
 
     # Weekly performance (compare to value 7 days ago)
     week_ago_perf = (

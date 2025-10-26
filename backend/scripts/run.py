@@ -1,11 +1,11 @@
-from recurring import assets, perf, challenge, challenge_seed, challenge_res, news, assets_first, log, get_db
+from recurring import assets, perf, challenge, challenge_seed, challenge_res, news, assets_first, log, get_db, notif
 from app.services.update_assets import update_assets_brvm
 from app.services.weekly_notifs import send_weekly_notif_all_users
 
 
 
 def test(db):
-    send_weekly_notif_all_users(db)
+    notif(db)
 # --- Manual runner ---
 if __name__ == '__main__':
     import argparse

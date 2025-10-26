@@ -18,6 +18,7 @@ from app.services.update_news import add_news
 from app.services.challenges_scheduler import seed_next_week
 from app.services.challenge_result import update_all_challenge_result
 from app.utils.email import send_admin_issue
+from app.services.weekly_notifs import send_weekly_notif_all_users
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -110,6 +111,14 @@ def perf():
         log.exception("perf() failed")
         asyncio.run(send_admin_issue("PERFS UPDATE"))
 
+def notif():
+    try:
+        with get_db() as db:
+            send_weekly_notif_all_users(db)
+        log.info("notif() completed")
+    except Exception as e:
+        log.exception("notif() failed")
+        asyncio.run(send_admin_issue("notif send"))
 # --- Scheduler setup ---
 def main():
     tz = TZ_GMT
@@ -124,9 +133,10 @@ def main():
     scheduler.add_job(assets,   trigger='cron', hour=23, id="assets_daily",   replace_existing=True)
     scheduler.add_job(perf,     trigger='cron', hour=12, id="perf_daily",     replace_existing=True)
  
-    scheduler.add_job(challenge_seed, trigger='cron', day_of_week='sat', hour=10, id="challenge_saturday_10_seed", replace_existing=True)
+    scheduler.add_job(challenge_seed, trigger='cron', day_of_week='sat', hour=11, id="challenge_saturday_10_seed", replace_existing=True)
     scheduler.add_job(challenge_res, trigger='cron', day_of_week='fri', hour=23, minute=59, id="challenge_fri_23_res", replace_existing=True)
-    
+    scheduler.add_job(notif, trigger='cron', day_of_week='sat', hour=10, id="notif_sat_10", replace_existing=True)
+        
     # Graceful shutdown
     def _shutdown(signum, frame):
         log.info("Received signal %s, shutting down scheduler...", signum)
