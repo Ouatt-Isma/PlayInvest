@@ -136,7 +136,10 @@ def update_all_assets_first(db: Session):
 
     db.close()
     
-def update_assets_from_csv(db: Session, folder_path="backend/app/services/Historique-_-BRVM"):
+def update_assets_brvm(db: Session):
+    return update_assets_from_csv(db)
+
+def update_assets_from_csv(db: Session, folder_path="backend/app/services/Historique BRVM"):
    # Iterate over all CSV files in the folder
     for filename in os.listdir(folder_path):
         # Ensure that the file is a CSV and the filename matches a symbol
@@ -162,13 +165,16 @@ def update_assets_from_csv(db: Session, folder_path="backend/app/services/Histor
                     continue
 
                 # Prepare existing dates for deduplication
-                existing = []
+                existing = asset.financial_data if isinstance(asset.financial_data, list) else []
+                existing_dates = {d.get("date") for d in existing}
 
                 added = 0
                 # Process each row of the CSV
                 for _, row in data.iterrows():
                     # Convert the Date format to %Y-%m-%d
                     entry_date = pd.to_datetime(row['Date'], format='%d/%m/%Y').strftime('%Y-%m-%d')
+                    if entry_date in existing_dates:
+                        continue
                     new_data = {
                         "date": entry_date,
                         "open": to_float_inv(row['Ouv.']),

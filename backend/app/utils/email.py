@@ -5,6 +5,23 @@ from app.core.config import settings
 
 from email.message import EmailMessage
 
+async def send_email(to: str, subject, content:str):
+    message = EmailMessage()
+    message["From"] = f"PlayInvest <{settings.EMAIL}>"
+    message["To"] = to
+    message["Subject"] = subject
+    message.add_alternative(content, subtype="html")
+
+    await aiosmtplib.send(
+        message,
+        hostname=settings.hostname,
+        port=settings.port,
+        start_tls=settings.start_tls,
+        username=settings.EMAIL,
+        password=settings.EMAIL_PWD  # Use app password for Gmail
+    )
+
+
 async def send_confirmation_email(to_email: str, username: str, token: str):
     message = EmailMessage()
     message["From"] = f"PlayInvest <{settings.EMAIL}>"
