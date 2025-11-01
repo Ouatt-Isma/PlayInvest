@@ -160,10 +160,12 @@ def update_assets_from_csv(db: Session, folder_path="backend/app/services/Histor
                 data = pd.read_csv(csv_path, converters={'Ouv.': lambda x: str(x), "Dernier": lambda x: str(x)})
 
                 # Ensure the CSV has necessary columns
-                if 'Date' not in data.columns or 'Ouv.' not in data.columns or 'Dernier' not in data.columns:
+                if 'Date' not in data.columns or 'Ouv.' not in data.columns:
                     print(f"[⏭] Missing necessary columns in {filename}. Skipping.")
                     continue
-
+                not_dernier = False
+                if 'Dernier' not in data.columns:
+                    not_dernier = True 
                 # Prepare existing dates for deduplication
                 existing = asset.financial_data if isinstance(asset.financial_data, list) else []
                 existing_dates = {d.get("date") for d in existing}
@@ -175,10 +177,11 @@ def update_assets_from_csv(db: Session, folder_path="backend/app/services/Histor
                     entry_date = pd.to_datetime(row['Date'], format='%d/%m/%Y').strftime('%Y-%m-%d')
                     if entry_date in existing_dates:
                         continue
+
                     new_data = {
                         "date": entry_date,
                         "open": to_float_inv(row['Ouv.']),
-                        "close": to_float_inv(row['Dernier']),
+                        "close": to_float_inv(row['Ouv.']) if not_dernier else to_float_inv(row['Dernier']),
                         # "open": row['Ouv.'],
                         # "close": row['Dernier'],
                     }

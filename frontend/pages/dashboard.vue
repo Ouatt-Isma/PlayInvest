@@ -12,10 +12,10 @@
       </div>
 
       <NuxtLink
-        to="/assets"
+        to="/tutoriel"
         class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700 text-center"
       >
-        Investir
+        Tutoriel
       </NuxtLink>
     </div>
 
