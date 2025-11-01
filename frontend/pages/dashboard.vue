@@ -12,7 +12,7 @@
       </div>
 
       <NuxtLink
-        to="/tutoriel"
+        to="/tutoriel.html"
         class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700 text-center"
       >
         Tutoriel
