@@ -135,7 +135,7 @@ def main():
  
     scheduler.add_job(challenge_seed, trigger='cron', day_of_week='sat', hour=11, id="challenge_saturday_10_seed", replace_existing=True)
     scheduler.add_job(challenge_res, trigger='cron', day_of_week='fri', hour=23, minute=59, id="challenge_fri_23_res", replace_existing=True)
-    scheduler.add_job(notif, trigger='cron', day_of_week='sat', hour=10, id="notif_sat_10", replace_existing=True)
+    scheduler.add_job(notif, trigger='cron', day_of_week='sat', hour=14, minute=24, id="notif_sat_10", replace_existing=True)
         
     # Graceful shutdown
     def _shutdown(signum, frame):
