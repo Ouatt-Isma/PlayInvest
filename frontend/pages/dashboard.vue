@@ -11,12 +11,11 @@
         </p>
       </div>
 
-      <NuxtLink
-        to="/tutoriel.html"
+      <a href="/tutoriel.html"
         class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700 text-center"
       >
         Tutoriel
-      </NuxtLink>
+    </a>
     </div>
 
     <div class="space-y-10">
