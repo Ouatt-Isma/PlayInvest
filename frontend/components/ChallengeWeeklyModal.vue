@@ -12,28 +12,31 @@
         <div class="flex items-start justify-between gap-4">
           <div>
             <h3 id="challenge-title" class="text-xl font-bold">Challenge de la semaine</h3>
-            <p class="text-sm text-gray-500">Choisissez l’actif qui performera le mieux d’ici la fin de la semaine à venir (vendredi). Vous devez faire votre choix durant le week end.</p>
+            <p class="text-sm text-gray-500">Choisissez l’actif qui performera le mieux d’ici la fin de la semaine à venir (vendredi).</p>
             <p class="text-sm text-gray-600 mt-2" v-if="serverDescription">{{ serverDescription }}</p>
           </div>
           <button @click="close" aria-label="Fermer" class="p-2 rounded hover:bg-gray-100">✕</button>
         </div>
 
-        <!-- Countdown -->
-        <div class="mt-3 text-sm">
-          <!-- <span class="text-gray-500" v-if="isBetweenPick">Résultats vendredi 23h59 GMT</span> -->
-           <div v-if="isBetweenPick">
-          <span class="text-red-500">Clôture dimanche 23h59 GMT:</span>
-          <span class="ml-2 font-semibold">
+         <ul class="bullets">
+          <li>
+            <span class="emoji" aria-hidden="true">🗳️</span>
+            Vous pouvez voter <strong>du samedi au dimanche (23h59 GMT)</strong>,
+            avant le début de la nouvelle semaine boursière. <span class="ml-2 font-semibold">
             {{ countdown_selec.d }}j {{ countdown_selec.h }}h {{ countdown_selec.m }}m {{ countdown_selec.s }}s
           </span>
-          </div>
-          <div>
-          <span class="text-gray-500">Résultats vendredi 23h59 GMT:</span>
-          <span v-if="!error" class="ml-2 font-semibold">
+          </li>
+          <li>
+            <span class="emoji" aria-hidden="true">📊</span>
+            <strong>Période de performance suivie</strong> : du lundi au vendredi. <span v-if="!error" class="ml-2 font-semibold">
             {{ countdown.d }}j {{ countdown.h }}h {{ countdown.m }}m {{ countdown.s }}s
           </span>
-          </div>
-        </div>
+          </li>
+          <li>
+            <span class="emoji" aria-hidden="true">📈</span>
+            <strong>Résultats publiés</strong> : vendredi à <strong>23h59 GMT</strong>
+          </li>
+        </ul>
 
         <!-- Already picked notice -->
         <div
