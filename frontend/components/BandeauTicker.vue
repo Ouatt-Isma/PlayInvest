@@ -61,7 +61,7 @@ const animationStyle = computed(() => {
 <style>
 .ticker-wrapper {
   position: fixed;  
-  z-index: 900;  
+  z-index: 100;  
   overflow: hidden;
   white-space: nowrap;
   background: rgba(1, 27, 45, 0.7); /* 50% opacity */

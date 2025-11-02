@@ -1,4 +1,5 @@
 <template>
+  <div>
   <button
     type="button"
     class="group w-full text-left rounded-2xl border p-4 shadow-sm transition
@@ -48,16 +49,52 @@
       </svg>
     </div>
   </button>
+  <button 
+    class="text-blue-600 hover:underline hover:text-blue-800"
+    @click="trade(asset)"
+  >
+    Voir Plus
+  </button>
+  </div>
+  <AssetDetailsModal
+      :visible="showModal"
+      :asset="selectedAsset"
+      :formatCurrency="formatCurrency"
+      @close="showModal = false"
+      @confirm="onConfirmTrade"
+    />
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import AssetDetailsModal from '@/components/Actifs/AssetDetailsModal.vue'
 
 const props = defineProps({
   asset: { type: Object, required: true },
   selected: { type: Boolean, default: false }
 })
 defineEmits(['select'])
+
+const selectedAsset = ref(null)
+const showModal = ref(false)
+
+function trade(asset) {
+  selectedAsset.value = asset
+  showModal.value = true
+}
+
+/** Trade confirm handler **/
+async function onConfirmTrade({ asset, amount }) {
+  try {
+    // TODO: replace with your real API/composable call:
+    // await invest(asset.id, amount)
+    console.log('Trade confirmed:', asset.symbol, 'amount:', amount)
+    // showNotification('success', 'Achat effectué avec succès !')
+  } catch (e) {
+    console.error(e)
+    // showNotification('error', e?.message || 'Erreur pendant le trade')
+  }
+}
 
 /**
  * Backend sample:
