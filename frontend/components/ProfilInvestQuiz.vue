@@ -167,18 +167,18 @@ function calculateProfile() {
 }
 
 async function sendRewardAndResult(profile, score) {
-  const token = localStorage.getItem("token");
-  const fieldName = "profil_investisseur_completed";
-  const amount = 100;
-
   try {
     const token = useCookie("token").value
     // Save quiz result
     await axios.post(
-      `${apiBase}/api/profile_quiz_result?profile=${profile.name}&score=${score}/`,
-      { headers: { Authorization: `Bearer ${token}` } }
+      `${apiBase}/api/profile_quiz_result?profile=${encodeURIComponent(profile.name)}&score=${score}`,
+      null, // No request body → set to null
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-
     // Reward the user
     
     const response = await axios.get(`${apiBase}/api/reward?field_name=profile`,{

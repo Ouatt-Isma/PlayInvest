@@ -8,7 +8,7 @@
       </h1>
 
       <router-link
-        to="/"
+        to="/dashboard"
         class="text-blue-600 hover:underline text-sm sm:text-base"
       >
         ← Retour au tableau de bord

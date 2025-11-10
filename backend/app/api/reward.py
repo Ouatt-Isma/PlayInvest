@@ -27,7 +27,7 @@ def reward_user(
 
     # If the field is already True, don't reward again
     if field_value:
-        return {"message": "Prime déjà créditée!."}
+        return {"message": "Prime déjà créditée!"}
 
     # Otherwise, set the field to True and increase cash
     setattr(current_user, field_name, True)
