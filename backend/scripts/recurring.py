@@ -21,7 +21,9 @@ from app.utils.email import send_admin_issue
 from app.services.weekly_notifs import send_weekly_notif_all_users
 
 from apscheduler.schedulers.blocking import BlockingScheduler
-
+# ✅ Import and call the penalty function
+from app.services.inflation_simulator import penalize_inactive_users, notify_users
+            
 # --- Logging ---
 logging.basicConfig(
     level=logging.INFO,
@@ -119,6 +121,66 @@ def notif():
     except Exception as e:
         log.exception("notif() failed")
         asyncio.run(send_admin_issue("notif send"))
+        
+def inflation():
+    """
+    Penalize users with no transactions in the previous month (-2% cash).
+    """
+    try:
+        with get_db() as db:
+            current_date = datetime.now(TZ_GMT)
+
+            # ✅ Compute previous month/year
+            if current_date.month == 1:
+                month = 12
+                year = current_date.year - 1
+            else:
+                month = current_date.month - 1
+                year = current_date.year
+            log.info(
+                f"inflation() running on {month}/{year}"
+            )
+            result = penalize_inactive_users(db, month, year)
+
+            log.info(
+                f"inflation() completed: {result['message']}"
+            )
+
+    except Exception as e:
+        log.exception("inflation() failed")
+        asyncio.run(send_admin_issue("INFLATION PENALTY UPDATE"))
+
+    
+def inflation_notify():
+    """
+    Penalize users with no transactions in the previous month (-2% cash).
+    """
+    try:
+        with get_db() as db:
+            current_date = datetime.now(TZ_GMT)
+
+            # ✅ Compute previous month/year
+            if current_date.month == 1:
+                month = 12
+                year = current_date.year - 1
+            else:
+                month = current_date.month - 1
+                year = current_date.year
+            log.info(
+                f"inflation_notify() running on {month}/{year}"
+            )
+            result = notify_users(db, month, year)
+
+            log.info(
+                f"inflation_notify() completed: {result['message']}"
+            )
+
+    except Exception as e:
+        log.exception("inflation_notify() failed")
+        asyncio.run(send_admin_issue("INFLATION NOTIFICATION ISSUE"))
+
+
+
 # --- Scheduler setup ---
 def main():
     tz = TZ_GMT
@@ -136,7 +198,21 @@ def main():
     scheduler.add_job(challenge_seed, trigger='cron', day_of_week='sat', hour=11, id="challenge_saturday_10_seed", replace_existing=True)
     scheduler.add_job(challenge_res, trigger='cron', day_of_week='fri', hour=23, minute=59, id="challenge_fri_23_res", replace_existing=True)
     scheduler.add_job(notif, trigger='cron', day_of_week='sat', hour=10, minute=00, id="notif_sat_10", replace_existing=True)
-        
+    scheduler.add_job(
+    inflation,
+    trigger='cron',
+    day=2,          # Run every 2nd day of the month
+    hour=8,         # Choose a safe hour, e.g. 8:00 AM
+    minute=0, id="inflation_monthly_2", replace_existing=True)
+    
+    scheduler.add_job(
+    inflation_notify,
+    trigger='cron',
+    day=27,          # Run every 27th day of the month
+    hour=9,         # Choose a safe hour, e.g. 9:00 AM
+    minute=0, id="inflation_notify_monthly_27", replace_existing=True)
+    
+    
     # Graceful shutdown
     def _shutdown(signum, frame):
         log.info("Received signal %s, shutting down scheduler...", signum)

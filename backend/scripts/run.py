@@ -1,11 +1,13 @@
-from recurring import assets, perf, challenge, challenge_seed, challenge_res, news, assets_first, log, get_db, notif
+from recurring import assets, perf, challenge, challenge_seed, challenge_res, news, assets_first, log, get_db, inflation, inflation_notify
 from app.services.update_assets import update_assets_brvm
 from app.services.weekly_notifs import send_weekly_notif_all_users
 
 
 
-def test(db):
-    send_weekly_notif_all_users(db)
+# def test(db):
+#     send_weekly_notif_all_users(db)
+def test():
+    inflation_notify()
 # --- Manual runner ---
 if __name__ == '__main__':
     import argparse
@@ -13,7 +15,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run maintenance tasks manually")
     parser.add_argument(
         "task",
-        choices=["assets_first", "assets", "perf", "challenge", "news", "seed", "result", "assets_brvm", "test"],
+        choices=["assets_first", "assets", "perf", "challenge", "news", "seed", "result", "assets_brvm", "test", ],
         help="Which task to run"
     )
     args = parser.parse_args()
@@ -43,7 +45,7 @@ if __name__ == '__main__':
     elif args.task == "test":
         try:
             with get_db() as db:
-                test(db)
+                test()
             log.info("Test completed")
         except Exception as e:
             log.exception("Test() failed")

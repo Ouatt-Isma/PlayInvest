@@ -128,3 +128,42 @@ Problème à voir urgemment,
         username=settings.EMAIL,
         password=settings.EMAIL_PWD
     )
+
+async def send_inactivity_warning_email(to_email: str, username: str):
+    """
+    Envoie un email à l'utilisateur pour l'avertir d'une inactivité avant la fin du mois.
+    """
+    # Format percentage nicely (ex: 0.02 -> "2%")
+    inflation_percent = f"{settings.INFLATION * 100:.0f}%"
+
+    message = EmailMessage()
+    message["From"] = f"PlayInvest <{settings.EMAIL}>"
+    message["To"] = to_email
+    message["Subject"] = "📉 Avertissement : activité faible sur votre compte PlayInvest"
+
+    message.set_content(f"""
+Bonjour {username},
+
+Nous sommes déjà le 27 du mois, et nous avons remarqué que vous n'avez effectué aucune opération sur votre portefeuille PlayInvest ce mois-ci.
+
+💡 Pour rappel, afin de simuler les effets des frais de gestionn lié au portefeuille inactif,
+votre cash disponible subira une diminution automatique de {inflation_percent} si aucune transaction n’est réalisée avant la fin du mois.
+
+👉 Pensez à effectuer un achat ou une vente pour éviter cette perte et maintenir la performance de votre portefeuille !
+
+Connectez-vous dès maintenant sur votre espace PlayInvest :
+{settings.FRONTEND_URL}/dashboard
+
+Bonne gestion,
+L’équipe PlayInvest
+""")
+
+    # --- Send using SMTP ---
+    await aiosmtplib.send(
+        message,
+        hostname=settings.hostname,
+        port=settings.port,
+        start_tls=settings.start_tls,
+        username=settings.EMAIL,
+        password=settings.EMAIL_PWD
+    )

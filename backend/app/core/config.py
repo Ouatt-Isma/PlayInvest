@@ -31,7 +31,7 @@ class Settings:
     ALGORITHM = "HS256"
     
     SECURITY_PASSWORD_SALT = "reset-password-salt"
-    
+    INFLATION = 0.02 #2%
     port = 587
     start_tls = True
     amount_godfather = 50
