@@ -12,6 +12,7 @@
       </div>
 
       <a href="/tutoriel.html"
+        @click.prevent="claimReward"
         class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700 text-center"
       >
         Tutoriel
@@ -57,6 +58,7 @@
         <!-- Right column: Simulator -->
         <div class="space-y-6">
           <PastPerfSimulator />
+          <ProfilInvestIntro />
         </div>
       </div>
     </div>
@@ -151,6 +153,7 @@
 definePageMeta({
   requiresAuth: true,  
 })
+import ProfilInvestIntro from "~/components/ProfilInvestIntro.vue"
 import Portfolio from '~/components/Portfolio.vue'
 import InvestmentHistory from '~/components/InvestmentHistory.vue'
 import PastPerfSimulator from '~/components/PastPerfSimulator.vue'
@@ -211,4 +214,27 @@ onMounted(async () => {
   
   }
 })
+
+
+
+async function claimReward() {
+
+  try {
+    const token = useCookie("token").value
+    const response = await axios.get(`${apiBase}/api/reward?field_name=tutorial`,{
+    headers: {
+      Authorization: `Bearer ${token}`  // assure-toi que `token` est défini
+    }
+  })
+    alert(response.data.message);
+  } catch (error) {
+    if (error.response) {
+      alert(`Error: ${error.response.data.detail || error.response.data.message}`);
+    } else {
+      alert("An unexpected error occurred.");
+    }
+  }
+  window.location.href = "/tutoriel.html";
+}
+
 </script>

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from . import users, quizzes, register, confirm_email, login, referrals, assets, graph, portfolio, investments, performance, pastperf, articles, news, ranking, challenge
+from . import users, quizzes, register, confirm_email, login, referrals, assets, graph, portfolio, investments, performance, pastperf, articles, news, ranking, challenge, reward
 from .Users import me 
 
 router = APIRouter()
@@ -22,3 +22,4 @@ router.include_router(articles.router, prefix="/api", tags=["articles"])
 router.include_router(news.router, prefix="/api", tags=["news"])
 router.include_router(ranking.router, prefix="/api", tags=["ranking"])
 router.include_router(challenge.router, prefix="/api", tags=["challenges"])
+router.include_router(reward.router, prefix="/api", tags=["/reward", "/profile_quiz_result"])

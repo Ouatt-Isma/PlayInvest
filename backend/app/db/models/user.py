@@ -35,5 +35,10 @@ class User(Base):
     uid = Column(String, unique=True, index=True, default=lambda: str(uuid.uuid4()))
     portfolios = relationship('Portfolio', back_populates='user')
     
+    tutorial = Column(Boolean, default=False)
+    profile = Column(Boolean, default=False)
+    investor_score = Column(Integer, nullable=True)  
+    profile_level = Column(String, nullable=True)
+    
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
