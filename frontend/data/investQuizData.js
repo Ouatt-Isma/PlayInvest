@@ -114,7 +114,7 @@ export const profiles = [
     desc:"Vous cherchez un équilibre intelligent entre sécurité et rendement. Vous acceptez un risque modéré pour obtenir de meilleurs rendements, sans excès.",
     alloc:["40% : Obligations (stables)","40% : Actions mondiales (ETF diversifiés)","20% : Liquidités (épargne de sécurité)"],
     biases:["Ancrage : se fixer sur un rendement passé","Biais de confirmation : ne lire que ce qui confirme son idée","Timer le marché : vouloir acheter/vendre au ‘bon moment’"],
-    learning:["Rééquilibrer son portefeuille 1 fois/an","Diversifier davantage par zones et secteurs","Se fixer des objectifs de rendement réalistes"],
+    learning:["Rééquilibrer son portefeuille régulièrement","Diversifier davantage par zones et secteurs","Se fixer des objectifs de rendement réalistes"],
     risks:["Acheter ou vendre sous l’émotion","Trop peu d’actions pour le long terme","Accumuler des placements qui se ressemblent"]
   },
   {

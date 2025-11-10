@@ -78,3 +78,7 @@ def save_quiz_result(
             "score": score,
         }
     }
+
+@router.get("/investor_profil")
+def investor_profil( db: Session = Depends(get_db),current_user: User = Depends(get_current_user)):
+    return {"profile_level": current_user.profile_level}
