@@ -32,7 +32,7 @@
       <!-- ✅ ELSE: if no profile yet -->
       <div v-else class="flex items-center gap-4 flex-wrap mb-4">
         <a
-          href="/profil-investisseur/test"
+          href="/profil-investisseur"
           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2"
         >
           👉 Faire le test maintenant
