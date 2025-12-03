@@ -37,7 +37,6 @@
         >
           👉 Faire le test maintenant
         </a>
-
         <span
           class="bg-green-100 text-green-800 font-semibold border border-green-300 px-3 py-1 rounded-full text-sm"
         >

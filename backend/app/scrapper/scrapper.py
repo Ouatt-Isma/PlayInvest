@@ -5,7 +5,7 @@ import time
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
-from app.utils.conv import to_float_inv
+# from app.utils.conv import to_float_inv
 # Set up Chrome options
 options = Options()
 options.add_argument("--headless=new")
@@ -54,7 +54,57 @@ def get(url):
     # Close the browser window
     driver.quit()
     
-    return {"date": formatted_date, "open": to_float_inv(open_value), "close": to_float_inv(close_value)}
+    # return {"date": formatted_date, "open": to_float_inv(open_value), "close": to_float_inv(close_value)}
 
+
+def clean_number(value):
+    """Convert Sika formatted numbers like '25 950' to float 25950.0"""
+    value = value.replace('\xa0', '').replace(' ', '')
+    if value in ["-", ""]:
+        return None
+    return float(value)
+
+def get_sika(url):
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=options
+    )
+
+    driver.get(url)
+    html = driver.page_source
+    driver.quit()
+
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # The correct table for the historical data
+    table = soup.find("table", {"id": "tblhistos"})
+    if table is None:
+        raise Exception("Historical table not found")
+
+    rows = table.find_all("tr")
+    if len(rows) < 2:
+        raise Exception("No data rows found")
+
+    # First data row (after header)
+    first_row = rows[1]
+    columns = first_row.find_all("td")
+
+    date_str = columns[0].text.strip()
+    close_value = columns[1].text.strip()     # Clôture
+    open_value = columns[4].text.strip()      # Ouverture
+
+    # Convert date
+    date_obj = datetime.strptime(date_str, "%d/%m/%Y")
+    formatted_date = date_obj.strftime("%Y-%m-%d")
+
+    return {
+        "date": formatted_date,
+        "open": clean_number(open_value),
+        "close": clean_number(close_value)
+    }
 def test():
-    print(get('https://fr.investing.com/equities/societe-generale-de-banques-historical-data'))
+    # print(get_sika('https://fr.investing.com/equities/societe-generale-de-banques-historical-data'))
+    print(get_sika("https://www.sikafinance.com/marches/historiques/SNTS.sn"))
