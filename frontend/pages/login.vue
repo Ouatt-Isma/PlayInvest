@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
 import LoginForm from '~/components/LoginForm.vue'
 import { useAuth } from '~/composables/useAuth'
@@ -8,6 +7,8 @@ import { useAuth } from '~/composables/useAuth'
 definePageMeta({
   guestOnly: true,
 })
+
+const { $axios } = useNuxtApp()
 
 const error = ref<string | null>(null)
 const success = ref<string | null>(null)
@@ -18,10 +19,8 @@ const { login } = useAuth()
 
 const submitLogin = async ({ email, password }: { email: string; password: string }) => {
   try {
-    const config = useRuntimeConfig()
-    const apiBase = config.public.apiBase
+    const res = await $axios.post('/api/login', { email, password }) // ⭐ Use injected axios
 
-    const res = await axios.post(`${apiBase}/api/login`, { email, password })
     const { token, ...user } = res.data
 
     if (!user.validated) {
@@ -33,9 +32,11 @@ const submitLogin = async ({ email, password }: { email: string; password: strin
     }
 
     login(user, token)
+
     success.value = "Connexion réussie !"
     error.value = null
     showToast.value = true
+
     setTimeout(() => {
       router.push('/dashboard')
     }, 0)
