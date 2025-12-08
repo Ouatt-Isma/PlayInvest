@@ -8,23 +8,23 @@ from datetime import datetime
 # from app.utils.conv import to_float_inv
 import tempfile 
 # Set up Chrome options
-options = Options()
-options.add_argument("--headless=new")
-options.add_argument("--disable-gpu")
-options.add_argument("--no-sandbox")
-options.add_argument("--window-size=1920,1080")
-options.add_argument("user-agent=Mozilla/5.0")
-profile_dir = tempfile.mkdtemp()
-options.add_argument(f"--user-data-dir={profile_dir}")
+def create_driver():
+    options = Options()
+    options.add_argument("--headless=new")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("user-agent=Mozilla/5.0")
+
+    # UNIQUE PROFILE FOR THIS SESSION
+    profile_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={profile_dir}")
+
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
 
 def get(url):
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-    # Create a webdriver instance
-    driver = webdriver.Chrome(options=options)
-
-
-    # Open the page in the browser
+    driver = create_driver()   # ← unique profile per call
     driver.get(url)
 
     html = driver.page_source
