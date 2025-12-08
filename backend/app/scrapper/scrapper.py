@@ -16,7 +16,6 @@ options.add_argument("--window-size=1920,1080")
 options.add_argument("user-agent=Mozilla/5.0")
 profile_dir = tempfile.mkdtemp()
 options.add_argument(f"--user-data-dir={profile_dir}")
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 def get(url):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
