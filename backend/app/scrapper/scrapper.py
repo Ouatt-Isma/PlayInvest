@@ -68,14 +68,7 @@ def clean_number(value):
     return float(value)
 
 def get_sika(url):
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-
-    driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
-        options=options
-    )
-
+    driver = create_driver()
     driver.get(url)
     html = driver.page_source
     driver.quit()
