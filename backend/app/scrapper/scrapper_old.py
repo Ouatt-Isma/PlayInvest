@@ -10,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time 
+import tempfile
 
 def get_brvm_asset_investing(asset_keyword: str):
     url = "https://fr.investing.com/equities/ivory-coast"
@@ -21,6 +22,9 @@ def get_brvm_asset_investing(asset_keyword: str):
     options.add_argument("--window-size=1920,1080")
     options.add_argument("user-agent=Mozilla/5.0")
 
+
+    profile_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={profile_dir}")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     
