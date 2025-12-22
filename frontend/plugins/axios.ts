@@ -5,13 +5,17 @@ export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
   const { token, logout, isTokenExpired } = useAuth()
 
+  // ⭐ IMPORTANT FIX
+  const baseURL = process.server
+    ? config.apiBase          // SSR → Node → IPv4
+    : config.public.apiBase   // Browser
+
   const api = axios.create({
-    baseURL: config.public.apiBase,
+    baseURL,
     withCredentials: true,
     timeout: 15000,
   })
 
-  // Attach token + check expiration
   api.interceptors.request.use((req) => {
     const jwt = token.value
 
@@ -37,7 +41,6 @@ export default defineNuxtPlugin(() => {
     return req
   })
 
-  // Auto logout on backend 401
   api.interceptors.response.use(
     res => res,
     err => {

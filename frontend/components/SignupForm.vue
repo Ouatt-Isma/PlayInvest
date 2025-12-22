@@ -57,6 +57,17 @@ const handleSubmit = () => {
   const { confirm_password, ...dataToSubmit } = form
   props.submitForm(dataToSubmit)
 }
+
+const signupWithGoogle = () => {
+  const config = useRuntimeConfig()
+  window.location.href = `${config.public.apiBase}/api/auth/google`
+}
+
+const signupWithFacebook = () => {
+  const config = useRuntimeConfig()
+  window.location.href = `${config.public.apiBase}/api/auth/facebook`
+}
+
 </script>
 
 <template>
@@ -247,9 +258,22 @@ const handleSubmit = () => {
       </div> 
     </div> 
     <div class="flex gap-4 justify-between"> 
-      <NuxtLink to="/account" class="w-full border py-2 rounded-lg flex justify-center items-center gap-2"> <img src="/logos/google.webp" class="h-5" /> <span>Google</span> 
-      </NuxtLink> 
-      <NuxtLink to="/account" class="w-full border py-2 rounded-lg flex justify-center items-center gap-2"> <img src="/logos/facebook.webp" class="h-5" /> <span>Facebook</span> </NuxtLink> 
+      <button
+        @click="signupWithGoogle"
+        class="w-full border py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-gray-50"
+      >
+        <img src="/logos/google.webp" class="h-5" />
+        <span>Google</span>
+      </button>
+
+      <!-- <button
+        @click="signupWithFacebook"
+        class="w-full border py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-gray-50"
+      >
+        <img src="/logos/facebook.webp" class="h-5" />
+        <span>Facebook</span>
+      </button> -->
+
     </div> <p class="text-center text-sm text-gray-500"> Vous avez déjà un compte ? <a href="/login" class="text-teal-700 font-medium hover:underline">Connectez-vous</a> </p> 
   </div>
 </template>

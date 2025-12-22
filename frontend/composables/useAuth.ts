@@ -8,6 +8,7 @@ interface LightUser {
   email: string
   name: string
   avatar_url?: string
+  provider?: 'local' | 'google' | 'facebook'
 }
 
 const user = ref<LightUser | null>(null)
@@ -167,16 +168,29 @@ export function useAuth() {
   // COMPUTED: IS THE USER LOGGED IN?
   // ----------------------------------------------------
   const isAuthenticated = computed(() => !!user.value && !!token.value)
+  async function loginWithToken(authToken: string) {
+  const { $axios } = useNuxtApp()
 
+  const config = useRuntimeConfig()
+  const apiBase = config.public.apiBase 
+  // Fetch user from backend
+  const res = await $axios.post(`${apiBase}/api/auth/google/exchange`, { token })
+
+  const { token: jwt, ...user } = res.data
+
+  login(user, jwt)
+  router.push('/dashboard')
+  }
   return {
     user,
     token,
     isInitialized,
     init,
     login,
+    loginWithToken, 
     logout,
     checkAuth,
     isAuthenticated,
-    isTokenExpired, // exposed for axios plugin
+    isTokenExpired, 
   }
 }

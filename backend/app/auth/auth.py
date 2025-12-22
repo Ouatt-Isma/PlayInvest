@@ -28,6 +28,7 @@ def get_current_user(request: Request, db: Session = Depends(get_db)) -> User:
     print(uid)
     user = db.query(User).filter(User.uid == uid).first()
     if not user:
+        print("not user")
         raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
-
+    print("user")
     return user

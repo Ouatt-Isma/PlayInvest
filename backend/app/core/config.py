@@ -18,6 +18,11 @@ class Settings:
     # EMAIL = "ouattaraismael258852@gmail.com"
     # EMAIL_PWD = "gnem sunc xoqn kpak"
     # hostname = "smtp.gmail.com"
+    NUXT_PUBLIC_API_BASE = os.getenv("NUXT_PUBLIC_API_BASE", "https://www.playinvest-hd.com")  
+    GOOGLE_CLIENT_ID=os.getenv("GOOGLE_CLIENT_ID")
+    GOOGLE_CLIENT_SECRET=os.getenv("GOOGLE_CLIENT_SECRET")
+    GOOGLE_REDIRECT_URI=NUXT_PUBLIC_API_BASE+"/api/auth/google/callback"
+    # GOOGLE_REDIRECT_URI="https://www.playinvest-hd.com/api/auth/google/callback"
     
     EMAIL = "ne-pas-repondre@playinvest-hd.com"
     EMAIL_PWD = "Play1nvest"
@@ -47,6 +52,8 @@ class Settings:
     minimum_asset = 0.01 
     fees = {"STOCK": {"EU": 0.0065, "US": 0.0140, "WORLD": 0.0145, "AFRIQUE": 0.0185}, "CRYPTO": 0.0175, "ETF": 0.002} #fees
     log = logging.getLogger("fastapi")
+    
+    
 
 settings = Settings()
 

@@ -8,6 +8,11 @@ const emit = defineEmits(['submit'])
 const handleSubmit = () => {
   emit('submit', { email: email.value, password: password.value })
 }
+
+const loginWithGoogle = () => {
+  window.location.href = `${useRuntimeConfig().public.apiBase}/api/auth/google`
+}
+
 </script>
 
 <template>
@@ -53,21 +58,30 @@ const handleSubmit = () => {
     </div>
 
     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between">
-      <NuxtLink
+      <button
+        @click="loginWithGoogle"
+        class="w-full border py-2 sm:py-3 rounded-lg flex justify-center items-center gap-2 hover:bg-gray-50 transition"
+      >
+        <img src="/logos/google.webp" class="h-5 sm:h-6" />
+        <span class="text-sm sm:text-base">Google</span>
+      </button>
+
+
+      <!-- <NuxtLink
         to="/account"
         class="w-full border py-2 sm:py-3 rounded-lg flex justify-center items-center gap-2 hover:bg-gray-50 transition"
       >
         <img src="/logos/google.webp" class="h-5 sm:h-6" />
         <span class="text-sm sm:text-base">Google</span>
-      </NuxtLink>
+      </NuxtLink> -->
 
-      <NuxtLink
+      <!-- <NuxtLink
         to="/account"
         class="w-full border py-2 sm:py-3 rounded-lg flex justify-center items-center gap-2 hover:bg-gray-50 transition"
       >
         <img src="/logos/facebook.webp" class="h-5 sm:h-6" />
         <span class="text-sm sm:text-base">Facebook</span>
-      </NuxtLink>
+      </NuxtLink> -->
     </div>
 
     <p class="text-center text-sm text-gray-500">

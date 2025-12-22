@@ -13,11 +13,11 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
-    password_hash = Column(String, nullable=False)
+    password_hash = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     referrer_id = Column(String, nullable=True)
     validated = Column(Boolean, default=False)
-    confirmation_token = Column(String, nullable=False)
+    confirmation_token = Column(String, nullable=True)
     avatar_url = Column(String, default=settings.DEFAULT_AVATAR)
     first_name = Column(String, nullable=True)
     last_name = Column(String, nullable=True)
@@ -39,6 +39,7 @@ class User(Base):
     profile = Column(Boolean, default=False)
     investor_score = Column(Integer, nullable=True)  
     profile_level = Column(String, nullable=True)
+    provider = Column(String, default="local")  # local | google | facebook
     
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
