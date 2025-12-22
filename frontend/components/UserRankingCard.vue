@@ -33,6 +33,7 @@ const loading = ref(true)
 const error = ref('')
 const me = ref(null)     // { username, rank, score }
 const top3 = ref([])     // [{ username, rank, score }, ...]
+const totalUsers = ref(null)
 
 const fmtPct = (v) => `${Number(v ?? 0).toFixed(2)}%`
 
@@ -69,6 +70,8 @@ onMounted(async () => {
         rank: u[m.rank],
         score: u[m.score],
       }))
+    totalUsers.value = data?.total_users ?? null
+
   } catch (e) {
     error.value = 'Impossible de charger le classement.'
   } finally {
@@ -89,7 +92,13 @@ onMounted(async () => {
       <div class="mb-3 p-3 rounded-lg bg-slate-50 border">
         <div class="text-xs text-gray-500">Votre rang</div>
         <div class="flex items-baseline justify-between">
-          <div class="text-lg font-semibold">#{{ me?.rank ?? '—' }}</div>
+          <div class="text-lg font-semibold">
+            #{{ me?.rank ?? '—' }}
+            <span v-if="totalUsers" class="text-sm text-gray-500">
+              / {{ totalUsers }}
+            </span>
+          </div>
+
           <div class="text-sm text-gray-600">
             {{ me?.username ?? '—' }} — {{ fmtPct(me?.score ?? 0) }}
           </div>

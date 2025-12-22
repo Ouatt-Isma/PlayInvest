@@ -66,6 +66,8 @@ def get_ranking(
     me_pos = user_id_to_pos.get(current_user.id)
 
     me_entry = None
+    total_users = db.query(Portfolio).count()
+
     if me_pos is not None:
         print("MEPOSSSSSS")
         me_portfolio = next(r for r in ranking_list if r["user_id"] == current_user.id)
@@ -74,10 +76,12 @@ def get_ranking(
             "rank": me_portfolio["rank"],
             "score": me_portfolio["score"],
             "position": me_pos,
+            "total_users": total_users,
         }
 
 
     return {
         "currentUser": me_entry,
-        "top": ranking_list[:3]
+        "top": ranking_list[:3],
+        "total_users": total_users,
     }
