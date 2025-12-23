@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import LoginForm from '~/components/LoginForm.vue'
 import { useAuth } from '~/composables/useAuth'
 
@@ -15,6 +15,22 @@ const success = ref<string | null>(null)
 const showToast = ref(false)
 const router = useRouter()
 
+const route = useRoute()
+
+onMounted(() => {
+  if (route.query.error === 'account_exists_password') {
+    error.value =
+      "Ce compte existe déjà avec un mot de passe. Veuillez vous connecter avec votre email et votre mot de passe."
+    success.value = null
+    showToast.value = true
+
+    // Optional: auto-hide + clean URL
+    setTimeout(() => {
+      showToast.value = false
+      router.replace({ query: {} }) // remove ?error=...
+    }, 4000)
+  }
+})
 const { login } = useAuth()
 
 const submitLogin = async ({ email, password }: { email: string; password: string }) => {
