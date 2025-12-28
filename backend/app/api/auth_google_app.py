@@ -82,7 +82,7 @@ def google_exchange(
         db.commit()
 
     # 5️⃣ Issue YOUR backend JWT
-    jwt_token = create_access_token({"uid": str(user.id)})
+    jwt_token = create_access_token({"uid": str(user.uid)})
 
     return {
         "token": jwt_token,
