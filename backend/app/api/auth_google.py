@@ -98,10 +98,15 @@ def google_callback(code: str, db: Session = Depends(get_db)):
 
     jwt_token = create_access_token({"uid": str(user.id)})
 
+    redirect_url = settings.MOBILE_REDIRECT_URL or f"{settings.FRONTEND_URL}/auth/google/callback"
 
     return RedirectResponse(
-        f"{settings.FRONTEND_URL}/auth/google/callback?token={jwt_token}"
+        f"{redirect_url}?token={jwt_token}"
     )
+
+    # return RedirectResponse(
+    #     f"{settings.FRONTEND_URL}/auth/google/callback?token={jwt_token}"
+    # )
 
 
 
