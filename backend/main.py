@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 import os
+import app.core.firebase
 from app.core.paths import MEDIA_DIR
 app = FastAPI()
 # Serve files at /media/* from MEDIA_DIR

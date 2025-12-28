@@ -1,0 +1,5 @@
+# Firebase / Google Cloud secrets
+*.json
+!package.json
+!package-lock.json
+
