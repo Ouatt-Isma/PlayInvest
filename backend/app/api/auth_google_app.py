@@ -23,6 +23,7 @@ def google_exchange(
     payload: GoogleExchangeRequest,
     db: Session = Depends(get_db),
 ):
+    print("token: ", payload.token)
     # 1️⃣ Verify Firebase ID token
     try:
         decoded_token = firebase_auth.verify_id_token(payload.token)
