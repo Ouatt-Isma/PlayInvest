@@ -29,8 +29,40 @@ class Portfolio(Base):
     
     user = relationship(User, back_populates='portfolios')
     
-    def to_dict(self):
-        return {"cash": round(self.cash,2), "currency": self.currency}
+    def to_dict(
+        self,
+        include_transactions=False,
+        include_assets=False,
+        include_performances=False
+    ):
+        data = {
+            "id": self.id,
+            "user_id": self.user_id,
+            "name": self.name,
+            "cash": round(self.cash, 2) if self.cash is not None else 0.0,
+            "currency": self.currency,
+            "performance": round(self.performance, 2) if self.performance is not None else None,
+            "performance_pct": round(self.performance_pct, 2) if self.performance_pct is not None else None,
+            "rank": self.rank,
+            "updated_at": self.updated_at.isoformat() if isinstance(self.updated_at, datetime) else None,
+        }
+
+        if include_transactions:
+            data["transactions"] = [
+                t.to_dict() for t in self.transactions
+            ]
+
+        if include_assets:
+            data["assets"] = [
+                a.to_dict() for a in self.passets
+            ]
+
+        if include_performances:
+            data["performances"] = [
+                p.to_dict() for p in self.performances
+            ]
+
+        return data
 
 
 
