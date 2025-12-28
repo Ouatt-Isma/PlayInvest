@@ -17,3 +17,4 @@ webdriver-manager
 tldextract
 pillow
 apscheduler
+firebase-admin

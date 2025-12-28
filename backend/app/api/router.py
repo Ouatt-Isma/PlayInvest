@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from . import users, quizzes, register, confirm_email, login, referrals, assets, graph, portfolio, investments, performance, pastperf, articles, news, ranking, challenge, reward, auth_google
+from . import users, quizzes, register, confirm_email, login, referrals, assets, graph, portfolio, investments, performance, pastperf, articles, news, ranking, challenge, reward, auth_google, auth_google_app
 from .Users import me 
 
 router = APIRouter()
@@ -25,3 +25,4 @@ router.include_router(challenge.router, prefix="/api", tags=["challenges"])
 router.include_router(reward.router, prefix="/api", tags=["/reward", "/profile_quiz_result", "/investor_profil"])
 
 router.include_router(auth_google.router, prefix="/api", tags=["/auth/google", "/auth/google/callback"])
+router.include_router(auth_google_app.router, prefix="/api", tags=["/auth/google/exchange_app"])
