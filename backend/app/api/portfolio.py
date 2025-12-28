@@ -47,7 +47,7 @@ def get_portfolio( db: Session = Depends(get_db),current_user: User = Depends(ge
     settings.log.info(f' user_id: {user_id},')
 
     merged = {
-    "assets": result, "total_investi":round(tt*10,2), "last_update": portfolio.updated_at}
+    "assets": result, "total_investi":round(tt,2), "last_update": portfolio.updated_at}
     merged.update(portfolio.to_dict())
     return merged 
 
