@@ -36,7 +36,7 @@ def google_exchange(
     avatar_url = decoded_token.get("picture")
 
     if not email:
-        raise HTTPException(status_code=400, detail="Email not available")
+        raise HTTPException(status_code=400, detail="Email non disponible")
 
     email = email.lower()
 
@@ -47,7 +47,7 @@ def google_exchange(
     if user and user.provider == "local":
         raise HTTPException(
             status_code=409,
-            detail="Account exists with email/password",
+            detail="Ce compte existe déjà avec un mot de passe. Veuillez vous connecter avec votre email et votre mot de passe.",
         )
 
     # 4️⃣ Create user if not exists
