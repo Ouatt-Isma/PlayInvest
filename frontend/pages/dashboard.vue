@@ -15,7 +15,7 @@
         @click.prevent="claimReward"
         class="bg-teal-800 text-white px-5 py-2 rounded hover:bg-teal-700 text-center"
       >
-        Tutoriel
+        Tutoriel (Bonus de 100€)
     </a>
     </div>
 
