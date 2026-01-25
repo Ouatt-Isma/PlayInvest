@@ -83,6 +83,8 @@ def update_all_challenge_result(db: Session, current_date: datetime, check=True)
         return
     update_challenge_result(db, weekly_challenge.id, current_date, check)
     weekly_challenge.is_active = False 
+    db.add(weekly_challenge)
+    db.commit()
     all_picks = db.query(WeeklyChallengePick).filter_by(challenge_id=weekly_challenge.id).all()
     for pick in all_picks:
         update_user_result_one(db, pick,current_date)
