@@ -25,7 +25,6 @@
     <ul>
       <li>Nom, prénom et nom d’utilisateur</li>
       <li>Adresse e-mail</li>
-      <li>Numéro de téléphone</li>
       <li>Date de naissance et âge</li>
       <li>Pays de résidence et pays d’origine</li>
       <li>Profession et informations de profil</li>
