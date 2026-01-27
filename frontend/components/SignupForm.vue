@@ -233,9 +233,9 @@ const signupWithFacebook = () => {
         <input type="checkbox" id="terms" class="mt-1" required />
         <label for="terms" class="text-sm text-gray-600">
           En créant un compte, vous acceptez les
-          <a href="#" class="text-teal-700 font-medium hover:underline">Conditions d'utilisation</a>
+          <a href="/cgu" class="text-teal-700 font-medium hover:underline">Conditions d'utilisation</a>
           et notre
-          <a href="#" class="text-teal-700 font-medium hover:underline">Politique de confidentialité</a>.
+          <a href="/privacy" class="text-teal-700 font-medium hover:underline">Politique de confidentialité</a>.
         </label>
       </div>
 
