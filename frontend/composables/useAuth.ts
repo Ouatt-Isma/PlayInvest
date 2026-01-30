@@ -8,7 +8,7 @@ interface LightUser {
   email: string
   name: string
   avatar_url?: string
-  provider?: 'local' | 'google' | 'facebook'
+  provider?: 'local' | 'google' | 'facebook' | 'apple'
 }
 
 const user = ref<LightUser | null>(null)

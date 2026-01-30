@@ -53,12 +53,14 @@ def google_exchange(
     # 4️⃣ Create user if not exists
     if not user:
         username = f"{email.split('@')[0]}_{uuid.uuid4().hex[:6]}"
+        the_provider = decoded_token["firebase"]["sign_in_provider"]
+        the_provider = "apple" if the_provider == "apple.com" else "google"
 
         user = User(
             username=username,
             email=email,
             password_hash=None,
-            provider="google",
+            provider=the_provider,
             validated=True,
             confirmation_token=None,
             avatar_url=avatar_url,
