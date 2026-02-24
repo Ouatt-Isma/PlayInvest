@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.playinvesthd.playinvestMobile",
+      "sha256_cert_fingerprints": [
+        "D9:8C:2A:8E:03:47:1B:6D:FE:5D:8C:01:7C:FC:72:BF:93:34:EB:4D:82:6F:57:2D:2C:B0:98:30:08:7A:31:15"
+      ]
+    }
+  }
+]
