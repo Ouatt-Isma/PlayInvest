@@ -17,7 +17,35 @@
           >
             Découvrir la Plateforme
           </NuxtLink>
-  
+
+          <div class="mt-4 flex gap-3 items-center">
+            <NuxtLink
+              href="https://play.google.com/store/apps/details?id=com.playinvesthd.playinvestMobile"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex"
+            >
+              <img
+                src="/app_badges/Google_Play_Store_badge_FR.png"
+                class="h-12 w-auto"
+                alt="Google Play"
+              />
+            </NuxtLink>
+
+            <NuxtLink
+              href="https://apps.apple.com/app/playinvest-hd/id6756258764"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex"
+            >
+              <img
+                src="/app_badges/App_Store_badge_FR.png"
+                class="h-12 w-auto"
+                alt="App Store"
+              />
+            </NuxtLink>
+          </div>
+
           <div class="mt-10 flex gap-12 text-gray-700 text-lg font-semibold justify-center lg:justify-start">
             <div>
               <span class="block text-2xl text-black font-bold">10k+</span>
