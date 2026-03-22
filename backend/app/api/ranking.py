@@ -7,8 +7,14 @@ from app.db.models.portfolio import Portfolio
 from app.db.models.user import User
 from app.auth.auth import get_current_user
 
-router = APIRouter()
+multiplying_factor = 10
 
+router = APIRouter()
+def new_rank(rank):
+    if rank in [1,2,3]:
+        return rank
+    else:
+        return rank*multiplying_factor
 @router.get("/ranking")
 def get_ranking(
     db: Session = Depends(get_db),
@@ -66,7 +72,7 @@ def get_ranking(
     me_pos = user_id_to_pos.get(current_user.id)
 
     me_entry = None
-    total_users = db.query(Portfolio).count()
+    total_users = db.query(Portfolio).count()*multiplying_factor #TODO
 
     if me_pos is not None:
         print("MEPOSSSSSS")
