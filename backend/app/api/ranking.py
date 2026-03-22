@@ -68,7 +68,7 @@ def get_ranking(
     me_pos = user_id_to_pos.get(current_user.id)
 
     me_entry = None
-    total_users = db.query(Portfolio).count()*adding_factor #TODO
+    total_users = db.query(Portfolio).count()+adding_factor #TODO
     def new_rank(rank):
         if rank<(total_users-adding_factor)/2:
             return rank
