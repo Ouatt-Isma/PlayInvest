@@ -36,6 +36,9 @@ Cliquez sur ce lien pour confirmer votre compte :
 {settings.FRONTEND_URL}/confirm?token={token}
 
 Merci !
+
+---
+Rejoignez notre communauté WhatsApp : https://chat.whatsapp.com/HycCx555KY3GsDUiqBKt5W
 """)
 
     await aiosmtplib.send(
@@ -66,6 +69,9 @@ Ce lien expirera dans 1 heure.
 Si vous n'avez pas demandé cela, vous pouvez ignorer ce message.
 
 PlayInvest
+
+---
+Rejoignez notre communauté WhatsApp : https://chat.whatsapp.com/HycCx555KY3GsDUiqBKt5W
 """)
 
     await aiosmtplib.send(
@@ -97,6 +103,9 @@ Vous pouvez consulter votre nouveau solde depuis votre espace personnel: {settin
 Merci pour votre confiance et votre engagement. Continuez à parrainer pour cumuler encore plus de récompenses !
 
 À très bientôt,
+
+---
+Rejoignez notre communauté WhatsApp : https://chat.whatsapp.com/HycCx555KY3GsDUiqBKt5W
 """)
 
     await aiosmtplib.send(
@@ -144,7 +153,7 @@ async def send_inactivity_warning_email(to_email: str, username: str):
     message.set_content(f"""
 Bonjour {username},
 
-Nous sommes déjà le 27 du mois, et nous avons remarqué que vous n'avez effectué aucune opération sur votre portefeuille PlayInvest ce mois-ci.
+Nous sommes déjà le 27 du mois, et nous avons remarqué que vous n’avez effectué aucune opération sur votre portefeuille PlayInvest ce mois-ci.
 
 💡 Pour rappel, afin de simuler les effets des frais de gestionn lié au portefeuille inactif,
 votre cash disponible subira une diminution automatique de {inflation_percent} si aucune transaction n’est réalisée avant la fin du mois.
@@ -156,6 +165,9 @@ Connectez-vous dès maintenant sur votre espace PlayInvest :
 
 Bonne gestion,
 L’équipe PlayInvest
+
+---
+Rejoignez notre communauté WhatsApp : https://chat.whatsapp.com/HycCx555KY3GsDUiqBKt5W
 """)
 
     # --- Send using SMTP ---

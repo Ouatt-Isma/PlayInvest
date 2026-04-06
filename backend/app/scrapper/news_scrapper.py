@@ -159,12 +159,47 @@ def parse_listing():
             unique.append(it)
     return unique
 
+def parse_title(soup):
+    # 1) JSON-LD NewsArticle headline (most reliable)
+    for tag in soup.find_all("script", attrs={"type": "application/ld+json"}):
+        try:
+            data = json.loads(tag.string or "")
+        except Exception:
+            continue
+        if isinstance(data, dict) and data.get("@type") in ("NewsArticle", "Article"):
+            headline = data.get("headline") or data.get("name")
+            if headline:
+                return headline.strip()
+
+    # 2) og:title meta tag
+    og = soup.find("meta", attrs={"property": "og:title"}) or soup.find("meta", attrs={"name": "og:title"})
+    if og and og.get("content"):
+        return og["content"].strip()
+
+    # 3) <title> tag (strip site suffix)
+    title_tag = soup.find("title")
+    if title_tag:
+        text = title_tag.get_text(strip=True)
+        # Strip common " | Site Name" suffixes
+        text = re.split(r"\s*[|\-–]\s*Sika", text)[0].strip()
+        if text:
+            return text
+
+    # 4) Fallback: first h1/h2 that isn't the site slogan
+    SITE_SLOGANS = {"l'information économique au cœur des marchés africains"}
+    for tag in soup.find_all(["h1", "h2"]):
+        txt = tag.get_text(strip=True)
+        if txt.lower() not in SITE_SLOGANS:
+            return txt
+
+    return None
+
+
 def parse_article(url, *, download=False):
     soup = get_soup(url)
 
     # Title
-    h1 = soup.find(["h1", "h2"])
-    title = h1.get_text(strip=True) if h1 else None
+    title = parse_title(soup)
 
     # Author
     author = None
