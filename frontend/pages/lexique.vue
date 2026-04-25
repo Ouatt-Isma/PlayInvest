@@ -1,0 +1,793 @@
+<template>
+  <div>
+
+    <div class="hero">
+      <div class="hero-label">Ressources éducatives</div>
+      <div class="hero-title">Lexique Boursier<br>& Financier</div>
+      <p class="hero-sub">Maîtrisez le vocabulaire des marchés financiers. Chaque terme est expliqué simplement, avec des exemples concrets tirés de la réalité des bourses ouest-africaines.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-n" id="h-terms">52</div><div class="hero-stat-l">termes expliqués</div></div>
+        <div class="hero-stat"><div class="hero-stat-n" id="h-cats">11</div><div class="hero-stat-l">catégories</div></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="search-row">
+        <div class="search-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="search" type="text" placeholder="Chercher un terme… (ex: dividende, PER, bêta)">
+        </div>
+        <span class="result-count" id="rcount"></span>
+      </div>
+      <div class="tabs" id="tabs"></div>
+    </div>
+
+    <main class="content" id="content"></main>
+
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+
+const ICONS = {
+  "Valorisation": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  "Rentabilité": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`,
+  "Solidité": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  "Croissance": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`,
+  "Par Action": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+  "Performance": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  "Risque": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  "Analyse Technique": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  "Marchés": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  "Obligations": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+  "Capital": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>`,
+};
+
+const DATA = [
+  { cat:"Valorisation", terms:[
+    { t:"Ratio Cours/Bénéfice (PER)",
+      h:"Le prix que le marché accepte de payer pour chaque franc de profit généré.",
+      d:"Imaginez que vous achetez un commerce. Si ce commerce gagne 1 million XOF par an et que vous le payez 8 millions, vous acceptez un PER de 8. En bourse, c'est identique : un PER de 8 signifie que les investisseurs paient 8 XOF pour chaque XOF de bénéfice annuel. Un PER bas peut signaler une valeur délaissée ou en difficulté ; un PER élevé traduit une forte confiance dans la croissance future.",
+      ex:"Supposons qu'une action de la BRVM cote à 4 800 XOF et que son bénéfice par action soit de 600 XOF. Son PER est de 8. Cela signifie qu'à ce rythme de profit, l'action se rembourse théoriquement en 8 ans.",
+      f:"PER = Prix de l'action ÷ Bénéfice par action (BPA)" },
+    { t:"Ratio Prix / Valeur Comptable (P/B)",
+      h:"Ce que le marché paye au-delà de la valeur réelle des actifs de l'entreprise.",
+      d:"La valeur comptable, c'est ce qui resterait si l'entreprise vendait tous ses biens et remboursait toutes ses dettes. Le P/B compare le prix boursier à cette réalité tangible. Si le P/B est inférieur à 1, l'action se négocie 'à rabais' par rapport à ses actifs. Si le P/B est élevé, le marché parie sur la capacité de l'entreprise à créer de la richesse future.",
+      ex:"Une banque régionale affiche une valeur comptable de 12 000 XOF par action mais se négocie à 9 600 XOF en bourse, soit un P/B de 0,8. Les investisseurs patients y voient une opportunité si la banque est fondamentalement solide.",
+      f:"P/B = Cours boursier ÷ Valeur comptable par action" },
+    { t:"Multiple VE/EBITDA",
+      h:"La valorisation de l'entreprise entière (dette incluse) rapportée à sa génération brute de trésorerie.",
+      d:"Contrairement au PER, ce multiple intègre la dette dans son calcul. Il répond à la question : si j'achetais l'entreprise en totalité (en reprenant aussi ses dettes), combien d'années de bénéfice brut faudrait-il pour rentabiliser l'opération ? C'est l'indicateur de référence lors des fusions-acquisitions.",
+      ex:"Une entreprise cotée vaut 50 milliards XOF en bourse, avec une dette nette de 10 milliards. Son EBITDA annuel est de 12 milliards. Son VE/EBITDA est de 5x — considéré attractif dans un secteur industriel.",
+      f:"VE/EBITDA = (Capitalisation + Dette nette) ÷ EBITDA" },
+    { t:"Ratio Prix / Chiffre d'affaires (P/CA)",
+      h:"Valorisation de l'entreprise rapportée à ses ventes, indépendamment des bénéfices.",
+      d:"Utile pour les entreprises en phase de démarrage qui investissent massivement et ne dégagent pas encore de profits. Il montre combien le marché valorise chaque franc de ventes. Un P/CA faible dans un secteur mature peut signaler une action bon marché.",
+      ex:"Une société de distribution cotée réalise 80 milliards XOF de CA annuel. Sa capitalisation boursière est de 16 milliards. Son P/CA est de 0,2x — très bas, qui peut indiquer soit une opportunité, soit des marges très faibles.",
+      f:"P/CA = Capitalisation boursière ÷ Chiffre d'affaires annuel" },
+    { t:"Actualisation des flux (DCF)",
+      h:"La valeur d'une entreprise calculée à partir de l'argent qu'elle générera dans le futur.",
+      d:"Principe fondamental : 100 XOF reçus aujourd'hui valent plus que 100 XOF reçus dans 5 ans, car cet argent peut être investi entre-temps. Le DCF projette les flux de trésorerie futurs puis les 'ramène' à leur valeur actuelle via un taux d'actualisation qui reflète le risque. C'est la méthode de valorisation absolue par excellence.",
+      ex:"Si une entreprise va générer 5 milliards XOF de flux libres chaque année pendant 10 ans et qu'on applique un taux d'actualisation de 10%, la valeur actuelle de ces flux est d'environ 30,7 milliards XOF.",
+      f:"Valeur = Σ [Flux(t) ÷ (1 + r)^t] + Valeur résiduelle" },
+  ]},
+  { cat:"Rentabilité", terms:[
+    { t:"Rentabilité des Fonds Propres (ROE)",
+      h:"Combien l'entreprise génère de profit pour chaque franc investi par ses actionnaires.",
+      d:"Le ROE est le test ultime de l'efficacité managériale. Il mesure si les dirigeants savent bien employer l'argent confié par les actionnaires. Un ROE de 20% signifie que pour 100 XOF de capital propre, l'entreprise crée 20 XOF de profit net. Un ROE durablement élevé est le signe d'un avantage concurrentiel solide.",
+      ex:"Une compagnie d'assurance affiche 4 milliards XOF de bénéfice net pour 20 milliards de capitaux propres. Son ROE est de 20%. Pour chaque actionnaire qui a mis 100 XOF, l'entreprise en a créé 20 supplémentaires dans l'année.",
+      f:"ROE = Bénéfice net ÷ Capitaux propres × 100" },
+    { t:"Rentabilité des Actifs (ROA)",
+      h:"L'efficacité avec laquelle l'entreprise transforme l'ensemble de ses ressources en profit.",
+      d:"Le ROA ne regarde que l'actif total, qu'il soit financé par des dettes ou des fonds propres. Il répond à : quelle machine à profit est cette entreprise ? Deux entreprises du même secteur avec le même bénéfice mais des actifs différents auront des ROA différents — celle qui fait plus avec moins est plus efficiente.",
+      ex:"Deux entreprises du secteur agricole génèrent chacune 2 milliards XOF de bénéfice. La première a 20 milliards d'actifs (ROA = 10%), la seconde en a 40 milliards (ROA = 5%). La première est doublement plus efficiente.",
+      f:"ROA = Bénéfice net ÷ Total des actifs × 100" },
+    { t:"EBITDA",
+      h:"Le résultat brut de l'entreprise avant tout effet de financement ou d'amortissement.",
+      d:"L'EBITDA (Earnings Before Interest, Taxes, Depreciation and Amortization) isole la performance opérationnelle pure. En soustrayant les intérêts, impôts et amortissements, il permet de comparer des entreprises de pays différents, avec des structures de dette différentes ou des politiques d'amortissement différentes. C'est le 'moteur' de l'entreprise.",
+      ex:"Une entreprise de télécommunications affiche un CA de 180 milliards XOF. Après charges opérationnelles, son EBITDA est de 72 milliards, soit une marge EBITDA de 40%. Chaque 100 XOF de vente génère 40 XOF de richesse brute.",
+      f:"EBITDA = Résultat d'exploitation + Amortissements + Dépréciations" },
+    { t:"Marge opérationnelle nette",
+      h:"La part finale du chiffre d'affaires qui appartient vraiment aux actionnaires.",
+      d:"C'est le résultat après tout : coûts de production, frais généraux, charges financières, impôts. C'est l'indicateur le plus exigeant de profitabilité, car il ne laisse rien passer. Une marge nette de 15% dans un secteur compétitif est remarquable.",
+      ex:"Un groupe agroalimentaire réalise 50 milliards XOF de ventes. Après toutes les charges, il lui reste 6 milliards de bénéfice net — une marge nette de 12%, ce qui est solide dans ce secteur.",
+      f:"Marge nette = Bénéfice net ÷ Chiffre d'affaires × 100" },
+    { t:"Marge sur coût de revient",
+      h:"Ce que l'entreprise garde après avoir payé ses coûts directs de production.",
+      d:"Avant de payer le loyer, les salariés administratifs ou les intérêts bancaires, l'entreprise doit d'abord couvrir ce qu'il lui coûte directement de produire. La marge brute révèle la compétitivité fondamentale du modèle économique. Une marge brute solide donne de l'air pour investir dans la croissance.",
+      ex:"Une brasserie vend ses produits pour 30 milliards XOF. Les matières premières, l'énergie et la main-d'œuvre directe lui coûtent 12 milliards. Sa marge brute est de 18 milliards, soit 60% — excellent pour le secteur.",
+      f:"Marge brute = (CA − Coûts directs) ÷ CA × 100" },
+    { t:"ROCE — Retour sur capital employé",
+      h:"L'efficacité du capital total engagé dans l'activité, dettes comprises.",
+      d:"Plus complet que le ROE, le ROCE inclut la dette dans le capital analysé. Il est particulièrement utile dans les industries lourdes (mines, énergie, infrastructure) où les entreprises s'endettent massivement pour investir. Un ROCE supérieur au coût du capital signifie que l'entreprise crée de la valeur.",
+      ex:"Une société minière a engagé 100 milliards XOF de capital (fonds propres + dettes). Elle génère 14 milliards d'EBIT. Son ROCE de 14% dépasse son coût moyen du capital de 9% — elle crée 5 points de valeur nette.",
+      f:"ROCE = EBIT ÷ (Fonds propres + Dettes financières) × 100" },
+  ]},
+  { cat:"Solidité", terms:[
+    { t:"Taux d'endettement net (Gearing)",
+      h:"Le rapport entre ce que l'entreprise doit et ce qu'elle possède en propre.",
+      d:"Le gearing mesure la dépendance financière d'une entreprise vis-à-vis des créanciers. Un gearing de 50% signifie que pour 100 XOF de fonds propres, l'entreprise a 50 XOF de dette nette. En période de crise, une entreprise sur-endettée peut voir ses bénéfices absorbés par les intérêts. En période de croissance, la dette amplifie les gains.",
+      ex:"Deux entreprises ont les mêmes actifs. La première a un gearing de 20% (conservatrice), la seconde de 150% (agressive). Si les profits chutent de 50%, la première absorbe le choc ; la seconde peut avoir du mal à servir ses intérêts.",
+      f:"Gearing = Dette financière nette ÷ Capitaux propres × 100" },
+    { t:"Flux de trésorerie disponible (FCF)",
+      h:"L'argent réel généré après que l'entreprise a investi pour maintenir et développer son activité.",
+      d:"Le FCF est souvent qualifié de 'vrai bénéfice' car il est difficile à manipuler comptablement. Une entreprise peut afficher des profits mais consommer du cash massivement en investissements. Le FCF positif et croissant est l'un des meilleurs signes de santé financière : c'est cet argent qui peut être rendu aux actionnaires.",
+      ex:"Un groupe de grande distribution dégage 8 milliards XOF de flux opérationnels. Il investit 2 milliards dans ses entrepôts et systèmes. Son FCF est de 6 milliards XOF — disponibles pour des dividendes, des rachats d'actions ou des acquisitions.",
+      f:"FCF = Flux opérationnels − Investissements (Capex)" },
+    { t:"Capacité de remboursement des intérêts",
+      h:"Combien de fois l'entreprise pourrait payer ses intérêts avec son seul bénéfice opérationnel.",
+      d:"Ce ratio est scruté de près par les banquiers et les agences de notation. Un ratio de 3x signifie que même si les profits se réduisaient de deux tiers, l'entreprise pourrait encore honorer ses intérêts. En dessous de 1,5x, la situation devient tendue ; en dessous de 1x, l'entreprise ne couvre plus ses frais financiers.",
+      ex:"Une entreprise industrielle génère un EBIT de 15 milliards XOF. Elle paie 3 milliards d'intérêts annuels. Son ratio de couverture est de 5x — très confortable. Même en cas de forte récession, elle tient.",
+      f:"Couverture intérêts = EBIT ÷ Charges d'intérêts" },
+    { t:"Ratio de liquidité générale",
+      h:"La capacité immédiate à faire face aux obligations financières de court terme.",
+      d:"Ce ratio compare les actifs que l'entreprise peut convertir en cash rapidement (stocks, créances, trésorerie) à ses dettes exigibles dans les 12 prochains mois. C'est l'indicateur de survie à court terme. Un ratio inférieur à 1 est un signal d'alarme : l'entreprise devrait vendre ses actifs fixes pour payer ses dettes courantes.",
+      ex:"Une société de commerce dispose de 18 milliards XOF d'actifs courants (stocks, créances, trésorerie) face à 12 milliards de dettes à court terme. Son ratio de liquidité est de 1,5x. Elle gère confortablement ses échéances.",
+      f:"Liquidité générale = Actifs courants ÷ Passifs courants" },
+    { t:"Valeur comptable nette",
+      h:"Ce qui appartient réellement aux actionnaires si l'entreprise s'arrêtait aujourd'hui.",
+      d:"Les fonds propres (ou capitaux propres) représentent la différence entre ce que l'entreprise possède et ce qu'elle doit. C'est le 'patrimoine net' des actionnaires. Ils augmentent chaque année que l'entreprise est profitable et ne distribue pas tout son résultat. Une destruction de fonds propres est un signal très négatif.",
+      ex:"Une banque affiche 500 milliards XOF d'actifs totaux et 440 milliards de dettes envers ses déposants et créanciers. Ses fonds propres s'élèvent à 60 milliards — c'est le matelas qui absorberait des pertes avant de menacer les créanciers.",
+      f:"Fonds propres = Total des actifs − Total des dettes" },
+  ]},
+  { cat:"Croissance", terms:[
+    { t:"TCAC — Taux de Croissance Annuel Composé",
+      h:"La vitesse de croissance lissée sur plusieurs années, qui neutralise les effets d'une bonne ou mauvaise année.",
+      d:"Le TCAC est l'équivalent d'une vitesse de croisière. Si une entreprise a connu des hauts et des bas sur 5 ans mais est passée de 10 à 16 milliards de CA, son TCAC est de 9,9% — c'est le taux constant qui aurait produit le même résultat final. Indispensable pour comparer la dynamique de croissance de différentes entreprises.",
+      ex:"Le marché des paiements mobiles en Afrique de l'Ouest a progressé de 200 milliards à 450 milliards XOF en 4 ans. Son TCAC est de 22,5% — un rythme de croissance très soutenu qui attire les investisseurs en croissance.",
+      f:"TCAC = (Valeur finale ÷ Valeur initiale)^(1 ÷ n) − 1" },
+    { t:"Croissance endogène",
+      h:"La hausse d'activité provenant uniquement du cœur de métier, sans opérations de croissance externe.",
+      d:"Deux entreprises peuvent afficher la même croissance du chiffre d'affaires. L'une l'a obtenu en rachetant un concurrent, l'autre par ses propres forces. La croissance endogène (ou organique) mesure la seconde — plus représentative de la santé intrinsèque du business. Elle neutralise les effets de change, les acquisitions et les cessions.",
+      ex:"Un réseau bancaire panafricain annonce +15% de CA. Mais après exclusion d'une acquisition récente, la croissance organique n'est que de 6%. L'analyste retiendra ce 6% pour évaluer la vraie dynamique de l'activité." },
+    { t:"Ratio PEG",
+      h:"Le PER mis en regard de la croissance attendue — pour détecter les valeurs de croissance à prix raisonnable.",
+      d:"Un PER élevé peut sembler cher jusqu'à ce qu'on le compare à la croissance attendue. Une entreprise avec PER 25 et croissance de 30% (PEG = 0,83) est potentiellement plus attractive qu'une entreprise avec PER 10 et croissance de 5% (PEG = 2). En dessous de 1, la croissance n'est pas encore pleinement valorisée.",
+      ex:"Une fintech cotée sur la BRVM affiche un PER de 18. Les analystes projettent une croissance bénéficiaire de 24%/an. Son PEG est de 0,75 — la croissance est 'sous-payée' par le marché.",
+      f:"PEG = PER ÷ Taux de croissance annuel projeté des bénéfices (%)" },
+    { t:"Taux de rétention des bénéfices",
+      h:"La fraction des profits que l'entreprise garde pour financer sa propre expansion.",
+      d:"Chaque franc de bénéfice a deux destinations possibles : être distribué aux actionnaires (dividende) ou être réinvesti dans l'entreprise (mise en réserve). Le taux de rétention mesure la seconde option. Les entreprises en forte croissance retiennent souvent la majorité de leurs profits pour se développer sans recourir à l'endettement.",
+      ex:"Une entreprise de construction génère 5 milliards XOF de bénéfice et distribue 1,5 milliard en dividendes. Son taux de rétention est de 70%. Ces 3,5 milliards reinvestis financeront de nouveaux chantiers sans nouveaux emprunts.",
+      f:"Taux de rétention = 1 − (Dividendes distribués ÷ Bénéfice net)" },
+  ]},
+  { cat:"Par Action", terms:[
+    { t:"Bénéfice Net Par Action (BNPA)",
+      h:"La part de profit annuel qui revient à chaque titre détenu.",
+      d:"Le BNPA est la division du bénéfice total par le nombre d'actions. Il permet de suivre l'évolution de la valeur créée par action dans le temps. Une croissance régulière du BNPA est l'un des signaux les plus fiables d'une bonne gestion. À noter : si l'entreprise émet de nouvelles actions, le BNPA peut baisser même si le bénéfice total augmente — c'est la dilution.",
+      ex:"Une entreprise industrielle cotée génère 9 milliards XOF de bénéfice net avec 3 millions d'actions en circulation. Son BNPA est de 3 000 XOF par action. Si vous en détenez 100, vous 'avez droit' à 300 000 XOF de bénéfice.",
+      f:"BNPA = Bénéfice net total ÷ Nombre d'actions en circulation" },
+    { t:"Distribution par titre (DPA)",
+      h:"Le montant réellement versé en cash à chaque actionnaire au titre des dividendes.",
+      d:"Le DPA est la traduction concrète de la politique de rémunération des actionnaires. Contrairement au BNPA qui est un gain comptable, le DPA correspond à un virement réel sur le compte de l'actionnaire. Un DPA stable et croissant est souvent vu comme un signal fort de la confiance de la direction dans la solidité des résultats futurs.",
+      ex:"Une société de distribution d'eau annonce un DPA de 1 200 XOF. Si vous détenez 500 actions, vous recevrez 600 000 XOF — un revenu passif réel, sans vendre vos titres.",
+      f:"DPA = Total des dividendes distribués ÷ Nombre d'actions" },
+    { t:"Actif net par titre (ANT)",
+      h:"La valeur comptable des actifs nets attribuable à chaque action.",
+      d:"L'ANT est le plancher théorique de valeur d'une action : c'est ce que chaque actionnaire récupèrerait si l'entreprise cessait son activité et liquidait ses actifs à leur valeur comptable. En pratique, les actifs peuvent valoir plus ou moins. Comparer le cours boursier à l'ANT donne le ratio P/B.",
+      ex:"Un holding coté affiche 24 milliards XOF de fonds propres pour 2 millions d'actions. Son ANT est de 12 000 XOF. Si l'action cote à 9 000 XOF, elle se négocie avec une décote de 25% sur sa valeur comptable.",
+      f:"ANT = Fonds propres totaux ÷ Nombre d'actions" },
+    { t:"BNPA dilué",
+      h:"Le bénéfice par action recalculé en intégrant toutes les actions potentielles (options, convertibles).",
+      d:"Certaines entreprises ont émis des obligations convertibles en actions, des options aux salariés ou des bons de souscription. Si tous ces instruments étaient exercés, le nombre d'actions augmenterait — et le BNPA serait plus faible. Le BNPA dilué présente ce scénario complet et est donc plus prudent que le BNPA de base.",
+      ex:"Une entreprise affiche un BNPA de 1 800 XOF basé sur 5 millions d'actions. Elle a aussi 500 000 options en circulation. Sur une base diluée (5,5 millions d'actions), le BNPA tombe à 1 636 XOF — 9% de moins.",
+      f:"BNPA dilué = Bénéfice net ÷ (Actions existantes + Actions potentielles)" },
+  ]},
+  { cat:"Performance", terms:[
+    { t:"Taux de rendement sur dividende",
+      h:"Le revenu annuel en dividendes exprimé en pourcentage du prix payé pour l'action.",
+      d:"C'est l'équivalent boursier du 'taux d'intérêt' que vous touchez sur votre investissement. Un rendement de 8% signifie que vous recevez chaque année 8 XOF pour 100 XOF investis, sans vendre votre action. Ce rendement devient encore plus attractif si les dividendes augmentent d'année en année.",
+      ex:"Vous achetez une action à 20 000 XOF. L'entreprise distribue 1 400 XOF de dividende annuel. Votre rendement est de 7%. Comparé à un bon du Trésor à 6%, ce placement boursier semble plus attractif, au risque près.",
+      f:"Rendement dividende = DPA ÷ Cours de l'action × 100" },
+    { t:"Taux de distribution (payout)",
+      h:"La proportion du bénéfice que l'entreprise reverse à ses actionnaires sous forme de dividendes.",
+      d:"Le payout ratio révèle les priorités de l'entreprise : récompenser ses actionnaires maintenant ou réinvestir pour demain. Un payout élevé (>70%) correspond aux entreprises matures dans des secteurs stables (utilités, banques). Un payout faible (<30%) est typique des entreprises de croissance qui préfèrent réinvestir leurs profits.",
+      ex:"Une cimenterie génère 8 milliards XOF de bénéfice et distribue 5 milliards en dividendes. Son payout est de 62,5%. Les 37,5% restants financeront la modernisation de l'outil industriel.",
+      f:"Payout = Dividendes totaux ÷ Bénéfice net × 100" },
+    { t:"Rendement total actionnaire (RTA)",
+      h:"Le gain global obtenu sur un investissement — hausse du cours ET dividendes encaissés.",
+      d:"Le RTA est la vraie mesure du succès d'un investissement boursier. Certaines actions versent peu de dividendes mais s'apprécient fortement (valeurs de croissance). D'autres versent des dividendes élevés avec peu de hausse de cours (valeurs de rendement). Le RTA combine les deux et permet une comparaison honnête.",
+      ex:"Vous achetez une action à 15 000 XOF. Un an plus tard, elle vaut 16 500 XOF (+10%) et vous a versé 600 XOF de dividende (+4%). Votre RTA est de 14% — une belle performance annuelle.",
+      f:"RTA = (Prix final − Prix initial + Dividendes) ÷ Prix initial × 100" },
+    { t:"Alpha — surperformance active",
+      h:"La part de performance que l'investisseur ou le titre a générée au-delà de ce qu'explique le simple mouvement du marché.",
+      d:"Si le marché monte de 12% et votre portefeuille monte de 17%, votre alpha est de +5%. C'est la 'valeur ajoutée' de votre sélection de titres ou de la gestion active. Un alpha systématiquement positif est la preuve d'un avantage informationnel ou analytique. La grande majorité des gérants actifs affiche un alpha négatif sur le long terme.",
+      ex:"Le BRVM Composite progresse de 8% en 2024. Un fonds actions BRVM géré activement affiche +15%. Son alpha est de +7% — il a surperformé significativement l'indice de référence.",
+      f:"Alpha = Rendement réalisé − [Rf + β × (Rendement marché − Rf)]" },
+    { t:"Bêta — sensibilité au marché",
+      h:"L'ampleur avec laquelle un titre bouge lorsque le marché bouge.",
+      d:"Un bêta de 1,5 signifie que l'action a tendance à monter de 15% quand le marché monte de 10%, et à baisser de 15% quand le marché baisse de 10%. Un bêta inférieur à 1 caractérise les valeurs défensives (alimentation, utilités). Un bêta supérieur à 1 correspond aux valeurs cycliques. Un bêta négatif est rare et indique une tendance à évoluer à contre-courant.",
+      ex:"Dans un marché BRVM en hausse de 10%, une valeur avec bêta 1,4 monterait théoriquement de 14%. En période de baisse, cette même valeur serait plus pénalisée. L'investisseur conservateur préférera des bêtas inférieurs à 1.",
+      f:"Bêta = Covariance(titre, marché) ÷ Variance(marché)" },
+  ]},
+  { cat:"Risque", terms:[
+    { t:"Volatilité historique",
+      h:"L'amplitude des oscillations passées du prix d'un actif — mesure concrète de l'instabilité.",
+      d:"La volatilité est calculée comme l'écart-type des rendements quotidiens, puis annualisée. Une volatilité de 20% signifie que sur une année, le prix d'un actif s'est écarté en moyenne de 20% de sa tendance. Plus la volatilité est haute, plus l'actif est risqué — mais aussi plus les opportunités de gain (ou de perte) sont importantes.",
+      ex:"Une action de la BRVM a des rendements journaliers qui varient entre -2% et +2% sur un an. Sa volatilité annualisée est d'environ 20%. En comparaison, un bon du Trésor UEMOA affiche une volatilité proche de zéro.",
+      f:"Volatilité annuelle = Écart-type des rendements quotidiens × √252" },
+    { t:"Ratio de Sharpe",
+      h:"La récompense obtenue par unité de risque pris — la vraie mesure de l'efficacité d'un investissement.",
+      d:"Deux placements peuvent afficher le même rendement de 12%. Mais si l'un le fait avec une volatilité de 8% et l'autre avec une volatilité de 25%, ils ne sont pas équivalents. Le ratio de Sharpe déduit le taux sans risque du rendement, puis divise par la volatilité. Le résultat : plus c'est élevé, mieux c'est.",
+      ex:"Un portefeuille BRVM délivre 14% de rendement annuel. Le taux sans risque (bon du Trésor) est à 6%. La volatilité du portefeuille est de 16%. Son Sharpe est de (14-6)/16 = 0,5. Un Sharpe supérieur à 1 est considéré comme excellent.",
+      f:"Sharpe = (Rendement − Taux sans risque) ÷ Volatilité" },
+    { t:"Valeur en Risque (VaR)",
+      h:"La perte maximale probable sur une période donnée, avec un niveau de confiance défini.",
+      d:"La VaR répond à cette question : dans le pire des cas (mais pas le scénario catastrophe), combien puis-je perdre ? Une VaR 95% à 1 jour de 500 000 XOF signifie qu'il y a 95% de chances que vos pertes demain ne dépassent pas 500 000 XOF. Les 5% restants représentent des scénarios de pertes extrêmes.",
+      ex:"Un gestionnaire d'actifs calcule la VaR 99% hebdomadaire de son portefeuille BRVM : 8% de la valeur. Sur un portefeuille de 100 millions XOF, il n'y a que 1% de chance de perdre plus de 8 millions dans la semaine à venir.",
+      f:"VaR(95%) ≈ μ − 1,645 × σ (pour distribution normale)" },
+    { t:"Risque de marché (systématique)",
+      h:"La part du risque qui touche tous les investisseurs, impossible à éliminer par la diversification.",
+      d:"Même un portefeuille parfaitement diversifié reste exposé aux crises économiques mondiales, aux hausses de taux directeurs ou aux chocs géopolitiques. Ce risque est 'systématique' car il affecte le système entier. La théorie financière enseigne qu'on n'est pas rémunéré pour le risque diversifiable, mais on l'est pour le risque systématique.",
+      ex:"En 2020, la crise sanitaire mondiale a entraîné des baisses simultanées sur tous les marchés, y compris la BRVM. Même les investisseurs détenant des dizaines de titres différents ont subi des moins-values : c'est le risque systématique en action." },
+    { t:"Risque de défaut (contrepartie)",
+      h:"La probabilité que l'emprunteur ou l'émetteur d'un titre ne soit pas en mesure de rembourser.",
+      d:"Lorsque vous achetez une obligation d'entreprise, vous prêtez de l'argent. Le risque de défaut est que l'emprunteur ne rembourse ni les intérêts ni le capital. Ce risque est évalué par les agences de notation. Plus une entreprise est risquée, plus elle doit offrir un taux élevé pour convaincre les prêteurs — d'où le 'spread de crédit'.",
+      ex:"Un Trésor national de la zone UEMOA émet des obligations à 6,5%. Une PME cotée sur le marché obligataire émet à 11%. L'écart de 4,5 points représente la prime que les investisseurs exigent pour accepter le risque de défaut supplémentaire." },
+  ]},
+  { cat:"Analyse Technique", terms:[
+    { t:"Moyennes mobiles (MM)",
+      h:"Une ligne qui lisse les variations de cours pour révéler la tendance de fond.",
+      d:"Les moyennes mobiles filtrent le 'bruit' quotidien des marchés pour montrer la direction réelle d'une action. La MM à 20 jours reflète la tendance de court terme, la MM à 200 jours la tendance long terme. Quand une MM courte passe au-dessus d'une MM longue, c'est un 'croisement doré' — signal haussier classique.",
+      ex:"Une action de la BRVM cote à 5 200 XOF. Sa MM20 est à 5 100 XOF et sa MM200 est à 4 800 XOF. Les deux moyennes mobiles sont sous le cours actuel, confirmant une tendance haussière à tous les horizons temporels.",
+      f:"MM(n) = Somme des n derniers cours de clôture ÷ n" },
+    { t:"Indicateur RSI",
+      h:"Un oscillateur qui mesure la force ou la faiblesse d'un mouvement de prix récent.",
+      d:"Le RSI (Relative Strength Index) compare les hausses récentes aux baisses récentes sur 14 jours. Il oscille entre 0 et 100. Au-dessus de 70 : le titre est en 'surachat', c'est-à-dire qu'il a peut-être trop monté trop vite — prudence ou prise de bénéfices. En dessous de 30 : 'survente', le titre a peut-être trop baissé — possible rebond.",
+      ex:"Après une belle hausse de 35% en 3 semaines, le RSI d'une valeur atteint 78. L'analyste technique note un signal de surachat et recommande d'attendre un repli avant d'entrer, ou de sécuriser une partie des gains.",
+      f:"RSI = 100 − [100 ÷ (1 + (moy. hausses ÷ moy. baisses))]" },
+    { t:"Indicateur MACD",
+      h:"La différence entre deux moyennes mobiles exponentielles — pour détecter les changements de dynamique.",
+      d:"Le MACD (Moving Average Convergence Divergence) soustrait la MM exponentielle à 26 jours de celle à 12 jours. Quand cette différence (la ligne MACD) croise sa propre moyenne à 9 jours (la ligne signal) à la hausse, c'est un signal d'achat. À la baisse, c'est un signal de vente. L'histogramme visualise l'écart entre les deux lignes.",
+      ex:"Sur un graphique mensuel d'une valeur bancaire cotée à Abidjan, la ligne MACD vient de croiser sa ligne signal à la hausse, avec l'histogramme passant en territoire positif. L'analyste interprète cela comme une confirmation de la reprise haussière.",
+      f:"MACD = MME(12) − MME(26) | Signal = MME(9) du MACD" },
+    { t:"Bandes de Bollinger",
+      h:"Un couloir de volatilité dynamique qui s'élargit quand le marché s'emballe et se rétrécit quand il se calme.",
+      d:"Créées par John Bollinger, ces bandes encadrent une moyenne mobile à 20 jours avec deux bandes situées à ±2 écarts-types. Quand le cours touche la bande supérieure, l'actif est statistiquement en zone de surachat. Quand il touche la bande inférieure, il est en zone de survente. Un 'squeeze' (bandes très serrées) précède souvent un mouvement fort.",
+      ex:"Les bandes de Bollinger d'une action de la BRVM se resserrent fortement après plusieurs semaines de consolidation. L'analyste se prépare à une forte sortie de range, sans savoir encore si ce sera à la hausse ou à la baisse.",
+      f:"Bande haute/basse = MM20 ± (2 × écart-type sur 20 jours)" },
+    { t:"Analyse des volumes",
+      h:"La quantité de titres échangés — qui valide ou invalide les mouvements de prix.",
+      d:"Le prix dit 'quoi', le volume dit 'avec quelle conviction'. Une hausse de cours sur volumes élevés est robuste — beaucoup d'acteurs sont convaincus. La même hausse sur faibles volumes est fragile — peu de participants, donc moins fiable. Généralement, les grands volumes précèdent ou accompagnent les vrais retournements de tendance.",
+      ex:"Sur la BRVM, une valeur industrielle connaît sa plus forte séance de l'année avec une hausse de 6% et des volumes 5 fois supérieurs à la moyenne. Ce signal fort de conviction haussière attire l'attention des traders." },
+  ]},
+  { cat:"Marchés", terms:[
+    { t:"Capitalisation flottante",
+      h:"La valeur boursière des actions réellement disponibles à l'échange sur le marché.",
+      d:"La capitalisation totale inclut les actions détenues par les fondateurs, les gouvernements ou les fonds stratégiques — des blocs qui ne s'échangent pratiquement jamais. Le flottant ne retient que les actions librement négociables en bourse. C'est ce qui détermine vraiment la liquidité d'un titre.",
+      ex:"Une société cotée a une capitalisation totale de 200 milliards XOF. Mais l'État détient 51% des actions et ne les vend pas. Le flottant réel est de 98 milliards XOF — ce qui détermine les volumes réels échangeables sur la BRVM.",
+      f:"Flottant = (% actions librement négociables) × Capitalisation totale" },
+    { t:"BRVM Composite",
+      h:"L'indice de référence qui agrège la performance de toutes les sociétés cotées sur la BRVM.",
+      d:"Créé lors de l'ouverture de la Bourse Régionale des Valeurs Mobilières en 1998, le BRVM Composite est la 'thermomètre' du marché boursier de l'UEMOA. Il pondère chaque société par sa capitalisation flottante. Sa hausse reflète la confiance des investisseurs dans les économies des huit pays membres.",
+      ex:"Le BRVM Composite démarre l'année à 220 points. En décembre, il clôture à 253 points, soit +15%. Un fonds géré affichant +20% a donc surperformé l'indice de 5 points de pourcentage — c'est son alpha." },
+    { t:"Titre obligataire",
+      h:"Un emprunt formalisé par un titre financier échangeable en bourse.",
+      d:"Quand un État ou une grande entreprise a besoin de capitaux, il peut emprunter auprès de milliers d'investisseurs simultanément en émettant des obligations. Chaque obligation est une fraction de cet emprunt total. L'émetteur s'engage à verser des intérêts périodiques (coupons) et à rembourser le capital à l'échéance.",
+      ex:"Le Trésor sénégalais émet pour 100 milliards XOF d'obligations à 7 ans au taux de 6,5%. Un investisseur qui en achète pour 1 million XOF percevra 65 000 XOF d'intérêts chaque année et récupérera son million dans 7 ans.",
+      f:"Rendement approximatif = Coupon annuel ÷ Prix d'achat × 100" },
+    { t:"Prime de risque (spread)",
+      h:"Le surplus de rendement exigé par les investisseurs pour accepter un risque supérieur au taux sans risque.",
+      d:"Le taux sans risque est la référence — généralement le rendement des bons du Trésor des États les plus sûrs. Tout autre emprunteur doit offrir un supplément pour compenser son risque supplémentaire. Ce supplément, c'est le spread. Plus il est élevé, plus le marché perçoit l'emprunteur comme risqué.",
+      ex:"Les bons du Trésor BCEAO à 1 an rapportent 5%. Une obligation d'entreprise de la BRVM offre 9,5%. Le spread est de 4,5% (450 points de base) — la prime que le marché exige pour accepter le risque de cette entreprise spécifique." },
+    { t:"Compartiments de marché (primaire / secondaire)",
+      h:"La distinction entre l'émission initiale de titres et leur circulation ultérieure entre investisseurs.",
+      d:"Le marché primaire est le 'premier tour de table' : l'entreprise émet des titres et collecte des fonds frais. C'est là que se déroulent les introductions en bourse (IPO) et les augmentations de capital. Le marché secondaire, c'est la bourse au quotidien : des investisseurs revendent à d'autres des titres déjà émis. L'entreprise ne touche rien sur ces échanges.",
+      ex:"Lors de l'IPO d'une société sur la BRVM, les souscripteurs achètent des actions directement à l'entreprise (marché primaire) qui encaisse les fonds. Le lendemain de la cotation, quand ces actions s'échangent en bourse, c'est le marché secondaire — seuls les vendeurs et acheteurs se transfèrent de l'argent." },
+    { t:"Liquidité d'un titre",
+      h:"La facilité à acheter ou vendre rapidement une action sans faire bouger son cours.",
+      d:"Un titre liquide peut être acheté ou vendu instantanément à un prix proche du dernier cours. Un titre illiquide peut prendre des jours pour être vendu, et la pression de la vente elle-même fera baisser le cours. Sur la BRVM, la liquidité est un critère crucial car certaines valeurs n'enregistrent que quelques transactions par semaine.",
+      ex:"Un investisseur souhaite vendre pour 50 millions XOF d'une petite valeur de la BRVM. Mais le volume moyen quotidien de ce titre est de 2 millions XOF. Il lui faudrait 25 jours pour sortir entièrement — avec le risque de faire baisser le cours au fur et à mesure de ses ventes." },
+  ]},
+  { cat:"Obligations", terms:[
+    { t:"Coupon obligataire",
+      h:"Le paiement d'intérêt périodique que l'émetteur verse au détenteur de l'obligation.",
+      d:"Le coupon est la 'rémunération' de votre prêt à l'émetteur. Il peut être fixe (défini à l'émission et ne change jamais) ou variable (indexé sur un taux de marché). Les coupons sont généralement versés annuellement ou semestriellement. Ils constituent un revenu prévisible, contrairement aux dividendes d'actions.",
+      ex:"Vous achetez une obligation d'une société cotée à la BRVM : valeur nominale 500 000 XOF, coupon fixe 7,5%, durée 5 ans. Vous percevrez 37 500 XOF chaque année pendant 5 ans, puis récupérerez vos 500 000 XOF à l'échéance.",
+      f:"Coupon annuel = Taux nominal × Valeur nominale" },
+    { t:"Sensibilité / Duration",
+      h:"La mesure du risque de taux : combien le prix d'une obligation change quand les taux d'intérêt varient.",
+      d:"Quand les taux du marché montent, les anciennes obligations (à taux plus bas) perdent de l'attractivité — leur cours baisse. La duration quantifie cette sensibilité : une duration de 6 ans signifie qu'une hausse de 1% des taux fait baisser le cours d'environ 6%. Plus l'échéance est longue, plus la duration est élevée.",
+      ex:"Un investisseur détient des obligations d'État UEMOA à 10 ans avec une duration de 7,5. La BCEAO relève ses taux de 0,5%. Mécaniquement, la valeur de marché de ses obligations baisse d'environ 3,75% — sans que l'emprunteur soit en défaut.",
+      f:"Duration modifiée = Duration Macaulay ÷ (1 + taux de marché)" },
+    { t:"Rendement à maturité (YTM)",
+      h:"Le taux de rendement annualisé d'une obligation si on la garde jusqu'à son remboursement final.",
+      d:"Contrairement au taux coupon (fixé à l'émission), le YTM tient compte du prix actuel du marché, qui peut différer du pair. Si vous achetez une obligation 95 000 XOF alors que sa valeur nominale est 100 000 XOF, vous bénéficiez d'une plus-value à l'échéance — ce gain s'intègre dans le YTM, qui sera supérieur au coupon nominal.",
+      ex:"Une obligation émise à 100 000 XOF avec coupon 6% se négocie aujourd'hui à 94 000 XOF, à 3 ans de l'échéance. Le YTM est d'environ 8,2% — bien supérieur au coupon de 6% grâce à la décote d'achat.",
+      f:"YTM : résoudre pour r → Prix = Σ [Coupon ÷ (1+r)^t] + Nominal ÷ (1+r)^n" },
+    { t:"Obligation convertible en actions",
+      h:"Un instrument hybride qui combine la sécurité obligataire et le potentiel de hausse des actions.",
+      d:"L'obligation convertible est un titre de dette qui peut, à l'initiative du porteur (et sous conditions), être échangé contre des actions de l'entreprise émettrice. En cas de succès de l'entreprise et de forte hausse du titre, le porteur convertit et profite de la hausse. Si la performance est décevante, il conserve le statut de créancier et touche ses coupons.",
+      ex:"Une entreprise émet des obligations convertibles à 6% avec un prix de conversion à 8 000 XOF par action. Trois ans plus tard, l'action cote à 14 000 XOF. L'investisseur convertit ses obligations en actions et réalise une plus-value de 75% — bien au-delà des coupons." },
+  ]},
+  { cat:"Capital", terms:[
+    { t:"Introduction en bourse (IPO)",
+      h:"Le processus par lequel une entreprise privée ouvre son capital au public pour la première fois.",
+      d:"L'IPO (Initial Public Offering) est un tournant majeur dans la vie d'une entreprise. Elle permet de lever des capitaux auprès d'un grand nombre d'investisseurs, d'accroître la notoriété, de donner de la liquidité aux actionnaires fondateurs et de faciliter les acquisitions futures. En contrepartie, l'entreprise doit accepter la transparence et les contraintes réglementaires boursières.",
+      ex:"Quand Air Côte d'Ivoire ou une grande entreprise de la zone UEMOA s'introduit sur la BRVM, des milliers d'épargnants de la région peuvent pour la première fois investir dans son capital. L'entreprise utilise les fonds collectés pour financer son développement." },
+    { t:"Augmentation de capital par émission d'actions",
+      h:"Lever de nouveaux fonds propres en créant et vendant de nouvelles actions.",
+      d:"Quand une entreprise a besoin de financement mais ne veut pas s'endetter davantage, elle peut créer de nouvelles actions et les vendre au marché. C'est une bonne nouvelle si les fonds servent à des investissements rentables. C'est une mauvaise nouvelle si c'est pour rembourser des dettes — signal que l'entreprise est en difficulté. Les actionnaires existants sont dilués si ils ne participent pas.",
+      ex:"Un groupe bancaire coté sur la BRVM lance une augmentation de capital de 50 milliards XOF pour renforcer ses fonds propres réglementaires. Les actionnaires existants ont un droit prioritaire de souscrire proportionnellement à leur participation actuelle." },
+    { t:"Droit de souscription prioritaire (DSP)",
+      h:"Le droit accordé aux actionnaires existants d'acheter les nouvelles actions avant tout autre investisseur.",
+      d:"Lors d'une augmentation de capital, les actionnaires historiques reçoivent automatiquement des droits de souscription proportionnels à leur participation. Ce mécanisme les protège contre la dilution : s'ils exercent leurs droits, leur pourcentage dans le capital reste inchangé. S'ils ne souhaitent pas investir davantage, ils peuvent vendre ces droits en bourse.",
+      ex:"Vous détenez 2% du capital d'une société cotée. Elle lance une augmentation de capital de 20%. Vous recevez des DSP qui vous permettent de souscrire assez d'actions nouvelles pour maintenir exactement vos 2%. Si vous ne les exercez pas et ne les vendez pas, votre part tombe à 1,67%." },
+    { t:"Division du nominal (split)",
+      h:"La multiplication du nombre d'actions avec division proportionnelle du prix, sans modifier la capitalisation totale.",
+      d:"Quand le cours d'une action devient très élevé, il peut décourager les petits investisseurs. Un split divise mécaniquement le prix : un split 5:1 transforme 1 action à 50 000 XOF en 5 actions à 10 000 XOF chacune. La capitalisation totale reste identique mais la valeur unitaire devient plus accessible, ce qui stimule généralement la liquidité.",
+      ex:"Une action de la BRVM a atteint 90 000 XOF et les volumes ont chuté. La société décide un split 3:1 : 1 action à 90 000 XOF devient 3 actions à 30 000 XOF. Chaque actionnaire garde exactement la même valeur totale mais détient trois fois plus de titres, plus liquides." },
+    { t:"Programme de rachat d'actions propres",
+      h:"L'entreprise utilise sa trésorerie pour racheter ses propres titres sur le marché.",
+      d:"Quand une entreprise estime que ses actions sont sous-évaluées, elle peut les racheter elle-même. Ce faisant, elle réduit le nombre d'actions en circulation, ce qui mécaniquement augmente le bénéfice par action (BNPA) et la valeur comptable par action. C'est une façon de retourner du cash aux actionnaires sans payer de dividende — souvent plus efficace fiscalement.",
+      ex:"Une société minière dispose de 20 milliards XOF de trésorerie excédentaire. Plutôt que de distribuer un dividende exceptionnel, elle annonce un programme de rachat de 10% de ses actions. Le BNPA augmente mécaniquement de ~11%, soutenant le cours boursier." },
+  ]},
+];
+
+const CATS = ["Tout", ...DATA.map(d => d.cat)];
+let current = "Tout", query = "";
+
+function totalTerms() { return DATA.reduce((a, c) => a + c.terms.length, 0); }
+document.getElementById('h-terms').textContent = totalTerms();
+document.getElementById('h-cats').textContent = DATA.length;
+
+function matchTerm(t) {
+  if (!query) return true;
+  const q = query.toLowerCase();
+  return t.t.toLowerCase().includes(q) || t.h.toLowerCase().includes(q) || (t.d && t.d.toLowerCase().includes(q));
+}
+
+function visibleCount() {
+  let n = 0;
+  DATA.forEach(s => {
+    if (current !== "Tout" && s.cat !== current) return;
+    s.terms.forEach(t => { if (matchTerm(t)) n++; });
+  });
+  return n;
+}
+
+function hl(txt) {
+  if (!query) return txt;
+  const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return txt.replace(re, '<mark>$1</mark>');
+}
+
+function renderTabs() {
+  const el = document.getElementById('tabs');
+  el.innerHTML = CATS.map(c =>
+    `<button class="tab${c === current ? ' active' : ''}" data-cat="${c}">${c}</button>`
+  ).join('');
+  el.querySelectorAll('.tab').forEach(b => b.onclick = () => { current = b.dataset.cat; render(); });
+}
+
+function render() {
+  renderTabs();
+  const vis = visibleCount();
+  document.getElementById('rcount').innerHTML = `<strong>${vis}</strong> terme${vis > 1 ? 's' : ''}`;
+  const el = document.getElementById('content');
+  let html = '', found = 0;
+
+  DATA.forEach(sec => {
+    if (current !== "Tout" && sec.cat !== current) return;
+    const terms = sec.terms.filter(matchTerm);
+    if (!terms.length) return;
+    found += terms.length;
+    const icon = ICONS[sec.cat] || ICONS["Capital"];
+
+    html += `<div class="cat-block">
+      <div class="cat-title">
+        <div class="cat-icon">${icon}</div>
+        <span class="cat-name">${sec.cat}<span class="cat-n">${terms.length}</span></span>
+      </div>
+      <div class="grid">`;
+
+    terms.forEach((t, i) => {
+      const id = `c_${sec.cat.replace(/\W/g,'_')}_${i}`;
+      html += `<div class="card" id="${id}" onclick="toggle('${id}')" tabindex="0"
+        onkeydown="if(event.key==='Enter'||event.key===' ')toggle('${id}')" aria-expanded="false" role="button">
+        <div class="card-head">
+          <div class="card-label">
+            <div class="card-term">${hl(t.t)}</div>
+            <div class="card-hook">${hl(t.h)}</div>
+          </div>
+          <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="card-body">
+          <p class="card-def">${hl(t.d || '')}</p>
+          ${t.ex ? `<div class="card-ex">
+            <div class="card-ex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="card-ex-text"><strong>Illustration :</strong> ${hl(t.ex)}</div>
+          </div>` : ''}
+          ${t.f ? `<div class="card-formula">${t.f}</div>` : ''}
+          <span class="card-pill"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>${sec.cat}</span>
+        </div>
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  if (!found) {
+    html = `<div class="empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>Aucun terme ne correspond à "<strong>${query}</strong>"</p>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+window.toggle = function(id) {
+  const card = document.getElementById(id);
+  const isOpen = card.classList.toggle('open');
+  card.setAttribute('aria-expanded', isOpen);
+};
+
+document.getElementById('search').addEventListener('input', function () {
+  query = this.value.trim();
+  render();
+});
+
+render();
+
+})
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#0F7A5A;
+  --green2:#15A878;
+  --green3:#D6F4EC;
+  --green4:#EBF9F5;
+  --teal:#0D5C6E;
+  --orange:#E8660A;
+  --orange2:#FDE9D9;
+  --bg:#F7F8F6;
+  --white:#FFFFFF;
+  --ink:#111C18;
+  --ink2:#3D4D45;
+  --ink3:#7A8C84;
+  --line:#DDE6E1;
+  --line2:#C8D8D0;
+  --mono:#1A4035;
+  --mono-bg:#E8F4EF;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  font-family:'Nunito',sans-serif;
+  color:var(--ink);
+  min-height:100vh;
+  font-size:15px;
+}
+
+/* ── HERO HEADER ── */
+.hero{
+  background:linear-gradient(135deg,var(--teal) 0%,var(--green) 100%);
+  padding:3rem 2rem 2.5rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  right:-60px;top:-60px;
+  width:300px;height:300px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.04);
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  left:40%;bottom:-80px;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.03);
+}
+.hero-label{
+  font-size:11px;
+  font-weight:700;
+  color:var(--green3);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  margin-bottom:0.5rem;
+}
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:36px;
+  font-weight:800;
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:0.5rem;
+  letter-spacing:-0.02em;
+}
+.hero-sub{
+  font-size:14px;
+  color:rgba(255,255,255,0.7);
+  font-weight:300;
+  max-width:480px;
+  line-height:1.6;
+  margin-bottom:2rem;
+}
+.hero-stats{
+  display:flex;
+  gap:2rem;
+  flex-wrap:wrap;
+}
+.hero-stat{
+  text-align:center;
+}
+.hero-stat-n{
+  font-family:'Syne',sans-serif;
+  font-size:26px;
+  font-weight:700;
+  color:#fff;
+  line-height:1;
+}
+.hero-stat-l{
+  font-size:11px;
+  color:rgba(255,255,255,0.6);
+  margin-top:2px;
+  font-weight:400;
+}
+
+/* ── STICKY CONTROLS ── */
+.controls{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:0.9rem 2rem;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+.search-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:0.75rem;
+}
+.search-box{
+  position:relative;
+  flex:1;
+  max-width:480px;
+}
+.search-box svg{
+  position:absolute;
+  left:12px;top:50%;
+  transform:translateY(-50%);
+  color:var(--ink3);
+  pointer-events:none;
+}
+#search{
+  width:100%;
+  padding:9px 12px 9px 38px;
+  border:1.5px solid var(--line2);
+  border-radius:8px;
+  font-size:13.5px;
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  outline:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+#search:focus{border-color:var(--green2);background:var(--white)}
+#search::placeholder{color:var(--ink3)}
+.result-count{
+  font-size:12px;
+  color:var(--ink3);
+  white-space:nowrap;
+  font-weight:500;
+}
+.result-count strong{color:var(--green);font-weight:700}
+.tabs{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  padding:5px 12px;
+  border-radius:6px;
+  border:none;
+  background:transparent;
+  font-size:12px;
+  font-family:'Nunito',sans-serif;
+  font-weight:600;
+  color:var(--ink3);
+  cursor:pointer;
+  transition:all 0.15s;
+  white-space:nowrap;
+}
+.tab:hover{background:var(--green4);color:var(--green)}
+.tab.active{background:var(--green);color:#fff}
+
+/* ── CONTENT ── */
+.content{
+  max-width:1180px;
+  margin:0 auto;
+  padding:2rem 2rem 5rem;
+}
+
+/* ── CATEGORY BLOCK ── */
+.cat-block{margin-bottom:2.5rem}
+.cat-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:1.25rem;
+}
+.cat-icon{
+  width:36px;height:36px;
+  border-radius:8px;
+  background:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.cat-icon svg{color:#fff;width:16px;height:16px}
+.cat-name{
+  font-family:'Syne',sans-serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:-0.01em;
+}
+.cat-n{
+  font-size:11px;
+  background:var(--green3);
+  color:var(--green);
+  font-weight:700;
+  padding:3px 8px;
+  border-radius:100px;
+  margin-left:4px;
+}
+
+/* ── CARD GRID ── */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:10px;
+}
+
+/* ── TERM CARD ── */
+.card{
+  background:var(--white);
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color 0.15s,box-shadow 0.15s,transform 0.1s;
+}
+.card:hover{
+  border-color:var(--green2);
+  box-shadow:0 4px 16px rgba(15,122,90,0.1);
+  transform:translateY(-1px);
+}
+.card.open{border-color:var(--green);border-bottom-left-radius:12px;border-bottom-right-radius:12px}
+.card-head{
+  padding:14px 16px 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  user-select:none;
+}
+.card-label{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+}
+.card-term{
+  font-family:'Syne',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.3;
+  letter-spacing:-0.01em;
+}
+.card-hook{
+  font-size:12px;
+  color:var(--green);
+  font-weight:600;
+  line-height:1.4;
+}
+.card-arrow{
+  width:18px;height:18px;
+  flex-shrink:0;
+  color:var(--ink3);
+  transition:transform 0.2s;
+  margin-top:1px;
+}
+.card.open .card-arrow{transform:rotate(180deg);color:var(--green)}
+
+/* ── CARD BODY ── */
+.card-body{
+  display:none;
+  padding:0 16px 16px;
+  border-top:1px dashed var(--line);
+}
+.card.open .card-body{display:block}
+.card-def{
+  font-size:13px;
+  color:var(--ink2);
+  line-height:1.8;
+  margin-top:12px;
+  font-weight:400;
+}
+.card-ex{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:var(--green4);
+  border-radius:8px;
+  padding:10px 12px;
+  margin-top:12px;
+}
+.card-ex-icon{
+  width:20px;height:20px;
+  background:var(--green3);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.card-ex-icon svg{color:var(--green);width:10px;height:10px}
+.card-ex-text{
+  font-size:12px;
+  color:var(--ink2);
+  line-height:1.65;
+}
+.card-ex-text strong{color:var(--green);font-weight:700}
+.card-formula{
+  background:var(--mono-bg);
+  border-radius:6px;
+  padding:8px 12px;
+  margin-top:10px;
+  font-family:'Courier New',monospace;
+  font-size:12px;
+  color:var(--mono);
+  font-weight:500;
+  letter-spacing:0.01em;
+  line-height:1.55;
+  border-left:3px solid var(--green2);
+}
+.card-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  margin-top:10px;
+  padding:3px 10px;
+  border-radius:100px;
+  background:var(--orange2);
+  font-size:11px;
+  color:var(--orange);
+  font-weight:700;
+}
+
+/* ── EMPTY ── */
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:4rem 2rem;
+  color:var(--ink3);
+}
+.empty svg{margin-bottom:1rem;opacity:0.3}
+.empty p{font-size:14px;font-weight:500}
+
+/* ── HIGHLIGHT ── */
+mark{background:#FFF176;color:var(--ink);border-radius:2px;padding:0 1px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .hero{padding:2rem 1rem 1.75rem}
+  .hero-title{font-size:26px}
+  .controls,.content{padding-left:1rem;padding-right:1rem}
+  .grid{grid-template-columns:1fr}
+}
+</style>
