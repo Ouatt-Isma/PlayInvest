@@ -64,6 +64,8 @@
         <NuxtLink to="/quiz"    class="block" @click="isOpen = false">Quiz</NuxtLink>
         <NuxtLink to="/learn"   class="block" @click="isOpen = false">Se former</NuxtLink>
         <NuxtLink to="/news"    class="block" @click="isOpen = false">Actualités</NuxtLink>
+        <NuxtLink to="/lexique"    class="block" @click="isOpen = false">Lexique</NuxtLink>
+        <NuxtLink to="/analyses"    class="block" @click="isOpen = false">Analyses</NuxtLink>
 
         <div class="mt-6 border-t pt-4">
           <NuxtLink to="/login" class="block mb-2">Connexion</NuxtLink>
