@@ -118,6 +118,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <NuxtLink to="/quiz"   :class="{ 'font-semibold text-primary': $route.path === '/quiz' }">Quiz</NuxtLink>
         <NuxtLink to="/learn"  :class="{ 'font-semibold text-primary': $route.path === '/learn' }">Se former</NuxtLink>
         <NuxtLink to="/news"   :class="{ 'font-semibold text-primary': $route.path === '/news' }">Actualités</NuxtLink>
+        <NuxtLink to="/lexique"   :class="{ 'font-semibold text-primary': $route.path === '/lexique' }">Actualités</NuxtLink>
+        <NuxtLink to="/analyses"   :class="{ 'font-semibold text-primary': $route.path === '/analyses' }">Actualités</NuxtLink>
       </nav>
       <div class="flex items-center space-x-4">
       <NuxtLink to="/notifs" class="relative">
@@ -228,6 +230,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <NuxtLink to="/quiz"    class="block" @click="isOpen = false">Quiz</NuxtLink>
         <NuxtLink to="/learn"   class="block" @click="isOpen = false">Se former</NuxtLink>
         <NuxtLink to="/news"    class="block" @click="isOpen = false">Actualités</NuxtLink>
+        <NuxtLink to="/lexique"    class="block" @click="isOpen = false">Lexique</NuxtLink>
+        <NuxtLink to="/analyses"    class="block" @click="isOpen = false">Analyses</NuxtLink>
 
         <!-- <div class="mt-6 border-t pt-4">
           <NuxtLink to="/login" class="block mb-2">Connexion</NuxtLink>

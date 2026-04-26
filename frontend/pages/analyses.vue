@@ -278,6 +278,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useAuth } from '~/composables/useAuth'
+
+const { isAuthenticated } = useAuth()
 
 const activeTab = ref('fondamentale')
 
@@ -373,6 +376,7 @@ const errorComparativeA = ref(false)
 const errorComparativeB = ref(false)
 
 function lancerAnalyse(type) {
+  if (!isAuthenticated.value) return navigateTo('/login')
   if (type === 'fondamentale') {
     if (!selectFondamentale.value) return
     resultFondamentale.value = selectFondamentale.value
