@@ -118,8 +118,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <NuxtLink to="/quiz"   :class="{ 'font-semibold text-primary': $route.path === '/quiz' }">Quiz</NuxtLink>
         <NuxtLink to="/learn"  :class="{ 'font-semibold text-primary': $route.path === '/learn' }">Se former</NuxtLink>
         <NuxtLink to="/news"   :class="{ 'font-semibold text-primary': $route.path === '/news' }">Actualités</NuxtLink>
-        <NuxtLink to="/lexique"   :class="{ 'font-semibold text-primary': $route.path === '/lexique' }">Actualités</NuxtLink>
-        <NuxtLink to="/analyses"   :class="{ 'font-semibold text-primary': $route.path === '/analyses' }">Actualités</NuxtLink>
+        <NuxtLink to="/lexique"   :class="{ 'font-semibold text-primary': $route.path === '/lexique' }">Lexique</NuxtLink>
+        <NuxtLink to="/analyses"   :class="{ 'font-semibold text-primary': $route.path === '/analyses' }">Analyses</NuxtLink>
       </nav>
       <div class="flex items-center space-x-4">
       <NuxtLink to="/notifs" class="relative">
