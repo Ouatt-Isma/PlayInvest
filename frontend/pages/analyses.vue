@@ -103,6 +103,9 @@
             <div class="selector-wrap">
               <select v-model="selectFondamentale">
                 <option value="" disabled>— Choisir un actif —</option>
+                <option v-for="a in assets" :key="a.id" :value="a.symbol">
+                  {{ a.symbol }} — {{ a.name }}
+                </option>
               </select>
             </div>
             <button class="btn-analyse" @click="lancerAnalyse('fondamentale')">
@@ -110,7 +113,6 @@
               Lancer l'analyse
             </button>
           </div>
-          <p class="selector-hint">Les actifs seront disponibles prochainement.</p>
         </div>
 
         <div class="result-placeholder">
@@ -171,6 +173,9 @@
             <div class="selector-wrap">
               <select v-model="selectTechnique">
                 <option value="" disabled>— Choisir un actif —</option>
+                <option v-for="a in assets" :key="a.id" :value="a.symbol">
+                  {{ a.symbol }} — {{ a.name }}
+                </option>
               </select>
             </div>
             <button class="btn-analyse" @click="lancerAnalyse('technique')">
@@ -178,7 +183,6 @@
               Lancer l'analyse
             </button>
           </div>
-          <p class="selector-hint">Les actifs seront disponibles prochainement.</p>
         </div>
 
         <div class="result-placeholder">
@@ -277,10 +281,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
 import { useAuth } from '~/composables/useAuth'
 
 const { isAuthenticated } = useAuth()
+const config = useRuntimeConfig()
+const apiBase = config.public.apiBase
+
+const assets = ref([])
+onMounted(async () => {
+  try {
+    const res = await axios.get(`${apiBase}/api/assets`)
+    assets.value = res.data
+  } catch {
+    assets.value = []
+  }
+})
 
 const activeTab = ref('fondamentale')
 
@@ -379,10 +396,10 @@ function lancerAnalyse(type) {
   if (!isAuthenticated.value) return navigateTo('/login')
   if (type === 'fondamentale') {
     if (!selectFondamentale.value) return
-    resultFondamentale.value = selectFondamentale.value
+    navigateTo(`/analyses/fondamentale/${selectFondamentale.value}`)
   } else {
     if (!selectTechnique.value) return
-    resultTechnique.value = selectTechnique.value
+    navigateTo(`/analyses/technique/${selectTechnique.value}`)
   }
 }
 
