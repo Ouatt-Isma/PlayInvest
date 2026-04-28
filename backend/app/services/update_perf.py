@@ -71,27 +71,33 @@ def update_portfolio_and_asset_performance(db: Session, portfolio_id: int, curre
     # print("total_investment:", total_investment)
     portfolio.performance_pct = weighted_perf_all/ total_investment if total_investment else 0
 
-    # Previous performance for carry-over
+    today = current_date.date() if hasattr(current_date, "date") else current_date
+
+    # Previous performance for carry-over (exclude today so we don't self-reference)
     prev_perf = (
         db.query(Performance)
-        .filter(Performance.portfolio_id == portfolio_id)
+        .filter(Performance.portfolio_id == portfolio_id, Performance.date < today)
         .order_by(Performance.date.desc())
         .first()
     )
-    perf_record = Performance(
-        portfolio_id=portfolio_id,
-        date=current_date,
-        category_etf=performance_data['etf'] / investment_data['etf'] if investment_data['etf'] else (prev_perf.category_etf if prev_perf else 0),
-        category_crypto=performance_data['crypto'] / investment_data['crypto'] if investment_data['crypto'] else (prev_perf.category_crypto if prev_perf else 0),
-        category_stock=performance_data['stock'] / investment_data['stock'] if investment_data['stock'] else (prev_perf.category_stock if prev_perf else 0),
-        region_africa=performance_data['africa'] / investment_data['africa'] if investment_data['africa'] else (prev_perf.region_africa if prev_perf else 0),
-        region_usa=performance_data['usa'] / investment_data['usa'] if investment_data['usa'] else (prev_perf.region_usa if prev_perf else 0),
-        region_europe=performance_data['europe'] / investment_data['europe'] if investment_data['europe'] else (prev_perf.region_europe if prev_perf else 0),
-        region_world=performance_data['world'] / investment_data['world'] if investment_data['world'] else (prev_perf.region_world if prev_perf else 0), 
-        global_perf = portfolio.performance_pct, 
-    )
 
-    db.add(perf_record)
+    perf_record = (
+        db.query(Performance)
+        .filter(Performance.portfolio_id == portfolio_id, Performance.date == today)
+        .first()
+    )
+    if perf_record is None:
+        perf_record = Performance(portfolio_id=portfolio_id, date=today)
+        db.add(perf_record)
+
+    perf_record.category_etf = performance_data['etf'] / investment_data['etf'] if investment_data['etf'] else (prev_perf.category_etf if prev_perf else 0)
+    perf_record.category_crypto = performance_data['crypto'] / investment_data['crypto'] if investment_data['crypto'] else (prev_perf.category_crypto if prev_perf else 0)
+    perf_record.category_stock = performance_data['stock'] / investment_data['stock'] if investment_data['stock'] else (prev_perf.category_stock if prev_perf else 0)
+    perf_record.region_africa = performance_data['africa'] / investment_data['africa'] if investment_data['africa'] else (prev_perf.region_africa if prev_perf else 0)
+    perf_record.region_usa = performance_data['usa'] / investment_data['usa'] if investment_data['usa'] else (prev_perf.region_usa if prev_perf else 0)
+    perf_record.region_europe = performance_data['europe'] / investment_data['europe'] if investment_data['europe'] else (prev_perf.region_europe if prev_perf else 0)
+    perf_record.region_world = performance_data['world'] / investment_data['world'] if investment_data['world'] else (prev_perf.region_world if prev_perf else 0)
+    perf_record.global_perf = portfolio.performance_pct
     db.add(portfolio)  # ensure portfolio is tracked for update
         
 
