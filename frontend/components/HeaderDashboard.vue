@@ -1,23 +1,23 @@
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuth } from '~/composables/useAuth'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from "vue";
+import { useRouter } from "vue-router";
+import { useAuth } from "~/composables/useAuth";
 
-const darkMode = ref(false)
-const avatar_url = ref('/icons/default.png')
-const first_name = ref('')
+const darkMode = ref(false);
+const avatar_url = ref("/icons/default.png");
+const first_name = ref("");
 
-const router = useRouter()
-const { logout, user } = useAuth()
+const router = useRouter();
+const { logout, user } = useAuth();
 
 // ✅ Always reflect user updates
 watch(
   user,
   (newUser) => {
-    console.log('🔎 avatar_url from backend:', newUser?.avatar_url)
+    console.log("🔎 avatar_url from backend:", newUser?.avatar_url);
   },
-  { immediate: true }
-)
+  { immediate: true },
+);
 
 watch(
   user,
@@ -25,81 +25,78 @@ watch(
     if (newUser) {
       let url =
         newUser.avatar_url ||
-        (import.meta.client ? localStorage.getItem('avatar_url') : '') ||
-        '/icons/default.png'
+        (import.meta.client ? localStorage.getItem("avatar_url") : "") ||
+        "/icons/default.png";
 
       // 🧹 normalize to correct public path
       url = url
-        .replace('/_nuxt/public', '')
-        .replace('/public', '')
-        .replace(/^\/+/, '/')
-      avatar_url.value = url
-      first_name.value = newUser.first_name || newUser.name || ''
+        .replace("/_nuxt/public", "")
+        .replace("/public", "")
+        .replace(/^\/+/, "/");
+      avatar_url.value = url;
+      first_name.value = newUser.first_name || newUser.name || "";
     } else {
-      avatar_url.value = '/icons/default.png'
-      first_name.value = ''
+      avatar_url.value = "/icons/default.png";
+      first_name.value = "";
     }
   },
-  { immediate: true }
-)
+  { immediate: true },
+);
 
 // ... rest of your dropdown & menu code ...
 
 watch(darkMode, (val) => {
-  const html = document.documentElement
+  const html = document.documentElement;
   if (val) {
-    html.classList.add('dark')
+    html.classList.add("dark");
   } else {
-    html.classList.remove('dark')
+    html.classList.remove("dark");
   }
-})
+});
 
 // import { useCookie } from 'nuxt/app'
 // import type {UserCookie} from '@/composables/useUser'
 
 // const user = useCookie<UserCookie>('user', { path: '/' })
 
-
-const showDropdown = ref(false)
-const dropdownRef = ref(null)
+const showDropdown = ref(false);
+const dropdownRef = ref(null);
 
 const toggleDropdown = async () => {
-  showDropdown.value = !showDropdown.value
+  showDropdown.value = !showDropdown.value;
 
   // Wait for dropdown to render before attaching outside listener
   if (showDropdown.value) {
-    await nextTick()
+    await nextTick();
     setTimeout(() => {
-      document.addEventListener('click', handleClickOutside)
-    }, 0)
+      document.addEventListener("click", handleClickOutside);
+    }, 0);
   } else {
-    document.removeEventListener('click', handleClickOutside)
+    document.removeEventListener("click", handleClickOutside);
   }
-}
+};
 
 const handleClickOutside = (event) => {
   if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
-    showDropdown.value = false
-    document.removeEventListener('click', handleClickOutside)
+    showDropdown.value = false;
+    document.removeEventListener("click", handleClickOutside);
   }
-}
+};
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
+  document.removeEventListener("click", handleClickOutside);
+});
 
-
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 // (optional) close on Esc
-const onKey = (e) => { if (e.key === 'Escape') isOpen.value = false }
-onMounted(() => window.addEventListener('keydown', onKey))
-onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
-
-
+const onKey = (e) => {
+  if (e.key === "Escape") isOpen.value = false;
+};
+onMounted(() => window.addEventListener("keydown", onKey));
+onBeforeUnmount(() => window.removeEventListener("keydown", onKey));
 </script>
 <!-- 'icons/default.png' -->
-
 
 <template>
   <header class="bg-gray-50 shadow-sm sticky top-0 z-[930]">
@@ -109,73 +106,120 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <img src="/logo.png" alt="PlayInvest Logo" class="h-8 w-auto" />
       </NuxtLink>
 
-      
-
       <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-        <NuxtLink to="/" active-class="text-teal-900 font-bold">Accueil</NuxtLink>
-        <NuxtLink to="/assets" :class="{ 'font-semibold text-primary': $route.path === '/assets' }">Actifs</NuxtLink>
-        <NuxtLink to="/quiz"   :class="{ 'font-semibold text-primary': $route.path === '/quiz' }">Quiz</NuxtLink>
-        <NuxtLink to="/learn"  :class="{ 'font-semibold text-primary': $route.path === '/learn' }">Se former</NuxtLink>
-        <NuxtLink to="/news"   :class="{ 'font-semibold text-primary': $route.path === '/news' }">Actualités</NuxtLink>
-        <NuxtLink to="/lexique"   :class="{ 'font-semibold text-primary': $route.path === '/lexique' }">Lexique</NuxtLink>
-        <NuxtLink to="/analyses"   :class="{ 'font-semibold text-primary': $route.path === '/analyses' }">Analyses</NuxtLink>
+      <nav
+        class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600"
+      >
+        <NuxtLink to="/" active-class="text-teal-900 font-bold"
+          >Accueil</NuxtLink
+        >
+        <NuxtLink
+          to="/assets"
+          :class="{ 'font-semibold text-primary': $route.path === '/assets' }"
+          >Actifs</NuxtLink
+        >
+        <NuxtLink
+          to="/quiz"
+          :class="{ 'font-semibold text-primary': $route.path === '/quiz' }"
+          >Quiz</NuxtLink
+        >
+        <NuxtLink
+          to="/learn"
+          :class="{ 'font-semibold text-primary': $route.path === '/learn' }"
+          >Se former</NuxtLink
+        >
+        <NuxtLink
+          to="/news"
+          :class="{ 'font-semibold text-primary': $route.path === '/news' }"
+          >Actualités</NuxtLink
+        >
+        <NuxtLink
+          to="/lexique"
+          :class="{ 'font-semibold text-primary': $route.path === '/lexique' }"
+          >Lexique</NuxtLink
+        >
+        <NuxtLink
+          to="/analyses"
+          :class="{ 'font-semibold text-primary': $route.path === '/analyses' }"
+          >Analyses</NuxtLink
+        >
       </nav>
       <div class="flex items-center space-x-4">
-      <NuxtLink to="/notifs" class="relative">
-        <img src="/icons/bell.svg" alt="Notifications" class="h-6 w-6 text-gray-600" />
-        <span class="absolute top-0 right-0 block h-2 w-2 bg-green-500 rounded-full ring-2 ring-white"></span>
-      </NuxtLink>
+        <NuxtLink to="/notifs" class="relative">
+          <img
+            src="/icons/bell.svg"
+            alt="Notifications"
+            class="h-6 w-6 text-gray-600"
+          />
+          <span
+            class="absolute top-0 right-0 block h-2 w-2 bg-green-500 rounded-full ring-2 ring-white"
+          ></span>
+        </NuxtLink>
 
-      <NuxtLink to="/dashboard"  class="border px-4 py-1 rounded-lg text-gray-800 font-medium hover:bg-gray-100">
-        Portefeuille
-      </NuxtLink>
+        <NuxtLink
+          to="/dashboard"
+          class="border px-4 py-1 rounded-lg text-gray-800 font-medium hover:bg-gray-100"
+        >
+          Portefeuille
+        </NuxtLink>
 
-      <div class="relative group">
-        <div class="relative">
-          <ClientOnly>
-  <img
-    :src="avatar_url || '/icons/default.png'"
-    alt="User Avatar"
-    class="h-8 w-8 rounded-full border cursor-pointer"
-    @click="toggleDropdown"
-  /></ClientOnly>
+        <div class="relative group">
+          <div class="relative">
+            <ClientOnly>
+              <img
+                :src="avatar_url || '/icons/default.png'"
+                alt="User Avatar"
+                class="h-8 w-8 rounded-full border cursor-pointer"
+                @click="toggleDropdown"
+            /></ClientOnly>
 
-    <div
-      v-if="showDropdown"
-      ref="dropdownRef"
-      class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg z-50 p-4"
-      style="z-index: 1000;"
-    >
-        <div class="mb-2">
-          <div v-if="first_name && first_name !== 'null'" class="text-lg font-semibold text-gray-900">
-      {{ first_name }}
-    </div>
-    <div class="text-sm text-gray-400">Compte personnel</div>
-    </div>
+            <div
+              v-if="showDropdown"
+              ref="dropdownRef"
+              class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg z-50 p-4"
+              style="z-index: 1000"
+            >
+              <div class="mb-2">
+                <div
+                  v-if="first_name && first_name !== 'null'"
+                  class="text-lg font-semibold text-gray-900"
+                >
+                  {{ first_name }}
+                </div>
+                <div class="text-sm text-gray-400">Compte personnel</div>
+              </div>
 
-    <hr class="my-2" />
+              <hr class="my-2" />
 
-    <div class="space-y-2">
-      <NuxtLink to="/profile" class="flex items-center gap-2 text-gray-700 hover:text-black">
-        <img src="/icons/user.svg" class="h-4 w-4" />
-        Vos détails
-      </NuxtLink>
+              <div class="space-y-2">
+                <NuxtLink
+                  to="/profile"
+                  class="flex items-center gap-2 text-gray-700 hover:text-black"
+                >
+                  <img src="/icons/user.svg" class="h-4 w-4" />
+                  Vos détails
+                </NuxtLink>
 
-      <NuxtLink to="/account" class="flex items-center gap-2 text-gray-700 hover:text-black">
-        <img src="/icons/settings.svg" class="h-4 w-4" />
-        Paramètres du compte
-      </NuxtLink>
+                <NuxtLink
+                  to="/account"
+                  class="flex items-center gap-2 text-gray-700 hover:text-black"
+                >
+                  <img src="/icons/settings.svg" class="h-4 w-4" />
+                  Paramètres du compte
+                </NuxtLink>
 
-      <button @click="logout" class="flex items-center gap-2 text-gray-700 hover:text-black w-full text-left">
-        <img src="/icons/logout.svg" class="h-4 w-4" />
-        Se déconnecter
-      </button>
-    </div>
+                <button
+                  @click="logout"
+                  class="flex items-center gap-2 text-gray-700 hover:text-black w-full text-left"
+                >
+                  <img src="/icons/logout.svg" class="h-4 w-4" />
+                  Se déconnecter
+                </button>
+              </div>
 
-    <hr class="my-2" />
+              <hr class="my-2" />
 
-    <!-- <div class="flex items-center justify-between text-gray-700 px-4 py-2">
+              <!-- <div class="flex items-center justify-between text-gray-700 px-4 py-2">
     <span class="text-sm font-medium">Mode sombre</span>
     <label class="relative inline-flex items-center cursor-pointer">
         <input type="checkbox" v-model="darkMode" class="sr-only peer" />
@@ -184,54 +228,93 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         ></div>
     </label>
     </div> -->
-  </div>
-</div>
-
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
       <!-- Mobile menu button -->
-      <button @click="isOpen = true" class="md:hidden p-2" aria-label="Open menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"/>
+      <button
+        @click="isOpen = true"
+        class="md:hidden p-2"
+        aria-label="Open menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       </button>
 
       <!-- Auth buttons (desktop) -->
     </div>
 
-    
-
     <!-- Overlay -->
     <transition name="fade">
-      <div v-if="isOpen" class="fixed inset-0 bg-black bg-opacity-40 z-[950]"
-           @click="isOpen = false"></div>
+      <div
+        v-if="isOpen"
+        class="fixed inset-0 bg-black bg-opacity-40 z-[950]"
+        @click="isOpen = false"
+      ></div>
     </transition>
 
     <!-- Right sidebar -->
     <transition name="slide-right">
-      <aside v-if="isOpen"
-             class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-[1000] p-6 flex flex-col gap-4"
-             role="dialog" aria-modal="true">
+      <aside
+        v-if="isOpen"
+        class="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-[1000] p-6 flex flex-col gap-4"
+        role="dialog"
+        aria-modal="true"
+      >
         <div class="flex items-center justify-between mb-4">
           <span class="font-semibold">Menu</span>
           <button @click="isOpen = false" aria-label="Close menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
 
-        <NuxtLink to="/"        class="block" @click="isOpen = false">Accueil</NuxtLink>
-        <NuxtLink to="/assets"  class="block" @click="isOpen = false">Actifs</NuxtLink>
-        <NuxtLink to="/quiz"    class="block" @click="isOpen = false">Quiz</NuxtLink>
-        <NuxtLink to="/learn"   class="block" @click="isOpen = false">Se former</NuxtLink>
-        <NuxtLink to="/news"    class="block" @click="isOpen = false">Actualités</NuxtLink>
-        <NuxtLink to="/lexique"    class="block" @click="isOpen = false">Lexique</NuxtLink>
-        <NuxtLink to="/analyses"    class="block" @click="isOpen = false">Analyses</NuxtLink>
+        <NuxtLink to="/" class="block" @click="isOpen = false"
+          >Accueil</NuxtLink
+        >
+        <NuxtLink to="/assets" class="block" @click="isOpen = false"
+          >Actifs</NuxtLink
+        >
+        <NuxtLink to="/quiz" class="block" @click="isOpen = false"
+          >Quiz</NuxtLink
+        >
+        <NuxtLink to="/learn" class="block" @click="isOpen = false"
+          >Se former</NuxtLink
+        >
+        <NuxtLink to="/news" class="block" @click="isOpen = false"
+          >Actualités</NuxtLink
+        >
+        <NuxtLink to="/lexique" class="block" @click="isOpen = false"
+          >Lexique</NuxtLink
+        >
+        <NuxtLink to="/analyses" class="block" @click="isOpen = false"
+          >Analyses</NuxtLink
+        >
 
         <!-- <div class="mt-6 border-t pt-4">
           <NuxtLink to="/login" class="block mb-2">Connexion</NuxtLink>
@@ -242,22 +325,24 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
   </header>
 </template>
 
-
-
 <style>
 /* Slide in from the RIGHT */
-.slide-right-enter-active, .slide-right-leave-active {
+.slide-right-enter-active,
+.slide-right-leave-active {
   transition: transform 0.3s ease;
 }
-.slide-right-enter-from, .slide-right-leave-to {
+.slide-right-enter-from,
+.slide-right-leave-to {
   transform: translateX(100%);
 }
 
 /* Fade overlay */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.3s ease;
 }
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

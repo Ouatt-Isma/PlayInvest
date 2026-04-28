@@ -30,16 +30,16 @@
         </p>
 
         <!-- 2-col layout: chart left, controls right -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pr-2 sm:pr-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
           <!-- Left: chart -->
-          <div class="lg:col-span-8">
-            <div class="w-full h-[560px] sm:h-[420px] lg:h-[500px]">
+          <div class="md:col-span-8">
+            <div class="w-full h-[400px] md:h-[480px]">
               <PerfPlot />
             </div>
           </div>
 
           <!-- Right: date range + ranking -->
-          <div class="lg:col-span-4 space-y-6">
+          <div class="md:col-span-4 space-y-6">
             <PerfDateRangeCard />
             <UserRankingCard />
           </div>
