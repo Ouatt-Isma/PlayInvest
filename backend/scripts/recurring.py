@@ -191,7 +191,7 @@ def main():
     }
     scheduler = BlockingScheduler(timezone=tz, job_defaults=job_defaults)
 
-    scheduler.add_job(news,     trigger='cron', hour=8,  id="news_daily",     replace_existing=True)
+    # scheduler.add_job(news,     trigger='cron', hour=8,  id="news_daily",     replace_existing=True)
     scheduler.add_job(assets,   trigger='cron', hour=23, id="assets_daily",   replace_existing=True)
     scheduler.add_job(perf,     trigger='cron', hour=12, id="perf_daily",     replace_existing=True)
  
