@@ -30,7 +30,7 @@
         </p>
 
         <!-- 2-col layout: chart left, controls right -->
-        <div class="flex flex-col md:flex-row gap-6 md:items-start">
+        <div class="flex flex-col md:flex-row gap-6">
           <!-- Left: chart -->
           <div class="min-w-0 md:flex-[2]">
             <div class="w-full h-[400px] md:h-[480px] overflow-hidden">
@@ -39,9 +39,11 @@
           </div>
 
           <!-- Right: date range + ranking -->
-          <div class="space-y-6 md:flex-1">
+          <div class="flex flex-col gap-6 md:flex-1">
             <PerfDateRangeCard />
-            <UserRankingCard />
+            <div class="flex-1">
+              <UserRankingCard class="h-full" />
+            </div>
           </div>
         </div>
       </div>
