@@ -150,7 +150,7 @@ const chartOptions = {
     </div>
 
     <!-- Chart container fills the remaining height -->
-    <div class="flex-1 w-full overflow-visible">
+    <div class="flex-1 w-full overflow-hidden min-h-0">
   <div v-if="loading" class="text-center text-gray-500 py-4">Chargement…</div>
   <div v-else class="relative w-full h-full">
     <Line  :data="chartData" :options="chartOptions" />
