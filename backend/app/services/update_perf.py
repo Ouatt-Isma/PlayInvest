@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import desc
+from sqlalchemy import desc, nullslast
 from app.db.models.portfolio_assets import PortfolioAsset
 from app.db.models.performance import Performance
 from app.db.models.asset import Asset
@@ -104,11 +104,12 @@ def update_all_portfolio_performance(db: Session, current_date: datetime):
     for portfolio in portfolios:
         update_portfolio_and_asset_performance(db, portfolio.id, current_date)
 
-    ranked = db.query(Portfolio).order_by(desc(Portfolio.performance_pct)).all()
+    ranked = db.query(Portfolio).order_by(nullslast(desc(Portfolio.performance_pct))).all()
+    _sentinel = object()
     current_rank = 1
-    last_score = None
+    last_score = _sentinel
     for idx, p in enumerate(ranked, start=1):
-        if last_score is None or p.performance_pct != last_score:
+        if last_score is _sentinel or p.performance_pct != last_score:
             current_rank = idx
         p.rank = current_rank
         last_score = p.performance_pct
