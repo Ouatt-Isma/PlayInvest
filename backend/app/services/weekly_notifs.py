@@ -13,8 +13,9 @@ from app.db.models.portfolio import Portfolio
 from app.db.models.asset import Asset
 from app.db.models.portfolio_assets import PortfolioAsset
 from app.db.models.performance import Performance
-from app.utils.currency import convert 
+from app.utils.currency import convert
 from app.api.challenge import get_active_challenge
+from app.utils.rank import adjusted_rank
 
 # def get_data(db, user):
 #     portfolio = (
@@ -50,7 +51,7 @@ from app.api.challenge import get_active_challenge
 #     }
 #     return data 
 
-def get_data(db, user):
+def get_data(db, user, total_portfolios):
     # --- Get portfolio ---
     portfolio = (
         db.query(Portfolio)
@@ -134,7 +135,7 @@ def get_data(db, user):
         "cash": round(portfolio.cash,2) or 0.0,
         "weekly_perf": weekly_perf,
         "ytd_perf": ytd_perf,
-        "rank": portfolio.rank,
+        "rank": adjusted_rank(portfolio.rank, total_portfolios),
     }
 
     return data
@@ -184,14 +185,12 @@ def send_weekly_notif_all_users(db: Session):
         "Actif2": Actif2_name,
         "Chall_description": description,
         }    
+    total_portfolios = db.query(Portfolio).count()
     for user in users:
         # if user.email != "cewiney225@gmail.com" and user.email != "guyangejordan@gmail.com" :
             try:
                 subject = "Votre résumé hebdomadaire sur PlayInvest 🚀"
-                
-                # Example dynamic data
-                
-                data = get_data(db, user)
+                data = get_data(db, user, total_portfolios)
                 data.update(data_all)
                 html_message = render_html_template("weekly_email.html", **data)
                 asyncio.run(

@@ -6,8 +6,7 @@ from app.core.database import get_db
 from app.db.models.portfolio import Portfolio
 from app.db.models.user import User
 from app.auth.auth import get_current_user
-
-adding_factor = 1000
+from app.utils.rank import adjusted_rank, ADDING_FACTOR
 
 router = APIRouter()
 
@@ -68,24 +67,18 @@ def get_ranking(
     me_pos = user_id_to_pos.get(current_user.id)
 
     me_entry = None
-    total_users = db.query(Portfolio).count()+adding_factor #TODO
-    def new_rank(rank):
-        if rank<(total_users-adding_factor)/2:
-            return rank
-        else:
-            return rank+adding_factor
-    
+    total_portfolios = db.query(Portfolio).count()
+    total_users = total_portfolios + ADDING_FACTOR
+
     if me_pos is not None:
-        print("MEPOSSSSSS")
         me_portfolio = next(r for r in ranking_list if r["user_id"] == current_user.id)
         me_entry = {
             "username": me_portfolio["username"],
-            "rank": new_rank(me_portfolio["rank"]), #TODO
+            "rank": adjusted_rank(me_portfolio["rank"], total_portfolios),
             "score": me_portfolio["score"],
             "position": me_pos,
             "total_users": total_users,
         }
-
 
     return {
         "currentUser": me_entry,
