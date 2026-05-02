@@ -1,1220 +1,624 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment les diasporas africaines investissent-elles dans les marchés africains ?</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #1a5091; /* Bleu foncé */
-            --secondary-color: #0d7a3a; /* Vert foncé */
-            --accent-color: #2196F3; /* Bleu vif */
-            --light-color: #F1F2F6; /* Fond clair */
-            --dark-color: #0A0A1D; /* Texte foncé */
-            --neutral-color: #5a5a72; /* Texte neutre */
-            --success-color: #2E7D32; /* Vert */
-            --warning-color: #ED6C02; /* Orange */
-            --error-color: #D32F2F; /* Rouge */
-            --border-radius: 8px;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa, #eef2f6);
-            color: #333;
-            line-height: 1.6;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .reading-time {
-            display: inline-block;
-            background-color: rgba(33, 150, 243, 0.1);
-            color: var(--accent-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        
-        /* Table des matières */
-        #toc-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            padding: 20px;
-            width: 300px;
-            max-height: 85vh;
-            overflow-y: auto;
-            z-index: 1000;
-            border: 1px solid #eee;
-            display: none;
-        }
-        
-        #toc-container.visible {
-            display: block;
-        }
-        
-        .toc-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .toc-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .close-toc {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: #666;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-toc:hover {
-            background-color: #f5f5f5;
-        }
-        
-        #toc-list {
-            list-style-type: none;
-        }
-        
-        #toc-list li {
-            margin-bottom: 8px;
-        }
-        
-        #toc-list a {
-            color: #444;
-            text-decoration: none;
-            display: block;
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-        
-        #toc-list a:hover {
-            background-color: rgba(33, 150, 243, 0.1);
-            color: var(--accent-color);
-        }
-        
-        #toc-list .h2-link {
-            font-weight: 600;
-            margin-top: 12px;
-        }
-        
-        #toc-list .h3-link {
-            padding-left: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .toc-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .toc-toggle i {
-            font-size: 1.5rem;
-        }
-        
-        /* Article Header */
-        .article-header {
-            padding: 40px 0 20px;
-            position: relative;
-            text-align: center;
-        }
-        
-        .article-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            line-height: 1.3;
-            color: var(--primary-color);
-            font-weight: 700;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .article-subtitle {
-            font-size: 1.2rem;
-            color: var(--neutral-color);
-            max-width: 700px;
-            margin: 0 auto 20px;
-            font-weight: 500;
-        }
-        
-        /* Featured Image */
-        .featured-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 30px 0;
-            background: linear-gradient(135deg, #1a5091, #0d7a3a);
-            color: white;
-            font-size: 1.5rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .featured-image::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
-        }
-        
-        /* Content Styling */
-        .article-content {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-        
-        .article-content p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            color: #444;
-            line-height: 1.8;
-        }
-        
-        .article-content h2 {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            color: var(--primary-color);
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            font-weight: 700;
-            scroll-margin-top: 20px;
-        }
-        
-        .article-content h3 {
-            font-size: 1.4rem;
-            margin: 30px 0 15px;
-            color: var(--secondary-color);
-            font-weight: 600;
-            scroll-margin-top: 20px;
-        }
-        
-        .article-content ul, .article-content ol {
-            padding-left: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .article-content li {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            position: relative;
-        }
-        
-        .article-content li::before {
-            content: '•';
-            color: var(--primary-color);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        
-        /* Card styles */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary-color);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-        }
-        
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-title i {
-            margin-right: 10px;
-            font-size: 1.4rem;
-        }
-        
-        .card-content {
-            font-size: 0.95rem;
-            color: #666;
-        }
-        
-        /* Callout boxes */
-        .callout {
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin: 25px 0;
-            border-left: 4px solid;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .callout::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: inherit;
-        }
-        
-        .callout.info {
-            background-color: rgba(33, 150, 243, 0.1);
-            border-color: var(--accent-color);
-        }
-        
-        .callout.info::before {
-            background: var(--accent-color);
-        }
-        
-        .callout.warning {
-            background-color: rgba(237, 108, 2, 0.1);
-            border-color: var(--warning-color);
-        }
-        
-        .callout.warning::before {
-            background: var(--warning-color);
-        }
-        
-        .callout.success {
-            background-color: rgba(46, 125, 50, 0.1);
-            border-color: var(--success-color);
-        }
-        
-        .callout.success::before {
-            background: var(--success-color);
-        }
-        
-        .callout-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            color: var(--primary-color);
-        }
-        
-        /* Comparison table */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        
-        .comparison-table th {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 600;
-            text-align: left;
-            padding: 15px;
-        }
-        
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .comparison-table .feature-name {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .highlight {
-            background-color: rgba(33, 150, 243, 0.2);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-        
-        .icon-check {
-            color: var(--success-color);
-            font-size: 1.2rem;
-        }
-        
-        .icon-cross {
-            color: var(--error-color);
-            font-size: 1.2rem;
-        }
-        
-        /* Step-by-step */
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .step-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--secondary-color);
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-        
-        .step-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .step-number {
-            position: absolute;
-            top: -20px;
-            left: 20px;
-            background: var(--secondary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .step-title {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        
-        .step-details {
-            color: #555;
-            font-size: 1rem;
-        }
-        
-        /* Country cards */
-        .country-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-        
-        .country-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-            transition: transform 0.3s ease;
-            border-top: 4px solid var(--primary-color);
-        }
-        
-        .country-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .country-title {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        
-        .country-icon {
-            margin-right: 10px;
-            font-size: 1.8rem;
-            color: var(--secondary-color);
-        }
-        
-        .country-economy {
-            padding: 10px 0;
-            border-top: 1px solid #eee;
-            margin-top: 15px;
-        }
-        
-        .economy-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .economy-list li {
-            padding: 8px 5px;
-            border-bottom: 1px solid #f5f5f5;
-        }
-        
-        .economy-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .impact-level {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-        
-        .impact-low {
-            background-color: rgba(46, 125, 50, 0.2);
-            color: var(--success-color);
-        }
-        
-        .impact-medium {
-            background-color: rgba(237, 108, 2, 0.2);
-            color: var(--warning-color);
-        }
-        
-        .impact-high {
-            background-color: rgba(211, 47, 47, 0.2);
-            color: var(--error-color);
-        }
-        
-        /* BCEAO mission card */
-        .mission-card {
-            background: linear-gradient(135deg, #1a5091, #0d7a3a);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            color: white;
-            margin: 40px 0;
-        }
-        
-        .mission-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 700;
-        }
-        
-        .mission-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-        
-        .mission-item {
-            padding: 20px;
-            background-color: rgba(255,255,255,0.15);
-            border-radius: var(--border-radius);
-            transition: transform 0.3s ease;
-        }
-        
-        .mission-item:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255,255,255,0.2);
-        }
-        
-        .mission-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .mission-text {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .article-title {
-                font-size: 2rem;
-            }
-            
-            .featured-image {
-                height: 250px;
-            }
-            
-            .article-content {
-                padding: 25px;
-            }
-            
-            .article-content h2 {
-                font-size: 1.6rem;
-            }
-            
-            #toc-container {
-                width: 280px;
-                right: 10px;
-                left: auto;
-            }
-            
-            .company-details {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .article-title {
-                font-size: 1.8rem;
-            }
-            
-            .featured-image {
-                height: 200px;
-            }
-            
-            .article-content {
-                padding: 20px 15px;
-            }
-            
-            #toc-container {
-                width: 90%;
-                right: 5%;
-                left: 5%;
-            }
-            
-            .mission-items {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Custom styles for this article */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--accent-color);
-        }
-        
-        .stat-value {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin: 10px 0;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            color: var(--neutral-color);
-        }
-        
-        .quote {
-            font-style: italic;
-            padding: 20px;
-            border-left: 4px solid var(--secondary-color);
-            background-color: rgba(13, 122, 58, 0.05);
-            margin: 30px 0;
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-        }
-        
-        .quote-author {
-            text-align: right;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin-top: 10px;
-        }
-        
-        .sector-highlight {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: var(--border-radius);
-        }
-        
-        .sector-icon {
-            font-size: 1.8rem;
-            margin-right: 15px;
-            color: var(--primary-color);
-            width: 60px;
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AF006 — La diaspora et l’investissement en Afrique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --sand:    #F5F0E8;
+  --sand2:   #EDE6D6;
+  --sand3:   #DDD4C0;
+  --ink:     #1A1A18;
+  --ink2:    #3D3C38;
+  --ink3:    #7A7870;
+  --green:   #2E6E4E;
+  --green-l: #E8F2EC;
+  --green-m: #C2DDD0;
+  --gold:    #B8873A;
+  --gold-l:  #F7F0E4;
+  --red-l:   #FBEAEA;
+  --red:     #B94040;
+  --white:   #FDFCFA;
+  --rule:    #D8D0BC;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--sand);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.masthead {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 24px;
+}
+.masthead-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+.brand-dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+}
+.masthead-tag {
+  font-size: .72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  font-weight: 600;
+}
+
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 48px 24px 40px;
+}
+.hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.eyebrow-code {
+  font-family: 'Instrument Sans', monospace;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid var(--green-m);
+  background: var(--green-l);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+.eyebrow-sep { color: var(--rule); font-size: .8rem; }
+.eyebrow-level {
+  font-size: .72rem;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  font-weight: 600;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--green);
+}
+.hero-sub {
+  font-size: .95rem;
+  color: var(--ink3);
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.hero-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--sand);
+  border: 1px solid var(--rule);
+  border-radius: 30px;
+  padding: 5px 14px;
+  font-size: .8rem;
+  color: var(--ink2);
+  font-weight: 500;
+}
+.chip i { color: var(--green); font-size: .75rem; }
+
+.sec {
+  margin-top: 44px;
+}
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.sec-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+}
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.def-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.def-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.def-card .dc-label {
+  font-size: .68rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink3);
+  margin-bottom: 8px;
+}
+.def-card .dc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.def-card .dc-body {
+  font-size: .86rem;
+  color: var(--ink2);
+  line-height: 1.6;
+}
+.def-card.accent {
+  background: var(--green);
+  border-color: var(--green);
+}
+.def-card.accent .dc-label { color: rgba(255,255,255,.65); }
+.def-card.accent .dc-title { color: #fff; }
+.def-card.accent .dc-body  { color: rgba(255,255,255,.88); }
+
+.kn-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 14px 0;
+}
+.kn {
+  background: var(--white);
+  padding: 20px 12px;
+  text-align: center;
+}
+.kn-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+.kn-lbl {
+  font-size: .78rem;
+  color: var(--ink3);
+  margin-top: 5px;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.note {
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: .85rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  line-height: 1.55;
+  margin-top: 14px;
+}
+.note.warn { background: var(--gold-l); border-left: 3px solid var(--gold); color: #5a3e10; }
+.note.ok   { background: var(--green-l); border-left: 3px solid var(--green); color: #1c3d2c; }
+.note.alert { background: var(--red-l); border-left: 3px solid var(--red); color: #5a1c1c; }
+.note i { flex-shrink: 0; margin-top: 2px; }
+
+.btn-detail {
+  background: var(--green);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.btn-detail:hover {
+  background: #1e5a3e;
+  transform: scale(0.97);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: var(--white);
+  width: 90%;
+  max-width: 700px;
+  border-radius: 20px;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+  animation: fadeUp 0.2s ease;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px 28px 32px;
+  position: relative;
+}
+.close-modal {
+  position: absolute;
+  right: 24px;
+  top: 18px;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--ink3);
+  cursor: pointer;
+}
+.close-modal:hover { color: var(--ink); }
+.modal-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.recap {
+  margin-top: 48px;
+  background: var(--white);
+  border: 1.5px solid var(--rule);
+  border-top: 3px solid var(--green);
+  border-radius: 10px;
+  padding: 28px 30px;
+}
+.recap-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.recap-title::before {
+  content: '';
+  width: 14px; height: 2px;
+  background: var(--green);
+}
+.recap-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 40px;
+}
+.recap-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: .86rem;
+  color: var(--ink2);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--sand2);
+}
+.recap-item::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 800;
+}
+.update-date {
+  text-align: right;
+  margin-top: 32px;
+  font-size: 0.7rem;
+  color: var(--ink3);
+  border-top: 1px solid var(--rule);
+  padding-top: 18px;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.sec { animation: fadeUp .4s ease both; }
+@media(max-width:620px){
+  .def-grid { grid-template-columns:1fr; }
+  .kn-row  { grid-template-columns: 1fr 1fr; }
+  .hero h1 { font-size: 1.6rem; }
+  .recap-cols { grid-template-columns:1fr; }
+}
+</style>
 </head>
 <body>
-    <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle">
-        <i class="fas fa-list"></i>
-    </button>
-    
-    <!-- Table des matières -->
-    <div id="toc-container">
-        <div class="toc-header">
-            <div class="toc-title">Sommaire de l'article</div>
-            <button class="close-toc" id="close-toc">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <ul id="toc-list">
-            <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            <li><a href="#impact" class="h2-link">Impact économique</a></li>
-            <li><a href="#canaux" class="h2-link">Canaux d'investissement</a></li>
-            <li><a href="#secteurs" class="h2-link">Secteurs privilégiés</a></li>
-            <li><a href="#defis" class="h2-link">Défis et obstacles</a></li>
-            <li><a href="#pays" class="h2-link">Études par pays</a></li>
-            <li><a href="#initiatives" class="h2-link">Initiatives prometteuses</a></li>
-            <li><a href="#perspectives" class="h2-link">Perspectives</a></li>
-            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
-        </ul>
-    </div>
 
-    <!-- Article Header -->
-    <div class="container">
-        <div class="article-header">
-            <h1 class="article-title">Comment les diasporas africaines investissent-elles dans les marchés africains ?</h1>
-            <div class="article-subtitle">Moteurs de développement économique et transformation des économies locales</div>
-            <div class="reading-time">
-                <i class="fas fa-clock"></i> 10 min de lecture
-            </div>
-        </div>
-        
-        <!-- Featured Image -->
-        <div class="featured-image">
-            Diasporas africaines : investir pour transformer le continent
-        </div>
-        
-        <!-- Article Content -->
-        <div class="article-content">
-            <div class="callout info">
-                <div class="callout-title">Faits clés sur les investissements de la diaspora :</div>
-                <ul>
-                    <li><span class="highlight">150 milliards USD</span> : Transferts annuels vers l'Afrique (Banque Mondiale)</li>
-                    <li><span class="highlight">35%</span> des investissements directs étrangers proviennent de la diaspora</li>
-                    <li><span class="highlight">60%</span> des startups africaines ont des fondateurs de la diaspora</li>
-                    <li>Croissance annuelle des investissements : <span class="highlight">10-15%</span></li>
-                </ul>
-            </div>
-            
-            <h2 id="introduction">Introduction</h2>
-            <p>Les diasporas africaines représentent une force économique majeure pour le continent. Avec plus de <span class="highlight">170 millions d'Africains</span> vivant hors de leur pays d'origine, leurs investissements transforment progressivement les paysages économiques locaux.</p>
-            
-            <p>Dans cette analyse, nous explorons les motivations, les stratégies et l'impact des investissements de la diaspora africaine sur les marchés du continent. Nous examinons également les défis rencontrés et les perspectives d'avenir de ce phénomène économique en pleine expansion.</p>
-            
-            <div class="callout info">
-                <p><strong>Définition :</strong> La diaspora africaine désigne les personnes d'origine africaine vivant hors du continent, qui maintiennent des liens avec leur pays d'origine et contribuent à son développement économique.</p>
-            </div>
-            
-            <h2 id="impact">Impact économique des investissements de la diaspora</h2>
-            <p>Les fonds envoyés par la diaspora africaine dépassent largement l'aide publique au développement et représentent une source de financement essentielle pour de nombreuses économies africaines.</p>
-            
-            <div class="stat-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
-                    <div class="stat-value">150Mds$</div>
-                    <div class="stat-label">Transferts annuels vers l'Afrique</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="stat-value">35%</div>
-                    <div class="stat-label">des IDE africains</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-building"></i></div>
-                    <div class="stat-value">60%</div>
-                    <div class="stat-label">startups créées par la diaspora</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-users"></i></div>
-                    <div class="stat-value">20M</div>
-                    <div class="stat-label">emplois créés</div>
-                </div>
-            </div>
-            
-            <p>Au-delà des chiffres impressionnants, les investissements de la diaspora ont des impacts qualitatifs majeurs :</p>
-            
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <div class="step-title">Transfert de compétences</div>
-                    <div class="step-details">
-                        Les membres de la diaspora ramènent des compétences techniques et managériales acquises à l'étranger, renforçant ainsi les capacités locales.
-                    </div>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <div class="step-title">Innovation technologique</div>
-                    <div class="step-details">
-                        Forte implication dans les secteurs technologiques avec création de startups innovantes répondant aux besoins locaux.
-                    </div>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <div class="step-title">Développement local</div>
-                    <div class="step-details">
-                        Investissements ciblés dans les régions d'origine créant des emplois et réduisant l'exode rural.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="quote">
-                "Les Africains de la diaspora ne sont pas simplement des sources de financement, mais des acteurs clés du développement économique et de l'innovation sur le continent."
-                <div class="quote-author">- Dr. Aïssatou Diallo, Économiste spécialiste des migrations</div>
-            </div>
-            
-            <h2 id="canaux">Canaux d'investissement privilégiés</h2>
-            <p>Les membres de la diaspora utilisent divers canaux pour investir dans leurs pays d'origine, adaptés à leurs moyens et objectifs.</p>
-            
-            <div class="mission-card">
-                <div class="mission-title">Principaux canaux d'investissement</div>
-                <div class="mission-items">
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-home"></i></div>
-                        <div class="mission-text">Immobilier résidentiel et commercial</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-store"></i></div>
-                        <div class="mission-text">Création de PME locales</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-chart-line"></i></div>
-                        <div class="mission-text">Marchés boursiers régionaux</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-laptop-code"></i></div>
-                        <div class="mission-text">Startups technologiques</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-hand-holding-usd"></i> Transferts familiaux</div>
-                    <div class="card-content">
-                        Soutien financier direct aux familles pour l'éducation, la santé et les petites entreprises familiales.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-users"></i> Tontines digitales</div>
-                    <div class="card-content">
-                        Plateformes en ligne reproduisant le système traditionnel d'épargne collective pour financer des projets.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-project-diagram"></i> Investissements collectifs</div>
-                    <div class="card-content">
-                        Regroupements en clubs d'investissement pour des projets de plus grande envergure (immobilier, énergie).
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-seedling"></i> Financement agricole</div>
-                    <div class="card-content">
-                        Investissements dans l'agro-industrie et les technologies agricoles pour moderniser le secteur.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="callout success">
-                <div class="callout-title">Innovation récente :</div>
-                <p>Les fintechs spécialisées dans les transferts de fonds (Wave, Sendwave) ont révolutionné les envois d'argent en réduisant les coûts et en accélérant les transactions, facilitant ainsi les investissements transfrontaliers.</p>
-            </div>
-            
-            <h2 id="secteurs">Secteurs d'investissement privilégiés</h2>
-            <p>Les membres de la diaspora investissent dans des secteurs stratégiques qui répondent à la fois à des opportunités économiques et à des besoins sociaux.</p>
-            
-            <!-- Instruments Table -->
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Secteur</th>
-                        <th>Type d'investissement</th>
-                        <th>Impact</th>
-                        <th>Tendance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="feature-name">Technologie</td>
-                        <td>Startups, centres d'innovation</td>
-                        <td>Création d'emplois qualifiés</td>
-                        <td><i class="fas fa-arrow-up icon-check"></i> Forte croissance</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Immobilier</td>
-                        <td>Résidentiel, commercial, tourisme</td>
-                        <td>Développement urbain</td>
-                        <td><i class="fas fa-arrow-up icon-check"></i> Stable</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Santé</td>
-                        <td>Cliniques, télé-médecine</td>
-                        <td>Amélioration des soins</td>
-                        <td><i class="fas fa-arrow-up icon-check"></i> Croissance rapide</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Éducation</td>
-                        <td>Écoles, formations numériques</td>
-                        <td>Capital humain</td>
-                        <td><i class="fas fa-arrow-up icon-check"></i> Expansion</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h3>Investissements transformateurs</h3>
-            
-            <div class="sector-highlight">
-                <div class="sector-icon"><i class="fas fa-mobile-alt"></i></div>
-                <div>
-                    <h4>Technologie et innovation</h4>
-                    <p>Les membres de la diaspora sont à l'origine de 60% des startups technologiques en Afrique, particulièrement dans les secteurs de la fintech, de l'agritech et de l'edtech.</p>
-                </div>
-            </div>
-            
-            <div class="sector-highlight">
-                <div class="sector-icon"><i class="fas fa-clinic-medical"></i></div>
-                <div>
-                    <h4>Services de santé</h4>
-                    <p>Investissements dans des cliniques spécialisées et des plateformes de télé-médecine qui améliorent l'accès aux soins dans les zones mal desservies.</p>
-                </div>
-            </div>
-            
-            <div class="sector-highlight">
-                <div class="sector-icon"><i class="fas fa-leaf"></i></div>
-                <div>
-                    <h4>Énergie renouvelable</h4>
-                    <p>Projets solaires et éoliens développés par des ingénieurs de la diaspora pour combler le déficit énergétique du continent.</p>
-                </div>
-            </div>
-            
-            <h2 id="defis">Défis et obstacles</h2>
-            <p>Malgré leur engagement, les investisseurs de la diaspora font face à plusieurs défis structurels.</p>
-            
-            <div class="country-container">
-                <div class="country-card">
-                    <div class="country-title"><i class="fas fa-exclamation-triangle country-icon"></i> Obstacles administratifs</div>
-                    <ul>
-                        <li>Problèmes de titres de propriété</li>
-                        <li>Procédures bureaucratiques complexes</li>
-                        <li>Manque de transparence des marchés</li>
-                        <li>Difficultés de rapatriement des bénéfices</li>
-                    </ul>
-                    <div class="country-economy">
-                        <h4>Solutions émergentes :</h4>
-                        <ul class="economy-list">
-                            <li>Guichets uniques pour investisseurs de la diaspora</li>
-                            <li>Plateformes digitales de facilitation</li>
-                            <li>Accords fiscaux avantageux</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="country-card">
-                    <div class="country-title"><i class="fas fa-money-bill-wave country-icon"></i> Accès au financement</div>
-                    <ul>
-                        <li>Difficulté à obtenir des crédits bancaires</li>
-                        <li>Taux d'intérêt élevés</li>
-                        <li>Manque de garanties locales</li>
-                        <li>Financements insuffisants pour les PME</li>
-                    </ul>
-                    <div class="country-economy">
-                        <h4>Initiatives :</h4>
-                        <ul class="economy-list">
-                            <li>Fonds d'investissement dédiés à la diaspora</li>
-                            <li>Garanties de prêts par les États</li>
-                            <li>Plateformes de crowdfunding spécialisées</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="callout warning">
-                <div class="callout-title">Risques spécifiques :</div>
-                <p>Les investisseurs de la diaspora font souvent face à des attentes familiales et communautaires disproportionnées, ainsi qu'à des difficultés de gestion à distance. Ces défis nécessitent une approche équilibrée entre engagement économique et réalité opérationnelle.</p>
-            </div>
-            
-            <h2 id="pays">Études de cas par pays</h2>
-            <p>L'impact des investissements de la diaspora varie selon les pays et leurs politiques d'accueil.</p>
-            
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <div class="step-title">Sénégal</div>
-                    <div class="step-details">
-                        <ul>
-                            <li>Plan Sénégal Emergent incluant la diaspora</li>
-                            <li>Fonds spécial de garantie pour la diaspora</li>
-                            <li>Investissements majeurs dans l'immobilier et l'agroalimentaire</li>
-                            <li>15% des entreprises créées par la diaspora</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <div class="step-title">Nigéria</div>
-                    <div class="step-details">
-                        <ul>
-                            <li>Diaspora la plus importante et la plus active</li>
-                            <li>Investissements massifs dans la tech (Lagos, Abuja)</li>
-                            <li>Programme "Diaspora Bond" pour financer les infrastructures</li>
-                            <li>40% des startups technologiques fondées par la diaspora</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <div class="step-title">Kenya</div>
-                    <div class="step-details">
-                        <ul>
-                            <li>Pionnier des transferts mobiles (M-Pesa)</li>
-                            <li>Investissements dans les énergies renouvelables</li>
-                            <li>Parcs technologiques financés par la diaspora</li>
-                            <li>25% des investissements immobiliers à Nairobi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="callout success">
-                <div class="callout-title">Pays innovants :</div>
-                <ul>
-                    <li><strong>Ghana :</strong> Programme "Year of Return" attirant les investissements de la diaspora</li>
-                    <li><strong>Rwanda :</strong> Politique volontariste avec facilitation administrative</li>
-                    <li><strong>Maroc :</strong> Fonds d'investissement dédié à la diaspora marocaine</li>
-                </ul>
-            </div>
-            
-            <h2 id="initiatives">Initiatives prometteuses</h2>
-            <p>De nouvelles approches émergent pour faciliter et amplifier l'impact des investissements de la diaspora.</p>
-            
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-handshake"></i> Plateformes d'investissement</div>
-                    <div class="card-content">
-                        Marketplaces en ligne permettant aux membres de la diaspora d'investir dans des projets vérifiés (immobilier, agriculture, énergie).
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-chart-pie"></i> Fonds dédiés</div>
-                    <div class="card-content">
-                        Création de fonds d'investissement spécialisés pour canaliser l'épargne de la diaspora vers des projets structurants.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-network-wired"></i> Réseaux professionnels</div>
-                    <div class="card-content">
-                        Plateformes de mise en relation entre entrepreneurs locaux et compétences de la diaspora.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-graduation-cap"></i> Programmes de mentorat</div>
-                    <div class="card-content">
-                        Initiatives permettant aux professionnels expatriés de transmettre leurs compétences aux entrepreneurs locaux.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mission-card">
-                <div class="mission-title">Initiatives gouvernementales réussies</div>
-                <div class="mission-items">
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-passport"></i></div>
-                        <div class="mission-text">Carte d'identité spéciale diaspora (Éthiopie)</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-percent"></i></div>
-                        <div class="mission-text">Avantages fiscaux (Ghana, Sénégal)</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-home"></i></div>
-                        <div class="mission-text">Accès facilité à la propriété (Nigéria)</div>
-                    </div>
-                    <div class="mission-item">
-                        <div class="mission-icon"><i class="fas fa-coins"></i></div>
-                        <div class="mission-text">Obligations diaspora (Kenya, Égypte)</div>
-                    </div>
-                </div>
-            </div>
-            
-            <h2 id="perspectives">Perspectives d'avenir</h2>
-            <p>Les investissements de la diaspora africaine sont appelés à jouer un rôle croissant dans le développement économique du continent.</p>
-            
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-robot"></i> Digitalisation accrue</div>
-                    <div class="card-content">
-                        Les plateformes numériques vont faciliter davantage les investissements transfrontaliers et la gestion à distance.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-seedling"></i> Économie verte</div>
-                    <div class="card-content">
-                        Investissements croissants dans les énergies renouvelables et l'agriculture durable.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-headset"></i> Outsourcing</div>
-                    <div class="card-content">
-                        Développement de centres de services exploitant les compétences linguistiques et techniques de la diaspora.
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title"><i class="fas fa-city"></i> Villes intelligentes</div>
-                    <div class="card-content">
-                        Participation aux projets d'urbanisme et de développement de smart cities.
-                    </div>
-                </div>
-            </div>
-            
-            <h3>Évolutions attendues</h3>
-            <ul>
-                <li>Intégration croissante des marchés financiers africains facilitant les investissements</li>
-                <li>Développement de produits financiers spécifiques pour la diaspora</li>
-                <li>Renforcement des partenariats public-privé incluant la diaspora</li>
-                <li>Émergence d'une nouvelle génération d'investisseurs engagés dans l'impact social</li>
-                <li>Augmentation des investissements dans la santé et l'éducation</li>
-            </ul>
-            
-            <h2 id="conclusion">Conclusion</h2>
-            <p>Les diasporas africaines sont devenues des acteurs incontournables du développement économique du continent. Leurs investissements, combinant savoir-faire international et connaissance des réalités locales, transforment progressivement les économies africaines.</p>
-            
-            <div class="callout success">
-                <p>Pour maximiser cet impact, les gouvernements africains doivent développer des politiques ciblées facilitant les investissements de la diaspora, tout en améliorant le climat des affaires. L'avenir économique de l'Afrique repose en partie sur sa capacité à mobiliser les compétences et capitaux de ses filles et fils expatriés, faisant ainsi de la diaspora non plus une ressource, mais un véritable partenaire de développement.</p>
-            </div>
-        </div>
-    </div>
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="brand"><div class="brand-dot"></div>PlayInvest</div>
+    <div class="masthead-tag">Fiche apprentissage · AF006</div>
+  </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tocToggle = document.getElementById('toc-toggle');
-            const tocContainer = document.getElementById('toc-container');
-            const closeToc = document.getElementById('close-toc');
-            
-            // Toggle TOC visibility
-            tocToggle.addEventListener('click', function() {
-                tocContainer.classList.toggle('visible');
-            });
-            
-            // Close TOC
-            closeToc.addEventListener('click', function() {
-                tocContainer.classList.remove('visible');
-            });
-            
-            // Close TOC when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!tocContainer.contains(event.target) && 
-                    !tocToggle.contains(event.target) && 
-                    tocContainer.classList.contains('visible')) {
-                    tocContainer.classList.remove('visible');
-                }
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 20,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close TOC after clicking on a link
-                        tocContainer.classList.remove('visible');
-                    }
-                });
-            });
-        });
-    </script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-code">DIASPORA INVEST</span>
+      <span class="eyebrow-sep">·</span>
+      <span class="eyebrow-level">Niveau intermédiaire</span>
+    </div>
+    <h1>Comment la diaspora <em>investit en Afrique</em></h1>
+    <p class="hero-sub">Transferts, investissements productifs, immobilier, titres financiers : le rôle clé des Africains de l’extérieur dans le développement du continent.</p>
+    <div class="hero-chips">
+      <span class="chip"><i class="fas fa-globe"></i> Monde entier</span>
+      <span class="chip"><i class="fas fa-chart-line"></i> 95+ Mds $/an</span>
+      <span class="chip"><i class="fas fa-hand-holding-usd"></i> Impact économique</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INTRODUCTION -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Introduction</span>
+    </div>
+    <div class="def-card" style="background: var(--white); margin-bottom: 0;">
+      <div class="dc-body">La diaspora africaine, estimée à plus de 40 millions de personnes, envoie chaque année plus de 95 milliards de dollars vers le continent (Banque mondiale, 2025). Au‑delà des transferts familiaux, une part croissante est dirigée vers l’investissement productif : immobilier, start-ups, bourse (BRVM, BVMAC…), et obligations d’État. Cette fiche explore les canaux, secteurs et défis de l’investissement diasporique, et donne des clés pour transformer l’épargne extérieure en levier de développement.</div>
+    </div>
+  </div>
+
+  <!-- IMPACT ÉCONOMIQUE -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Impact économique</span>
+    </div>
+    <div class="kn-row">
+      <div class="kn"><div class="kn-val">$95 Mds</div><div class="kn-lbl">Transferts annuels (2025)</div></div>
+      <div class="kn"><div class="kn-val">+15%</div><div class="kn-lbl">par an (investissements productifs)</div></div>
+      <div class="kn"><div class="kn-val">3,5%</div><div class="kn-lbl">du PIB cumulé Afrique subsaharienne</div></div>
+    </div>
+    <div class="def-grid">
+      <div class="def-card"><div class="dc-label">Effet multiplicateur</div><div class="dc-title">Emplois & infrastructures</div><div class="dc-body">Chaque dollar investi par la diaspora génère jusqu’à 1,8 $ d’activité locale (secteurs construction, services, finance).</div></div>
+      <div class="def-card"><div class="dc-label">Stabilisation macro</div><div class="dc-title">Réserves de change</div><div class="dc-body">Les transferts renforcent les réserves en devises et améliorent la notation financière des pays récepteurs.</div></div>
+    </div>
+    <div class="note ok"><i class="fas fa-chart-simple"></i> Au Sénégal, au Kenya ou en Côte d’Ivoire, la diaspora contribue à plus de 20 % des IDE privés informels.</div>
+  </div>
+
+  <!-- NUANCE ESSENTIELLE : Transferts vs investissements structurants -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Nuance essentielle : l’aide parentale domine</span>
+    </div>
+    <div class="note alert" style="margin-bottom: 0;">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div><strong>Certes, les montants sont colossaux, mais l’essentiel ne va pas vers l’investissement structurant.</strong> Plus de 70 % des transferts de la diaspora sont utilisés pour la consommation courante, les soins de santé, l’éducation et surtout <strong>l’aide parentale directe</strong> (argent envoyé aux parents, familles élargies). Seule une fraction marginale (estimée entre 5 et 15 % selon les pays) est orientée vers des investissements productifs – création d’entreprise, achat d’actions, obligations d’État ou immobilier locatif. On parle encore trop peu de ce décalage : la diaspora soutient la survie au quotidien, mais peine à financer les infrastructures ou les PME structurantes.</div>
+    </div>
+    <div class="def-card" style="margin-top: 10px;">
+      <div class="dc-label">Pourquoi ce constat ?</div>
+      <div class="dc-body">Manque de véhicules d’investissement adaptés aux non‑résidents, défiance envers les systèmes financiers locaux, priorité donnée à la solidarité familiale immédiate. Résultat : des milliards circulent, mais les économies africaines ne captent qu’une faible part de cette épargne pour financer routes, usines ou énergie. L’enjeu est donc de <strong>transformer l’aide parentale en épargne-investissement</strong>.</div>
+    </div>
+    <div class="note warn"><i class="fas fa-hand-holding-usd"></i> Comparaison éloquente : les envois de fonds vers l’Afrique subsaharienne dépassent l’aide publique au développement (APD), mais moins de 10 % entrent dans le circuit du financement des entreprises ou des marchés boursiers (BRVM, BVMAC).</div>
+  </div>
+
+  <!-- CANAUX D'INVESTISSEMENT -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Canaux d’investissement</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card"><div class="dc-label">1. Transferts classiques</div><div class="dc-title">Western Union, MoneyGram, Orange Money, Wave</div><div class="dc-body">Principalement pour la consommation familiale, mais une fraction est réinvestie localement.</div></div>
+      <div class="def-card"><div class="dc-label">2. Plateformes digitales dédiées</div><div class="dc-title">Mintyn, Afrinnovator, HomeSend, Diaspora Invest</div><div class="dc-body">Permettent d’acheter des obligations, des actions BRVM ou de souscrire à des fonds d’investissement à distance.</div></div>
+      <div class="def-card"><div class="dc-label">3. Sociétés de gestion & SGI</div><div class="dc-title">Comptes titres BRVM / BVMAC</div><div class="dc-body">Les membres de la diaspora peuvent ouvrir un compte-titre via une SGI agréée (certaines proposent l’ouverture en ligne).</div></div>
+      <div class="def-card"><div class="dc-label">4. Crowdfunding & diaspora bonds</div><div class="dc-title">Obligations patriotiques (Nigeria, Éthiopie, Ghana)</div><div class="dc-body">Émissions obligataires destinées spécifiquement aux ressortissants à l’étranger, avec avantages fiscaux.</div></div>
+    </div>
+    <button class="btn-detail" id="showSgiModal"><i class="fas fa-building"></i> Découvrir les SGI adaptées à la diaspora</button>
+  </div>
+
+  <!-- SECTEURS PRIVILÉGIÉS -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Secteurs privilégiés</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card"><div class="dc-label">🏠 Immobilier</div><div class="dc-title">Résidentiel & commercial</div><div class="dc-body">L’investissement dans la pierre reste le plus prisé : construction de logements, bureaux, centres commerciaux.</div></div>
+      <div class="def-card"><div class="dc-label">💻 Tech & start-ups</div><div class="dc-title">Fintech, edtech, logistique</div><div class="dc-body">Les diasporas investissent via des business angels ou fonds VCs (ex: Investisseurs & Partenaires, Janngo).</div></div>
+      <div class="def-card"><div class="dc-label">🌾 Agriculture</div><div class="dc-title">Agrobusiness, transformation</div><div class="dc-body">Projets de plantations, élevage, unités de transformation (anacarde, cacao, fruits).</div></div>
+      <div class="def-card"><div class="dc-label">📈 Marché financier</div><div class="dc-title">Actions BRVM, obligations d’État</div><div class="dc-body">Placement à revenu fixe ou variable, accessible via SGI avec des rendements attractifs (6-9 % pour obligations).</div></div>
+    </div>
+  </div>
+
+  <!-- DÉFIS ET OBSTACLES -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <span class="sec-title">Défis et obstacles</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card"><div class="dc-label">🔁 Change & rapatriement</div><div class="dc-title">Fluctuation FCFA / devises, frais de conversion</div><div class="dc-body">Les frais de change et de transfert peuvent gruger 5‑10 % du montant.</div></div>
+      <div class="def-card"><div class="dc-label">⚖️ Cadre juridique</div><div class="dc-title">Complexité administrative, absence de guichet unique</div><div class="dc-body">La multiplicité des interlocuteurs (guichet unique, notaire, SGI) freine les primo-investisseurs.</div></div>
+      <div class="def-card"><div class="dc-label">📉 Risque économique</div><div class="dc-title">Instabilité politique, dévaluation</div><div class="dc-body">Certains pays d’Afrique subsaharienne présentent des risques macro qui limitent l’assurance des investissements.</div></div>
+      <div class="def-card"><div class="dc-label">📚 Manque d’information</div><div class="dc-title">Absence de plateformes centralisées</div><div class="dc-body">Difficile de trouver des offres fiables et comparatives pour les non‑résidents.</div></div>
+    </div>
+    <div class="note alert"><i class="fas fa-exclamation-triangle"></i> La méconnaissance des opportunités et des procédures reste le principal frein. L’éducation financière et les structures d’accompagnement sont essentielles.</div>
+  </div>
+
+  <!-- ÉTUDES PAR PAYS -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <span class="sec-title">Études par pays (exemples)</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card"><div class="dc-label">🇸🇳 Sénégal</div><div class="dc-title">Diaspora majoritairement en France, Italie, USA</div><div class="dc-body">Investissements massifs dans l’immobilier (Dakar, Mbour) et les start-ups (JokkoLabs, WARI). Le gouvernement a lancé un portail dédié "Invest au Sénégal".</div></div>
+      <div class="def-card"><div class="dc-label">🇨🇮 Côte d’Ivoire</div><div class="dc-title">Diaspora active en Europe et Amérique</div><div class="dc-body">Forte implication dans l’agro-industrie (cacao, hévéa) et les obligations d’État via la BRVM. La SGI "Société Générale Côte d’Ivoire" accompagne les non-résidents.</div></div>
+      <div class="def-card"><div class="dc-label">🇳🇬 Nigeria</div><div class="dc-title">Diaspora la plus importante (USA, UK)</div><div class="dc-body">Obligations diaspora (Nigeria Diaspora Bond) levées avec succès. Investissements dans les fintechs (Flutterwave, Paystack).</div></div>
+      <div class="def-card"><div class="dc-label">🇰🇪 Kenya</div><div class="dc-title">Modèle Diaspora Bond (infrastructure)</div><div class="dc-body">Le Kenyan Diaspora Bond a financé des routes et l’énergie. Les transferts via M-Pesa facilitent les petits investissements.</div></div>
+    </div>
+    <button class="btn-detail" id="showCountryModal"><i class="fas fa-map-marked-alt"></i> Voir plus de détails (Maroc, Tunisie, Ghana)</button>
+  </div>
+
+  <!-- INITIATIVES PROMETTEUSES -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <span class="sec-title">Initiatives prometteuses</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card"><div class="dc-label">🏦 Diaspora bonds</div><div class="dc-title">Banque africaine de développement (BAD)</div><div class="dc-body">Programme d’obligations réservé aux Africains de l’étranger, taux préférentiels et exonérations fiscales.</div></div>
+      <div class="def-card"><div class="dc-label">💻 Plateforme BRVM Diaspora</div><div class="dc-title">Investir à distance dans des actions cotées</div><div class="dc-body">Certaines SGI proposent l’ouverture 100 % en ligne avec envoi de documents numérisés.</div></div>
+      <div class="def-card"><div class="dc-label">🤝 Fonds de garantie (AFDB)</div><div class="dc-title">Garantie partielle pour les PME diasporiques</div><div class="dc-body">Couverture jusqu’à 50 % des prêts accordés aux projets portés par la diaspora.</div></div>
+      <div class="def-card"><div class="dc-label">📘 Académies d’investissement</div><div class="dc-title">Formation en ligne, webinaires, mentorat</div><div class="dc-body">PlayInvest, InvestirAfrik, DiafrikInvest proposent des formations ciblées diaspora.</div></div>
+    </div>
+    <div class="note ok"><i class="fas fa-lightbulb"></i> <strong>PlayInvest accompagne la diaspora</strong> : comparatif des SGI, fiche fiscalité, modules d’éducation financière. Un hub pour investir en toute confiance.</div>
+  </div>
+
+  <!-- PERSPECTIVES -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">09</span>
+      <span class="sec-title">Perspectives</span>
+    </div>
+    <div class="def-card" style="background: var(--white);">
+      <div class="dc-body">Avec la digitalisation des services financiers et la volonté politique croissante de capter l’épargne diaspora, les investissements devraient dépasser les 150 milliards USD d’ici 2030. Mais le véritable défi reste de <strong>convertir l’aide parentale en épargne-investissement durable</strong>. Les attentes sont fortes : simplification des procédures, dématérialisation complète de l’ouverture de comptes titres, création de fonds souverains dédiés et incitations fiscales harmonisées dans l’UEMOA/CEMAC. La diaspora ne représente plus seulement une source de transferts familiaux, mais un véritable partenaire de développement économique. L’éducation financière (comme celle proposée par PlayInvest) et la transparence des intermédiaires seront les clés de cette mutation.</div>
+    </div>
+  </div>
+
+  <!-- RÉCAPITULATIF -->
+  <div class="recap">
+    <div class="recap-title">À retenir — Investissement diaspora</div>
+    <div class="recap-cols">
+      <div class="recap-item">95 Mds $ de transferts annuels, mais majorité = aide parentale</div>
+      <div class="recap-item">Moins de 15 % fléchés vers l’investissement structurant</div>
+      <div class="recap-item">Canaux : SGI, plateformes digitales, diaspora bonds, crowdfunding</div>
+      <div class="recap-item">Secteurs stars : immobilier, tech, obligations BRVM, agriculture</div>
+      <div class="recap-item">Freins : change, complexité administrative, manque d’info fiable</div>
+      <div class="recap-item">Exemples de réussite : Nigeria, Kenya, Côte d’Ivoire, Sénégal</div>
+      <div class="recap-item">Initiatives : garanties BAD, obligations diaspora, formations en ligne</div>
+      <div class="recap-item">Perspective 2030 : 150 Mds $, à condition de transformer l’aide familiale en épargne productive</div>
+      <div class="recap-item">PlayInvest : comparateur SGI & fiche pour investir à distance</div>
+    </div>
+  </div>
+  <div class="update-date">
+    <i class="far fa-calendar-alt"></i> Fiche actualisée le 1er mai 2026 · Sources : Banque mondiale, BRVM, BAD, rapports diasporiques.
+  </div>
+</div>
+
+<!-- MODAL SGI POUR DIASPORA -->
+<div id="sgiModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeSgiModal">&times;</span>
+    <h3>Choisir une SGI quand on vit à l’étranger</h3>
+    <p>Certaines SGI agréées par la BRVM proposent des procédures adaptées aux non‑résidents :</p>
+    <ul style="margin: 12px 0 0 20px; color: var(--ink2);">
+      <li><i class="fas fa-check-circle" style="color: var(--green);"></i> <strong>Ouverture de compte à distance</strong> (envoi électronique des pièces)</li>
+      <li><i class="fas fa-check-circle" style="color: var(--green);"></i> <strong>Compte multi-devises</strong> (Euro, USD, FCFA)</li>
+      <li><i class="fas fa-check-circle" style="color: var(--green);"></i> <strong>Courriers recommandés pour les dividendes / coupons</strong></li>
+    </ul>
+    <div class="note ok" style="margin-top: 16px;"><i class="fas fa-search"></i> Retrouvez le comparatif exhaustif des SGI adaptées à la diaspora sur <strong>PlayInvest</strong> (frais de courtage, dépôt minimum, avis).</div>
+    <div class="note warn" style="margin-top: 12px;">Pensez à vérifier la fiscalité dans votre pays de résidence (convention fiscale avec le pays de la BRVM).</div>
+  </div>
+</div>
+
+<!-- MODAL ÉTUDE PAYS SUPPLEMENTAIRE -->
+<div id="countryModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeCountryModal">&times;</span>
+    <h3>Autres exemples pays (diaspora invest)</h3>
+    <table style="width:100%; border-collapse: collapse; margin-top: 8px;">
+      <tr style="border-bottom:1px solid var(--rule);"><th style="text-align:left;">Pays</th><th style="text-align:left;">Spécificité</th></tr>
+      <tr style="border-bottom:1px solid var(--sand3);"><td style="padding:8px 0;">🇲🇦 Maroc</td><td>Fonds "MDM Invest" dédié aux MRE, exonération totale des droits de mutation sur immobilier.</td></tr>
+      <tr style="border-bottom:1px solid var(--sand3);"><td style="padding:8px 0;">🇹🇳 Tunisie</td><td>Cartes de résident fiscal avantageuse, obligation "Tunisia Diaspora Bond" taux 7 %.</td></tr>
+      <tr style="border-bottom:1px solid var(--sand3);"><td style="padding:8px 0;">🇬🇭 Ghana</td><td>Ghana Diaspora Investment Summit, facilités pour investir dans la Bourse du Ghana (GSE).</td></tr>
+      <tr><td style="padding:8px 0;">🇪🇹 Éthiopie</td><td>Ethiopia Diaspora Trust Fund (infrastructures), compte d’épargne en devises.</td></tr>
+    </table>
+    <div class="note" style="margin-top: 12px; background: var(--sand);">Ces pays montrent la diversité des approches : obligations dédiées, avantages fiscaux, guichets uniques.</div>
+  </div>
+</div>
+
+<script>
+  const sgiModal = document.getElementById('sgiModal');
+  const countryModal = document.getElementById('countryModal');
+  const openSgi = document.getElementById('showSgiModal');
+  const openCountry = document.getElementById('showCountryModal');
+  const closeSgi = document.getElementById('closeSgiModal');
+  const closeCountry = document.getElementById('closeCountryModal');
+
+  function openModal(modal) {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  if (openSgi) openSgi.addEventListener('click', () => openModal(sgiModal));
+  if (closeSgi) closeSgi.addEventListener('click', () => closeModal(sgiModal));
+  if (openCountry) openCountry.addEventListener('click', () => openModal(countryModal));
+  if (closeCountry) closeCountry.addEventListener('click', () => closeModal(countryModal));
+  window.addEventListener('click', (e) => {
+    if (e.target === sgiModal) closeModal(sgiModal);
+    if (e.target === countryModal) closeModal(countryModal);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (sgiModal.style.display === 'flex') closeModal(sgiModal);
+      if (countryModal.style.display === 'flex') closeModal(countryModal);
+    }
+  });
+</script>
 </body>
 </html>

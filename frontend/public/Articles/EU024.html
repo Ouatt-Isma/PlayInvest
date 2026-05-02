@@ -1,731 +1,433 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quelle retraite pour un salaire de 2000 euros nets ?</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #141145;
-            --secondary: #7A2D8D;
-            --accent: #5682F2;
-            --light: #F1F2F6;
-            --dark: #0A0A1D;
-            --gold: #F1C086;
-            --gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
-            --success: #4CAF50;
-            --warning: #FFC107;
-            --info: #2196F3;
-            --error: #F44336;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .reading-time {
-            display: inline-block;
-            background-color: rgba(86, 130, 242, 0.1);
-            color: var(--accent);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        
-        .article-header {
-            padding: 40px 0 20px;
-            position: relative;
-        }
-        
-        .article-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            line-height: 1.3;
-            color: var(--primary);
-            font-weight: 700;
-            max-width: 800px;
-        }
-        
-        .featured-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 30px 0;
-            background: linear-gradient(135deg, #141145, #7A2D8D);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .featured-image-content {
-            text-align: center;
-            padding: 20px;
-            max-width: 700px;
-            margin: 0 auto;
-            z-index: 2;
-            color: white;
-        }
-        
-        .featured-image h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .featured-image p {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-        }
-        
-        .highlight-box {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: inline-block;
-            color: var(--primary);
-        }
-        
-        .highlight-amount {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--success);
-            margin: 10px 0;
-        }
-        
-        .article-content {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-        
-        .article-content p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            color: #444;
-            line-height: 1.8;
-        }
-        
-        .article-content h2 {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            color: var(--primary);
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            font-weight: 700;
-            scroll-margin-top: 20px;
-        }
-        
-        .article-content h3 {
-            font-size: 1.4rem;
-            margin: 30px 0 15px;
-            color: var(--secondary);
-            font-weight: 600;
-            scroll-margin-top: 20px;
-        }
-        
-        .article-content ul, .article-content ol {
-            padding-left: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .article-content li {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            position: relative;
-        }
-        
-        .article-content li::before {
-            content: '•';
-            color: var(--accent);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        
-        .callout {
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            border-left: 4px solid;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .callout::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: inherit;
-        }
-        
-        .callout.success {
-            background-color: rgba(76, 175, 80, 0.1);
-            border-color: var(--success);
-        }
-        
-        .callout.success::before {
-            background: var(--success);
-        }
-        
-        .callout.warning {
-            background-color: rgba(255, 193, 7, 0.1);
-            border-color: var(--warning);
-        }
-        
-        .callout.warning::before {
-            background: var(--warning);
-        }
-        
-        .callout.info {
-            background-color: rgba(33, 150, 243, 0.1);
-            border-color: var(--info);
-        }
-        
-        .callout.info::before {
-            background: var(--info);
-        }
-        
-        .callout.error {
-            background-color: rgba(244, 67, 54, 0.1);
-            border-color: var(--error);
-        }
-        
-        .callout.error::before {
-            background: var(--error);
-        }
-        
-        .callout-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            color: var(--primary);
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .comparison-table th {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .comparison-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background-color: #f8f9ff;
-        }
-        
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .good {
-            color: var(--success);
-            font-weight: 600;
-        }
-        
-        .medium {
-            color: var(--warning);
-            font-weight: 600;
-        }
-        
-        .bad {
-            color: var(--error);
-            font-weight: 600;
-        }
-        
-        .toc-container {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        
-        .toc-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .toc-list {
-            list-style-type: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
-        
-        .toc-list li {
-            margin-bottom: 8px;
-        }
-        
-        .toc-list a {
-            color: #444;
-            text-decoration: none;
-            display: block;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            background: rgba(86, 130, 242, 0.08);
-        }
-        
-        .toc-list a:hover {
-            background-color: rgba(86, 130, 242, 0.2);
-            color: var(--accent);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: var(--gradient);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .projection-section {
-            background: linear-gradient(135deg, #f8f9ff, #eef1ff);
-            border-radius: 12px;
-            padding: 30px;
-            margin: 40px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #e0e5ff;
-        }
-        
-        .projection-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .result-card {
-            background-color: #f8f9ff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            border-left: 4px solid var(--accent);
-            transition: transform 0.3s ease;
-        }
-        
-        .result-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .result-title {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .result-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .result-subvalue {
-            font-size: 0.9rem;
-            color: var(--success);
-            margin-top: 5px;
-        }
-        
-        .explanation {
-            background-color: #f8f9ff;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 3px solid var(--accent);
-        }
-        
-        @media (max-width: 768px) {
-            .article-title {
-                font-size: 2rem;
-            }
-            
-            .featured-image {
-                height: 350px;
-            }
-            
-            .article-content {
-                padding: 25px;
-            }
-            
-            .article-content h2 {
-                font-size: 1.6rem;
-            }
-            
-            .highlight-amount {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .article-title {
-                font-size: 1.8rem;
-            }
-            
-            .featured-image {
-                height: 300px;
-            }
-            
-            .article-content {
-                padding: 20px 15px;
-            }
-            
-            .featured-image h2 {
-                font-size: 1.6rem;
-            }
-            
-            .featured-image p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AF023 — Quelle retraite pour 2000 € nets ? | PlayInvest</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --sand:    #F5F0E8;
+    --sand2:   #EDE6D6;
+    --sand3:   #DDD4C0;
+    --ink:     #1A1A18;
+    --ink2:    #3D3C38;
+    --ink3:    #7A7870;
+    --green:   #2E6E4E;
+    --green-l: #E8F2EC;
+    --green-m: #C2DDD0;
+    --gold:    #B8873A;
+    --gold-l:  #F7F0E4;
+    --red-l:   #FBEAEA;
+    --red:     #B94040;
+    --white:   #FDFCFA;
+    --rule:    #D8D0BC;
+  }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .masthead {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 24px;
+  }
+  .masthead-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+  .masthead-tag {
+    font-size: .72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-weight: 600;
+  }
+
+  .hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 48px 24px 40px;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .eyebrow-code {
+    font-family: 'Instrument Sans', monospace;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid var(--green-m);
+    background: var(--green-l);
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+  .eyebrow-level {
+    font-size: .72rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+  .hero-sub {
+    font-size: .95rem;
+    color: var(--ink3);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .hero-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--sand);
+    border: 1px solid var(--rule);
+    border-radius: 30px;
+    padding: 5px 14px;
+    font-size: .8rem;
+    color: var(--ink2);
+    font-weight: 500;
+  }
+  .chip i { color: var(--green); font-size: .75rem; }
+
+  .sec {
+    margin-top: 48px;
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .sec-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .def-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .def-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .def-card .dc-label {
+    font-size: .68rem;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink3);
+    margin-bottom: 8px;
+  }
+  .def-card .dc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .def-card .dc-body {
+    font-size: .86rem;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+  .def-card.accent {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .def-card.accent .dc-label { color: rgba(255,255,255,.65); }
+  .def-card.accent .dc-title { color: #fff; }
+  .def-card.accent .dc-body  { color: rgba(255,255,255,.88); }
+
+  .note {
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: .85rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    line-height: 1.55;
+    margin-top: 16px;
+  }
+  .note.warn { background: var(--gold-l); border-left: 3px solid var(--gold); color: #5a3e10; }
+  .note.ok   { background: var(--green-l); border-left: 3px solid var(--green); color: #1c3d2c; }
+  .note.alert { background: var(--red-l); border-left: 3px solid var(--red); color: #5a1c1c; }
+
+  .recap {
+    margin-top: 48px;
+    background: var(--white);
+    border: 1.5px solid var(--rule);
+    border-top: 3px solid var(--green);
+    border-radius: 10px;
+    padding: 28px 30px;
+  }
+  .recap-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .recap-title::before {
+    content: '';
+    width: 14px; height: 2px;
+    background: var(--green);
+  }
+  .recap-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 40px;
+  }
+  .recap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: .86rem;
+    color: var(--ink2);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--sand2);
+  }
+  .recap-item::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 800;
+  }
+  .update-date {
+    text-align: right;
+    margin-top: 32px;
+    font-size: 0.7rem;
+    color: var(--ink3);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+  }
+
+  @media(max-width:620px){
+    .def-grid { grid-template-columns:1fr; }
+    .hero h1 { font-size: 1.6rem; }
+    .recap-cols { grid-template-columns:1fr; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="article-header">
-            <h1 class="article-title">Quelle retraite pour un salaire de 2000 euros nets ?</h1>
-            <div class="reading-time">
-                <i class="fas fa-clock"></i> 8 min de lecture
-            </div>
-        </div>
-        
-        <!-- Table des matières -->
-        <div class="toc-container">
-            <div class="toc-title">Sommaire de l'article</div>
-            <ul class="toc-list">
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#composantes">Composantes de la retraite</a></li>
-                <li><a href="#projections">Projections types</a></li>
-                <li><a href="#taux-remplacement">Taux de remplacement</a></li>
-                <li><a href="#strategies">Stratégies d'optimisation</a></li>
-                <li><a href="#exemples">Exemples concrets</a></li>
-                <li><a href="#conclusion">Conclusion</a></li>
-            </ul>
-        </div>
-        
-        <!-- Featured Image -->
-        <div class="featured-image">
-            <div class="featured-image-content">
-                <h2>Estimation de votre future retraite</h2>
-                <p>Découvrez combien vous percevrez avec un salaire net de 2000€</p>
-                
-                <div class="highlight-box">
-                    <div class="result-title">Retraite estimée pour 2000€ nets</div>
-                    <div class="highlight-amount">1 580 €</div>
-                    <div>Taux de remplacement : 79%</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Article Content -->
-        <div class="article-content">
-            <div class="callout success">
-                <div class="callout-title">Points clés à retenir :</div>
-                <ul>
-                    <li>Le taux de remplacement est généralement plus élevé pour les bas salaires</li>
-                    <li>Pour un salaire de 2000€ nets, la retraite légale s'élève à environ 1580€</li>
-                    <li>Le système français est progressif, ce qui avantage les revenus modestes</li>
-                    <li>Des dispositifs comme l'épargne retraite sont essentiels pour compléter votre pension</li>
-                </ul>
-            </div>
-            
-            <h2 id="introduction">Introduction</h2>
-            <p>Avec un salaire net de 2000€ par mois, vous vous demandez probablement quel niveau de retraite vous pouvez espérer. Bonne nouvelle : le système de retraite français est conçu pour être plus favorable aux revenus modestes. En moyenne, les retraités ayant gagné 2000€ nets perçoivent environ 79% de leur dernier salaire à la retraite.</p>
-            <p>Dans cet article, nous allons détailler le calcul de votre future pension, les mécanismes qui favorisent les bas salaires, et les stratégies pour optimiser votre retraite.</p>
-            
-            <h2 id="composantes">Les composantes de votre retraite</h2>
-            <p>Comme pour tous les salariés, votre retraite se compose de deux piliers principaux :</p>
-            
-            <div class="callout info">
-                <p><strong>Formule simplifiée de calcul :</strong> Pension totale = Pension de base (CNAV) + Pension complémentaire (Agirc-Arrco)</p>
-                <p>Où :<br>
-                Pension de base = SAM × Taux × (Trimestres validés / Trimestres requis)<br>
-                Pension complémentaire = Points accumulés × Valeur du point</p>
-            </div>
-            
-            <h3>Retraite de base (CNAV)</h3>
-            <p>Calculée sur la base de vos 25 meilleures années de salaire. Pour un salaire de 2000€ nets :</p>
-            <ul>
-                <li>Salaire Annuel Moyen (SAM) : environ 24 000€</li>
-                <li>Taux plein : 50% du SAM</li>
-                <li>Trimestres requis : 172 pour les personnes nées après 1973</li>
-                <li>Pension estimée avec taux plein : 1000€ par mois</li>
-            </ul>
-            
-            <h3>Retraite complémentaire (Agirc-Arrco)</h3>
-            <p>Ce régime fonctionne par points :</p>
-            <ul>
-                <li>Taux de cotisation : 14.4% (part salarié + employeur)</li>
-                <li>Valeur d'achat du point : 19.394€ (2024)</li>
-                <li>Valeur de service du point : 1.4159€ (2024)</li>
-                <li>Points annuels acquis : environ 178 points</li>
-                <li>Pension estimée après 43 ans : 580€ par mois</li>
-            </ul>
-            
-            <h2 id="projections">Projections types pour 2000€ nets</h2>
-            <p>Voici les estimations de pension selon différents scénarios de carrière et d'âge de départ :</p>
-            
-            <div class="projection-section">
-                <div class="projection-header">
-                    <h3>Projections de retraite pour 2000€ nets</h3>
-                    <p>Estimations basées sur les règles actuelles du système de retraite français</p>
-                </div>
-                
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="result-title">Départ à 62 ans</div>
-                        <div class="result-value">1 370 €</div>
-                        <div class="result-subvalue">Taux de remplacement: 68.5%</div>
-                    </div>
-                    
-                    <div class="result-card">
-                        <div class="result-title">Départ à 64 ans</div>
-                        <div class="result-value">1 520 €</div>
-                        <div class="result-subvalue">Taux de remplacement: 76.0%</div>
-                    </div>
-                    
-                    <div class="result-card">
-                        <div class="result-title">Départ à 64 ans avec carrière complète</div>
-                        <div class="result-value">1 600 €</div>
-                        <div class="result-subvalue">Taux de remplacement: 80.0%</div>
-                    </div>
-                    
-                    <div class="result-card">
-                        <div class="result-title">Départ à 67 ans</div>
-                        <div class="result-value">1 700 €</div>
-                        <div class="result-subvalue">Taux de remplacement: 85.0%</div>
-                    </div>
-                </div>
-                
-                <div class="explanation">
-                    <p><strong>Hypothèses :</strong> Ces estimations supposent une carrière complète (172 trimestres validés) pour les scénarios à 64 et 67 ans, et 162 trimestres pour le départ à 62 ans. Les chiffres incluent la pension de base et complémentaire.</p>
-                </div>
-            </div>
-            
-            <h2 id="taux-remplacement">Taux de remplacement : pourquoi il est plus élevé pour les bas salaires</h2>
-            <p>Le taux de remplacement est le rapport entre votre première pension de retraite et votre dernier salaire. Il est généralement plus élevé pour les bas salaires car :</p>
-            <ul>
-                <li>Le système de retraite français est progressif</li>
-                <li>Les cotisations sociales sont plafonnées, mais les prestations ont un plancher</li>
-                <li>Des mécanismes comme le minimum contributif viennent revaloriser les petites pensions</li>
-            </ul>
-            
-            <div class="callout info">
-                <p>Pour un salaire de 2000€ nets, le taux de remplacement moyen est de 79% contre environ 50% pour un salaire de 4000€ nets. Cette progressivité vise à assurer un niveau de vie décent aux retraités ayant eu des carrières modestes.</p>
-            </div>
-            
-            <h3>Évolution du taux de remplacement selon l'âge de départ</h3>
-            <ul>
-                <li><strong>62 ans :</strong> Environ 70-75% du dernier salaire (soit 1400-1500€)</li>
-                <li><strong>64 ans :</strong> Environ 75-80% du dernier salaire (soit 1500-1600€)</li>
-                <li><strong>67 ans :</strong> Environ 80-85% du dernier salaire (soit 1600-1700€)</li>
-            </ul>
-            
-            <div class="callout warning">
-                <p>Attention : Ces chiffres sont des estimations moyennes. Votre situation réelle dépend de votre carrière complète, de vos périodes de chômage, et de la valeur future des points de retraite.</p>
-            </div>
-            
-            <h2 id="strategies">Stratégies d'optimisation pour votre retraite</h2>
-            <p>Même avec un taux de remplacement favorable, il est important d'optimiser votre future retraite :</p>
-            
-            <h3>1. Valider tous vos trimestres</h3>
-            <p>Pour éviter la décote (réduction de 1.25% par trimestre manquant) :</p>
-            <ul>
-                <li>Vérifier régulièrement votre relevé de carrière</li>
-                <li>Faire valider les périodes de chômage ou maladie</li>
-                <li>Envisager un rachat de trimestres si nécessaire</li>
-            </ul>
-            
-            <h3>2. Compléter avec l'épargne retraite</h3>
-            <p>Même de petites sommes épargnées régulièrement font la différence :</p>
-            <ul>
-                <li>Un PER avec 50€/mois pendant 25 ans à 4% = +150€/mois de rente</li>
-                <li>Une assurance vie avec 100€/mois pendant 30 ans à 3.5% = +300€/mois</li>
-                <li>Profiter des avantages fiscaux des dispositifs d'épargne retraite</li>
-            </ul>
-            
-            <h3>3. Travailler plus longtemps</h3>
-            <p>Chaque année supplémentaire travaillée augmente votre pension :</p>
-            <ul>
-                <li>Report de 62 à 64 ans : +10 à 15% de pension</li>
-                <li>Report de 64 à 67 ans : +5 à 10% supplémentaires</li>
-            </ul>
-            
-            <h2 id="exemples">Exemples concrets pour 2000€ nets</h2>
-            <p>Projections selon votre âge de départ et votre carrière :</p>
-            
-            <h3>Scénarios avec un salaire de 2000€ nets</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Âge de départ</th>
-                        <th>Trimestres validés</th>
-                        <th>Pension CNAV</th>
-                        <th>Pension Agirc-Arrco</th>
-                        <th>Total</th>
-                        <th>Taux remplacement</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>62 ans</td>
-                        <td>162/172</td>
-                        <td>850 €</td>
-                        <td>520 €</td>
-                        <td>1 370 €</td>
-                        <td class="medium">68.5%</td>
-                    </tr>
-                    <tr>
-                        <td>64 ans</td>
-                        <td>168/172</td>
-                        <td>940 €</td>
-                        <td>580 €</td>
-                        <td>1 520 €</td>
-                        <td class="medium">76.0%</td>
-                    </tr>
-                    <tr>
-                        <td>64 ans</td>
-                        <td>172/172</td>
-                        <td>1 000 €</td>
-                        <td>600 €</td>
-                        <td>1 600 €</td>
-                        <td class="good">80.0%</td>
-                    </tr>
-                    <tr>
-                        <td>67 ans</td>
-                        <td>172/172</td>
-                        <td>1 080 €</td>
-                        <td>620 €</td>
-                        <td>1 700 €</td>
-                        <td class="good">85.0%</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <div class="callout info">
-                <p>Conseil : Pour un salaire de 2000€ nets, visez au moins 1500€ de pension totale. Cela nécessite généralement de partir à 64 ans avec la majorité de ses trimestres.</p>
-            </div>
-            
-            <h3>Impact de l'épargne retraite</h3>
-            <p>Voici comment l'épargne peut compléter votre retraite légale :</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Épargne mensuelle</th>
-                        <th>Durée</th>
-                        <th>Rendement</th>
-                        <th>Capital accumulé</th>
-                        <th>Rente mensuelle</th>
-                        <th>Pension totale</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>50 €</td>
-                        <td>25 ans</td>
-                        <td>4%</td>
-                        <td>24 800 €</td>
-                        <td>103 €</td>
-                        <td>1 703 €</td>
-                    </tr>
-                    <tr>
-                        <td>100 €</td>
-                        <td>30 ans</td>
-                        <td>5%</td>
-                        <td>79 600 €</td>
-                        <td>332 €</td>
-                        <td>1 932 €</td>
-                    </tr>
-                    <tr>
-                        <td>150 €</td>
-                        <td>35 ans</td>
-                        <td>5.5%</td>
-                        <td>167 000 €</td>
-                        <td>696 €</td>
-                        <td>2 296 €</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h2 id="conclusion">Conclusion</h2>
-            <p>Avec un salaire de 2000€ nets, vous pouvez espérer une retraite légale d'environ 1580€ si vous partez à 64 ans avec la majorité de vos trimestres. Ce montant représente un taux de remplacement de 79%, plus favorable que pour les salaires plus élevés.</p>
-            
-            <p>Pour maintenir votre niveau de vie, compléter cette retraite par une épargne personnelle est essentiel. Un effort d'épargne de 50 à 100€ par mois pendant votre carrière peut vous permettre d'atteindre 1700-1900€ de revenus mensuels à la retraite.</p>
-            
-            <div class="callout success">
-                <p>N'oubliez pas : La préparation de la retraite est un marathon, pas un sprint. Commencez tôt, même avec de petits montants, et profitez des intérêts composés sur le long terme. Votre future tranquillité financière en dépend.</p>
-            </div>
-            
-            <button class="btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <i class="fas fa-arrow-up"></i> Retour en haut
-            </button>
-        </div>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="brand"><div class="brand-dot"></div>PlayInvest</div>
+    <div class="masthead-tag">Fiche apprentissage · AF023</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-code">📊 PRÉPARATION RETRAITE</span>
+      <span class="eyebrow-level">Anticiper sans stress</span>
     </div>
+    <h1>Quelle retraite pour un salaire de <em>2000 euros nets ?</em></h1>
+    <p class="hero-sub">Gagner 2000 € net par mois aujourd’hui ne garantit pas le même niveau de vie à la retraite. Entre réforme des systèmes, allongement de la durée de cotisation et épargne individuelle, mieux vaut comprendre les mécanismes pour agir sereinement.</p>
+    <div class="hero-chips">
+      <span class="chip"><i class="fas fa-chart-line"></i> Taux de remplacement ≈ 50-75 %</span>
+      <span class="chip"><i class="fas fa-piggy-bank"></i> Retraite complémentaire obligatoire</span>
+      <span class="chip"><i class="fas fa-graduation-cap"></i> Épargne volontaire = levier d’autonomie</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Introduction -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Introduction : un enjeu universel</span>
+    </div>
+    <div class="def-card" style="background: var(--white);">
+      <div class="dc-body">La question de la retraite préoccupe tous les actifs. Avec un salaire net de 2000 €, le régime français (régime de base + complémentaire) permet d’envisager une pension, mais souvent inférieure au dernier revenu. L’écart varie selon la carrière, l’âge de départ, et les réformes à venir. Ce n’est pas une fatalité : anticiper, diversifier et épargner sont les maîtres mots pour maintenir son niveau de vie.</div>
+    </div>
+  </div>
+
+  <!-- Composantes de la retraite -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Composantes de la retraite en France</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card accent">
+        <div class="dc-label">🏛️ Régime de base</div>
+        <div class="dc-title">Assurance vieillesse</div>
+        <div class="dc-body">Versé par l’État (CNAV pour les salariés). Calculé sur les 25 meilleures années approximativement. Le montant dépend de la durée de cotisation et du salaire annuel moyen.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">📁 Retraite complémentaire</div>
+        <div class="dc-title">Agirc-Arrco (pour privé)</div>
+        <div class="dc-body">Obligatoire pour tous les salariés. Fonctionne par points : chaque euro cotisé donne des points, dont la valeur évolue. Elle représente souvent 30 à 40 % de la pension totale.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">💰 Épargne retraite facultative</div>
+        <div class="dc-title">PER (Plan d’Épargne Retraite)</div>
+        <div class="dc-body">Dispositif individuel ou collectif. Les versements sont déductibles du revenu imposable dans certaines limites. À la sortie, capital ou rente. C’est l’outil pour compléter volontairement sa retraite.</div>
+      </div>
+    </div>
+    <div class="note ok"><i class="fas fa-lightbulb"></i> Les fonctionnaires disposent d’un régime additionnel (RAFP) en plus de leur régime spécial. Le secteur privé repose sur la complémentaire obligatoire par points.</div>
+  </div>
+
+  <!-- Projections types -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Projections types pour 2000 € net mensuel</span>
+    </div>
+    <div class="def-card" style="background: var(--white);">
+      <div class="dc-body">Pour un salarié du privé ayant cotisé une carrière complète (environ 43 annuités selon la génération), le taux de remplacement moyen (pension / dernier salaire) se situe généralement entre 55 % et 75 %. Concrètement, une personne gagnant 2000 € net par mois pourrait percevoir entre 1100 € et 1500 € nets de retraite. Cet écart dépend de nombreux facteurs : âge de départ (décote ou surcote), carrière linéaire ou avec évolutions, nombre d’enfants, etc. Les projections officielles (Conseil d’orientation des retraites) tablent sur une baisse tendancielle du taux de remplacement dans les décennies à venir, d’où l’intérêt de préparer une épargne supplémentaire.</div>
+    </div>
+    <div class="note warn"><i class="fas fa-chart-line"></i> Attention : ces chiffres sont des ordres de grandeur. Chaque situation est unique. Utilisez les simulateurs officiels (Info‑retraite.fr) pour une estimation personnalisée.</div>
+  </div>
+
+  <!-- Taux de remplacement -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Le taux de remplacement : notion clé</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="dc-label">📉 Définition</div>
+        <div class="dc-body">Rapport entre le montant de la première pension de retraite (nette) et le dernier salaire net perçu en activité. Un taux de 70 % signifie que vous percevez 70 % de votre ancien salaire.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">⚖️ Évolution prévisible</div>
+        <div class="dc-body">Sous l’effet des réformes (allongement de la durée de cotisation, indexation sur l’inflation et non plus sur les salaires), le taux de remplacement diminue progressivement. Pour les générations nées après 1980, il pourrait tomber sous les 55 % sans épargne complémentaire.</div>
+      </div>
+    </div>
+    <div class="note alert">Pour un salaire de 2000 €, un taux de 60 % donne 1200 € de retraite. La baisse du pouvoir d’achat peut être sensible. D’où l’intérêt d’épargner pendant la vie active.</div>
+  </div>
+
+  <!-- Stratégies d'optimisation -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Stratégies d’optimisation (sans calcul complexe)</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="dc-label">📅 Départ à l’âge optimal</div>
+        <div class="dc-body">Travailler quelques trimestres supplémentaires peut activer la surcote (majoration de la pension). Renseignez-vous sur votre âge d’équilibre (taux plein).</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">💶 Versements complémentaires</div>
+        <div class="dc-body">Utiliser un PER individuel. Même de petits versements réguliers (50 à 150 €/mois) capitalisés sur 20-30 ans font une différence significative grâce aux intérêts composés.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">🏦 Rachat de trimestres</div>
+        <div class="dc-body">Si vous avez des années d’étude ou des trimestres manquants, le rachat (déductible fiscalement) peut augmenter la durée d’assurance et donc la pension.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">🏡 Investissement locatif</div>
+        <div class="dc-body">Constituer un patrimoine immobilier générant des revenus complémentaires non soumis aux cotisations sociales après la retraite (sauf CSG).</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">📊 Bourse / ETF en PEA</div>
+        <div class="dc-body">Investir régulièrement sur un ETF monde (MSCI World) via un PEA. L’horizon long (> 10-15 ans) permet de lisser les risques et de bénéficier de la croissance économique.</div>
+      </div>
+    </div>
+    <div class="note ok"><i class="fas fa-chalkboard-user"></i> <strong>PlayInvest vous accompagne :</strong> nous vous aidons à choisir les supports d’épargne retraite (PER, PEA, immobilier) adaptés à votre profil et à mettre en place une stratégie d’investissement régulier. L’anticipation est la clé d’une retraite sereine.</div>
+  </div>
+
+  <!-- Récapitulatif -->
+  <div class="recap">
+    <div class="recap-title">À retenir pour une retraite avec 2000 € nets/mois</div>
+    <div class="recap-cols">
+      <div class="recap-item">La retraite obligatoire (base + complémentaire) représente souvent 55 à 75 % du dernier salaire</div>
+      <div class="recap-item">Pour 2000 € nets, cela donne environ 1100-1500 € nets de pension</div>
+      <div class="recap-item">Le taux de remplacement a tendance à baisser pour les générations futures</div>
+      <div class="recap-item">Le PER est l’outil fiscalement avantageux pour épargner sa retraite</div>
+      <div class="recap-item">Racheter des trimestres ou partir plus tard peut améliorer la pension</div>
+      <div class="recap-item">Investir régulièrement en actions (ETF) sur longue période augmente le capital disponible</div>
+      <div class="recap-item">Simulez votre situation sur info-retraite.fr (gratuit et officiel)</div>
+      <div class="recap-item">PlayInvest vous aide à construire votre complément de retraite en toute connaissance</div>
+    </div>
+  </div>
+
+  <div class="update-date">
+    <i class="far fa-calendar-alt"></i> Fiche actualisée mai 2026. Les données sont indicatives et ne remplacent pas un conseil personnalisé. Taux de remplacement : estimations du COR (Conseil d’Orientation des Retraites). Régles en vigueur au moment de la rédaction.
+  </div>
+</div>
 </body>
 </html>

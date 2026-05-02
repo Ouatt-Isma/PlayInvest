@@ -1,785 +1,460 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychologie des Investisseurs : Comprendre vos biais pour mieux investir - Finary</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            /* Couleurs Finary */
-            --finary-primary: #141145;
-            --finary-secondary: #7A2D8D;
-            --finary-accent: #5682F2;
-            --finary-light: #F1F2F6;
-            --finary-dark: #0A0A1D;
-            --finary-gold: #F1C086;
-            --finary-gradient: linear-gradient(116deg, #5682F2 -36.05%, #F9D09F 100.05%);
-            --finary-success: #4CAF50;
-            --finary-warning: #FFC107;
-            --finary-info: #2196F3;
-            --finary-error: #F44336;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .reading-time {
-            display: inline-block;
-            background-color: rgba(86, 130, 242, 0.1);
-            color: var(--finary-accent);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        
-        /* Table des matières */
-        #toc-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            padding: 20px;
-            width: 300px;
-            max-height: 85vh;
-            overflow-y: auto;
-            z-index: 1000;
-            border: 1px solid #eee;
-            display: none;
-        }
-        
-        #toc-container.visible {
-            display: block;
-        }
-        
-        .toc-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .toc-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--finary-primary);
-        }
-        
-        .close-toc {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: #666;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        
-        .close-toc:hover {
-            background-color: #f5f5f5;
-        }
-        
-        #toc-list {
-            list-style-type: none;
-        }
-        
-        #toc-list li {
-            margin-bottom: 8px;
-        }
-        
-        #toc-list a {
-            color: #444;
-            text-decoration: none;
-            display: block;
-            padding: 6px 10px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-        }
-        
-        #toc-list a:hover {
-            background-color: rgba(86, 130, 242, 0.1);
-            color: var(--finary-accent);
-        }
-        
-        #toc-list .h2-link {
-            font-weight: 600;
-            margin-top: 12px;
-        }
-        
-        #toc-list .h3-link {
-            padding-left: 20px;
-            font-size: 0.9rem;
-        }
-        
-        .toc-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--finary-gradient);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .toc-toggle i {
-            font-size: 1.5rem;
-        }
-        
-        /* Article Header */
-        .article-header {
-            padding: 40px 0 20px;
-            position: relative;
-        }
-        
-        .article-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            line-height: 1.3;
-            color: var(--finary-primary);
-            font-weight: 700;
-            max-width: 800px;
-        }
-        
-        /* Featured Image */
-        .featured-image {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 30px 0;
-            background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #666;
-            background: linear-gradient(135deg, #141145, #7A2D8D);
-            color: white;
-            font-size: 1.5rem;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        /* Content Styling */
-        .article-content {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-        
-        .article-content p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            color: #444;
-            line-height: 1.8;
-        }
-        
-        .article-content h2 {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            color: var(--finary-primary);
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            font-weight: 700;
-            scroll-margin-top: 20px;
-        }
-        
-        .article-content h3 {
-            font-size: 1.4rem;
-            margin: 30px 0 15px;
-            color: var(--finary-secondary);
-            font-weight: 600;
-            scroll-margin-top: 20px;
-        }
-        
-        .article-content ul, .article-content ol {
-            padding-left: 30px;
-            margin-bottom: 20px;
-        }
-        
-        .article-content li {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            position: relative;
-        }
-        
-        .article-content li::before {
-            content: '•';
-            color: var(--finary-accent);
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        
-        /* Bias visualization */
-        .bias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .bias-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--finary-accent);
-            transition: transform 0.3s ease;
-        }
-        
-        .bias-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .bias-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--finary-primary);
-            margin-bottom: 10px;
-        }
-        
-        .bias-description {
-            font-size: 0.95rem;
-            color: #666;
-        }
-        
-        /* Investor profile */
-        .profile-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 40px 0;
-        }
-        
-        .profile-card {
-            flex: 1;
-            min-width: 250px;
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            border-top: 4px solid;
-        }
-        
-        .profile-card.risk-averse {
-            border-color: var(--finary-info);
-        }
-        
-        .profile-card.balanced {
-            border-color: var(--finary-success);
-        }
-        
-        .profile-card.aggressive {
-            border-color: var(--finary-warning);
-        }
-        
-        .profile-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--finary-primary);
-        }
-        
-        .profile-description {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        /* Callout boxes - Style Finary */
-        .callout {
-            padding: 20px;
-            border-radius: 8px;
-            margin: 25px 0;
-            border-left: 4px solid;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .callout::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: inherit;
-        }
-        
-        .callout.success {
-            background-color: rgba(76, 175, 80, 0.1);
-            border-color: var(--finary-success);
-        }
-        
-        .callout.success::before {
-            background: var(--finary-success);
-        }
-        
-        .callout.warning {
-            background-color: rgba(255, 193, 7, 0.1);
-            border-color: var(--finary-warning);
-        }
-        
-        .callout.warning::before {
-            background: var(--finary-warning);
-        }
-        
-        .callout.info {
-            background-color: rgba(33, 150, 243, 0.1);
-            border-color: var(--finary-info);
-        }
-        
-        .callout.info::before {
-            background: var(--finary-info);
-        }
-        
-        .callout.error {
-            background-color: rgba(244, 67, 54, 0.1);
-            border-color: var(--finary-error);
-        }
-        
-        .callout.error::before {
-            background: var(--finary-error);
-        }
-        
-        .callout-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            color: var(--finary-primary);
-        }
-        
-        /* Emotion meter */
-        .emotion-meter {
-            display: flex;
-            justify-content: space-between;
-            margin: 40px 0;
-            position: relative;
-            height: 40px;
-            background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        
-        .emotion-label {
-            position: absolute;
-            top: 50px;
-            font-weight: 600;
-            color: var(--finary-primary);
-        }
-        
-        .emotion-label.left {
-            left: 10px;
-        }
-        
-        .emotion-label.right {
-            right: 10px;
-        }
-        
-        .emotion-pointer {
-            position: absolute;
-            top: -15px;
-            width: 30px;
-            height: 30px;
-            background: var(--finary-primary);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .article-title {
-                font-size: 2rem;
-            }
-            
-            .featured-image {
-                height: 250px;
-            }
-            
-            .article-content {
-                padding: 25px;
-            }
-            
-            .article-content h2 {
-                font-size: 1.6rem;
-            }
-            
-            #toc-container {
-                width: 280px;
-                right: 10px;
-                left: auto;
-            }
-            
-            .profile-container {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .article-title {
-                font-size: 1.8rem;
-            }
-            
-            .featured-image {
-                height: 200px;
-            }
-            
-            .article-content {
-                padding: 20px 15px;
-            }
-            
-            #toc-container {
-                width: 90%;
-                right: 5%;
-                left: 5%;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AF022 — Psychologie des investisseurs : maîtrisez vos biais | PlayInvest</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --sand:    #F5F0E8;
+    --sand2:   #EDE6D6;
+    --sand3:   #DDD4C0;
+    --ink:     #1A1A18;
+    --ink2:    #3D3C38;
+    --ink3:    #7A7870;
+    --green:   #2E6E4E;
+    --green-l: #E8F2EC;
+    --green-m: #C2DDD0;
+    --gold:    #B8873A;
+    --gold-l:  #F7F0E4;
+    --red-l:   #FBEAEA;
+    --red:     #B94040;
+    --white:   #FDFCFA;
+    --rule:    #D8D0BC;
+  }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .masthead {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 24px;
+  }
+  .masthead-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+  .masthead-tag {
+    font-size: .72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-weight: 600;
+  }
+
+  .hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 48px 24px 40px;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .eyebrow-code {
+    font-family: 'Instrument Sans', monospace;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid var(--green-m);
+    background: var(--green-l);
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+  .eyebrow-level {
+    font-size: .72rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+  .hero-sub {
+    font-size: .95rem;
+    color: var(--ink3);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .hero-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--sand);
+    border: 1px solid var(--rule);
+    border-radius: 30px;
+    padding: 5px 14px;
+    font-size: .8rem;
+    color: var(--ink2);
+    font-weight: 500;
+  }
+  .chip i { color: var(--green); font-size: .75rem; }
+
+  .sec {
+    margin-top: 48px;
+  }
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  .sec-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .def-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .def-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .def-card .dc-label {
+    font-size: .68rem;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink3);
+    margin-bottom: 8px;
+  }
+  .def-card .dc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .def-card .dc-body {
+    font-size: .86rem;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+  .def-card.accent {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .def-card.accent .dc-label { color: rgba(255,255,255,.65); }
+  .def-card.accent .dc-title { color: #fff; }
+  .def-card.accent .dc-body  { color: rgba(255,255,255,.88); }
+
+  .note {
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: .85rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    line-height: 1.55;
+    margin-top: 16px;
+  }
+  .note.warn { background: var(--gold-l); border-left: 3px solid var(--gold); color: #5a3e10; }
+  .note.ok   { background: var(--green-l); border-left: 3px solid var(--green); color: #1c3d2c; }
+  .note.alert { background: var(--red-l); border-left: 3px solid var(--red); color: #5a1c1c; }
+
+  .recap {
+    margin-top: 48px;
+    background: var(--white);
+    border: 1.5px solid var(--rule);
+    border-top: 3px solid var(--green);
+    border-radius: 10px;
+    padding: 28px 30px;
+  }
+  .recap-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .recap-title::before {
+    content: '';
+    width: 14px; height: 2px;
+    background: var(--green);
+  }
+  .recap-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 40px;
+  }
+  .recap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: .86rem;
+    color: var(--ink2);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--sand2);
+  }
+  .recap-item::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 800;
+  }
+  .update-date {
+    text-align: right;
+    margin-top: 32px;
+    font-size: 0.7rem;
+    color: var(--ink3);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+  }
+
+  @media(max-width:620px){
+    .def-grid { grid-template-columns:1fr; }
+    .hero h1 { font-size: 1.6rem; }
+    .recap-cols { grid-template-columns:1fr; }
+  }
+</style>
 </head>
 <body>
-    <!-- Bouton pour afficher la table des matières -->
-    <button class="toc-toggle" id="toc-toggle">
-        <i class="fas fa-list"></i>
-    </button>
-    
-    <!-- Table des matières -->
-    <div id="toc-container">
-        <div class="toc-header">
-            <div class="toc-title">Sommaire de l'article</div>
-            <button class="close-toc" id="close-toc">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <ul id="toc-list">
-            <li><a href="#introduction" class="h2-link">Introduction</a></li>
-            <li><a href="#importance" class="h2-link">Pourquoi la psychologie compte en investissement</a></li>
-            <li><a href="#biais" class="h2-link">Les biais cognitifs courants</a>
-                <ul>
-                    <li><a href="#biais-confirmation" class="h3-link">Biais de confirmation</a></li>
-                    <li><a href="#aversion-perte" class="h3-link">Aversion aux pertes</a></li>
-                    <li><a href="#surconfiance" class="h3-link">Surconfiance</a></li>
-                </ul>
-            </li>
-            <li><a href="#emotions" class="h2-link">L'impact des émotions</a></li>
-            <li><a href="#profils" class="h2-link">Profils psychologiques des investisseurs</a></li>
-            <li><a href="#strategies" class="h2-link">Stratégies pour surmonter ses biais</a></li>
-            <li><a href="#outils" class="h2-link">Outils et techniques</a></li>
-            <li><a href="#conclusion" class="h2-link">Conclusion</a></li>
-        </ul>
-    </div>
 
-    <!-- Article Header -->
-    <div class="container">
-        <div class="article-header">
-            <h1 class="article-title">Psychologie des Investisseurs : Comprendre vos biais pour mieux investir</h1>
-            <div class="reading-time">
-                <i class="fas fa-clock"></i> 15 min de lecture
-            </div>
-        </div>
-        
-        <!-- Featured Image -->
-        <div class="featured-image">
-            Comprendre la psychologie pour maîtriser vos investissements
-        </div>
-        
-        <!-- Article Content -->
-        <div class="article-content">
-            <div class="callout success">
-                <div class="callout-title">Points clés à retenir :</div>
-                <ul>
-                    <li>Les émotions et biais cognitifs influencent 80% des décisions d'investissement</li>
-                    <li>L'aversion aux pertes est deux fois plus puissante que l'attrait du gain</li>
-                    <li>Les investisseurs surconfiants réalisent souvent de moins bonnes performances</li>
-                    <li>Identifier votre profil psychologique est essentiel pour une stratégie adaptée</li>
-                    <li>La discipline et l'éducation financière sont vos meilleurs alliés</li>
-                </ul>
-            </div>
-            
-            <h2 id="introduction">Introduction</h2>
-            <p>L'investissement n'est pas seulement une question de chiffres et d'analyses financières. La psychologie joue un rôle crucial dans les décisions que nous prenons, souvent à notre insu. Comprendre les mécanismes psychologiques qui sous-tendent nos choix d'investissement peut faire la différence entre succès et échec sur les marchés financiers.</p>
-            <p>Dans cet article, nous explorerons les principaux biais cognitifs qui affectent les investisseurs, l'impact des émotions sur nos décisions financières, et les stratégies pour investir de manière plus rationnelle et disciplinée.</p>
-            
-            <div class="callout info">
-                <p><strong>Saviez-vous ?</strong> Selon une étude de Dalbar, les investisseurs particuliers sous-performent le marché de 4-5% par an en moyenne, principalement à cause de décisions émotionnelles.</p>
-            </div>
-            
-            <h2 id="importance">Pourquoi la psychologie compte en investissement</h2>
-            <p>Contrairement à la croyance populaire, les marchés financiers ne sont pas entièrement rationnels. Les émotions humaines - peur, cupidité, excès de confiance - créent des tendances et des cycles qui peuvent être prévisibles pour qui comprend la psychologie des foules.</p>
-            
-            <p>L'économie comportementale, domaine à la croisée de la psychologie et de l'économie, a démontré que :</p>
-            
-            <ul>
-                <li>Nous prenons systématiquement des décisions irrationnelles dans des contextes d'incertitude</li>
-                <li>Nos jugements sont influencés par des raccourcis mentaux (heuristiques)</li>
-                <li>L'émotion l'emporte souvent sur la raison dans les décisions financières</li>
-                <li>Nous sommes fortement influencés par le comportement du groupe</li>
-            </ul>
-            
-            <h2 id="biais">Les biais cognitifs courants</h2>
-            <p>Les biais cognitifs sont des distorsions systématiques dans notre façon de penser qui affectent nos jugements et décisions. En investissement, ils peuvent coûter très cher.</p>
-            
-            <div class="bias-grid">
-                <div class="bias-card">
-                    <div class="bias-title">Biais de confirmation</div>
-                    <div class="bias-description">Tendance à privilégier les informations qui confirment nos croyances existantes et à ignorer les preuves contradictoires.</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Aversion aux pertes</div>
-                    <div class="bias-description">Nous ressentons la douleur d'une perte deux fois plus intensément que le plaisir d'un gain équivalent.</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Biais de surconfiance</div>
-                    <div class="bias-description">Tendance à surestimer ses connaissances et capacités, conduisant à un excès de transactions.</div>
-                </div>
-                
-                <div class="bias-card">
-                    <div class="bias-title">Effet de disposition</div>
-                    <div class="bias-description">Tendance à vendre trop vite les investissements gagnants et à conserver trop longtemps les perdants.</div>
-                </div>
-            </div>
-            
-            <h3 id="biais-confirmation">Biais de confirmation</h3>
-            <p>L'investisseur affecté par ce biais va naturellement chercher des analyses, des experts ou des données qui confirment son opinion sur une action ou un marché, tout en ignorant ou en minimisant les signaux contraires. Cela peut conduire à :</p>
-            
-            <ul>
-                <li>Rester investi dans un actif en perte malgré des signaux négatifs</li>
-                <li>Surenchérir sur des actifs surévalués</li>
-                <li>Manquer des opportunités par refus de considérer des perspectives différentes</li>
-            </ul>
-            
-            <div class="callout warning">
-                <p>Contre-mesure : Recherchez activement des opinions contradictoires et testez régulièrement vos hypothèses d'investissement.</p>
-            </div>
-            
-            <h3 id="aversion-perte">Aversion aux pertes</h3>
-            <p>Découvert par les prix Nobel Kahneman et Tversky, ce biais explique pourquoi nous détestons perdre plus que nous aimons gagner. En pratique :</p>
-            
-            <div class="emotion-meter">
-                <div class="emotion-pointer" style="left: 30%;"></div>
-                <div class="emotion-label left">Plaisir du gain</div>
-                <div class="emotion-label right">Douleur de la perte</div>
-            </div>
-            
-            <p>Conséquences en investissement :</p>
-            <ul>
-                <li>Vendre trop vite lors de petites corrections par peur de perdre davantage</li>
-                <li>Ne pas prendre de profits suffisants par crainte de "manquer" un plus grand gain</li>
-                <li>Éviter des investissements nécessaires par peur exagérée du risque</li>
-            </ul>
-            
-            <h3 id="surconfiance">Surconfiance</h3>
-            <p>Particulièrement fréquent en période de bulle, ce biais amène les investisseurs à :</p>
-            
-            <ul>
-                <li>Croire qu'ils peuvent "battre le marché" systématiquement</li>
-                <li>Effectuer un nombre excessif de transactions, augmentant les frais</li>
-                <li>Prendre des risques disproportionnés par conviction de maîtriser les marchés</li>
-            </ul>
-            
-            <div class="callout error">
-                <p>Une étude de Barber et Odean montre que les investisseurs les plus actifs (et donc souvent les plus surconfiants) sous-performent le marché de 6,5% par an.</p>
-            </div>
-            
-            <h2 id="emotions">L'impact des émotions</h2>
-            <p>Les émotions sont le principal ennemi de l'investisseur rationnel. Deux émotions dominent les marchés :</p>
-            
-            <div class="callout info">
-                <p><strong>La cupidité</strong> conduit aux bulles spéculatives - les investisseurs achètent à des prix irrationnels par peur de manquer une opportunité.</p>
-                <p><strong>La peur</strong> provoque les krachs - les investisseurs vendent massivement par panique, souvent au pire moment.</p>
-            </div>
-            
-            <p>Le cycle émotionnel typique des marchés :</p>
-            
-            <ol>
-                <li><strong>Optimisme</strong> : Les prix commencent à monter, attirant de nouveaux investisseurs</li>
-                <li><strong>Excitation</strong> : Les gains rapides créent un sentiment d'invincibilité</li>
-                <li><strong>Euphorie</strong> : Phase de bulle où les fondamentaux sont ignorés</li>
-                <li><strong>Anxiété</strong> : Les premières corrections font douter les investisseurs</li>
-                <li><strong>Déni</strong> : On minimise les pertes en se disant que "ça va remonter"</li>
-                <li><strong>Peur</strong> : La baisse s'accélère, déclenchant des ventes de panique</li>
-                <li><strong>Désespoir</strong> : Les investisseurs vendent au plus bas, jurant de ne plus jamais investir</li>
-            </ol>
-            
-            <h2 id="profils">Profils psychologiques des investisseurs</h2>
-            <p>Connaître votre profil psychologique est essentiel pour développer une stratégie adaptée à votre tempérament :</p>
-            
-            <div class="profile-container">
-                <div class="profile-card risk-averse">
-                    <div class="profile-title">Investisseur prudent</div>
-                    <div class="profile-description">Cherche avant tout la sécurité, supporte mal la volatilité, préfère les placements garantis.</div>
-                    <p><strong>Points forts :</strong> Évite les pertes importantes</p>
-                    <p><strong>Risques :</strong> Rendements insuffisants face à l'inflation</p>
-                </div>
-                
-                <div class="profile-card balanced">
-                    <div class="profile-title">Investisseur équilibré</div>
-                    <div class="profile-description">Accepte une volatilité modérée pour de meilleurs rendements, diversifie son portefeuille.</div>
-                    <p><strong>Points forts :</strong> Bon équilibre risque/rendement</p>
-                    <p><strong>Risques :</strong> Peut sous-performer en période de forte hausse</p>
-                </div>
-                
-                <div class="profile-card aggressive">
-                    <div class="profile-title">Investisseur dynamique</div>
-                    <div class="profile-description">Recherche la performance maximale, supporte bien la volatilité, investit dans des actifs risqués.</div>
-                    <p><strong>Points forts :</strong> Fort potentiel de rendement</p>
-                    <p><strong>Risques :</strong> Pertes importantes possibles</p>
-                </div>
-            </div>
-            
-            <h2 id="strategies">Stratégies pour surmonter ses biais</h2>
-            <p>Voici des stratégies éprouvées pour limiter l'impact des biais psychologiques :</p>
-            
-            <h3>Investissement systématique</h3>
-            <p>Mettre en place des versements réguliers (mensuels ou trimestriels) permet de :</p>
-            <ul>
-                <li>Lisser le prix d'achat sur différentes conditions de marché</li>
-                <li>Éliminer le besoin de "timer le marché"</li>
-                <li>Réduire l'impact émotionnel des fluctuations</li>
-            </ul>
-            
-            <h3>Diversification</h3>
-            <p>Un portefeuille bien diversifié :</p>
-            <ul>
-                <li>Réduit la volatilité globale</li>
-                <li>Limite l'impact d'une mauvaise décision</li>
-                <li>Empêche la surconcentration dans un secteur ou un actif</li>
-            </ul>
-            
-            <h3>Planification à long terme</h3>
-            <p>Définir clairement :</p>
-            <ul>
-                <li>Vos objectifs financiers (retraite, achat immobilier, etc.)</li>
-                <li>Votre horizon temporel</li>
-                <li>Votre tolérance au risque réelle (pas celle que vous imaginez)</li>
-            </ul>
-            
-            <div class="callout success">
-                <p>Conseil Finary : Écrivez votre stratégie d'investissement et vos règles de décision à froid, avant d'être confronté aux turbulences des marchés.</p>
-            </div>
-            
-            <h2 id="outils">Outils et techniques</h2>
-            <p>Plusieurs outils peuvent vous aider à rester rationnel :</p>
-            
-            <ul>
-                <li><strong>Journal d'investissement :</strong> Notez vos décisions, raisonnements et émotions au moment de chaque investissement</li>
-                <li><strong>Checklists :</strong> Liste de critères à vérifier avant toute décision</li>
-                <li><strong>Robo-advisors :</strong> Solutions automatisées qui éliminent l'émotion</li>
-                <li><strong>Conseil indépendant :</strong> Un professionnel peut apporter un regard objectif</li>
-                <li><strong>Finary :</strong> Suivi de portefeuille et alertes pour éviter les décisions impulsives</li>
-            </ul>
-            
-            <h2 id="conclusion">Conclusion</h2>
-            <p>La psychologie est l'élément sous-estimé de la réussite en investissement. Comprendre vos biais cognitifs et apprendre à gérer vos émotions sont aussi importants que l'analyse financière elle-même.</p>
-            
-            <p>En prenant conscience de ces mécanismes psychologiques et en mettant en place des stratégies pour les contrer, vous pouvez :</p>
-            
-            <ul>
-                <li>Prendre des décisions plus rationnelles</li>
-                <li>Éviter les erreurs coûteuses dues aux émotions</li>
-                <li>Rester fidèle à votre stratégie à long terme</li>
-                <li>Améliorer significativement vos rendements sur le long terme</li>
-            </ul>
-            
-            <div class="callout success">
-                <p>Rappelez-vous : Le plus grand risque en investissement n'est pas la volatilité des marchés, mais nos propres comportements irrationnels. La discipline et la connaissance de soi sont vos meilleurs atouts pour réussir.</p>
-            </div>
-        </div>
-    </div>
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="brand"><div class="brand-dot"></div>PlayInvest</div>
+    <div class="masthead-tag">Fiche apprentissage · AF022</div>
+  </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tocToggle = document.getElementById('toc-toggle');
-            const tocContainer = document.getElementById('toc-container');
-            const closeToc = document.getElementById('close-toc');
-            
-            // Toggle TOC visibility
-            tocToggle.addEventListener('click', function() {
-                tocContainer.classList.toggle('visible');
-            });
-            
-            // Close TOC
-            closeToc.addEventListener('click', function() {
-                tocContainer.classList.remove('visible');
-            });
-            
-            // Close TOC when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!tocContainer.contains(event.target) && 
-                    !tocToggle.contains(event.target) && 
-                    tocContainer.classList.contains('visible')) {
-                    tocContainer.classList.remove('visible');
-                }
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 20,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close TOC after clicking on a link
-                        tocContainer.classList.remove('visible');
-                    }
-                });
-            });
-        });
-    </script>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-code">🧠 PSYCHOLOGIE & FINANCE</span>
+      <span class="eyebrow-level">Maîtriser ses émotions</span>
+    </div>
+    <h1>Psychologie des Investisseurs : <em>comprendre vos biais pour mieux investir</em></h1>
+    <p class="hero-sub">La Bourse n’est pas seulement une affaire de chiffres. Votre cerveau joue des tours qui peuvent vous coûter cher. Identifier vos biais cognitifs, c’est le premier pas vers une meilleure prise de décision.</p>
+    <div class="hero-chips">
+      <span class="chip"><i class="fas fa-brain"></i> Biais de confirmation</span>
+      <span class="chip"><i class="fas fa-chart-line"></i> Aversion aux pertes</span>
+      <span class="chip"><i class="fas fa-chart-line"></i> Surconfiance</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Section 1 : Pourquoi la psychologie compte -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Pourquoi la psychologie compte en investissement</span>
+    </div>
+    <div class="def-card" style="background: var(--white);">
+      <div class="dc-body">Les marchés financiers sont influencés par les émotions et les comportements humains, pas seulement par les données économiques. Peur, euphorie, envie, regret – ces sentiments poussent à acheter au sommet et à vendre au creux de la vague. La finance comportementale a montré que les investisseurs particuliers, mais aussi les professionnels, commettent des erreurs systématiques dues à des « biais cognitifs ». Comprendre ces biais, c’est reprendre le contrôle sur ses décisions d’investissement, améliorer sa performance à long terme et réduire son stress.</div>
+    </div>
+    <div class="note ok"><i class="fas fa-lightbulb"></i> L’objectif n’est pas d’éliminer toute émotion (impossible), mais de les reconnaître pour ne pas agir sous leur pression.</div>
+  </div>
+
+  <!-- Section 2 : Les biais cognitifs courants -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Les biais cognitifs courants</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card accent">
+        <div class="dc-label">🔍 Biais de confirmation</div>
+        <div class="dc-body">Tendance à rechercher, interpréter et mémoriser les informations qui confirment nos idées préconçues, et à ignorer celles qui les contredisent. Exemple : un investisseur qui croit qu’une action va monter ne lira que les analyses positives, passant à côté des signaux d’alerte.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">📉 Aversion aux pertes</div>
+        <div class="dc-body">La douleur de perdre 100 € est psychologiquement deux à trois fois plus forte que le plaisir de gagner 100 €. Cela pousse à vendre trop tôt des positions gagnantes (peur de voir le gain s’envoler) ou à conserver trop longtemps des positions perdantes (dans l’espoir d’un rebond).</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">📈 Surconfiance</div>
+        <div class="dc-body">Les investisseurs surestiment leurs capacités à prédire le marché ou à sélectionner des titres. Cela conduit à multiplier les transactions (sous-estimation des frais et des risques) et à négliger l’utilité d’une allocation diversifiée.</div>
+      </div>
+    </div>
+    <div class="note warn">Ces biais ne sont pas des défauts de caractère, mais des mécanismes naturels du cerveau. Les reconnaître est la première étape pour les contourner.</div>
+  </div>
+
+  <!-- Section 3 : L'impact des émotions -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">L’impact des émotions sur les décisions</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="dc-label">😨 La peur</div>
+        <div class="dc-body">En période de forte baisse, la peur de tout perdre pousse à vendre ses positions, souvent au plus bas. L’investisseur cristallise une perte qui aurait pu se résorber avec le temps.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">🤑 L’euphorie</div>
+        <div class="dc-body">Dans les marchés haussiers, l’euphorie collective (ou « effet de troupeau ») incite à acheter sans analyse, à suivre les modes (bulles sectorielles) et à surpayer les actifs.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">😞 Le regret</div>
+        <div class="dc-body">Regret de ne pas avoir acheté une action qui a grimpé, ou d’avoir vendu trop tôt. Ce sentiment conduit à des comportements de « rattrapage » risqués, comme acheter après une forte hausse.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">⚖️ L’ancrage</div>
+        <div class="dc-body">Tendance à se fixer sur un prix spécifique (ex : le plus haut historique, le prix d’achat). Cela empêche de prendre des décisions rationnelles face aux nouvelles informations.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 : Profils psychologiques des investisseurs -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">Profils psychologiques des investisseurs</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="dc-label">🛡️ L’investisseur prudent</div>
+        <div class="dc-body">Très sensible au risque, préfère la sécurité. Possède un fort biais d’aversion aux pertes et un besoin de liquidité. Il lui est difficile d’accepter la volatilité, même justifiée par du long terme.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">⚡ L’investisseur impulsif / trader</div>
+        <div class="dc-body">Surconfiant, recherche l’action rapide et les sensations. Multiplie les ordres, sous-estime les frais et les risques. Souvent déçu par sa performance nette.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">🐑 L’investisseur grégaire</div>
+        <div class="dc-body">Suit les modes, achète ce que tout le monde achète, vend quand tout le monde vend. Victime de l’effet de troupeau et de la peur de manquer une opportunité (FOMO).</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">🧘 L’investisseur rationnel (objectif)</div>
+        <div class="dc-body">Reconnaît ses biais, suit une stratégie définie à l’avance, diversifie, investit régulièrement, et ne réagit pas aux fluctuations court terme. C’est le profil vers lequel tendre grâce à l’éducation financière.</div>
+      </div>
+    </div>
+    <div class="note ok">Identifiez votre profil dominant : ce n’est pas une fatalité, mais un point de départ pour progresser.</div>
+  </div>
+
+  <!-- Section 5 : Stratégies pour surmonter ses biais -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Stratégies pour surmonter ses biais</span>
+    </div>
+    <div class="def-grid">
+      <div class="def-card">
+        <div class="dc-label">📝 Établir une stratégie écrite</div>
+        <div class="dc-body">Définir par avance son allocation cible (actions/obligations), ses critères de rééquilibrage. Cela réduit l’improvisation émotionnelle. Respecter son plan même en cas de crise.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">⚡ Automatiser ses investissements</div>
+        <div class="dc-body">Mettre en place un virement automatique mensuel vers son PEA ou compte-titres. Cela évite de se poser la question « est-ce le bon moment ? » et lutte contre les biais de timing.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">🔍 Chercher activement les avis contraires</div>
+        <div class="dc-body">Lire des analyses défavorables aux positions que l’on détient, pour contrer le biais de confirmation. Se faire aider par des sources indépendantes.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">📉 Accepter la volatilité comme normale</div>
+        <div class="dc-body">Comprendre que les baisses de 10 à 20 % sont fréquentes sur les actions. Les intégrer dans sa stratégie permet de ne pas paniquer. Relire l’historique des marchés aide à relativiser.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">💭 Tenir un journal de bord</div>
+        <div class="dc-body">Noter ses décisions, ses émotions, et les résultats. Relire à froid permet d’identifier ses biais récurrents et d’ajuster sa méthode.</div>
+      </div>
+      <div class="def-card">
+        <div class="dc-label">👥 Se former et s’entourer</div>
+        <div class="dc-body">Les communautés d’investisseurs raisonnés, les groupes de discussion sur les biais, les contenus pédagogiques (PlayInvest) aident à prendre du recul.</div>
+      </div>
+    </div>
+    <div class="note alert">
+      <i class="fas fa-chalkboard-user"></i>
+      <div><strong>PlayInvest vous accompagne :</strong> nos fiches, ateliers et analyses fondamentales ne se contentent pas des chiffres. Nous abordons la psychologie des investisseurs pour vous aider à construire une discipline gagnante et durable.</div>
+    </div>
+  </div>
+
+  <!-- Récapitulatif final -->
+  <div class="recap">
+    <div class="recap-title">À retenir sur la psychologie des investisseurs</div>
+    <div class="recap-cols">
+      <div class="recap-item">Les biais cognitifs sont des raccourcis mentaux souvent contre-performants</div>
+      <div class="recap-item">Biais de confirmation : ne chercher que ce qui conforte ses idées</div>
+      <div class="recap-item">Aversion aux pertes : la douleur de perdre est plus forte que le plaisir de gagner</div>
+      <div class="recap-item">Surconfiance : surestimer ses capacités à prédire les marchés</div>
+      <div class="recap-item">Les émotions (peur, euphorie) mènent à acheter cher et vendre bas</div>
+      <div class="recap-item">Profils types : prudent, impulsif, grégaire, rationnel</div>
+      <div class="recap-item">Stratégies : plan écrit, automatisation, recherche d’avis contraires, journal de bord</div>
+      <div class="recap-item">PlayInvest vous aide à mieux vous connaître pour mieux investir</div>
+    </div>
+  </div>
+
+  <div class="update-date">
+    <i class="far fa-calendar-alt"></i> Fiche actualisée mai 2026 · Sources : ouvrages de finance comportementale (Kahneman, Tversky, Thaler), études AMF, conseils PlayInvest.
+  </div>
+</div>
 </body>
 </html>
